@@ -13,3 +13,4 @@ env/
 # MkDocs
 wiki/site/
 wiki/__pycache__/
+__venv/
