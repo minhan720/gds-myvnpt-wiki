@@ -65,7 +65,9 @@ Website của dự án đã được tích hợp luồng Deploy tự động (CI
 **Quy trình Cập nhật:**
 1. Hãy nhờ AI viết nội dung mới hoặc bạn tự viết thủ công (tạo các file `.md` mới) vào đúng cấu trúc của thư mục `knowledge base/`.
 2. **Sau khi tài liệu đã được Admin (Boss) phê duyệt (Approved):** Bạn không cần tự gõ bất kỳ lệnh Git nào. Hãy gọi trợ lý AI và gửi một từ khóa Slash Command duy nhất vào khung chat:
+
    > `/deploy-website`
+
 3. Trợ lý AI sẽ tự động kích hoạt luồng kiểm duyệt, đóng gói tài liệu và đẩy (Push) thay đổi lên GitHub chỉ trong một chuỗi thao tác. Bạn có thể tranh thủ 10 - 30 giây rảnh tay uống một ngụm nước.
 4. Xong! Bạn truy cập vào đường link Vercel của dự án (Link Public do Admin cung cấp), ấn F5 tải lại trang là bài viết/tài liệu mới đã chễm chệ xuất hiện trên website.
 
