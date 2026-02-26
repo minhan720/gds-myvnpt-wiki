@@ -42,6 +42,9 @@ Tài liệu này sẽ hướng dẫn bạn – những thành viên mới – c�
 
 ## 🏗️ 1. Khái Niệm Cốt Lõi: Nhập Vai Tuần Tự (Sequential Role-Playing)
 
+<br>
+<img src="assets/images/role-playing.svg" alt="Mô hình Nhập Vai Tuần Tự" style="width: 100%; border-radius: 16px; margin-bottom: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04);" />
+
 Trong workspace này, chúng ta sử dụng cơ chế **"Một Siêu Đặc Vụ Đội Nhiều Mũ"**.
 Thay vì phải dùng các phần mềm phức tạp hay dòng lệnh (Terminal) để mở nhiều màn hình cho nhiều AI chat với nhau, trợ lý Antigravity của bạn có khả năng **Tự động thay đổi vai trò** (Nhập vai tuần tự) để xử lý một bài toán lớn từ đầu đến cuối một cách mượt mà và tập trung.
 
