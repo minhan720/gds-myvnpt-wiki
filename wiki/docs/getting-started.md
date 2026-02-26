@@ -63,15 +63,11 @@ Và bùm 💥! Bạn mở trình duyệt truy cập `http://127.0.0.1:8000` là 
 Website của dự án đã được tích hợp luồng Deploy tự động (CI/CD) với Vercel. Bất kỳ lúc nào bạn cập nhật nội dung, hệ thống Vercel sẽ tự cảm nhận và tự động tạo lại trang Web theo thời gian thực (Real-time).
 
 **Quy trình Cập nhật:**
-1. Hãy nhờ AI viết nội dung mới hoặc bạn tự viết thủ công tạo các file `.md` vào đúng thư mục `knowledge base/`.
-2. Mở Terminal và lần lượt gõ các lệnh sau để lưu và đẩy (Push) thay đổi lên GitHub:
-```bash
-git add .
-git commit -m "docs: Cập nhật tài liệu [Tên tài liệu bạn vừa viết]"
-git push
-```
-3. Chờ từ 10 - 30 giây rảnh tay uống ngụm nước.
-4. Xong! Bạn truy cập vào đường link Vercel của dự án (Link Public do Admin cung cấp), ấn F5 tải lại trang là bài viết mới đã chễm chệ xuất hiện trong Menu.
+1. Hãy nhờ AI viết nội dung mới hoặc bạn tự viết thủ công (tạo các file `.md` mới) vào đúng cấu trúc của thư mục `knowledge base/`.
+2. **Sau khi tài liệu đã được Admin (Boss) phê duyệt (Approved):** Bạn không cần tự gõ bất kỳ lệnh Git nào. Hãy gọi trợ lý AI và gửi một từ khóa Slash Command duy nhất vào khung chat:
+   > `/deploy-website`
+3. Trợ lý AI sẽ tự động kích hoạt luồng kiểm duyệt, đóng gói tài liệu và đẩy (Push) thay đổi lên GitHub chỉ trong một chuỗi thao tác. Bạn có thể tranh thủ 10 - 30 giây rảnh tay uống một ngụm nước.
+4. Xong! Bạn truy cập vào đường link Vercel của dự án (Link Public do Admin cung cấp), ấn F5 tải lại trang là bài viết/tài liệu mới đã chễm chệ xuất hiện trên website.
 
 ---
 🍾 **Tất cả đã sẵn sàng.** Chào mừng bạn gia nhập hệ thống Agentic AI. Hãy quay lại [Trang chủ (Onboarding)](index.md) để đọc cách dùng các Team nhé!
