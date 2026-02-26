@@ -6,6 +6,12 @@
   --md-accent-fg-color: #FFBE40;
   /* Design System Semantic Yellow/Orange */
 
+  --md-text-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --md-code-font: "Fira Code", "Courier New", Courier, monospace;
+}
+
+/* Set specific colors for Default (Light) theme to maintain the custom design */
+[data-md-color-scheme="default"] {
   --md-default-bg-color: #F6F6F6;
   /* Main Canvas Background */
   --md-default-bg-color--light: #F4F4F4;
@@ -14,17 +20,6 @@
   /* Dark Blue-Gray main text */
   --md-default-fg-color--light: #717981;
   --md-default-fg-color--lightest: #E0E0E0;
-
-  --md-text-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --md-code-font: "Fira Code", "Courier New", Courier, monospace;
-}
-
-body {
-  background-color: var(--md-default-bg-color);
-}
-
-.md-content {
-  background-color: #FFFFFF !important;
 }
 
 /* Enhancements for better UI/UX */
@@ -67,15 +62,14 @@ h6 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Glassmorphism style for main card content */
+/* Style for main card content */
 @media screen and (min-width: 76.25em) {
   .md-content {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
+    background: var(--md-default-bg-color);
     border-radius: 12px;
     padding: 2rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    border: 1px solid var(--md-default-fg-color--lightest);
   }
 }
 
@@ -147,6 +141,22 @@ h6 {
   padding: 1.5rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+/* Responsive adjustments for mobile */
+@media screen and (max-width: 76.1875em) {
+  .hero {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero .tagline {
+    font-size: 1.2rem;
+  }
 }
 
 .feature-card:hover {
@@ -275,10 +285,11 @@ h6 {
 }
 
 /* Differentiate nested nav links vs top-level (Folder Headers) */
+/* Differentiate nested nav links vs top-level (Folder Headers) */
 .md-nav__item--nested>.md-nav__link {
   font-weight: 700;
-  color: #1A2B35;
-  background-color: #F0F4F8;
+  color: var(--md-default-fg-color);
+  background-color: var(--md-default-bg-color--light);
   /* Subtle blue/gray background for folders */
   border-radius: 6px;
   padding: 0.5rem 0.6rem;
