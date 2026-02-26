@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pip3 install mkdocs-material && /Users/anminh/Library/Python/3.9/bin/mkdocs build",
+  "outputDirectory": "wiki/site",
+  "framework": "mkdocs"
+}

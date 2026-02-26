@@ -1,0 +1,36 @@
+site_name: GDS-MyVNPT Wiki
+site_description: Onboarding and Knowledge Base for GDS-MyVNPT
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - search.suggest
+    - search.highlight
+    - search.share
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+extra_css:
+  - stylesheets/custom.css
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
