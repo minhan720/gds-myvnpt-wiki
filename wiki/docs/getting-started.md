@@ -58,4 +58,20 @@ python3 -m mkdocs serve
 Và bùm 💥! Bạn mở trình duyệt truy cập `http://127.0.0.1:8000` là có thể xem Web của dự án chạy cực nhanh trên chính máy của mình.
 
 ---
+
+## Bước 4: Cập Nhật Tài Liệu Lên Vercel (Auto-Deploy)
+Website của dự án đã được tích hợp luồng Deploy tự động (CI/CD) với Vercel. Bất kỳ lúc nào bạn cập nhật nội dung, hệ thống Vercel sẽ tự cảm nhận và tự động tạo lại trang Web theo thời gian thực (Real-time).
+
+**Quy trình Cập nhật:**
+1. Hãy nhờ AI viết nội dung mới hoặc bạn tự viết thủ công tạo các file `.md` vào đúng thư mục `knowledge base/`.
+2. Mở Terminal và lần lượt gõ các lệnh sau để lưu và đẩy (Push) thay đổi lên GitHub:
+```bash
+git add .
+git commit -m "docs: Cập nhật tài liệu [Tên tài liệu bạn vừa viết]"
+git push
+```
+3. Chờ từ 10 - 30 giây rảnh tay uống ngụm nước.
+4. Xong! Bạn truy cập vào đường link Vercel của dự án (Link Public do Admin cung cấp), ấn F5 tải lại trang là bài viết mới đã chễm chệ xuất hiện trong Menu.
+
+---
 🍾 **Tất cả đã sẵn sàng.** Chào mừng bạn gia nhập hệ thống Agentic AI. Hãy quay lại [Trang chủ (Onboarding)](index.md) để đọc cách dùng các Team nhé!
