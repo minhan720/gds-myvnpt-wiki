@@ -59,28 +59,19 @@ Và bùm 💥! Bạn mở trình duyệt truy cập `http://127.0.0.1:8000` là 
 
 ---
 
-## Bước 4: Đăng tải Tài Liệu Mới (Cần Boss Duyệt)
-Để đảm bảo chất lượng tài liệu Public, hệ thống áp dụng quy trình kiểm duyệt (Pull Request). Bạn không được đẩy thẳng nội dung lên trang chính (Branch Main) mà phải tạo "Bản nháp" để Nhóm trưởng (Boss) đánh giá và duyệt trước.
+## Bước 4: Cập Nhật Tài Liệu Lên Vercel (Auto-Deploy)
+Website của dự án đã được tích hợp luồng Deploy tự động (CI/CD) với Vercel. Bất kỳ lúc nào bạn cập nhật nội dung, hệ thống Vercel sẽ tự cảm nhận và tự động tạo lại trang Web theo thời gian thực (Real-time).
 
 **Quy trình Cập nhật:**
-1. Cập nhật mã nguồn mới nhất từ kho:
-```bash
-git checkout main
-git pull
-```
-2. Tạo một "Nhánh làm việc" mới của riêng bạn (Ví dụ đặt tên là `update-tinh-nang-a`):
-```bash
-git checkout -b update-tinh-nang-a
-```
-3. Hãy nhờ AI viết nội dung mới (hoặc tự viết tay) tạo các file `.md` vào đúng thư mục `knowledge base/` và hoàn thiện.
-4. Lần lượt gõ các lệnh sau để lưu và đẩy (Push) nhánh của bạn lên GitHub:
+1. Hãy nhờ AI viết nội dung mới hoặc bạn tự viết thủ công tạo các file `.md` vào đúng thư mục `knowledge base/`.
+2. Mở Terminal và lần lượt gõ các lệnh sau để lưu và đẩy (Push) thay đổi lên GitHub:
 ```bash
 git add .
-git commit -m "docs: Cập nhật tài liệu tính năng A"
-git push -u origin update-tinh-nang-a
+git commit -m "docs: Cập nhật tài liệu [Tên tài liệu bạn vừa viết]"
+git push
 ```
-5. **Gửi yêu cầu duyệt (Pull Request):** Truy cập vào Link GitHub của dự án, bạn sẽ thấy thông báo tạo nhánh. Bấm nút màu xanh **"Compare & pull request"**. Ở bước này, hệ thống Vercel sẽ tự động render cho bạn một đường link "Web dùng thử" (Preview Website) để bạn tự xem trước thành quả. 
-6. Khi thấy Web dùng thử đã xuất hiện đúng như ý mình, hãy Assign (Giao duyệt) Pull Request đó cho Admin/Boss. Ngay sau khi Boss xem đúng chuẩn và bấm **Merge (Gộp)**, bài viết của bạn sẽ lập tức chính thức lên sóng trên trang Public!
+3. Chờ từ 10 - 30 giây rảnh tay uống ngụm nước.
+4. Xong! Bạn truy cập vào đường link Vercel của dự án (Link Public do Admin cung cấp), ấn F5 tải lại trang là bài viết mới đã chễm chệ xuất hiện trong Menu.
 
 ---
 🍾 **Tất cả đã sẵn sàng.** Chào mừng bạn gia nhập hệ thống Agentic AI. Hãy quay lại [Trang chủ (Onboarding)](index.md) để đọc cách dùng các Team nhé!
