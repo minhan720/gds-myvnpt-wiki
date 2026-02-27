@@ -27,7 +27,7 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 extra_css:
-  - stylesheets/custom.css
+  - stylesheets/custom_v2.css
 plugins:
   - search
 
