@@ -1,4 +1,4 @@
 {
-  "buildCommand": "cd wiki && python3 update_tonghop.py && rm -rf __venv && python3 -m venv __venv && source __venv/bin/activate && pip3 install -r requirements.txt && python3 -m mkdocs build && python3 -m mkdocs build -f mkdocs-kb.yml -d site-kb && cp -R \"site-kb/knowledge base/\"* \"site/knowledge base/\"",
+  "buildCommand": "cd wiki && python3 update_tonghop.py && rm -rf __venv && python3 -m venv __venv && source __venv/bin/activate && pip3 install -r requirements.txt && python3 -m mkdocs build && python3 -m mkdocs build -f mkdocs-kb.yml -d site-kb && cp -a \"site-kb/knowledge base/.\" \"site/knowledge base/\"",
   "outputDirectory": "wiki/site"
 }
