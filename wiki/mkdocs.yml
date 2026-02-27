@@ -49,3 +49,6 @@ nav:
     - UIUX Audit Team: teams/uiux-audit.md
     - UX Design Team: teams/ux-design.md
   - 🧠 Knowledge base: 'knowledge base/index.md'
+hooks:
+  - kb_hook.py
+

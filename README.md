@@ -103,7 +103,7 @@ Khi Antigravity ra bản nháp, nếu có chỗ chưa ưng ý, bạn phản hồ
 
 ## 🔒 4. Quy Tắc Xuất Bản Lên Website / Wiki (Quan trọng)
 
-Từ nay, **KHÔNG BẤT KỲ THÀNH VIÊN NÀO** (kể cả Agent AI) được phép tự động xuất bản (publish) hay đẩy cập nhật nội dung, tài liệu thẳng lên trên Website / Wiki của dự án đang chạy live.
+**KHÔNG BẤT KỲ THÀNH VIÊN NÀO** (kể cả Agent AI) được phép tự động xuất bản (publish) hay đẩy cập nhật nội dung, tài liệu thẳng lên trên Website / Wiki của dự án đang chạy live.
 
 - Mọi tài liệu dự định đưa lên Website / Wiki **BẮT BUỘC** phải được giữ lại ở file nháp (Draft) hoặc lưu cục bộ nội bộ tại thư mục `knowledge base`.
 - Quá trình đăng tải/cập nhật lên Website **chỉ được tiến hành** khi đã được **Admin** (Boss/User) trực tiếp rà soát và cho phép phê duyệt (Approved).
