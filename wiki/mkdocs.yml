@@ -3,7 +3,9 @@ site_description: Onboarding and Knowledge Base for GDS-MyVNPT
 theme:
   name: material
   features:
-    - navigation.tabs
+    - navigation.path
+    - navigation.sections
+    - navigation.expand
     - search.suggest
     - search.highlight
     - search.share
@@ -34,3 +36,36 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
 
+nav:
+  - 📖 Home: index.md
+  - 🚀 Bắt đầu:
+    - Nguyên lý làm việc: getting-started.md
+    - Checklist tuần đầu: bat-dau/checklist.md
+    - Công cụ: bat-dau/cong-cu.md
+  - 👥 Teams:
+    - Jira Tracking Team: teams/jira-tracking.md
+    - McKinsey Research Team: teams/mckinsey-research.md
+    - PG Insights Team: teams/pg-insights.md
+    - UIUX Audit Team: teams/uiux-audit.md
+    - UX Design Team: teams/ux-design.md
+  - 🧠 Knowledge base:
+    - Trang chủ KB: 'knowledge base/index.md'
+    - Background:
+      - Các kết luận: 'knowledge base/background/Các kết luận.md'
+      - Hiện trạng VNPT: 'knowledge base/background/Hiện trạng của VNPT.md'
+      - Phân tích các nhà mạng trong nước: 'knowledge base/background/Phân tích về các nhà mạng trong nước.md'
+      - Phân tích môi trường kinh doanh: 'knowledge base/background/Phân tích về môi trường kinh doanh và nội tại VNPT.md'
+      - Phân tích xu hướng ngành: 'knowledge base/background/Phân tích xu hướng ngành và các casestudy của các nhà mạng trên thế giới.md'
+    - Research:
+      - Consumer Insight Brief: 'knowledge base/research/consumer-insights/consumer_insight_brief_cap_nhat_tttb.md'
+      - Market Research Telco Selfcare: 'knowledge base/research/market-research/market_research_telco_selfcare_sea.md'
+    - Specs:
+      - Specs Buy Data Plan: 'knowledge base/specs/buy-data-plan/specs-buy-data-plan.md'
+      - eKYC Registration Flow Spec: 'knowledge base/specs/ekyc/ekyc_registration_flow_spec.md'
+    - Templates:
+      - Full Stack Spec Template: 'knowledge base/templates/full-stack-spec-template.md'
+    - UIUX Audit Output:
+      - Audit SIM Số: 'knowledge base/uiux-audit-output/Audit_SIM_So.md'
+    - UX Design Output:
+      - JTBD Buy Data Plan: 'knowledge base/ux-design-output/jtbd-buy-data-plan.md'
+      - Flow Buy Data Plan: 'knowledge base/ux-design-output/ux research/flow-buy-data-plan.md'

@@ -30,16 +30,27 @@ Team thiết kế ưu tiên **Nguyên lý Design Thinking (Tư duy Thiết kế)
    - Đóng vai trò Test trong Design Thinking. Test lại luồng có giải quyết đúng Job được UR phân tích không?
    - Đảm bảo MECE (Mutually Exclusive, Collectively Exhaustive).
 
-## Quy trình Làm việc theo Design Thinking (Sprint Workflow)
-1. **BOSS → PM**: BOSS đưa ý tưởng / yêu cầu thiết kế vào file / chat (qua dấu `>>> `).
-2. **PM → UR**: (Giai đoạn Empathize & Define). PM giao nhiệm vụ cho UR nghiên cứu insight khách hàng và phân tích đối thủ cạnh tranh trên thị trường đối với yêu cầu này.
-3. **UR**: Áp dụng JTBD. Viết tài liệu nghiên cứu và Benchmark competitor.
-4. **UR → PM**: Báo cáo PM.
-5. **PM → UX**: (Giai đoạn Ideate & Prototype). PM chuyển tài liệu nghiên cứu của UR cho UX để làm chất liệu thiết kế luồng (Flows).
-6. **UX**: UX tạo luồng phù hợp với chân dung người dùng, áp dụng học hỏi từ đối thủ.
-7. **UX → PM**: Báo UX flow hoàn tất.
-8. **PM → CR**: (Giai đoạn Test). Chuyển cho CR đánh giá bản nháp.
-9. **CR ↔ PM ↔ UX ↔ UR**: CR lấy tài liệu của UR đối chiếu với bản vẽ của UX. Nếu UX không giải quyết được JTBD, đánh rớt (Reject). Vòng lặp tối ưu thiết kế liên tục diễn ra.
-10. **PM → TW**: Sau khi UX thông qua, PM giao UX Flow và JTBD Context cho TW viết Documents.
-11. **TW ↔ PM ↔ CR**: TW làm việc và CR thẩm định bộ document.
-12. **PM → Boss**: Kết thúc Sprint, PM gửi toàn bộ hồ sơ (Nghiên cứu thị trường của UR + Luồng của UX + Tài liệu của TW) cho Boss duyệt vòng ngoài.
+## Quy trình Làm việc theo Design Thinking (Mandatory HITL Workflow)
+**Tất cả các khâu chuyển giao đều bắt buộc phải có sự phê duyệt của con người (Boss). Không tự ý chuyển task.**
+
+* **GIAI ĐOẠN 1: KHỞI TẠO & PHÂN TÍCH**
+  1. **Bước 1 (Boss → PM)**: BOSS đưa ý tưởng / yêu cầu thiết kế vào file / chat (qua dấu `>>> `).
+  2. **Bước 2 (PM → UR)**: PM giao nhiệm vụ cho UR nghiên cứu insight khách hàng và phân tích đối thủ cạnh tranh.
+  3. **Bước 3 (UR → PM → 🛑 BOSS DUYỆT LẦN 1)**: UR nộp bản phân tích. PM gọi Boss duyệt (`>>> Review Required at [File]`).
+      - *Nếu Boss Reject: PM trả lại cho UR sửa.*
+      - *Nếu Boss Approved (`>>> Approved`): PM chuyển sang Bước 4.*
+
+* **GIAI ĐOẠN 2: THIẾT KẾ GIẢI PHÁP / LÊN KHUNG**
+  4. **Bước 4 (PM → UX)**: PM giao luồng công việc cho UX Designer dựa trên bản phân tích đã được Boss đồng ý.
+  5. **Bước 5 (UX → PM → CR)**: UX tạo luồng (Flow) báo cáo hoàn tất. PM giao cho CR **tiền kiểm** (lọc lỗi logic cơ bản).
+  6. **Bước 6 (CR → PM → 🛑 BOSS DUYỆT LẦN 2)**: Sau tiền kiểm, PM báo cáo Boss duyệt kiến trúc luồng.
+      - *Nếu Boss Reject: PM trả lại UX sửa.*
+      - *Nếu Boss Approved: Chuyển sang Bước 7.*
+
+* **GIAI ĐOẠN 3: TRIỂN KHAI CHI TIẾT (COPYWRITING / TÀI LIỆU)**
+  7. **Bước 7 (PM → TW)**: PM giao luồng UX đã fix cho TW viết Wording / Specs.
+  8. **Bước 8 (TW → PM → CR)**: TW hoàn tất. PM chuyển CR **tiền kiểm** lỗi chính tả/format.
+  9. **Bước 9 (CR → PM → 🛑 BOSS DUYỆT LẦN 3)**: Trình Boss duyệt bản Wording/Specs.
+
+* **GIAI ĐOẠN 4: NGHIỆM THU TỔNG THỂ**
+  10. **Bước 10 (Boss Đóng Sprint)**: Boss kiểm tra lần cuối luồng hoàn chỉnh, nếu hoàn hảo sẽ thông báo kết thúc dự án. PM lưu kho toàn bộ Document.
