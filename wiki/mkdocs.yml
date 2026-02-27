@@ -48,4 +48,30 @@ nav:
     - PG Insights Team: teams/pg-insights.md
     - UIUX Audit Team: teams/uiux-audit.md
     - UX Design Team: teams/ux-design.md
-  - 🧠 Knowledge base: 'knowledge base/index.md'
+  - 🧠 Knowledge base:
+    - Trang chủ KB: 'knowledge base/index.md'
+    - Tổng Hợp: 'knowledge base/tonghop.md'
+    - 🗂 Background:
+      - 'Các Kết Luận': 'knowledge base/background/Các kết luận.md'
+      - 'Hiện Trạng Của Vnpt': 'knowledge base/background/Hiện trạng của VNPT.md'
+      - 'Phân Tích Về Các Nhà Mạng Trong Nước': 'knowledge base/background/Phân tích về các nhà mạng trong nước.md'
+      - 'Phân Tích Về Môi Trường Kinh Doanh Và Nội Tại Vnpt': 'knowledge base/background/Phân tích về môi trường kinh doanh và nội tại VNPT.md'
+      - 'Phân Tích Xu Hướng Ngành Và Các Casestudy Của Các Nhà Mạng Trên Thế Giới': 'knowledge base/background/Phân tích xu hướng ngành và các casestudy của các nhà mạng trên thế giới.md'
+    - 📊 Research:
+      - 📁 Consumer Insights:
+        - 'Consumer Insight Brief Cap Nhat Tttb': 'knowledge base/research/consumer-insights/consumer_insight_brief_cap_nhat_tttb.md'
+      - 📁 Market Research:
+        - 'Market Research Telco Selfcare Sea': 'knowledge base/research/market-research/market_research_telco_selfcare_sea.md'
+    - ⚙️ Specs:
+      - 📁 Buy Data Plan:
+        - 'Specs Buy Data Plan': 'knowledge base/specs/buy-data-plan/specs-buy-data-plan.md'
+      - 📁 Ekyc:
+        - 'Ekyc Registration Flow Spec': 'knowledge base/specs/ekyc/ekyc_registration_flow_spec.md'
+    - 📄 Templates:
+      - 'Full Stack Spec Template': 'knowledge base/templates/full-stack-spec-template.md'
+    - 🔍 UIUX Audit Output:
+      - 'Audit Sim So': 'knowledge base/uiux-audit-output/Audit_SIM_So.md'
+    - ✏️ UX Design Output:
+      - 📁 Ux Research:
+        - 'Flow Buy Data Plan': 'knowledge base/ux-design-output/ux research/flow-buy-data-plan.md'
+      - 'Jtbd Buy Data Plan': 'knowledge base/ux-design-output/jtbd-buy-data-plan.md'
