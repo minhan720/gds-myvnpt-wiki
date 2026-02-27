@@ -1,72 +1,102 @@
 import os
 
 KB_DIR = "docs/knowledge base"
-YAML_FILE = "mkdocs.yml"
+YAML_MAIN = "mkdocs.yml"
+YAML_KB = "mkdocs-kb.yml"
 OUT_FILE = f"{KB_DIR}/tonghop.md"
 
 def update_nav_and_tonghop():
-    # 1. Update mkdocs.yml
-    if os.path.exists(YAML_FILE):
-        with open(YAML_FILE, "r", encoding="utf-8") as f:
+    # 1. Initialize mkdocs-kb.yml based on mkdocs.yml
+    if os.path.exists(YAML_MAIN):
+        with open(YAML_MAIN, "r", encoding="utf-8") as f:
             lines = f.readlines()
+        
+        kb_lines = []
+        for line in lines:
+            if line.startswith("nav:"):
+                kb_lines.append(line)
+                break
+            kb_lines.append(line)
+        
+        with open(YAML_KB, "w", encoding="utf-8") as f:
+            f.writelines(kb_lines)
 
-        kb_index = -1
-        for i, line in enumerate(lines):
+    # 2. Build the navigation for KB
+    new_kb_nav = []
+    new_kb_nav.append("  - 🧠 Knowledge base:\n")
+    new_kb_nav.append("    - Trang chủ KB: 'knowledge base/index.md'\n")
+    new_kb_nav.append("    - Tổng Hợp: 'knowledge base/tonghop.md'\n")
+
+    sections = {
+        "background": "🗂 Background",
+        "research": "📊 Research",
+        "specs": "⚙️ Specs",
+        "templates": "📄 Templates",
+        "uiux-audit-output": "🔍 UIUX Audit Output",
+        "ux-design-output": "✏️ UX Design Output"
+    }
+
+    def build_yaml(current_path, indent_level):
+        items = []
+        try:
+            entries = sorted(os.listdir(current_path))
+        except FileNotFoundError:
+            return items
+        
+        folders = []
+        files = []
+        for e in entries:
+            if e.startswith('.'):
+                continue
+            full_path = os.path.join(current_path, e)
+            if os.path.isdir(full_path):
+                folders.append(e)
+            elif full_path.endswith(".md") and e not in ["index.md", "tonghop.md"]:
+                files.append(e)
+                
+        for folder in folders:
+            section_title = sections.get(folder, f"📁 {folder.replace('-', ' ').title()}")
+            items.append(" " * indent_level + f"- {section_title}:\n")
+            items.extend(build_yaml(os.path.join(current_path, folder), indent_level + 2))
+            
+        for f in files:
+            name = f[:-3].replace('_', ' ').replace('-', ' ').title()
+            rel_path = os.path.relpath(os.path.join(current_path, f), "docs").replace("\\", "/")
+            items.append(" " * indent_level + f"- '{name}': '{rel_path}'\n")
+            
+        return items
+
+    new_kb_nav.extend(build_yaml(KB_DIR, 4))
+    
+    # 3. Append to mkdocs-kb.yml
+    if os.path.exists(YAML_KB):
+        with open(YAML_KB, "r", encoding="utf-8") as f:
+            kb_content = f.read()
+        nav_pos = kb_content.find("nav:")
+        if nav_pos != -1:
+            kb_content = kb_content[:nav_pos + 4] + "\n" + "".join(new_kb_nav)
+            with open(YAML_KB, "w", encoding="utf-8") as f:
+                f.write(kb_content)
+
+    # 4. Strip main mkdocs.yml down to a single link
+    if os.path.exists(YAML_MAIN):
+        with open(YAML_MAIN, "r", encoding="utf-8") as f:
+            main_lines = f.readlines()
+
+        main_nav_idx = -1
+        for i, line in enumerate(main_lines):
             if line.startswith("  - 🧠 Knowledge base:"):
-                kb_index = i
+                main_nav_idx = i
                 break
 
-        if kb_index != -1:
-            new_lines = lines[:kb_index]
-            new_lines.append("  - 🧠 Knowledge base:\n")
-            new_lines.append("    - Trang chủ KB: 'knowledge base/index.md'\n")
-            new_lines.append("    - Tổng Hợp: 'knowledge base/tonghop.md'\n")
+        if main_nav_idx != -1:
+            new_main_lines = main_lines[:main_nav_idx]
+            new_main_lines.append("  - 🧠 Knowledge base: 'knowledge base/index.md'\n")
+            
+            with open(YAML_MAIN, "w", encoding="utf-8") as f:
+                f.writelines(new_main_lines)
 
-            sections = {
-                "background": "🗂 Background",
-                "research": "📊 Research",
-                "specs": "⚙️ Specs",
-                "templates": "📄 Templates",
-                "uiux-audit-output": "🔍 UIUX Audit Output",
-                "ux-design-output": "✏️ UX Design Output"
-            }
-
-            def build_yaml(current_path, indent_level):
-                items = []
-                try:
-                    entries = sorted(os.listdir(current_path))
-                except FileNotFoundError:
-                    return items
-                
-                folders = []
-                files = []
-                for e in entries:
-                    if e.startswith('.'):
-                        continue
-                    full_path = os.path.join(current_path, e)
-                    if os.path.isdir(full_path):
-                        folders.append(e)
-                    elif full_path.endswith(".md") and e not in ["index.md", "tonghop.md"]:
-                        files.append(e)
-                        
-                for folder in folders:
-                    section_title = sections.get(folder, f"📁 {folder.replace('-', ' ').title()}")
-                    items.append(" " * indent_level + f"- {section_title}:\n")
-                    items.extend(build_yaml(os.path.join(current_path, folder), indent_level + 2))
-                    
-                for f in files:
-                    name = f[:-3].replace('_', ' ').replace('-', ' ').title()
-                    rel_path = os.path.relpath(os.path.join(current_path, f), "docs").replace("\\", "/")
-                    items.append(" " * indent_level + f"- '{name}': '{rel_path}'\n")
-                    
-                return items
-
-            new_lines.extend(build_yaml(KB_DIR, 4))
-
-            with open(YAML_FILE, "w", encoding="utf-8") as f:
-                f.writelines(new_lines)
-
-    # 2. Re-create simple tonghop.md
+    # 5. Re-create simple tonghop.md
     if os.path.exists(KB_DIR):
         content = [
             "# 📚 Tổng Hợp Knowledge Base",

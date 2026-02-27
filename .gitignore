@@ -14,3 +14,5 @@ env/
 wiki/site/
 wiki/__pycache__/
 __venv/
+wiki/mkdocs-kb.yml
+wiki/site-kb/
