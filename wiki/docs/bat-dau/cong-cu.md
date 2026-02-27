@@ -1,39 +1,39 @@
-# 🛠️ Bộ Công Cụ Làm Việc (Tool Stack)
+# 🛠️ Bộ Công Cụ (Tool Stack)
 
-Dưới đây là danh sách các công cụ lõi được sử dụng trong hệ sinh thái Agentic AI Workspace của dự án. Mỗi công cụ đều được phân bổ chuyên biệt cho từng vai trò để đảm bảo mọi quy trình diễn ra trơn tru, gọn gàng và hạn chế "loãng" thông tin.
+Danh sách các công cụ nền tảng trong AI Workspace. Mỗi công cụ được phân định vai trò cụ thể nhằm tối ưu hóa quy trình làm việc và chất lượng thông tin.
 
 ---
 
 ## 1. 🤖 Antigravity (Agentic AI Workspace)
-- **Gắn liền với Role:** Product Owner (PO), Chuyên gia UI/UX, Quản trị dự án.
-- **Mục đích sử dụng:**
-  Không gian chỉ huy đầu não. Đây là nơi duy nhất bạn điều phối binh đoàn AI tạo sinh khổng lồ thay vì chỉ lập trình code.
-  - **Đối với PO:** PO mở Tool này dùng để "gọi hồn" (kích hoạt) các Agent Teams như đội Nghiên cứu thị trường hay Jira Tracking. PO giao việc (Briefing) qua khung Chat, thực thi quyền sinh sát (Kiểm duyệt `HITL - Human in The Loop`), phê duyệt các Specs/Tài liệu nội dung và đẩy nó thẳng lên hệ thống Website (Wiki) nội bộ bằng lệnh chớp nhoáng `/deploy-website`.
-  - **Đối với chuyên gia UI/UX:** Nơi để triệu hồi `ux-design-team` vẽ luồng hành vi dựa trên Phân tích Nỗi đau, và triệu hồi `uiux-audit-team` để "giết rệp" (bắt lỗi Edge Cases) từ Link Figma. Mọi chất xám đều được gọt giũa ở đây trước khi đem ra vẽ tay.
+- **Vai trò:** Product Owner (PO), UI/UX Designer, Project Manager.
+- **Mục đích:**
+  Trung tâm quản lý phân bổ công việc cho hệ thống AI Agents.
+  - **Dành cho PO:** Giao việc cho AI Teams (Research, Jira Tracking,...) qua Chat. Kiểm duyệt kết quả (HITL - Human in The Loop) và triển khai wiki qua lệnh `/deploy-website`.
+  - **Dành cho UI/UX Designer:** Phối hợp cùng `ux-design-team` và `uiux-audit-team` để phân tích hành vi và kiểm định lỗi Edge Cases trải nghiệm.
 
 ---
 
 ## 2. 🎨 Figma
-- **Gắn liền với Role:** Chuyên gia UI/UX, Product Owner (Người Review).
-- **Mục đích sử dụng:**
-  Bàn vẽ thực địa, nơi các luồng suy nghĩ và phân tích từ Antigravity (JTBD Flow) được cụ thể hoá thành Giao diện Tương tác.
-  - **Thiết kế & Prototype:** Phác thảo Wireframes thấp đến Màn hình UI độ nét cao. Gắn liên kết tương tác thật (Prototype) cho App MyVNPT.
-  - **Kiểm định AI:** Khi màn hình vẽ xong, Link Figma sẽ được cung cấp làm "Thức ăn ngõ vào" (Input) cho `uiux-audit-team` quét độ sai lệch giao diện (UI) và ngữ cảnh chữ nghĩa (UX Writing).
+- **Vai trò:** UI/UX Designer, PO.
+- **Mục đích:**
+  Thiết kế giao diện và nguyên mẫu trực quan (Prototype).
+  - **Thiết kế & Prototype:** Phác thảo Wireframes và thiết kế UI High-fidelity dựa trên luồng thao tác.
+  - **Input cho AI Audit:** Cấp URL thiết kế cho `uiux-audit-team` thẩm định mức độ đảm bảo trải nghiệm người dùng theo đúng mục tiêu cấu trúc (JTBD).
 
 ---
 
 ## 3. 🎫 Jira (Task Tracking)
-- **Gắn liền với Role:** Product Owner (PO), Techlead, Scrum Master.
-- **Mục đích sử dụng:**
-  Quản lý danh mục Công việc (Backlog) cốt lõi của máy móc và con người.
-  - **Điều khiển tiến độ:** PO dùng Jira để tạo các Ticket chẻ nhỏ tính năng lớn, ấn định thời gian Sprint.
-  - **Báo cáo không chạm:** Hệ thống AI `jira-tracking-team` sẽ luồn lách vào mỏ dữ liệu Jira mỗi đêm, múc ra những Tickets nào đang bị trễ hạn, ai đang ngâm lâu, mảng nào đang "Bùng cháy" để chắt lọc cảnh báo cho sếp.
+- **Vai trò:** Product Owner (PO), Techlead, Scrum Master.
+- **Mục đích:**
+  Theo dõi tiến trình Backlog, phân bổ công việc và quản lý rủi ro Sprint.
+  - **Project Management:** Tạo, sắp xếp ưu tiên và theo dõi trạng thái các Tickets.
+  - **Automated Tracking:** Hoạt động cùng nhánh `jira-tracking-team` tự động dò quét Tickets trễ hạn hoặc rủi ro vướng mắc (Blocked) để báo cáo.
 
 ---
 
 ## 4. ✈️ Telegram
-- **Gắn liền với Role:** Toàn bộ thành viên (Cả Người lẫn Bot).
-- **Mục đích sử dụng:**
-  Kênh Giao tiếp Siêu tốc (Alerting & Trigger).
-  - **Báo cáo định kỳ:** Khung cửa sổ telegram nhóm là nơi đội ngũ `jira-tracking-team` xả hàng mỗi sáng, bắn bản tin tóm tắt tiến độ cực xịn do tụi nó gọt dũa xong. PO chỉ cần mở điện thoại lướt nhóm Telegram để nắm đại cuộc dự án lúc 8h sáng.
-  - **Văn hoá Handoff:** Telegram không dùng để lưu tài liệu. Chỉ dùng để Tag Ping (Gào thét) gọi nhau vào Review tài liệu: *"Anh zai xem tài liệu Specs tại Wiki nhé"*.
+- **Vai trò:** Bộ phận nhân sự và AI Bot.
+- **Mục đích:**
+  Hệ thống tiếp nhận thông báo nhanh (Alerts & Notifications).
+  - **Reporting:** Cập nhật bản tin trạng thái dự án tự động hàng ngày từ quá trình report sinh bởi AI.
+  - **Handoff (Chuyển giao):** Kênh thông báo phối hợp xét duyệt tài liệu hoặc nghiệm thu sản phẩm giữa các khối. Không sử dụng mục đích chuyển phát file.

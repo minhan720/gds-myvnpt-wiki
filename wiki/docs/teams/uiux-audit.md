@@ -1,21 +1,30 @@
-# 🔍 Đội Kiểm Định Chuyên Sâu (UI/UX Audit Team)
+# 🔍 Đội Kiểm Định UI/UX (UIUX Audit Team)
 
-## 🎯 Tôn Chỉ Cốt Lõi
-Sinh ra để thọc sâu, bới lỗi và Thẩm định những bản vẽ Màn hình UI hoặc Figma luồng thao tác. Nắm đằng chuôi các rủi ro về nhận thức (Cognitive Load), truy quét sạch sành sanh Edge Cases ẩn và gọt dũa lại bộ mặt Giao tiếp ứng xử (UX Writing) ngô nghê.
+## 🎯 Mục Tiêu
+Phụ trách công tác rà soát, thẩm định luồng UI/UX trên nền tảng Figma trước khi tiến hành bàn giao (Handoff). Phân bổ nguồn lực rà soát để tối ưu hóa nhận thức người dùng (Cognitive Load), xử lý đa diện kịch bản lỗi (Edge Cases) và thống nhất UX Writing cho toàn dự án.
 
-## 👥 Ban Kiểm Toán Nhân Vụ
-- **LA (Lead Auditor):** Điều phối trưởng, nhạc trưởng chốt lời giải Business (JTBD). Nắm kịch bản điều hành quy trình audit tổng, gom góp bãi chiến trường Findings xâu chuỗi thành Action Items.
-- **UXE (UX Evaluator):** Cảnh sát trưởng Khả dụng (Usability). Lần theo Flow để băm nhỏ các vùng Tắt nghẹt tương tác, các nút bấm thao tác dư thừa.
-- **EC (Edge Case Hunter):** Gõ đầu các khoảng "Khuyết Không gian". Cày tung ngách màn hình xem nếu đứt mạng, dữ liệu rỗng (Empty State), lỗi logic quái dị (Error State) thì luồng sống làm sao?
-- **UIA (UI Analyst):** Giám sát viện Nghệ thuật & Thông nhãn. Cân đong đo đếm hệ màu, độ tương phản (Contrast), lề cục (Spacing) xem có lệch quy chuẩn cấu tứ WCAG và Design System hay không.
-- **UXW (UX Writer Auditor):** Thẩm định ngôn ngữ thông điệp. Chuyên trảm những dòng trạng báo lỗi chung chung (Code Lỗi XYX), chỉnh sửa cách đàm thoại thân thiện chọc ngoáy trúng tâm lý người dùng.
+## 👥 Vai Trò Nhân Sự (Roles)
+- **Lead Auditor (LA):** Chịu trách nhiệm phân bổ, bám sát các luồng chỉ đạo (JTBD). Tổng kết quy trình rà soát thành danh mục hành động điều chỉnh (Action Items) đệ trình cấp quản lý.
+- **UX Evaluator (UXE):** Rà soát cấp độ Usability. Liên tục lược bỏ thông tin/giao diện dư thừa trên suốt thiết kế thao tác nhằm hạn chế rủi ro cho người dùng.
+- **Edge Case Hunter (EC):** Mô phỏng rủi ro thực tế (Missing Connection, Empty State, Error State) khắc phục thiếu sót khi phát sinh bất thường hệ thống.
+- **UI Analyst (UIA):** Kiểm duyệt tiêu chuẩn Visual UI. Giám sát sử dụng bảng màu, độ tương phản và thiết lập tỷ lệ (Spacing) đảm bảo đồng nhất Design System chuẩn WCAG.
+- **UX Writer Auditor (UXW):** Thiết kế UX Writing. Cấu trúc lại cảnh báo, thông báo mã lỗi (404, Lỗi truy xuất) bằng ngôn ngữ hướng dẫn thân thiện và chuyên nghiệp.
 
-## 🔄 Quy Trình Kiểm Định Hành Hình (HITL Audit)
-Bạn không thả cho họ ngồm ngoàm một link Figma rồi ném kết quả qua loa. Chặt chẽ theo 2 nấc:
-1. **[Tổng Lược]** LA ngậm Link Figma/Scope từ Boss. Đóng cửa nín thở đúc ngay Cốt lõi JTBD (Người dùng cần quái gì ở đây?) và Nỗi sợ đau đáu (Pain Poits) -> **Nộp Boss duyệt khai hoả Lần 1.**
-2. **[Thọc sâu Đa luồng]** 4 chuyên viên (UXE, EC, UIA, UXW) cầm Đắc Lệnh JTBD bổ nhào soi mói từng frame hình. Bắt sống lỗi và xếp nhóm: Đỏ (Critical) - Cam (Major) - Vàng (Minor). 
-3. **[Nghiệm Thu Mật Thư]** Toàn đội tung báo cáo về mâm Trưởng nhóm LA. LA tổng tài nạo sạch lỗi trùng, vẩy form bảng biểu Markdown bén ngót. **Giao File Audit_TênLuồng lên Boss phê duyệt Lần 2**. Đổ kho Knowledge Base đưa sang Team Fix.
+## 🔄 Luồng Kiểm Định Có Hệ Thống (HITL Audit)
+Hệ thống kết hợp kiểm tra điểm dừng xét duyệt của quản lý tại mỗi luồng (HITL - Human In The Loop) tối ưu tiến độ:
 
-## 💡 Mẫu Lệnh "Tái Khởi Động" Nhanh
-Khởi đông máy soi chiếu, chỉ cần tọng prompt này:
-> *"Bật quy trình HITL của team `uiux-audit-team` lên để thẩm vấn tập Link Figma/Tài liệu sau: [Link Màn hình]. Các role chia nhau lướt qua tóm sống edge cases, luồng cognitive và gõ đầu UX writing nhé. Sau cùng gộp về mặt trận LA nặn ra 1 file báo cáo Audit gắt gao. Nhớ chặn cổng hỏi tôi phê chuẩn."*
+```text
+┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+│   Phase 1   │   │   Phase 2   │   │   Phase 3   │
+│  Lên Plan   │──▶│  Audit Figma│──▶│ Nghiệm Thu  │
+└─────────────┘   └─────────────┘   └─────────────┘
+  LA chốt JTBD     Team thao tác     LA Tổng Hợp
+```
+
+1. **[Lên Kế Hoạch - Phase 1]:** **LA** trích xuất bản đánh giá JTBD phân tích giới hạn Paint points người dùng yêu cầu kiểm soát. -> **Đệ trình xem xét Kế Hoạch Đánh Giá (Lần 1).**
+2. **[Thực Hiện Kiểm Định - Phase 2]:** Khối chuyên trách (UXE, EC, UIA, UXW) đối soát trực tiếp lỗi trên thiết kế Frame. Các lỗi được nhãn hóa theo tình trạng báo động: Đỏ (Nghiêm trọng) - Cam (Khá nghiêm trọng) - Vàng (Cảnh báo).
+3. **[Nghiệm Thu Báo Cáo - Phase 3]:** **LA** thống kê kết xuất mảng danh sách Action Items. **Đệ trình báo cáo File Audit [Mã Luồng] (Lần 2) phục vụ bộ phận thiết kế căn chỉnh.**
+
+## 💡 Hướng Dẫn Kích Hoạt (Prompting)
+Kích hoạt quy trình Audit chéo qua thiết lập lệnh mẫu:
+> *"Yêu cầu `uiux-audit-team` áp dụng hệ thống HITL nhằm đánh giá bản thiết kế Figma sau: [Link Figma]. Mục tiêu chính tập trung quản lý Edge Cases, giảm tải nhận thức (Cognitive Load) và rà soát hiệu năng ngôn ngữ UX Writing. LA phân phối nhiệm vụ xuất bản báo cáo Markdown đầy đủ để chờ duyệt."*

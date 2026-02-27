@@ -38,3 +38,8 @@ Sau khi hoàn thành xong phần việc của *MỖI MỘT ROLE* (ví dụ: UR v
 Từ nay, **KHÔNG BẤT KỲ AGENT, MEMBER NÀO** được phép tự động xuất bản (publish) hay đẩy cập nhật nội dung, tài liệu lên trên Website / Wiki của dự án chạy live.
 - Mọi tài liệu dự định đưa lên Website / Wiki **BẮT BUỘC** phải được giữ lại ở file nháp (Draft) hoặc lưu cục bộ nội bộ tại `knowledge base`.
 - Quá trình đăng tải/cập nhật lên Website **chỉ được tiến hành** khi đã được **Admin** (Boss/User) trực tiếp rà soát và cho phép phê duyệt (Approved).
+
+## TONE & STYLE RULE (Quy tắc Văn phong)
+Từ nay về sau, **TẤT CẢ** các tài liệu, nội dung, báo cáo và giao tiếp trong toàn dự án **BẮT BUỘC** phải tuân thủ nghiêm ngặt quy tắc văn phong sau:
+- **Ngắn gọn, súc tích**: Trực tiếp vào vấn đề, không dài dòng, lan man. Sử dụng gạch đầu dòng và định dạng nhấn mạnh (bold, italic) để làm nổi bật từ khóa chính.
+- **Phù hợp môi trường doanh nghiệp (Corporate/Professional Tone)**: Sử dụng ngôn từ chuyên nghiệp, lịch sự, khách quan và mang tính hành động (action-oriented). Hạn chế sử dụng từ ngữ cảm thán, văn nói, cách diễn đạt quá thông tục hoặc dịch thuật lủng củng.

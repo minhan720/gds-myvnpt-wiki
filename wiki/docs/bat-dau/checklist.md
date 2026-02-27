@@ -1,66 +1,72 @@
 # ✅ Checklist Tuần Đầu (Getting Started)
 
-Tài liệu này hướng dẫn các thành viên trong dự án cách tải (clone) toàn bộ môi trường làm việc này về máy cá nhân và thiết lập trợ lý **Antigravity** bằng những quy trình (Team Frameworks) đã được cấu hình sẵn. Hãy hoàn thành các dấu tick dưới đây trong tuần đầu gia nhập nhé!
+Tài liệu hướng dẫn thiết lập môi trường làm việc và tích hợp trợ lý **Antigravity AI**. Thành viên mới vui lòng hoàn thành checklist dưới đây trong tuần đầu tiên.
 
 ---
 
 ## 🛠️ 1. Yêu cầu chuẩn bị
-- [ ] Cài đặt sẵn **[Git](https://git-scm.com/)** trên máy tính.
-- [ ] Có tài khoản **GitHub**. (Nếu kho lưu trữ này đang ở chế độ Private, hãy gửi Username GitHub của bạn cho Admin để được cấp quyền).
-- [ ] Cài đặt phần mềm/IDE lập trình có tích hợp trợ lý **Antigravity AI**.
+- [ ] Cài đặt **[Git](https://git-scm.com/)**.
+- [ ] Đăng ký tài khoản **GitHub** (Cung cấp Username cho Admin để nhận quyền truy cập nếu repo Private).
+- [ ] Cài đặt thiết lập IDE có tích hợp trợ lý **Antigravity AI**.
 
 ---
 
-## 📥 2. Bước 1: Tải Workspace về máy tính (Clone)
-Thay vì phải tự tạo từng thư mục file, bạn chỉ cần tải toàn bộ "bộ não" của dự án này về máy. Đánh dấu tick khi bạn đã làm xong:
+## 📥 2. Tải Workspace (Clone Repository)
+Tải cấu trúc dự án về máy tính cá nhân:
 
 - [ ] Mở Terminal (Mac/Linux) hoặc Command Prompt / Git Bash (Windows).
-- [ ] Chạy lệnh tải mã nguồn từ kho lưu trữ GitHub:
+- [ ] Clone mã nguồn từ GitHub:
   ```bash
   git clone https://github.com/minhan720/gds-myvnpt-wiki.git
   ```
-- [ ] Di chuyển vào thư mục dự án vừa tải về:
+- [ ] Truy cập thư mục dự án:
   ```bash
   cd gds-myvnpt-wiki
   ```
 
 ---
 
-## 🤖 3. Bước 2: Kích hoạt Antigravity
-Điểm đặc biệt của Workspace này là toàn bộ các **"Sổ tay nhập vai"** (Nằm ở `sample_team/`) và **Bộ não kỹ năng** (Nằm ở `.agents/skills/SKILL.md`) đều đã được thiết lập sẵn. 
+## 🤖 3. Kích hoạt AI Workspace
+Hệ thống "Role Prompts" (`sample_team/`) và "Kỹ năng" (`.agents/skills/SKILL.md`) đã được cấu hình sẵn.
 
-- [ ] **Mở dự án:** Khởi động IDE của bạn -> Chọn chức năng **Open Folder** -> Mở cái thư mục `gds-myvnpt-wiki` bạn vừa clone ở bước trên.
-- [ ] **Sử dụng ngay:** Bật cửa sổ Chat của Antigravity lên. Hệ thống sẽ tự động rà quét và "hấp thụ" toàn bộ thư mục `.agents`.
-- [ ] 💡 **Test AI:** Nhắn câu này vào khung Chat để kiểm tra xem nó đã nhận diện hệ thống chưa:
-  > *"Hãy kiểm tra xem trong workspace này có các team nào ở thư mục sample_team, liệt kê chúng ra."*
+- [ ] **Mở dự án:** Khởi động IDE -> **Open Folder** -> Mở `gds-myvnpt-wiki`.
+- [ ] **Khởi động AI:** Mở tab Chat của Antigravity để hệ thống tự động nạp thư mục `.agents`.
+- [ ] 💡 **Kiểm thử hệ thống:** Gửi prompt sau vào Chat:
+  > *"Kiểm tra các team hiện có trong thư mục sample_team và liệt kê chi tiết."*
 
 ---
 
-## 💻 4. Bước 3: Phát triển Trang Web Wiki (Dành cho người viết Docs)
-Mọi thay đổi mà đồng nghiệp tạo ra trong `knowledge base` đều sẽ được hiển thị trên web. Nếu bạn muốn chạy Web nội bộ (Local) trên máy mình:
+## 💻 4. Chạy Web Local (Dành cho bộ phận tài liệu)
+Phục vụ việc kiểm thử hiển thị nội dung wiki trước khi xuất bản:
 
-- [ ] **Cài đặt thư viện:** Bật Terminal lên, chạy lệnh:
+- [ ] **Cài đặt thư viện:** 
   ```bash
   cd wiki
   pip install -r requirements.txt
   ```
-- [ ] **Cắm máy chủ (Local Server):** Tắt chạy lệnh:
+- [ ] **Khởi động Local Server:** 
   ```bash
   python3 -m mkdocs serve
   ```
-- [ ] Trải nghiệm: Truy cập [http://127.0.0.1:8000](http://127.0.0.1:8000) trên trình duyệt.
+- [ ] **Kiểm tra hiển thị:** Truy cập [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ---
 
-## 🚀 5. Bước 4: Cập Nhật Tài Liệu Lên Vercel (Auto-Deploy)
-Khi làm xong nhiệm vụ (VD: Phân tích UI, viết Specs), đây là cách bạn đẩy bài lên mạng:
+## 🚀 5. Triển khai Web bằng Vercel (Deploy)
+Quy trình xuất bản tài liệu sau khi hoàn thành nhiệm vụ:
 
-- [ ] Nhờ AI viết nội dung mới hoặc tự viết `.md` vào đúng thư mục nhóm `knowledge base/`.
-- [ ] Chờ Admin (Boss) vào tận nơi rà soát File gốc và phản hồi duyệt (Approved).
-- [ ] Gõ duy nhất một câu lệnh Slash Command vào khung chat AI:
+- [ ] Lưu tài liệu `.md` tại thư mục `knowledge base/`.
+- [ ] Chờ cấp quản lý (PO/Admin) phê duyệt (Approved).
+- [ ] Sử dụng lệnh sau trong Antigravity Chat:
   > `/deploy-website`
-- [ ] Tựa lưng uống nước 20 giây, F5 tải lại trang Vercel Public của Admin cấp là hoàn tất!
+- [ ] Hệ thống tự động triển khai. Kiểm tra lại URL Vercel Public.
 
 ---
 
-🍾 **Chúc mừng bạn đã check xong tuần đầu tiên.** Chào mừng bạn gia nhập dự án! Hãy quay lại [Nguyên lý làm việc](../getting-started/) để học cách điều phối các hệ thống Teams đồ sộ.
+## 📚 Phụ Lục
+
+### 📁 Cấu Trúc Thư Mục Cốt Lõi
+
+- `/sample_team`: Chứa System/Role Prompts cấu hình chuyên môn cho AI Teams. **Tuyệt đối không tự ý chỉnh sửa hay xóa file tại đây**.
+- `/.agents/skills/SKILL.md`: Tệp cấu hình quản lý hệ sinh thái kỹ năng của Antigravity.
+- `/knowledge base`: Kho lưu trữ tri thức tập trung. Chứa thiết kế, báo cáo, quy cách để đồng bộ lên wiki.

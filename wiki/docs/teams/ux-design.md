@@ -1,23 +1,31 @@
-# ✏️ Đội Thiết Kế Sản Phẩm (UX Design Team)
+# ✏️ Đội Thiết Kế Trải Nghiệm & Sản Phẩm (UX Design Team)
 
 ## 🎯 Mục Tiêu
-Phân tích nhu cầu ẩn sâu (Jobs-to-be-done), vẽ luồng người dùng (User Flows), và viết thông số thiết kế (Full-stack Specs) theo chuẩn phương pháp luận Design Thinking. Luôn thiết kế đảm bảo giá trị cốt lõi giải quyết chính xác "Công việc mà người dùng cần giải quyết".
+Tiến hành nghiên cứu, định vị hành vi người sử dụng thông qua Jobs-to-be-done (JTBD), hoàn thiện biểu đồ kiến trúc hệ thống (User Flows/Flowcharts) và xuất xưởng tài liệu Tech/Product Specs theo chuẩn Design Thinking phục vụ phát triển kỹ thuật.
 
-## 👥 Vai Trò & Phân Công Chuyên Môn
-- **PM (Project Manager):** Đại quản gia dự án. Giao việc vòng quanh, cập nhật bảng tiến độ WHITEBOARD, chặn cổng và duy trì nút báo cáo duyệt HITL với Boss. (Điểm tụ giao tiếp).
-- **UR (UX Researcher):** Chuyên gia đào sâu insight. Thực hiện pha `Empathize & Define`. Phân tích bản đồ JTBD, nghiên cứu hành vi đối thủ, và đúc kết "Pain Point" cốt tử.
-- **UX (UX Designer):** Kỹ sư phác thảo lộ trình. Bao thầu cung `Ideate & Prototype`. Vẽ sơ đồ Flowcharts nhịp nhàng (Dựa trên insight của UR mớm).
-- **TW (Technical Writer):** Biên tập viên kỹ thuật mượt Copywriting. Bao cung thiết kế lời văn vi tế chạm cảm xúc, biến bản Flow thô thành bản Đặc tả Specs ngồn ngộn chi tiết logic cho giới Lập trình.
-- **CR (Quality Reviewer / Tester):** Con mắt đánh gắt lỗi ngầm. Thực hiện chốt `Test`. Rào soát tính đóng kín (MECE) và vặn hạch lại sản phẩm xem có giải đúng cái JTBD ban đầu hay không.
+## 👥 Vai Trò Nhân Sự (Roles)
+- **Project Manager (PM):** Đầu mối quản trị dự án chung. Tiến hành khai thác đầu bài, phân công nhiệm vụ, quản lý tiến độ, và chủ trì trình báo cáo duyệt (HITL) mỗi quy trình.
+- **UX Researcher (UR):** Tiếp nhận yêu cầu mảng thị trường (`Empathize & Define`). Thuyết minh rà soát JTBD, tổng hợp Pain Points phục vụ thông tin Insight cơ sở.
+- **UX Designer (UX):** Thiết lập cấu trúc hệ thống (`Ideate & Prototype`). Diễn tả giải pháp của kiến trúc hệ thống thông qua thành phẩm Flowcharts mạch lạc dựa vào bản Insight chuyển nhượng.
+- **Technical Writer (TW):** Phụ trách mô tả đặc tính kỹ thuật thông tin. Tổ hợp Flowcharts lập nên Tech Specs cho Developer, kết hợp rà soát thông điệp ngôn ngữ tương tác (UX Writing).
+- **Quality Reviewer (CR):** Cấp kiểm duyệt chất lượng. Kiểm tra logic và mức độ sát sườn JTBD của kiến trúc, đảm bảo tuân thủ cấu trúc rẽ nhánh chuẩn yếu tố phân rã (MECE).
 
-## 🔄 Quy Trình Làm Việc Chặt Chẽ (HITL Workflow)
-Để đảm tính chất lượng xuất xưởng như In-House Agency, Team vận hành qua các Cửa Ải (Gateway) yêu cầu có Lệnh Duyệt từ Boss (Bạn):
+## 🔄 Luồng Vận Hành Khép Kín (HITL Workflow)
+Toàn bộ chu trình sẽ tuân thủ cơ chế giải quyết báo cáo theo từng chặng quản trị trực tiếp từ quản lý (HITL - Human In The Loop) để hạn chế lỗi lệch hướng:
 
-1. **[Gate 1] Xây móng:** Boss nạp "Briefing" từ ý tưởng kinh doanh vào não **PM**. PM thúc **UR** nhảy vào bóc tách giả định. UR xuất xưởng Draft -> **Báo cáo nộp Boss Duyệt Lần 1**.
-2. **[Gate 2] Dựng khung luồng:** Đưa tiếp bản Insight qua cửa cho **UX** kéo màn định hình cấu trúc Flowchart. Kêu gọi QA vào tiền kiểm -> **Giao thành phẩm trình Boss Duyệt Lần 2**.
-3. **[Gate 3] Đổ lõi Technical:** Ném flow qua **TW** đắp gạch lời giải Specs, UX Writing mượt mà. Đòi CR nhặt sạn -> **Bê lên trình Boss chốt Lần 3**.
-4. **[End-Game]:** Khép sổ Sprint, ôm trọn Cụm tài liệu đóng gói thành thư mục mang rải vào `knowledge base`. Hệ thống wiki ghi nhận.
+```text
+┌─────────────┐   ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+│   Gate 1    │   │   Gate 2    │   │   Gate 3    │   │  End-Game   │
+│  Khởi Tạo   │──▶│ Thiết Kế UX │──▶│ Đặc Tả Specs│──▶│ Đóng Gói KB │
+└─────────────┘   └─────────────┘   └─────────────┘   └─────────────┘
+  PM giao UR        UX vẽ Flow      TW viết Specs       PM Verify   
+```
 
-## 💡 Mẫu Lệnh "Tái Khởi Động" Nhanh
-Mở tab Chat của Antigravity AI và thảy dòng lệnh đanh gọn này:
-> *"Tôi cần đắp một luồng [VD: Đăng ký xác thực khuôn mặt eKYC App MyVNPT]. Hãy triệu hồi `ux-design-team`. Bắt tay lăn vòng lặp lần lượt đóng vai: PM -> UR -> UX -> TW -> CR nhằm rã đông JTBD, dựng Flowchart và kết bằng bản Specs tiêu chuẩn. Áp lệnh nghiêm ngặt quy trình duyệt HITL ở mỗi ngã tư giao file nha!"*
+1. **[Gate 1 - Khởi tạo]:** **PM** gán việc truy xuất Insight đến **UR**. Hoàn thiện lập file phân tích và -> **Đệ trình quản lý chốt duyệt (Lần 1).**
+2. **[Gate 2 - Thiết kế UX Flow]:** Phụ thuộc hệ Insight sẵn, **UX** xây dựng mạng Flowcharts, có cấp rà soát của bộ phận **CR**. -> **Báo cáo mô hình cấu trúc luồng (Lần 2).**
+3. **[Gate 3 - Đặc tả & UX Writing]:** **TW** phân tích Flowcharts thành Technical Specs và UX Writing, đồng hành cùng kiểm thử logic từ **CR**. -> **Kiểm duyệt bản bàn giao tài liệu hoàn thiện cuối cùng (Lần 3).**
+4. **[End-Game - Đóng Gói]:** **PM** tổng kết hạng mục và lập lưu trữ bản phát hành chung vào hệ thống `knowledge base` nhằm hoàn thiện phân phối thông tin nền tảng.
+
+## 💡 Hướng Dẫn Kích Hoạt (Prompting)
+Truy xuất nhanh yêu cầu qua kịch bản gọi chuẩn xác:
+> *"Điều động team `ux-design-team` phục vụ phân tích dự án hạng mục [Ví dụ: Đăng ký dịch vụ eKYC MyVNPT]. Triển khai đầy đủ mô hình PM -> UR -> UX -> TW -> CR phục vụ rà soát JTBD, dựng màn Flowcharts chuẩn Spec. Đề nghị luồng có sử dụng rà soát HITL để cấp quyền xác nhận qua từng Gate!"*
