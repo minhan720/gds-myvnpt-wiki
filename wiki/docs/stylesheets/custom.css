@@ -330,16 +330,17 @@ h6 {
   background-color: var(--md-primary-fg-color);
 }
 
-/* Improve readability of text/ascii code blocks */
-.highlight .language-text,
-code[class*="language-text"],
-pre[class*="language-text"] {
-  color: var(--md-default-fg-color) !important;
+/* Improve readability of text/ascii code blocks & highlighted code */
+.md-typeset div.highlight pre,
+.md-typeset div.highlight code {
+  color: #24404B !important;
+  /* Dark text for code blocks */
   font-weight: 500;
-  background-color: #E8F0FE !important;
-  border-left: 4px solid var(--md-primary-fg-color);
 }
 
-.highlight .language-text pre code {
-  color: var(--md-default-fg-color) !important;
+.md-typeset div.highlight pre {
+  background-color: #E8F0FE !important;
+  /* Light blue background */
+  border-left: 4px solid var(--md-primary-fg-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
