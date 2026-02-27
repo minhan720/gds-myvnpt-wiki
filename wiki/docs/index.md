@@ -14,18 +14,18 @@ hide:
 <div class="features-grid">
   <div class="feature-card">
     <div class="icon">🚀</div>
-    <h3>"Ủy thác" việc tay chân</h3>
-    <p>AI đóng vai trò như một thực tập sinh mẫn cán, tự động thu thập dữ liệu, cày báo cáo mệt mỏi để bạn rảnh tay tập trung ra quyết định chuyên môn.</p>
+    <h3>"Nhân Bản" Chuyên Môn Của PO & Designer</h3>
+    <p>Thay vì bạn phải tự làm, Agent sẽ "nhập vai" chính bạn. Chúng tự động thực hiện các đầu việc tốn sức cốt lõi như: phân tích thị trường, viết tài liệu Specs tính năng, vẽ quy trình Flows hành vi và cả Audit (soi rệp) UI.</p>
   </div>
   <div class="feature-card">
     <div class="icon">⚡️</div>
-    <h3>Xóa sổ "Bản nháp v1, v2"</h3>
-    <p>Không còn cảnh gửi file Word qua lại. Mọi ý tưởng, UI Specs hay luồng Design được AI tự động biên dịch thành tài liệu Web cập nhật tức thì.</p>
+    <h3>AI Tự Động Học "Tri Thức" Của Bạn</h3>
+    <p>Không giống các công cụ chat đại trà, hệ thống Agent ở đây được thiết kế để tự động "hấp thụ" toàn bộ kiến thức nội bộ của GDS-MyVNPT. Bạn càng làm việc cùng nhiều, nó càng mô phỏng chuẩn xác tư duy của bạn.</p>
   </div>
   <div class="feature-card">
     <div class="icon">🔍</div>
-    <h3>Chấm dứt "Mò kim đáy bể"</h3>
-    <p>Tìm file tài liệu dự án cũ chưa bao giờ nhanh như thế. Toàn bộ tri thức đúc kết đều được AI cấu trúc tự động, hiển thị cực thân thiện dễ đọc.</p>
+    <h3>Biến Bạn Từ "Người Làm" Thành "Người Duyệt"</h3>
+    <p>Bạn không còn phải cong lưng ngồi gõ Word làm Docs hay vẽ từng khối Wireframe nháp. Hãy Briefing, để Agent làm hộ toàn bộ, và bạn sẽ thăng cấp thành "Người Duyệt" (Reviewer) đưa ra quyết định chuyên môn!</p>
   </div>
 </div>
 
