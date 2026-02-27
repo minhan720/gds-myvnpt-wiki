@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 # ⏰ Đội Cập Nhật Tiến Độ (Jira Tracking Team)
 
 ## 🎯 Mục Tiêu

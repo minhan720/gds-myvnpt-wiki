@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 # 🛠️ Bộ Công Cụ (Tool Stack)
 
 Danh sách các công cụ nền tảng trong AI Workspace. Mỗi công cụ được phân định vai trò cụ thể nhằm tối ưu hóa quy trình làm việc và chất lượng thông tin.

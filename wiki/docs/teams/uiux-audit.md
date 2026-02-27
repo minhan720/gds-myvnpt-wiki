@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 # 🔍 Đội Kiểm Định UI/UX (UIUX Audit Team)
 
 ## 🎯 Mục Tiêu

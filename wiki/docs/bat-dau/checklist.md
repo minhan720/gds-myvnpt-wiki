@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 # ✅ Checklist Tuần Đầu (Getting Started)
 
 Tài liệu hướng dẫn thiết lập môi trường làm việc và tích hợp trợ lý **Antigravity AI**. Thành viên mới vui lòng hoàn thành checklist dưới đây trong tuần đầu tiên.

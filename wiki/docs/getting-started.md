@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 # ⚙️ Nguyên Lý Làm Việc & Cách Vận Hành Workspace
 
 Tài liệu này giải thích cơ chế cốt lõi của không gian làm việc này và cách bạn tương tác với trợ lý Agentic AI để khai phá sức mạnh tối ưu nhất.

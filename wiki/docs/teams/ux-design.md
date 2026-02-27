@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 # ✏️ Đội Thiết Kế Trải Nghiệm & Sản Phẩm (UX Design Team)
 
 ## 🎯 Mục Tiêu

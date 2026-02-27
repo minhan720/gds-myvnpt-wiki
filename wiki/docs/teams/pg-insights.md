@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 # ❤️ Đội Phân Tích Hành Vi & Cảm Xúc (PG Insights Team)
 
 ## 🎯 Mục Tiêu

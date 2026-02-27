@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 # 📊 Đội Phân Tích & Tư Vấn Chiến Lược (McKinsey Research Team)
 
 ## 🎯 Mục Tiêu
