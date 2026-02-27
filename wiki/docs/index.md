@@ -14,18 +14,18 @@ hide:
 <div class="features-grid">
   <div class="feature-card">
     <div class="icon">🚀</div>
-    <h3>Luồng làm việc Automation</h3>
-    <p>Thay đổi vai tuần tự để giải quyết toàn diện bài toán từ phân tích đến thiết kế, kiểm định.</p>
+    <h3>"Ủy thác" việc tay chân</h3>
+    <p>AI đóng vai trò như một thực tập sinh mẫn cán, tự động thu thập dữ liệu, cày báo cáo mệt mỏi để bạn rảnh tay tập trung ra quyết định chuyên môn.</p>
   </div>
   <div class="feature-card">
     <div class="icon">⚡️</div>
-    <h3>Đồng bộ thời gian thực</h3>
-    <p>Tự động xuất bản tài liệu Knowledge Base mới nhất lên nền tảng Web thông qua 1 câu lệnh.</p>
+    <h3>Xóa sổ "Bản nháp v1, v2"</h3>
+    <p>Không còn cảnh gửi file Word qua lại. Mọi ý tưởng, UI Specs hay luồng Design được AI tự động biên dịch thành tài liệu Web cập nhật tức thì.</p>
   </div>
   <div class="feature-card">
     <div class="icon">🔍</div>
-    <h3>Quản trị tri thức (KB)</h3>
-    <p>Hệ thống hoá kiến thức thành định dạng dễ đọc, tránh phân mảnh thông tin, dễ dàng tìm kiếm.</p>
+    <h3>Chấm dứt "Mò kim đáy bể"</h3>
+    <p>Tìm file tài liệu dự án cũ chưa bao giờ nhanh như thế. Toàn bộ tri thức đúc kết đều được AI cấu trúc tự động, hiển thị cực thân thiện dễ đọc.</p>
   </div>
 </div>
 
