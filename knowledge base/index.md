@@ -1,13 +1,20 @@
-# 📚 Knowledge Base (Kho lưu trữ Kiến thức)
+---
+hide:
+  - toc
+---
+# 📚 Knowledge Base Center
 
-Chào mừng bạn đến với **Knowledge Base** của GDS-MyVNPT.
-Đây là trung tâm lưu trữ mọi kết quả nghiên cứu, báo cáo, mẫu template và tài liệu hướng dẫn được tạo ra tự động bởi hệ thống Agentic AI (Antigravity).
+Chào mừng bạn đến với **Knowledge Base** của GDS-MyVNPT.  
+Đây là trung tâm lưu trữ toàn bộ các kết quả nghiên cứu, báo cáo chuyên sâu, mẫu template thông dụng và tài liệu hướng dẫn được thiết lập bởi hệ thống AI Workspace.
 
-## 🗂 Cấu trúc thư mục hiện tại:
+Thay vì hiển thị dọc theo cây Menu như trước, toàn bộ cấu trúc dự án hiện tại đã được tách ra một hệ thống không gian Knowledge Base độc lập. Điều này giúp hệ thống được vận hành tập trung hơn và hạn chế phân tán tập dữ liệu làm việc (Data Load).
 
-- **Background**: Chứa các thông tin sơ lược và bối cảnh về dự án.
-- **Templates**: Chứa các biểu mẫu tiêu chuẩn (VD: Full-stack Specs, JTBD...).
-- **UX Design Output**: Chứa mọi kết quả trả về từ `ux-design-team` (Luồng người dùng, tài liệu thiết kế nghiệp vụ).
-- **UI/UX Audit Output**: Chứa mọi kết quả kiểm định chuyên môn thiết kế từ `uiux-audit-team`.
-
-> 💡 **Mẹo:** Bạn có thể sử dụng biểu tượng kính lúp (Search) ở góc trên bên phải để tìm kiếm siêu tốc mọi từ khóa trong tất cả các bài viết!
+<div class="hero" style="margin-top: 2rem; padding: 3rem 1rem; background: var(--md-default-bg-color); border: 1px solid var(--md-default-fg-color--lightest);">
+  <h2 style="margin-top: 0;">Khám Phá Tài Nguyên Dự Án</h2>
+  <p class="tagline" style="margin-bottom: 2rem;">Truy cập Data Lake độc lập để tìm kiếm mọi tài nguyên của đội ngũ!</p>
+  <div class="actions">
+    <a href="https://replace-this-with-your-kb-link.com" class="md-button md-button--primary">
+      Truy Cập Knowledge Base Độc Lập 🚀
+    </a>
+  </div>
+</div>
