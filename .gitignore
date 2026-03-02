@@ -1,19 +1,7 @@
-# macOS
-.DS_Store
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.env
-venv/
-env/
-
-# MkDocs
 wiki/site/
-wiki/__pycache__/
-__venv/
-wiki/mkdocs-kb.yml
 wiki/site-kb/
+wiki/__venv/
 wiki/__venv_test/
+.DS_Store
+__pycache__/
+*.pyc

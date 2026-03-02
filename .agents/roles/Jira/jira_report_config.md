@@ -16,3 +16,7 @@ File này chứa cấu hình tham số mặc định cho Jira Operations Bot và
 ## 2. Tiêu chí thời gian (Time Metrics)
 - **Nhiệm vụ Sắp hết hạn (Deadline Alert):** `Due date < 7 ngày` tính từ thời điểm chạy báo cáo.
 - **Nhiệm vụ Mới nhận (New Assignment):** Ngày tạo (Created) hoặc Ngày Assign `trong vòng 24 giờ` qua.
+
+## 3. Cấu hình Telegram (Thông tin kết nối)
+- **Token Bot:** `8757329276:AAG5zL8re4xprBhFPuJQ-yr0DS6FxUesWK4` (Mặc định)
+- **Group Chat ID:** `-4580999681` (Tên Nhóm: PO-UIUX MyVNPT)

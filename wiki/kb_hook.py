@@ -102,18 +102,26 @@ def on_post_build(config, **kwargs):
                 "> 💡 **Hãy bấm trực tiếp vào các danh mục cha bên trái để xổ ra các bài viết con tương ứng!**",
                 ""
             ]
-            with open(OUT_FILE, 'w', encoding='utf-8') as f:
-                f.write('\n'.join(content))
+            new_content = '\n'.join(content)
+            should_write = True
+            if os.path.exists(OUT_FILE):
+                with open(OUT_FILE, 'r', encoding='utf-8') as f:
+                    if f.read() == new_content:
+                        should_write = False
+            
+            if should_write:
+                with open(OUT_FILE, 'w', encoding='utf-8') as f:
+                    f.write(new_content)
 
         # 2. Run mkdocs build AGAIN, but with env var to trigger standalone config
         my_env = os.environ.copy()
         my_env["BUILD_KB_ONLY"] = "1"
         
         try:
-            subprocess.run(["python3", "-m", "mkdocs", "build", "-d", "site-kb"], env=my_env, check=True)
+            subprocess.run(["python3", "-m", "mkdocs", "build", "-d", "/tmp/site-kb"], env=my_env, check=True)
             
             # 3. Copy knowledge base folder from site-kb to site
-            src = "site-kb/knowledge base"
+            src = "/tmp/site-kb/knowledge base"
             dst = config['site_dir'] + "/knowledge base"
             print(f"Hook: Copying standalone KB from {src} to {dst}")
             if os.path.exists(src):
@@ -123,6 +131,6 @@ def on_post_build(config, **kwargs):
                 print(f"Hook Error: {src} not found after secondary build.")
                 
             # Clean up
-            shutil.rmtree("site-kb", ignore_errors=True)
+            shutil.rmtree("/tmp/site-kb", ignore_errors=True)
         except Exception as e:
             print(f"Hook Error during dual build: {e}")

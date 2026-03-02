@@ -43,7 +43,7 @@ Dự án này là một **Không gian làm việc kết hợp Trí tuệ Nhân t
 
 👉 **[Nguyên lý Làm việc](getting-started.md):** Hiểu cách trợ lý AI "thay mũ" tuần tự để nhập vai.
 👉 **[Checklist tuần đầu](bat-dau/checklist.md):** Những việc cần hoàn thành khi vừa vào dự án.
-👉 **[Khám phá Teams](teams/ux-design.md):** Đọc "sổ tay" của các team AI để hiểu chúng có thể làm gì cho bạn (Ở menu Teams).
+👉 **[Khám phá Teams](teams/flow-design.md):** Đọc "sổ tay" của các team AI để hiểu chúng có thể làm gì cho bạn (Ở menu Teams).
 👉 **[Knowledge Base](knowledge%20base/index.md):** Tra cứu ngay các tài liệu nghiên cứu UX, báo cáo thị trường và luồng Specs của VNPT.
 
 **Chúc bạn có trải nghiệm điều phối Agentic AI thật hiệu quả và "nhàn nhã"! 🎉**
