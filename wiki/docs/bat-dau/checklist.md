@@ -30,7 +30,22 @@ Tải cấu trúc dự án về máy tính cá nhân:
 
 ---
 
-## 🤖 3. Kích hoạt AI Workspace
+## 🔄 3. Cập nhật Phiên bản Mới nhất (Pull Update)
+Khi có thông báo từ Admin về việc cấu trúc hoặc workflow đã được nâng cấp, bạn cần cập nhật về máy cá nhân:
+
+- [ ] Truy cập vào Terminal hoặc Command Prompt, di chuyển đến thư mục dự án (`cd gds-myvnpt-wiki`).
+- [ ] Kiểm tra trạng thái hiện tại (Nên đảm bảo bạn không có thay đổi nào chưa lưu):
+  ```bash
+  git status
+  ```
+- [ ] Chạy lệnh Pull để đồng bộ source code mới nhất từ GitHub:
+  ```bash
+  git pull origin main
+  ```
+
+---
+
+## 🤖 4. Kích hoạt AI Workspace
 Hệ thống "Role Prompts" (`sample_team/`) và "Kỹ năng" (`.agents/skills/SKILL.md`) đã được cấu hình sẵn.
 
 - [ ] **Mở dự án:** Khởi động IDE -> **Open Folder** -> Mở `gds-myvnpt-wiki`.
@@ -40,7 +55,7 @@ Hệ thống "Role Prompts" (`sample_team/`) và "Kỹ năng" (`.agents/skills/S
 
 ---
 
-## 💻 4. Chạy Web Local (Dành cho bộ phận tài liệu)
+## 💻 5. Chạy Web Local (Dành cho bộ phận tài liệu)
 Phục vụ việc kiểm thử hiển thị nội dung wiki trước khi xuất bản:
 
 - [ ] **Cài đặt thư viện:** 
@@ -56,7 +71,7 @@ Phục vụ việc kiểm thử hiển thị nội dung wiki trước khi xuất
 
 ---
 
-## 🚀 5. Triển khai Web bằng Vercel (Deploy)
+## 🚀 6. Triển khai Web bằng Vercel (Deploy)
 Quy trình xuất bản tài liệu sau khi hoàn thành nhiệm vụ:
 
 - [ ] Lưu tài liệu `.md` tại thư mục `knowledge base/`.
