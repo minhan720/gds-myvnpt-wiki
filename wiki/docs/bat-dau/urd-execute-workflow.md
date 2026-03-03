@@ -67,3 +67,9 @@ Trong đa số trường hợp, sếp hoặc dev bên ngoài sẽ không đọc 
 3. Hệ thống sẽ ngay lập tức convert file Markdown của bạn thành 1 văn bản Google Docs "đẹp nức nở" (Giữ nguyên thẻ Table, Heading, Bold).
 4. *(Lưu ý: Nếu đây là lần chạy lệnh /sync_gdocs đầu tiên trong ngày, trình duyệt của bạn có thể bật lên bắt bạn ấn Confirm ủy quyền Google Account, bạn cứ bấm "Allow" nhé).*
 5. **Đỉnh cao:** Sau khi tạo xong, nó sẽ tự động chèn cái Link Google Docs đó gắn ngược vào bên trong file `URD...md` của bạn. Và từ lần 2 trở đi, nếu bạn có sửa file Markdown và muốn đè lên Docs cho sếp xem bản cập nhật, bạn chỉ cần nã lại lệnh `/sync_gdocs`. Hệ thống sẽ không đẻ ra file Google Docs mới, mà thay vào đó là ghi đè cái mới nguyên xi lên file hiện tại của bạn.
+
+> [!TIP] **Mẹo cho người mới nạp Workspace:**
+> Theo mặc định, lệnh `/sync_gdocs` chỉ chạy được trên máy của người cấu hình Google Cloud ban đầu. Để **bạn** (một member vừa clone repo về) cũng có thể chạy lệnh này:
+> - Hãy xin Product Owner / người quản trị file `credentials.json`.
+> - Copy file đó bỏ vào thư mục `.agents/scripts/` trên máy tính của bạn.
+> - Lần đầu chạy lệnh `/sync_gdocs`, trình duyệt sẽ mở lên để bạn tự đăng nhập bằng tài khoản Gmail của bạn. File sẽ tự động được gửi lên Drive của bạn!
