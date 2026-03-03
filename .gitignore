@@ -5,3 +5,6 @@ wiki/__venv_test/
 .DS_Store
 __pycache__/
 *.pyc
+.agents/scripts/credentials.json
+.agents/scripts/token.json
+.agents/scripts/credentials.json
