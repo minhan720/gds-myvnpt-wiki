@@ -42,6 +42,7 @@ nav:
     - Nguyên lý làm việc: getting-started.md
     - Checklist tuần đầu: bat-dau/checklist.md
     - Công cụ: bat-dau/cong-cu.md
+    - Quản lý Task: task_manager.html
   - 🔄 Quy trình:
     - URD Execute (Autopilot): bat-dau/urd-execute-workflow.md
   - 👥 Teams:
