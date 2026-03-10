@@ -2611,10 +2611,6 @@
                         }
                     }
 
-                    const tabContainer = document.getElementById('kehoach-tabs-container');
-                    const activeTab = tabContainer.querySelector('.tm-tab.active');
-                    if (!activeTab) return;
-
                     // Xác định thẻ ẩn cho biến CSS Tab Archived
                     var isArchivedTab = (window.currentKeHoachTab === 'Archived');
                     var prioStyle = isArchivedTab ? 'display:none;' : '';
