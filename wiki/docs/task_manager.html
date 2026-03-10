@@ -2533,6 +2533,8 @@
                                 tr.addEventListener('mouseleave', () => tr.style.background = 'transparent');
 
                                 let safeID = String(task.ID).replace(/'/g, "\\'");
+                                window.renderedPhatSinhTasks = window.renderedPhatSinhTasks || {};
+                                window.renderedPhatSinhTasks[String(task.ID)] = task;
                                 let name = escapeHTML(task['Ten dau viec'] || '');
 
                                 let jiraUrl = task['Jira'] || localStorage.getItem('JIRA_LINK_' + task.ID) || '';
@@ -3219,7 +3221,7 @@
                 }
 
                 window.openApproveModal = function (id) {
-                    let task = (window.tasksData || tasksData).find(t => String(t.ID) === String(id));
+                    let task = (window.renderedPhatSinhTasks && window.renderedPhatSinhTasks[String(id)]) || (window.tasksData || tasksData).find(t => String(t.ID) === String(id));
                     if (!task) return;
 
                     // Populate Lead Options if empty
