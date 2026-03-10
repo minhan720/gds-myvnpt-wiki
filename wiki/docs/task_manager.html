@@ -2534,8 +2534,7 @@
 
                 function renderKeHoachBoard(tasks, skipTabRebuild = false) {
                     const tabsContainer = document.getElementById('kehoach-tabs-container');
-                    var tbody = document.getElementById('kehoach-tbody');
-                    if (!tabsContainer || !tbody) return;
+                    if (!tabsContainer) return;
 
                     // Lọc những task hợp lệ (có start date)
                     let validTasks = tasks.filter(t => t._start && !isNaN(t._start.getTime()));
