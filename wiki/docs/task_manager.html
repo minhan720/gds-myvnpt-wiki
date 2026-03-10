@@ -1662,7 +1662,7 @@
 
                                     let isDuplicate = tasksData.some(otherT => {
                                         if (String(otherT.ID) === String(task.ID)) return false;
-                                        if ((otherT['Trang thai'] || '').trim().toLowerCase() === 'completed') return false;
+                                        if (String(otherT['Trang thai'] || '').trim().toLowerCase() === 'completed') return false;
 
                                         let otherMKey = (otherT._start.getMonth() + 1).toString().padStart(2, '0') + '/' + otherT._start.getFullYear();
                                         if (curMKey !== otherMKey) return false; // Different Month
@@ -1944,7 +1944,7 @@
                         let maxPrioByMonth = {};
                         tasksData.forEach(t => {
                             // Ignore Completed tasks for priority tracking
-                            if ((t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
+                            if (String(t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
 
                             let mKey = (t._start.getMonth() + 1).toString().padStart(2, '0') + '/' + t._start.getFullYear();
                             if (maxPrioByMonth[mKey] === undefined) maxPrioByMonth[mKey] = 0;
@@ -1954,7 +1954,7 @@
                         });
 
                         tasksData.forEach(t => {
-                            if ((t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
+                            if (String(t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
 
                             let mKey = (t._start.getMonth() + 1).toString().padStart(2, '0') + '/' + t._start.getFullYear();
                             if (!t.Priority || String(t.Priority).trim() === '') {
