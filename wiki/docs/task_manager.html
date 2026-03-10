@@ -2546,7 +2546,8 @@
                                 let recDate = task['Ngay tiep nhan'] ? parseDate(task['Ngay tiep nhan']).toLocaleDateString('en-GB') : '';
                                 let dueDate = task['Ngay hoan thanh'] ? parseDate(task['Ngay hoan thanh']).toLocaleDateString('en-GB') : '';
                                 let status = task['Trang thai'] || 'Pending';
-                                let ghiChu = task['Ghi chu'] || '';
+                                let ghiChuRaw = task['Ghi chu'] || '';
+                                let ghiChu = ghiChuRaw.replace(/\[LINK:[^\]]+\]/g, '').trim();
 
                                 let ghiChuHtml = '';
                                 if (ghiChu.trim() !== '') {
