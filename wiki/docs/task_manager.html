@@ -1571,12 +1571,12 @@
                     return d;
                 }
 
-                window.makeCellEditable = function (e, taskId, fieldType) {
+                window.makeCellEditable = function (e, uiId, fieldType) {
                     e.stopPropagation();
                     let td = e.currentTarget;
                     if (td.querySelector('input') || td.querySelector('select')) return;
 
-                    let task = tasksData.find(t => String(t.ID) === String(taskId));
+                    let task = tasksData.find(t => String(t._uid) === String(uiId));
                     if (!task) return;
 
                     let originalHTML = td.innerHTML;
@@ -1897,6 +1897,7 @@
                         // Parse dates safely
                         debugLog('Parsing dates...');
                         tasksData.forEach(t => {
+                            if (!t._uid) t._uid = 'UID_' + Math.random().toString(36).substring(2, 11);
                             let parsed = false;
                             if (t.Timeline && typeof t.Timeline === 'string' && t.Timeline.trim() !== '') {
                                 let parts = t.Timeline.includes('|') ? t.Timeline.split('|') : t.Timeline.split('-');
@@ -2659,15 +2660,16 @@
 
                         let prioValue = escapeHTML(task['Priority'] || '');
 
+                        let uiID = String(task._uid).replace(/'/g, "\\'");
                         tr.innerHTML = `
                             <td style="padding: 12px 16px; color:#94a3b8; text-align:center; font-size:0.85em;">${index + 1}</td>
-                            <td style="padding: 12px 16px; font-weight:500; color:#1e293b; line-height:1.4; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'task')" title="Click để sửa">${sourceBadge}${name}</td>
-                            <td style="padding: 12px 16px; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'lead')" title="Click để sửa">${assignValue}</td>
-                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'urd')" title="Click để sửa">${urdDateValue}</td>
-                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'start')" title="Click để sửa">${startDateValue}</td>
-                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'end')" title="Click để sửa">${endDateValue}</td>
-                            <td style="padding: 12px 16px; text-align:center; font-weight:bold; color:#f97316; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'priority')" title="Click sửa Độ ưu tiên">${prioValue}</td>
-                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'status')" title="Click mở luồng Progress">${statusHtml}</td>
+                            <td style="padding: 12px 16px; font-weight:500; color:#1e293b; line-height:1.4; cursor:pointer;" onclick="window.makeCellEditable(event, '${uiID}', 'task')" title="Click để sửa">${sourceBadge}${name}</td>
+                            <td style="padding: 12px 16px; cursor:pointer;" onclick="window.makeCellEditable(event, '${uiID}', 'lead')" title="Click để sửa">${assignValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${uiID}', 'urd')" title="Click để sửa">${urdDateValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${uiID}', 'start')" title="Click để sửa">${startDateValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${uiID}', 'end')" title="Click để sửa">${endDateValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; font-weight:bold; color:#f97316; cursor:pointer;" onclick="window.makeCellEditable(event, '${uiID}', 'priority')" title="Click sửa Độ ưu tiên">${prioValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${uiID}', 'status')" title="Click mở luồng Progress">${statusHtml}</td>
                             <td style="padding: 12px 16px; text-align:center;">${actionHTML}</td>
                          `;
                         tbody.appendChild(tr);
@@ -2918,14 +2920,15 @@
                             const taskRow = document.createElement('tr');
                             taskRow.className = 'gantt-task-row';
                             let safeID = String(task.ID).replace(/'/g, "\\'");
+                            let uiID = String(task._uid).replace(/'/g, "\\'");
 
                             taskRow.innerHTML = '<td class="sticky-col col-wbs" onclick="window.editTask(\'' + safeID + '\')" style="text-align:right; font-size:0.9em; color:#64748b; cursor:pointer;" title="Mở chi tiết Task">' + wbsString + '</td>' +
-                                '<td class="sticky-col col-task" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'task\')" style="cursor:text;" title="Click để sửa">' + escapeHTML(task['Ten dau viec']) + '</td>' +
-                                '<td class="sticky-col col-lead" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'lead\')" style="cursor:text;" title="Click để sửa">' + escapeHTML(task['Phu trach']) + '</td>' +
-                                '<td class="sticky-col col-urd" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'urd\')" style="cursor:text; font-size:0.9em; text-align:center;" title="Click sửa URD Date">' + urdStr + '</td>' +
-                                '<td class="sticky-col col-start" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'start\')" style="cursor:pointer; font-size:0.9em; text-align:center;" title="Click đổi ngày (YYYY-MM-DD)">' + startStr + '</td>' +
-                                '<td class="sticky-col col-end" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'end\')" style="cursor:pointer; font-size:0.9em; text-align:center;" title="Click đổi ngày (YYYY-MM-DD)">' + endStr + '</td>' +
-                                '<td class="sticky-col col-status" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'status\')" style="cursor:pointer;" title="Click đổi %"><span class="badge ' + badgeClass + '">' + progText + '</span></td>' +
+                                '<td class="sticky-col col-task" onclick="window.makeCellEditable(event, \'' + uiID + '\', \'task\')" style="cursor:text;" title="Click để sửa">' + escapeHTML(task['Ten dau viec']) + '</td>' +
+                                '<td class="sticky-col col-lead" onclick="window.makeCellEditable(event, \'' + uiID + '\', \'lead\')" style="cursor:text;" title="Click để sửa">' + escapeHTML(task['Phu trach']) + '</td>' +
+                                '<td class="sticky-col col-urd" onclick="window.makeCellEditable(event, \'' + uiID + '\', \'urd\')" style="cursor:text; font-size:0.9em; text-align:center;" title="Click sửa URD Date">' + urdStr + '</td>' +
+                                '<td class="sticky-col col-start" onclick="window.makeCellEditable(event, \'' + uiID + '\', \'start\')" style="cursor:pointer; font-size:0.9em; text-align:center;" title="Click đổi ngày (YYYY-MM-DD)">' + startStr + '</td>' +
+                                '<td class="sticky-col col-end" onclick="window.makeCellEditable(event, \'' + uiID + '\', \'end\')" style="cursor:pointer; font-size:0.9em; text-align:center;" title="Click đổi ngày (YYYY-MM-DD)">' + endStr + '</td>' +
+                                '<td class="sticky-col col-status" onclick="window.makeCellEditable(event, \'' + uiID + '\', \'status\')" style="cursor:pointer;" title="Click đổi %"><span class="badge ' + badgeClass + '">' + progText + '</span></td>' +
                                 '<td class="sticky-col col-action"><div style="display:flex; justify-content:center; align-items:center; gap:8px;">' + docLinkHtml + jiraHtml + '</div></td>';
 
                             datesArr.forEach(d => {
