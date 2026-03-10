@@ -3219,7 +3219,7 @@
                 }
 
                 window.openApproveModal = function (id) {
-                    let task = tasksData.find(t => String(t.ID) === String(id));
+                    let task = (window.tasksData || tasksData).find(t => String(t.ID) === String(id));
                     if (!task) return;
 
                     // Populate Lead Options if empty
