@@ -1660,7 +1660,7 @@
                                     // Duplicate Check By Month Isolation & Ignore Archived
                                     let curMKey = (task._start.getMonth() + 1).toString().padStart(2, '0') + '/' + task._start.getFullYear();
 
-                                    let isDuplicate = tasksData.some(otherT => {
+                                    let duplicateTask = tasksData.find(otherT => {
                                         if (String(otherT.ID) === String(task.ID)) return false;
                                         if (String(otherT['Trang thai'] || '').trim().toLowerCase() === 'completed') return false;
 
@@ -1669,10 +1669,19 @@
 
                                         return parseInt(String(otherT.Priority || '').trim(), 10) === newPrioNum;
                                     });
-                                    if (isDuplicate) {
-                                        alert('Số Priority [' + newPrioNum + '] này đã được gán cho một công việc khác rồi sếp Minh ơi! Cấm trùng lặp nhé, hãy chọn số khác!');
-                                        td.innerHTML = originalHTML; // Cancel Saving
-                                        return;
+
+                                    if (duplicateTask) {
+                                        // Auto-Swap Logic
+                                        let oldPrioValue = task['Priority'] || '';
+
+                                        // 1. Assign old priority of current task to the duplicate task
+                                        duplicateTask['Priority'] = oldPrioValue;
+                                        let syncTaskDup = { ID: duplicateTask.ID, Priority: oldPrioValue };
+                                        let actionPayloadDup = { action: 'update', task: syncTaskDup, targetSheetKey: 'kehoach' };
+
+                                        const existingIdxDup = pendingActions.findIndex(a => String(a.task.ID) === String(duplicateTask.ID) && a.targetSheetKey === 'kehoach');
+                                        if (existingIdxDup !== -1) pendingActions[existingIdxDup] = actionPayloadDup;
+                                        else pendingActions.push(actionPayloadDup);
                                     }
                                 }
 
@@ -1685,7 +1694,7 @@
                                 else pendingActions.push(actionPayload);
                                 window.updateSyncUI();
 
-                                // Re-render silently to show new number
+                                // Re-render silently to show new number (and automatically sort)
                                 if (currentSheetKey === 'kehoach' && typeof window.renderKeHoachBoard === 'function') {
                                     window.renderKeHoachBoard(tasksData);
                                 }
