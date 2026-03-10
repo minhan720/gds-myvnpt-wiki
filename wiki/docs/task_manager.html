@@ -3316,11 +3316,7 @@
                         pendingActions = pendingActions.filter(a => !(a.task.ID === id && a.action === 'update'));
                         pendingActions.push({
                             action: 'update',
-                            task: {
-                                ID: originalTask.ID,
-                                'Trang thai': 'Approved',
-                                'Ghi chu': originalTask['Ghi chu']
-                            },
+                            task: originalTask,
                             targetSheetKey: 'phatsinh' // Route back to PhatSinh
                         });
                     }
