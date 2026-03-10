@@ -2333,23 +2333,23 @@
                     foundTask['Trang thai'] = 'Pending';
                     const syncTask = { ID: safeID, 'Trang thai': 'Pending' };
 
-                    // Nếu task là Approved, trích xuất Ghi Chú để đi săn ID Clone
+                    // Nếu task là Approved, trích xuất Ghi Chú để đi săn Fingerprint ID Clone
                     if (oldStatus === 'Approved') {
                         let ghiChu = foundTask['Ghi chu'] || '';
-                        let linkMatch = ghiChu.match(/\[LINK:(.*?)_(.*?)\]/);
-                        if (linkMatch && linkMatch.length === 3) {
-                            let targetSheet = linkMatch[1];
-                            let targetID = linkMatch[2];
+                        let linkMatchOld = ghiChu.match(/\[LINK:(.*?)_.*?\]/);
+                        let linkMatchNew = ghiChu.match(/\[LINK_TO:(.*?)\]/);
+                        let targetSheet = linkMatchNew ? linkMatchNew[1] : (linkMatchOld ? linkMatchOld[1] : null);
 
-                            // Phát lệnh Truy Sát (Delete)
+                        if (targetSheet) {
+                            // Phát lệnh Truy Sát (Delete) bằng Dấu vân tay [SOURCE_ID:..]
                             pendingActions.push({
                                 action: 'delete',
-                                task: { ID: targetID },
+                                task: { ID: '', 'Ghi chu': `[SOURCE_ID:${safeID}]` },
                                 targetSheetKey: targetSheet
                             });
 
                             // Tẩy xóa dấu vết trên trán
-                            ghiChu = ghiChu.replace(/\[LINK:.*?\]/g, '').trim();
+                            ghiChu = ghiChu.replace(/\[LINK:.*?\]/g, '').replace(/\[LINK_TO:.*?\]/g, '').trim();
                             foundTask['Ghi chu'] = ghiChu;
                             syncTask['Ghi chu'] = ghiChu;
                         }
@@ -2548,7 +2548,7 @@
                                 let dueDate = task['Ngay hoan thanh'] ? parseDate(task['Ngay hoan thanh']).toLocaleDateString('en-GB') : '';
                                 let status = task['Trang thai'] || 'Pending';
                                 let ghiChuRaw = task['Ghi chu'] || '';
-                                let ghiChu = ghiChuRaw.replace(/\[LINK:[^\]]+\]/g, '').trim();
+                                let ghiChu = ghiChuRaw.replace(/\[(LINK|LINK_TO|SOURCE_ID):[^\]]+\]/g, '').trim();
 
                                 let ghiChuHtml = '';
                                 if (ghiChu.trim() !== '') {
@@ -3498,6 +3498,8 @@
                             taskObj._sourceSheet = window.TM_CONFIG.SHEETS[document.getElementById('task-id').dataset.sourceSheet || currentSheetKey];
                         }
 
+                        let addActionIdx = pendingActions.findIndex(a => a.action === 'add' && String(a.task.ID) === String(id));
+
                         if (action === 'add') {
                             tasksData.push(taskObj);
                         } else {
@@ -3505,18 +3507,24 @@
                             if (idx > -1) tasksData[idx] = taskObj;
                         }
 
-                        // Remove previous same ID actions if in queue to prevent bloat
-                        pendingActions = pendingActions.filter(a => !(String(a.task.ID) === String(id) && a.action === 'update'));
+                        // Nếu là lệnh Update nhưng Task này vừa mới được Add cục bộ (vẫn đang kẹt trong Hàng chờ), ta Lồng update vào Add Action luôn!
+                        if (action === 'update' && addActionIdx > -1) {
+                            pendingActions[addActionIdx].task = { ...pendingActions[addActionIdx].task, ...taskObj };
+                            pendingActions = pendingActions.filter((a, idx) => !(String(a.task.ID) === String(id) && a.action === 'update' && idx !== addActionIdx));
+                        } else {
+                            // Remove previous same ID actions if in queue to prevent bloat
+                            pendingActions = pendingActions.filter(a => !(String(a.task.ID) === String(id) && a.action === 'update'));
 
-                        let targetKey = null;
-                        if (taskObj._sourceSheet) {
-                            targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === taskObj._sourceSheet);
+                            let targetKey = null;
+                            if (taskObj._sourceSheet) {
+                                targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === taskObj._sourceSheet);
+                            }
+
+                            let actionPayload = { action: action, task: taskObj };
+                            if (targetKey) actionPayload.targetSheetKey = targetKey;
+
+                            pendingActions.push(actionPayload);
                         }
-
-                        let actionPayload = { action: action, task: taskObj };
-                        if (targetKey) actionPayload.targetSheetKey = targetKey;
-
-                        pendingActions.push(actionPayload);
                         window.updateSyncUI();
 
                         if (currentSheetKey === 'phatsinh' && typeof window.renderPhatSinhBoard === 'function') {
@@ -3572,7 +3580,32 @@
                     window.showToast('✅ Đã xóa khỏi bảng nháp.');
                 }
 
+                window.updatePriority = function (taskId, newPrio) {
+                    if (String(taskId).startsWith('LOCAL_')) {
+                        window.showToast("⚠️ Vui lòng bầm Đồng bộ dữ liệu để Sinh Mã ID chính quy trước khi Gán Kế Hoạch!", "error");
+                        if (window.renderKeHoachBoard && window.tasksData) window.renderKeHoachBoard(window.tasksData);
+                        return;
+                    }
+                    if (!window.prioMapData) window.prioMapData = {};
+                    window.prioMapData[taskId] = newPrio;
+
+                    let taskToSync = { ID: taskId, Priority: newPrio };
+
+                    // Remove previous same ID actions if in queue to prevent bloat
+                    pendingActions = pendingActions.filter(a => !(a.task.ID === taskId && a.action === 'update' && a.targetSheetKey === 'kehoach'));
+                    pendingActions.push({ action: 'update', task: taskToSync, targetSheetKey: 'kehoach' });
+
+                    window.updateSyncUI();
+                    if (window.renderKeHoachBoard && window.tasksData) window.renderKeHoachBoard(window.tasksData);
+                    window.showToast(`✅ Đã cập nhật độ ưu tiên. Đang tự động đồng bộ...`);
+                    window.syncToSheets();
+                }
+
                 window.updatePhatSinhStatus = function (id, newStatus) {
+                    if (String(id).startsWith('LOCAL_')) {
+                        window.showToast("⚠️ Vui lòng ấn Đồng bộ để máy chủ phát ID chuẩn trước khi thay đổi Trạng Thái.", "error");
+                        return;
+                    }
                     let updatedTasks = tasksData.filter(t => String(t.ID) === String(id));
                     if (updatedTasks.length === 0) return;
 
@@ -3584,7 +3617,7 @@
 
                     // Remove previous same ID actions if in queue to prevent bloat
                     pendingActions = pendingActions.filter(a => !(a.task.ID === id && a.action === 'update'));
-                    pendingActions.push({ action: 'update', task: taskToSync });
+                    pendingActions.push({ action: 'update', task: taskToSync, targetSheetKey: 'phatsinh' });
 
                     window.updateSyncUI();
                     window.renderPhatSinhBoard(tasksData);
