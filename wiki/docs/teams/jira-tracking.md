@@ -7,13 +7,13 @@ Tài liệu này giải thích cách thức hoạt động của "Đội ngũ AI
 ## 1. 👥 Các Thành Viên Khung (AI Agents)
 Hệ thống Tracking chia làm "Não" (Logic) và "Tay Chân" (Operations):
 
-**🤖 Jira Operations Bot (Cỗ máy tay chân):** 
-- Nhiệm vụ duy nhất là nhận lệnh, kéo dữ liệu thô (Raw Data JSON) bằng API Jira, và đẩy thông tin (Push) lên Telegram bằng API Telegram.
-- Nó không có khả năng hiểu hay thay đổi dữ liệu nội dung của báo cáo tự động để đảm bảo tính minh bạch.
+**🤖 Jira Operations Bot (`roles/Jira/jira_operations_bot.md`):** 
+- Là cỗ máy vận hành, trung thành và nghiêm ngặt chuyên biệt thực hiện các tác vụ API với hệ thống quản trị Jira VNPT và Telegram.
+- Nhiệm vụ duy nhất là nhận lệnh, kéo dữ liệu thô bằng API Jira, và đẩy thông tin (Push) lên Telegram bằng API Telegram. Không có não phân tích văn bản.
 
-**🧠 Jira Logic Analyst (Bộ não phân tích):**
-- Đóng vai trò đọc số liệu khô khan do Operations Bot mang về. 
-- Nhiệm vụ là phân rã các Task, phát hiện rủi ro (Risk) như quá hạn, dịch thuật, chắt lọc số lượng và tự động soạn thảo lại các bản báo cáo siêu xinh với tiếng Việt chuẩn mực, giàu sự thấu cảm.
+**🧠 Jira Logic Analyst (`roles/Jira/jira_logic_analyst.md`):**
+- Đóng vai trò cố vấn đánh giá rủi ro, đọc số liệu khô khan do Operations Bot mang về. 
+- Nhiệm vụ là phân rã các Task, phát hiện rủi ro (Risk) như quá hạn, dịch thuật, chắt lọc số lượng và tổng hợp thành báo cáo Recap dạng JSON/Markdown.
 
 ---
 

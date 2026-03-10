@@ -47,10 +47,11 @@ nav:
     - URD Execute (Autopilot): bat-dau/urd-execute-workflow.md
   - 👥 Teams:
     - Jira Tracking Team: teams/jira-tracking.md
-    - McKinsey Research Team: teams/mckinsey-research.md
-    - PG Insights Team: teams/pg-insights.md
+    - McKinsey Research Team: teams/mckinsey.md
+    - Flow Design Team: teams/flow-design.md
     - UIUX Audit Team: teams/uiux-audit.md
-    - UX Design Team: teams/ux-design.md
+    - Design Ops Team: teams/design-ops.md
+    - URD Mapper Team: teams/urd-mapper.md
   - 📋 Quản lý Task: task_manager.html
   - 🧠 Knowledge base: 'knowledge base/index.md'
 hooks:
