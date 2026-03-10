@@ -1,6 +1,6 @@
 ---
 skill_name: Figma_To_URD_Image_Mapper_And_Validator
-description: Kỹ năng All-in-One: Hiểu quy tắc đặt tên Figma, quét "Mã màn hình" do PO điền sẵn trong URD, đối chiếu chính xác (Exact Match), bỏ qua Anti-patterns, xuất ảnh và chèn vào cột "Giao diện".
+description: "Kỹ năng All-in-One: Hiểu quy tắc đặt tên Figma, quét 'Mã màn hình' do PO điền sẵn trong URD, đối chiếu chính xác (Exact Match), bỏ qua Anti-patterns, xuất ảnh và chèn vào cột 'Giao diện'."
 required_tools: [Figma_MCP]
 ---
 
@@ -65,7 +65,7 @@ Kích hoạt tự động khi người dùng (User/PO) cung cấp đồng thời
 ---
 
 ## 5. HƯỚNG DẪN KẾT HỢP AGENT (PIPELINE)
-Kỹ năng (Skill) này được thiết kế để hoạt động độc lập hoặc **chạy nối tiếp (Pipeline)** cùng với **Agent Tạo File URD**. Khi thao tác, các PO hãy làm theo lưu trình sau:
+Kỹ năng (Skill) này được thiết kế để hoạt động độc lập hoặc **chạy nối tiếp (Pipeline)** cùng với **Agent PYC Execute**. Khi thao tác, các PO hãy làm theo lưu trình sau:
 
-1. **Giai đoạn 1 (Tạo URD Khung):** Gọi Agent Tạo File URD để AI phân tích nghiệp vụ và tự động sinh ra bảng Đặc tả Kỹ thuật (Bao gồm các cột: Bước, Điểm chạm, Hành động, Mã màn hình...). Lúc này cột `[Giao diện]` sẽ để trống.
+1. **Giai đoạn 1 (Tạo URD Khung):** Gọi Agent PYC Execute để AI phân tích nghiệp vụ và tự động sinh ra bảng Đặc tả Kỹ thuật (Bao gồm các cột: Bước, Điểm chạm, Hành động, Mã màn hình...). Lúc này cột `[Giao diện]` sẽ để trống.
 2. **Giai đoạn 2 (Fill Ảnh tự động):** Gọi ngay Agent URD Mapper này (đính kèm link Figma của team Design). Agent này sẽ nhận đầu vào là cái Bảng URD Khung vừa sinh ở Bước 1, tự động rà quét mã màn hình trên Figma và Fill toàn bộ ảnh Screenshot vào cột `[Giao diện]`, hoàn tất bản URD Final 100%.
