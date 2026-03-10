@@ -1586,8 +1586,7 @@
                         originalValue = task['Ten dau viec'] || '';
                         td.innerHTML = `<input type="text" class="inline-edit-input" value="${escapeHTML(originalValue)}">`;
                     } else if (fieldType === 'priority') {
-                        let localPrio = localStorage.getItem('PRIORITY_' + task.ID);
-                        originalValue = localPrio !== null ? localPrio : (task['Priority'] || '');
+                        originalValue = task['Priority'] || '';
                         td.innerHTML = `<input type="number" class="inline-edit-input" style="width:100%; text-align:center;" value="${escapeHTML(originalValue)}">`;
                     } else if (fieldType === 'lead') {
                         originalValue = task['Phu trach'] || '';
@@ -1655,11 +1654,17 @@
                         if (fieldType === 'task' && newValue !== (task['Ten dau viec'] || '')) {
                             task['Ten dau viec'] = newValue; isChanged = true;
                         } else if (fieldType === 'priority') {
-                            let localPrio = localStorage.getItem('PRIORITY_' + task.ID);
-                            let curr = localPrio !== null ? localPrio : (task['Priority'] || '');
+                            let curr = task['Priority'] || '';
                             if (newValue !== curr) {
-                                localStorage.setItem('PRIORITY_' + task.ID, newValue);
-                                task['Priority'] = newValue; // Update in-memory for re-render, but DO NOT set isChanged = true
+                                let note = task['Ghi chú'] || '';
+                                // Xóa [Prio: X] cũ nếu có gạch
+                                note = note.replace(/\[Prio:\s*\d+\]/gi, '').trim();
+                                if (newValue !== '') {
+                                    note += (note.length > 0 ? ' ' : '') + `[Prio:${newValue}]`;
+                                }
+                                task['Ghi chú'] = note;
+                                task['Priority'] = newValue;
+                                isChanged = true;
                             }
                         } else if (fieldType === 'lead' && newValue !== (task['Phu trach'] || '')) {
                             task['Phu trach'] = newValue; isChanged = true;
@@ -1874,9 +1879,19 @@
                             return t.ID && String(t.ID).trim() !== '';
                         });
 
-                        // Parse dates safely
-                        debugLog('Parsing dates...');
+                        // Parse dates and hidden metadata safely
+                        debugLog('Parsing dates and metadata...');
                         tasksData.forEach(t => {
+                            // Extract Priority from Ghi chú
+                            let noteField = t['Ghi chú'] || '';
+                            let prioMatch = noteField.match(/\[Prio:\s*(\d+)\]/i);
+                            if (prioMatch) {
+                                t['Priority'] = prioMatch[1];
+                                t['Ghi chú'] = noteField.replace(/\[Prio:\s*\d+\]/gi, '').trim();
+                            } else {
+                                t['Priority'] = '';
+                            }
+
                             let parsed = false;
                             if (t.Timeline && typeof t.Timeline === 'string' && t.Timeline.trim() !== '') {
                                 let parts = t.Timeline.includes('|') ? t.Timeline.split('|') : t.Timeline.split('-');
@@ -2579,10 +2594,8 @@
 
                     // Sắp xếp Task theo cột Priority (Số nhỏ xếp trước)
                     filtered.sort((a, b) => {
-                        let localA = localStorage.getItem('PRIORITY_' + a.ID);
-                        let pA = parseInt((localA !== null ? localA : a['Priority'] || '999').toString().trim()) || 999;
-                        let localB = localStorage.getItem('PRIORITY_' + b.ID);
-                        let pB = parseInt((localB !== null ? localB : b['Priority'] || '999').toString().trim()) || 999;
+                        let pA = parseInt((a['Priority'] || '999').toString().trim()) || 999;
+                        let pB = parseInt((b['Priority'] || '999').toString().trim()) || 999;
 
                         if (pA !== pB) return pA - pB;
 
@@ -2639,8 +2652,7 @@
 
                         let actionHTML = `<div style="display:flex; justify-content:center;">${jiraVnpBtn} ${jiraNoiBoBtn}</div>`;
 
-                        let localPrio = localStorage.getItem('PRIORITY_' + task.ID);
-                        let prioValue = escapeHTML(localPrio !== null ? localPrio : (task['Priority'] || ''));
+                        let prioValue = escapeHTML(task['Priority'] || '');
 
                         tr.innerHTML = `
                             <td style="padding: 12px 16px; color:#94a3b8; text-align:center; font-size:0.85em;">${index + 1}</td>
