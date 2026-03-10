@@ -2325,7 +2325,8 @@
                 window.restorePhatSinhTask = function (safeID) {
                     if (!confirm('Xác nhận: Khôi phục lại Task này về màn hình Kế Hoạch chưa xử lý?')) return;
 
-                    let foundTask = window.tasksData?.find(t => String(t.ID) === safeID);
+                    let originalID = safeID.replace(/\\'/g, "'");
+                    let foundTask = (window.renderedPhatSinhTasks && window.renderedPhatSinhTasks[originalID]) || window.tasksData?.find(t => String(t.ID) === originalID);
                     if (!foundTask) return;
 
                     let oldStatus = foundTask['Trang thai'];
