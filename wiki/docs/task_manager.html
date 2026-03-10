@@ -2534,7 +2534,7 @@
 
                 function renderKeHoachBoard(tasks, skipTabRebuild = false) {
                     const tabsContainer = document.getElementById('kehoach-tabs-container');
-                    const tbody = document.getElementById('kehoach-tbody');
+                    var tbody = document.getElementById('kehoach-tbody');
                     if (!tabsContainer || !tbody) return;
 
                     // Lọc những task hợp lệ (có start date)
@@ -2638,7 +2638,7 @@
                         </table>
                     `;
                     document.getElementById('kehoach-board-content').innerHTML = tableHTML;
-                    const tbody = document.getElementById('kehoach-task-list');
+                    tbody = document.getElementById('kehoach-task-list');
 
                     // Filter task theo currentKeHoachTab và theo Từ khóa Tìm kiếm
                     let filtered = validTasks.filter(t => {
