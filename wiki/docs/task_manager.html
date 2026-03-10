@@ -1654,6 +1654,12 @@
                         if (fieldType === 'task' && newValue !== (task['Ten dau viec'] || '')) {
                             task['Ten dau viec'] = newValue; isChanged = true;
                         } else if (fieldType === 'priority') {
+                            if (String(task.ID).startsWith('LOCAL_')) {
+                                window.showToast("⚠️ Vui lòng nhấn Đồng bộ (Bóc Mã số ID Đỏ) trước khi gán Số Khóa trên bảng Kế Hoạch!", "error");
+                                td.innerHTML = originalHTML; // revert UI
+                                return;
+                            }
+
                             if (newValue !== (task['Priority'] || '')) {
                                 let newPrioNum = parseInt(newValue.trim(), 10);
                                 if (!isNaN(newPrioNum)) {
@@ -1663,6 +1669,8 @@
                                     let duplicateTask = tasksData.find(otherT => {
                                         if (String(otherT.ID) === String(task.ID)) return false;
                                         if (String(otherT['Trang thai'] || '').trim().toLowerCase() === 'completed') return false;
+
+                                        if (!otherT._start || isNaN(otherT._start.getTime())) return false; // ADD CROSS-BOARD PROTECTION
 
                                         let otherMKey = (otherT._start.getMonth() + 1).toString().padStart(2, '0') + '/' + otherT._start.getFullYear();
                                         if (curMKey !== otherMKey) return false; // Different Month
