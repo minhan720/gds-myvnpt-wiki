@@ -1,6 +1,6 @@
 ---
 skill_name: Figma_To_URD_Image_Mapper_And_Validator
-description: "Kỹ năng All-in-One: Hiểu quy tắc đặt tên Figma, quét 'Mã màn hình' do PO điền sẵn trong URD, đối chiếu chính xác (Exact Match), bỏ qua Anti-patterns, xuất ảnh và chèn vào cột 'Giao diện'."
+description: "Kỹ năng Đồng bộ URD-Figma: Hiểu quy tắc đặt tên Figma, quét 'Mã màn hình' do PO điền sẵn trong URD, đối chiếu chính xác (Exact Match), bỏ qua Anti-patterns, xuất ảnh và chèn vào cột 'Giao diện'."
 required_tools: [Figma_MCP]
 ---
 
