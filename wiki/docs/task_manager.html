@@ -3235,6 +3235,11 @@
                     let task = (window.renderedPhatSinhTasks && window.renderedPhatSinhTasks[String(id)]) || (window.tasksData || tasksData).find(t => String(t.ID) === String(id));
                     if (!task) return;
 
+                    if (String(id).startsWith('LOCAL_') || String(id).startsWith('GS_AUTO_') || String(id).startsWith('APP_')) {
+                        window.showToast("⚠️ Task này chưa có ID chính thức trên Sheets. Vui lòng Đồng bộ trước khi Phê duyệt (Approve)!", "error");
+                        return;
+                    }
+
                     // Populate Lead Options if empty
                     const assigneeSelect = document.getElementById('approve-task-assignee');
                     if (assigneeSelect && assigneeSelect.options.length <= 1) {
@@ -3711,26 +3716,39 @@
                         } else if (actualTarget === 'phatsinh') {
                             payloadTask = {
                                 'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_') || t.ID.toString().startsWith('APP_'))) ? '' : (t.ID || ''),
-                                'Danh muc': t['Danh muc'] || '',
-                                'Phan loai': t['Phan loai'] || '',
-                                'Ten dau viec': t['Ten dau viec'] || '',
+                                'Danh muc': t['Danh muc'] || t['Danh mục'] || '',
+                                'Danh mục': t['Danh muc'] || t['Danh mục'] || '',
+                                'Phan loai': t['Phan loai'] || t['Phân loại'] || '',
+                                'Phân loại': t['Phan loai'] || t['Phân loại'] || '',
+                                'Ten dau viec': t['Ten dau viec'] || t['Tên đầu việc'] || '',
+                                'Tên đầu việc': t['Ten dau viec'] || t['Tên đầu việc'] || '',
                                 'Jira': t['Jira'] || '',
-                                'Ngay tiep nhan': t['Ngay tiep nhan'] || '',
-                                'Ngay hoan thanh': t['Ngay hoan thanh'] || '',
-                                'Trang thai': t['Trang thai'] || '',
-                                'Ghi chu': t['Ghi chu'] || ''
+                                'Ngay tiep nhan': t['Ngay tiep nhan'] || t['Ngày tiếp nhận'] || '',
+                                'Ngày tiếp nhận': t['Ngay tiep nhan'] || t['Ngày tiếp nhận'] || '',
+                                'Ngay hoan thanh': t['Ngay hoan thanh'] || t['Ngày hoàn thành'] || '',
+                                'Ngày hoàn thành': t['Ngay hoan thanh'] || t['Ngày hoàn thành'] || '',
+                                'Trang thai': t['Trang thai'] || t['Trạng thái'] || '',
+                                'Trạng thái': t['Trang thai'] || t['Trạng thái'] || '',
+                                'Ghi chu': t['Ghi chu'] || t['Ghi chú'] || '',
+                                'Ghi chú': t['Ghi chu'] || t['Ghi chú'] || ''
                             };
                         } else {
                             payloadTask = {
                                 'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_') || t.ID.toString().startsWith('APP_'))) ? '' : (t.ID || ''),
-                                'Danh muc': t['Danh muc'] || '',
-                                'Ten dau viec': t['Ten dau viec'] || '',
-                                'Phu trach': t['Phu trach'] || '',
+                                'Danh muc': t['Danh muc'] || t['Danh mục'] || '',
+                                'Danh mục': t['Danh muc'] || t['Danh mục'] || '',
+                                'Ten dau viec': t['Ten dau viec'] || t['Tên đầu việc'] || '',
+                                'Tên đầu việc': t['Ten dau viec'] || t['Tên đầu việc'] || '',
+                                'Phu trach': t['Phu trach'] || t['Phụ trách'] || '',
+                                'Phụ trách': t['Phu trach'] || t['Phụ trách'] || '',
                                 'Tai lieu': t['Tai lieu'] || t['Tài liệu'] || '',
+                                'Tài liệu': t['Tai lieu'] || t['Tài liệu'] || '',
                                 'Timeline': t['Timeline'] || '',
                                 'URD date': t['URD date'] || '',
-                                'Trang thai': t['Trang thai'] || '',
-                                'Ghi chu': t['Ghi chu'] || '',
+                                'Trang thai': t['Trang thai'] || t['Trạng thái'] || '',
+                                'Trạng thái': t['Trang thai'] || t['Trạng thái'] || '',
+                                'Ghi chu': t['Ghi chu'] || t['Ghi chú'] || '',
+                                'Ghi chú': t['Ghi chu'] || t['Ghi chú'] || '',
                                 'Jira': t['Jira'] || ''
                             };
                         }
