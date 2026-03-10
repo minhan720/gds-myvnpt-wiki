@@ -2328,8 +2328,32 @@
                     let foundTask = window.tasksData?.find(t => String(t.ID) === safeID);
                     if (!foundTask) return;
 
+                    let oldStatus = foundTask['Trang thai'];
                     foundTask['Trang thai'] = 'Pending';
                     const syncTask = { ID: safeID, 'Trang thai': 'Pending' };
+
+                    // Nếu task là Approved, trích xuất Ghi Chú để đi săn ID Clone
+                    if (oldStatus === 'Approved') {
+                        let ghiChu = foundTask['Ghi chu'] || '';
+                        let linkMatch = ghiChu.match(/\[LINK:(.*?)_(.*?)\]/);
+                        if (linkMatch && linkMatch.length === 3) {
+                            let targetSheet = linkMatch[1];
+                            let targetID = linkMatch[2];
+
+                            // Phát lệnh Truy Sát (Delete)
+                            pendingActions.push({
+                                action: 'delete',
+                                task: { ID: targetID },
+                                targetSheetKey: targetSheet
+                            });
+
+                            // Tẩy xóa dấu vết trên trán
+                            ghiChu = ghiChu.replace(/\[LINK:.*?\]/g, '').trim();
+                            foundTask['Ghi chu'] = ghiChu;
+                            syncTask['Ghi chu'] = ghiChu;
+                        }
+                    }
+
                     let actionPayload = { action: 'update', task: syncTask, targetSheetKey: 'phatsinh' };
 
                     const existingIdx = pendingActions.findIndex(a => String(a.task.ID) === safeID && a.targetSheetKey === 'phatsinh');
@@ -3280,11 +3304,23 @@
                     // 2. Setup the UPDATE action for the original Phat Sinh task
                     if (originalTask) {
                         originalTask['Trang thai'] = 'Approved';
+
+                        // Xăm mã Linkage ID vào Ghi chú
+                        let oldGhiChu = originalTask['Ghi chu'] || '';
+                        let linkTag = `[LINK:${targetSheetKey}_${newTargetTask.ID}]`;
+                        if (!oldGhiChu.includes(linkTag)) {
+                            originalTask['Ghi chu'] = (oldGhiChu + '\n' + linkTag).trim();
+                        }
+
                         // Keep ID to update existing row
                         pendingActions = pendingActions.filter(a => !(a.task.ID === id && a.action === 'update'));
                         pendingActions.push({
                             action: 'update',
-                            task: originalTask,
+                            task: {
+                                ID: originalTask.ID,
+                                'Trang thai': 'Approved',
+                                'Ghi chu': originalTask['Ghi chu']
+                            },
                             targetSheetKey: 'phatsinh' // Route back to PhatSinh
                         });
                     }
