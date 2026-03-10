@@ -3241,7 +3241,7 @@
 
                     // Pre-fill data
                     document.getElementById('approve-task-id').value = id;
-                    document.getElementById('approve-task-name').value = task['Ten dau viec'] || '';
+                    document.getElementById('approve-task-name').value = task['Ten dau viec'] || task['Tên đầu việc'] || '';
                     // Có thể danh mục từ Jira sẽ không khớp hoàn toàn với các board kia, nhưng cứ set text hiện tại làm string mặc định
                     document.getElementById('approve-task-category').value = task['Danh muc'] || '';
 
