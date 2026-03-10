@@ -1655,6 +1655,17 @@
                             task['Ten dau viec'] = newValue; isChanged = true;
                         } else if (fieldType === 'priority') {
                             if (newValue !== (task['Priority'] || '')) {
+                                let newPrioNum = parseInt(newValue.trim(), 10);
+                                if (!isNaN(newPrioNum)) {
+                                    // Duplicate Check
+                                    let isDuplicate = tasksData.some(otherT => String(otherT.ID) !== String(task.ID) && parseInt(String(otherT.Priority || '').trim(), 10) === newPrioNum);
+                                    if (isDuplicate) {
+                                        alert('Số Priority [' + newPrioNum + '] này đã được gán cho một công việc khác rồi sếp Minh ơi! Cấm trùng lặp nhé, hãy chọn số khác!');
+                                        td.innerHTML = originalHTML; // Cancel Saving
+                                        return;
+                                    }
+                                }
+
                                 task['Priority'] = newValue;
                                 // Create isolated sync action for priority mapped to Kehoachthang sheet
                                 let syncTask = { ID: task.ID, Priority: newValue };
@@ -1896,7 +1907,17 @@
 
                         // Parse dates safely
                         debugLog('Parsing dates...');
+                        let currentMaxPrio = 0;
                         tasksData.forEach(t => {
+                            let pObj = parseInt(String(t.Priority || '').trim(), 10);
+                            if (!isNaN(pObj) && pObj > currentMaxPrio) currentMaxPrio = pObj;
+                        });
+
+                        tasksData.forEach(t => {
+                            if (!t.Priority || String(t.Priority).trim() === '') {
+                                currentMaxPrio++;
+                                t.Priority = String(currentMaxPrio);
+                            }
                             let parsed = false;
                             if (t.Timeline && typeof t.Timeline === 'string' && t.Timeline.trim() !== '') {
                                 let parts = t.Timeline.includes('|') ? t.Timeline.split('|') : t.Timeline.split('-');
