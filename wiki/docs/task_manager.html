@@ -3288,6 +3288,7 @@
                     // 1. Setup the NEW TASK object for the Target Sheet (BAU or SIP)
                     let newTargetTask = {
                         ID: 'APP_' + new Date().getTime(), // Biển số Cứng - Được Google Sheets Tôn Trọng Lưu Lại
+                        'Ghi chu': `[SOURCE_ID:${id}]`, // Nhúng vân tay vào Clone để Restore còn tìm diệt được
                         'Danh muc': cat,
                         'Ten dau viec': name,
                         'Phu trach': assignee,
@@ -3311,7 +3312,9 @@
 
                         // Xăm mã Linkage ID vào Ghi chú
                         let oldGhiChu = originalTask['Ghi chu'] || '';
-                        let linkTag = `[LINK:${targetSheetKey}_${newTargetTask.ID}]`;
+                        let linkTag = `[LINK_TO:${targetSheetKey}]`;
+                        // Cào sạch rác cũ (format [LINK:..]) trước khi đắp vân tay mới
+                        oldGhiChu = oldGhiChu.replace(/\[LINK:[^\]]+\]/g, '').replace(/\[LINK_TO:[^\]]+\]/g, '').replace(/\[SOURCE_ID:[^\]]+\]/g, '').trim();
                         if (!oldGhiChu.includes(linkTag)) {
                             originalTask['Ghi chu'] = (oldGhiChu + '\n' + linkTag).trim();
                         }
@@ -3726,6 +3729,11 @@
                         // Protect against missing IDs on update
                         if (actionItem.action === 'update' && payloadTask.ID === '' && actualTarget !== 'kehoach') {
                             actionItem.action = 'add';
+                        }
+
+                        // Explicitly permit delete without ID if fingerprint is present
+                        if (actionItem.action === 'delete' && payloadTask.ID === '') {
+                            // Let it through. Backend `[SOURCE_ID:..]` tracker will handle it.
                         }
 
                         try {
