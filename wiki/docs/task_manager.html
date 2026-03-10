@@ -1654,17 +1654,21 @@
                         if (fieldType === 'task' && newValue !== (task['Ten dau viec'] || '')) {
                             task['Ten dau viec'] = newValue; isChanged = true;
                         } else if (fieldType === 'priority') {
-                            let curr = task['Priority'] || '';
-                            if (newValue !== curr) {
-                                let note = task['Ghi chú'] || '';
-                                // Xóa [Prio: X] cũ nếu có gạch
-                                note = note.replace(/\[Prio:\s*\d+\]/gi, '').trim();
-                                if (newValue !== '') {
-                                    note += (note.length > 0 ? ' ' : '') + `[Prio:${newValue}]`;
-                                }
-                                task['Ghi chú'] = note;
+                            if (newValue !== (task['Priority'] || '')) {
                                 task['Priority'] = newValue;
-                                isChanged = true;
+                                // Create isolated sync action for priority mapped to Kehoachthang sheet
+                                let syncTask = { ID: task.ID, Priority: newValue };
+                                let actionPayload = { action: 'update', task: syncTask, targetSheetKey: 'kehoach' };
+                                const existingIdx = pendingActions.findIndex(a => String(a.task.ID) === String(task.ID) && a.targetSheetKey === 'kehoach');
+                                if (existingIdx !== -1) pendingActions[existingIdx] = actionPayload;
+                                else pendingActions.push(actionPayload);
+                                window.updateSyncUI();
+
+                                // Re-render silently to show new number
+                                if (currentSheetKey === 'kehoach' && typeof window.renderKeHoachBoard === 'function') {
+                                    window.renderKeHoachBoard(tasksData);
+                                }
+                                return; // Skip the rest of finishEdit logic
                             }
                         } else if (fieldType === 'lead' && newValue !== (task['Phu trach'] || '')) {
                             task['Phu trach'] = newValue; isChanged = true;
@@ -1833,11 +1837,12 @@
                         let data = [];
 
                         if (currentSheetKey === 'kehoach' || currentSheetKey === 'dashboard') {
-                            debugLog('Fetching BAU, SIP, and VNP parallel for ' + currentSheetKey + '...');
-                            const [bauResult, sipResult, vnpResult] = await Promise.all([
+                            debugLog('Fetching BAU, SIP, VNP and Kehoachthang parallel for ' + currentSheetKey + '...');
+                            const [bauResult, sipResult, vnpResult, prioResult] = await Promise.all([
                                 fetchSheetData(window.TM_CONFIG.SHEETS['bau']),
                                 fetchSheetData(window.TM_CONFIG.SHEETS['sip']),
-                                fetchSheetData(window.TM_CONFIG.SHEETS['vnp'])
+                                fetchSheetData(window.TM_CONFIG.SHEETS['vnp']),
+                                fetchSheetData('Kehoachthang') // Fetch mapping table
                             ]);
 
                             if (bauResult && bauResult.status === 'error') throw new Error("Lỗi BAU: " + bauResult.message);
@@ -1848,10 +1853,19 @@
                             let sipArr = Array.isArray(sipResult) ? sipResult : [];
                             let vnpArr = Array.isArray(vnpResult) ? vnpResult : [];
 
+                            // Build priority map
+                            let prioMap = {};
+                            let prioArr = Array.isArray(prioResult) ? prioResult : [];
+                            prioArr.forEach(p => {
+                                if (p.ID && p.Priority !== undefined) {
+                                    prioMap[p.ID] = String(p.Priority);
+                                }
+                            });
+
                             // Tag source sheet
-                            bauArr.forEach(t => t._sourceSheet = window.TM_CONFIG.SHEETS['bau']);
-                            sipArr.forEach(t => t._sourceSheet = window.TM_CONFIG.SHEETS['sip']);
-                            vnpArr.forEach(t => t._sourceSheet = window.TM_CONFIG.SHEETS['vnp']);
+                            bauArr.forEach(t => { t._sourceSheet = window.TM_CONFIG.SHEETS['bau']; t['Priority'] = prioMap[t.ID] || ''; });
+                            sipArr.forEach(t => { t._sourceSheet = window.TM_CONFIG.SHEETS['sip']; t['Priority'] = prioMap[t.ID] || ''; });
+                            vnpArr.forEach(t => { t._sourceSheet = window.TM_CONFIG.SHEETS['vnp']; t['Priority'] = prioMap[t.ID] || ''; });
 
                             data = [...bauArr, ...sipArr, ...vnpArr];
                         } else {
@@ -1879,19 +1893,9 @@
                             return t.ID && String(t.ID).trim() !== '';
                         });
 
-                        // Parse dates and hidden metadata safely
-                        debugLog('Parsing dates and metadata...');
+                        // Parse dates safely
+                        debugLog('Parsing dates...');
                         tasksData.forEach(t => {
-                            // Extract Priority from Ghi chú
-                            let noteField = t['Ghi chú'] || '';
-                            let prioMatch = noteField.match(/\[Prio:\s*(\d+)\]/i);
-                            if (prioMatch) {
-                                t['Priority'] = prioMatch[1];
-                                t['Ghi chú'] = noteField.replace(/\[Prio:\s*\d+\]/gi, '').trim();
-                            } else {
-                                t['Priority'] = '';
-                            }
-
                             let parsed = false;
                             if (t.Timeline && typeof t.Timeline === 'string' && t.Timeline.trim() !== '') {
                                 let parts = t.Timeline.includes('|') ? t.Timeline.split('|') : t.Timeline.split('-');
