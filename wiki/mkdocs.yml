@@ -50,6 +50,7 @@ nav:
     - PG Insights Team: teams/pg-insights.md
     - UIUX Audit Team: teams/uiux-audit.md
     - UX Design Team: teams/ux-design.md
+    - Hướng dẫn Quản lý Task: teams/huong-dan-quan-ly-task.md
   - 📋 Quản lý Task: task_manager.html
   - 🧠 Knowledge base: 'knowledge base/index.md'
 hooks:
