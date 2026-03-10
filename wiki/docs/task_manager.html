@@ -3665,7 +3665,7 @@
                             }
                         } else if (actualTarget === 'phatsinh') {
                             payloadTask = {
-                                'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_'))) ? '' : (t.ID || ''),
+                                'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_') || t.ID.toString().startsWith('APP_'))) ? '' : (t.ID || ''),
                                 'Danh muc': t['Danh muc'] || '',
                                 'Phan loai': t['Phan loai'] || '',
                                 'Ten dau viec': t['Ten dau viec'] || '',
@@ -3677,7 +3677,7 @@
                             };
                         } else {
                             payloadTask = {
-                                'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_'))) ? '' : (t.ID || ''),
+                                'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_') || t.ID.toString().startsWith('APP_'))) ? '' : (t.ID || ''),
                                 'Danh muc': t['Danh muc'] || '',
                                 'Ten dau viec': t['Ten dau viec'] || '',
                                 'Phu trach': t['Phu trach'] || '',
