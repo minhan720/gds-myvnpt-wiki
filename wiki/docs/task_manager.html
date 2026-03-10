@@ -1657,8 +1657,18 @@
                             if (newValue !== (task['Priority'] || '')) {
                                 let newPrioNum = parseInt(newValue.trim(), 10);
                                 if (!isNaN(newPrioNum)) {
-                                    // Duplicate Check
-                                    let isDuplicate = tasksData.some(otherT => String(otherT.ID) !== String(task.ID) && parseInt(String(otherT.Priority || '').trim(), 10) === newPrioNum);
+                                    // Duplicate Check By Month Isolation & Ignore Archived
+                                    let curMKey = (task._start.getMonth() + 1).toString().padStart(2, '0') + '/' + task._start.getFullYear();
+
+                                    let isDuplicate = tasksData.some(otherT => {
+                                        if (String(otherT.ID) === String(task.ID)) return false;
+                                        if ((otherT['Trang thai'] || '').trim().toLowerCase() === 'completed') return false;
+
+                                        let otherMKey = (otherT._start.getMonth() + 1).toString().padStart(2, '0') + '/' + otherT._start.getFullYear();
+                                        if (curMKey !== otherMKey) return false; // Different Month
+
+                                        return parseInt(String(otherT.Priority || '').trim(), 10) === newPrioNum;
+                                    });
                                     if (isDuplicate) {
                                         alert('Số Priority [' + newPrioNum + '] này đã được gán cho một công việc khác rồi sếp Minh ơi! Cấm trùng lặp nhé, hãy chọn số khác!');
                                         td.innerHTML = originalHTML; // Cancel Saving
@@ -1905,19 +1915,9 @@
                             return t.ID && String(t.ID).trim() !== '';
                         });
 
-                        // Parse dates safely
+                        // Parse dates safely first so we can use them for Month-based Isolation
                         debugLog('Parsing dates...');
-                        let currentMaxPrio = 0;
                         tasksData.forEach(t => {
-                            let pObj = parseInt(String(t.Priority || '').trim(), 10);
-                            if (!isNaN(pObj) && pObj > currentMaxPrio) currentMaxPrio = pObj;
-                        });
-
-                        tasksData.forEach(t => {
-                            if (!t.Priority || String(t.Priority).trim() === '') {
-                                currentMaxPrio++;
-                                t.Priority = String(currentMaxPrio);
-                            }
                             let parsed = false;
                             if (t.Timeline && typeof t.Timeline === 'string' && t.Timeline.trim() !== '') {
                                 let parts = t.Timeline.includes('|') ? t.Timeline.split('|') : t.Timeline.split('-');
@@ -1938,6 +1938,30 @@
                             if (isNaN(t._start.getTime())) { t._start = new Date(); t._start.setHours(0, 0, 0, 0); }
                             if (isNaN(t._end.getTime())) { t._end = new Date(); t._end.setDate(t._start.getDate() + 1); t._end.setHours(0, 0, 0, 0); }
                             if (t._end < t._start) t._end = new Date(t._start.getTime());
+                        });
+
+                        // Isolated Priority Auto-Increment bounds by MM/YYYY
+                        let maxPrioByMonth = {};
+                        tasksData.forEach(t => {
+                            // Ignore Completed tasks for priority tracking
+                            if ((t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
+
+                            let mKey = (t._start.getMonth() + 1).toString().padStart(2, '0') + '/' + t._start.getFullYear();
+                            if (maxPrioByMonth[mKey] === undefined) maxPrioByMonth[mKey] = 0;
+
+                            let pObj = parseInt(String(t.Priority || '').trim(), 10);
+                            if (!isNaN(pObj) && pObj > maxPrioByMonth[mKey]) maxPrioByMonth[mKey] = pObj;
+                        });
+
+                        tasksData.forEach(t => {
+                            if ((t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
+
+                            let mKey = (t._start.getMonth() + 1).toString().padStart(2, '0') + '/' + t._start.getFullYear();
+                            if (!t.Priority || String(t.Priority).trim() === '') {
+                                if (maxPrioByMonth[mKey] === undefined) maxPrioByMonth[mKey] = 0;
+                                maxPrioByMonth[mKey]++;
+                                t.Priority = String(maxPrioByMonth[mKey]);
+                            }
                         });
 
                         // Render
@@ -2587,6 +2611,35 @@
                         }
                     }
 
+                    const tabContainer = document.getElementById('kehoach-month-tabs');
+                    const activeTab = tabContainer.querySelector('.tm-tab.active');
+                    if (!activeTab) return;
+
+                    // Xác định thẻ ẩn cho biến CSS Tab Archived
+                    var isArchivedTab = (window.currentKeHoachTab === 'Archived');
+                    var prioStyle = isArchivedTab ? 'display:none;' : '';
+
+                    let tableHTML = `
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9em; table-layout: fixed;">
+                            <thead>
+                                <tr style="background:#f1f5f9; border-bottom:2px solid #cbd5e1; color:#475569; font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">
+                                    <th style="padding: 12px 16px; width:40px; text-align:center;">#</th>
+                                    <th style="padding: 12px 16px; width:30%;">Tên Task</th>
+                                    <th style="padding: 12px 16px; width:15%;">LEAD</th>
+                                    <th style="padding: 12px 16px; width:10%; text-align:center;">URD Date</th>
+                                    <th style="padding: 12px 16px; width:10%; text-align:center;">Start date</th>
+                                    <th style="padding: 12px 16px; width:10%; text-align:center;">End date</th>
+                                    <th style="padding: 12px 16px; width:8%; text-align:center; ${prioStyle}">PRIO</th>
+                                    <th style="padding: 12px 16px; width:10%; text-align:center;">Progress</th>
+                                    <th style="padding: 12px 16px; width:15%; text-align:center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kehoach-task-list"></tbody>
+                        </table>
+                    `;
+                    document.getElementById('kehoach-board-content').innerHTML = tableHTML;
+                    const tbody = document.getElementById('kehoach-task-list');
+
                     // Filter task theo currentKeHoachTab và theo Từ khóa Tìm kiếm
                     let filtered = validTasks.filter(t => {
                         let st = String(t['Trang thai'] || '').replace('%', '');
@@ -2687,7 +2740,7 @@
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'urd')" title="Click để sửa">${urdDateValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'start')" title="Click để sửa">${startDateValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'end')" title="Click để sửa">${endDateValue}</td>
-                            <td style="padding: 12px 16px; text-align:center; font-weight:bold; color:#f97316; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'priority')" title="Click sửa Độ ưu tiên">${prioValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; font-weight:bold; color:#f97316; cursor:pointer; ${prioStyle}" onclick="window.makeCellEditable(event, '${safeID}', 'priority')" title="Click sửa Độ ưu tiên">${prioValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'status')" title="Click mở luồng Progress">${statusHtml}</td>
                             <td style="padding: 12px 16px; text-align:center;">${actionHTML}</td>
                          `;
