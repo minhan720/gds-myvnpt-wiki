@@ -3481,120 +3481,116 @@
 
                 // --- LOGIC SCORECARD MODAL ---
                 window.openScorecardModal = function (type) {
-                    if (!window.allTasks) return;
+                    if (!window.tasksData) {
+                        console.warn("Không tìm thấy window.tasksData");
+                        return;
+                    }
+
                     let filtered = [];
                     let title = "";
 
-                    const parseDateStr = (dateStr) => {
-                        if (!dateStr || dateStr.trim() === '') return null;
-                        const parts = dateStr.split('/');
-                        if (parts.length === 3) {
-                            return new Date(parts[2], parts[1] - 1, parts[0]);
+                    const now = new Date();
+                    now.setHours(0, 0, 0, 0);
+                    const next7Days = new Date(now);
+                    next7Days.setDate(now.getDate() + 7);
+
+                    let currentMonthStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+
+                    // Filter hợp lệ có tên task giống Dashboard gốc
+                    let validTasks = window.tasksData.filter(t => t && (t['Ten dau viec'] || t['Tên đầu việc'] || t['Danh muc'] || t['Phu trach']) && String(t.ID).trim() !== '' && String(t.ID).trim() !== 'ID');
+
+                    validTasks.forEach(t => {
+                        let isCompleted = window.isTaskCompleted(t);
+                        let status = t['Trang thai'] || t['Trạng thái'] || '';
+
+                        let name = t['Ten dau viec'] || t['Tên đầu việc'] || 'Untitled Task';
+                        let assignee = t['Phu trach'] || t['Phụ trách'] || 'Unassigned';
+                        let link = t['Jira'] || t['Link'] || '';
+                        let sheetName = t._sourceSheet || 'Unknown';
+
+                        let hasUrd = t['URD date'] && String(t['URD date']).trim() !== '';
+                        let uD = null;
+                        if (hasUrd) {
+                            uD = window.parseDate(t['URD date']);
+                            if (uD && !isNaN(uD.getTime())) uD.setHours(23, 59, 59, 999);
                         }
-                        return null;
-                    };
 
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
+                        let inTarget = false;
+                        let badgeHtml = '';
 
-                    // Month checker for active/completed
-                    let currentMonthStr = (today.getMonth() + 1).toString().padStart(2, '0') + '/' + today.getFullYear();
-
-                    for (let sheet in window.allTasks) {
-                        if (!window.allTasks[sheet] || window.allTasks[sheet].length === 0) continue;
-
-                        window.allTasks[sheet].forEach(t => {
-                            if (!t['ID']) return;
-
-                            let status = t['Trang thai'] || t['Trạng thái'] || '';
-                            let isDone = status === 'Done' || status === 'Closed' || status.includes('100%');
-
-                            // Ad-hoc vs Main tasks mapping
-                            let name = t['Ten dau viec'] || t['Tên đầu việc'] || 'Untitled Task';
-                            let assignee = t['Phu trach'] || t['Phụ trách'] || 'Unassigned';
-                            if (sheet === 'phatsinh') assignee = 'Ad-hoc (Various)';
-                            let link = t['Jira'] || t['Link'] || '';
-
-                            let urdDateRaw = sheet === 'phatsinh' ? t['Ngay tiep nhan'] : t['URD date'];
-                            let endDateRaw = sheet === 'phatsinh' ? t['Ngay hoan thanh'] : (t['End date'] || t['End'] || t['Thời gian lên Live']);
-
-                            let urdDateObj = parseDateStr(urdDateRaw);
-                            let endDateObj = parseDateStr(endDateRaw);
-
-                            let inTarget = false;
-                            let badgeHtml = '';
-
-                            switch (type) {
-                                case 'active':
-                                    title = "Active Tasks (Tháng " + currentMonthStr + ")";
-                                    // Tasks in Ke Hoach Thang which are NOT done
-                                    if (sheet === 'kehoach' && !isDone) {
+                        switch (type) {
+                            case 'active':
+                                title = "Active Tasks (Tháng này)";
+                                if (!isCompleted && t._start && !isNaN(t._start.getTime())) {
+                                    let mStr = t._start.getFullYear() + '-' + String(t._start.getMonth() + 1).padStart(2, '0');
+                                    if (mStr === currentMonthStr) {
                                         inTarget = true;
                                         badgeHtml = `<span style="background:#e0e7ff; color:#4338ca; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Active</span>`;
                                     }
-                                    break;
-                                case 'completion':
-                                    title = "Nhiệm vụ Đã Hoàn Thành (Tháng " + currentMonthStr + ")";
-                                    // Tasks in Ke Hoach Thang which ARE done
-                                    if (sheet === 'kehoach' && isDone) {
+                                }
+                                break;
+                            case 'completion':
+                                title = "Nhiệm vụ Đã Hoàn Thành";
+                                if (isCompleted) {
+                                    inTarget = true;
+                                    badgeHtml = `<span style="background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Completed</span>`;
+                                }
+                                break;
+                            case 'due_urd':
+                                title = "Công việc Sắp Tới Hạn URD (<= 5 ngày)";
+                                if (!isCompleted && uD && !isNaN(uD.getTime())) {
+                                    let next5Days = new Date(now);
+                                    next5Days.setDate(now.getDate() + 5);
+                                    if (uD >= now && uD <= next5Days) {
+                                        let diff = Math.floor((uD - now) / (1000 * 60 * 60 * 24));
                                         inTarget = true;
-                                        badgeHtml = `<span style="background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Completed</span>`;
+                                        badgeHtml = `<span style="background:#ffedd5; color:#c2410c; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Còn ${diff} ngày URD</span>`;
                                     }
-                                    break;
-                                case 'due_urd':
-                                    title = "Công việc Sắp Tới Hạn URD (<= 5 ngày)";
-                                    if (!isDone && urdDateObj) {
-                                        let diff = Math.floor((urdDateObj - today) / (1000 * 60 * 60 * 24));
-                                        if (diff >= 0 && diff <= 5) {
-                                            inTarget = true;
-                                            badgeHtml = `<span style="background:#ffedd5; color:#c2410c; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Còn ${diff} ngày URD</span>`;
-                                        }
+                                }
+                                break;
+                            case 'due_release':
+                                title = "Công việc Sắp Release (<= 7 ngày)";
+                                if (!isCompleted && t._end && !isNaN(t._end.getTime())) {
+                                    if (t._end >= now && t._end <= next7Days) {
+                                        let diff = Math.floor((t._end - now) / (1000 * 60 * 60 * 24));
+                                        inTarget = true;
+                                        badgeHtml = `<span style="background:#fef3c7; color:#d97706; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Còn ${diff} ngày Live</span>`;
                                     }
-                                    break;
-                                case 'due_release':
-                                    title = "Công việc Sắp Release (<= 7 ngày)";
-                                    if (!isDone && endDateObj) {
-                                        let diff = Math.floor((endDateObj - today) / (1000 * 60 * 60 * 24));
-                                        if (diff >= 0 && diff <= 7) {
-                                            inTarget = true;
-                                            badgeHtml = `<span style="background:#fef3c7; color:#d97706; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Còn ${diff} ngày Live</span>`;
-                                        }
+                                }
+                                break;
+                            case 'overdue_urd':
+                                title = "Công việc Quá Hạn URD";
+                                if (!isCompleted && uD && !isNaN(uD.getTime())) {
+                                    if (uD < now) {
+                                        let diff = Math.floor((now - uD) / (1000 * 60 * 60 * 24));
+                                        inTarget = true;
+                                        badgeHtml = `<span style="background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Trễ ${diff} ngày URD</span>`;
                                     }
-                                    break;
-                                case 'overdue_urd':
-                                    title = "Công việc Đã Quá Hạn URD";
-                                    if (!isDone && urdDateObj) {
-                                        let diff = Math.floor((urdDateObj - today) / (1000 * 60 * 60 * 24));
-                                        if (diff < 0) {
-                                            inTarget = true;
-                                            badgeHtml = `<span style="background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Trễ ${Math.abs(diff)} ngày URD</span>`;
-                                        }
+                                }
+                                break;
+                            case 'overdue_release':
+                                title = "Công việc Quá Hạn Release";
+                                if (!isCompleted && t._end && !isNaN(t._end.getTime())) {
+                                    if (t._end < now) {
+                                        let diff = Math.floor((now - t._end) / (1000 * 60 * 60 * 24));
+                                        inTarget = true;
+                                        badgeHtml = `<span style="background:#fee2e2; color:#991b1b; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Trễ ${diff} ngày Live</span>`;
                                     }
-                                    break;
-                                case 'overdue_release':
-                                    title = "Công việc Đã Quá Hạn Release";
-                                    if (!isDone && endDateObj) {
-                                        let diff = Math.floor((endDateObj - today) / (1000 * 60 * 60 * 24));
-                                        if (diff < 0) {
-                                            inTarget = true;
-                                            badgeHtml = `<span style="background:#fee2e2; color:#991b1b; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Trễ ${Math.abs(diff)} ngày Live</span>`;
-                                        }
-                                    }
-                                    break;
-                            }
+                                }
+                                break;
+                        }
 
-                            if (inTarget) {
-                                filtered.push({
-                                    name: name,
-                                    assignee: assignee,
-                                    status: status,
-                                    sheet: window.TM_CONFIG.SHEETS[sheet],
-                                    badge: badgeHtml,
-                                    link: link
-                                });
-                            }
-                        });
-                    }
+                        if (inTarget) {
+                            filtered.push({
+                                name: name,
+                                assignee: assignee,
+                                status: status,
+                                sheet: sheetName,
+                                badge: badgeHtml,
+                                link: link
+                            });
+                        }
+                    });
 
                     document.getElementById('scorecard-modal-title').innerText = title;
                     let listEl = document.getElementById('scorecard-modal-list');
