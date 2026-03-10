@@ -920,13 +920,15 @@
                         </div>
                     </div>
                     <div
-                        style="background: white; border: 1px solid #fee2e2; border-radius: 8px; padding: 20px; position: relative;">
+                        style="background: white; border: 1px solid #fee2e2; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; overflow: hidden; height: 350px;">
                         <h3
-                            style="font-size: 1.1em; color: #dc2626; margin-top:0; margin-bottom: 12px; position: sticky; top: 0; background: white; z-index: 10; padding-bottom: 8px; border-bottom: 1px solid #fee2e2;">
+                            style="font-size: 1.1em; color: #dc2626; margin-top:0; margin-bottom: 12px; flex: 0 0 auto;">
                             Top Alert: Chậm
                             URD</h3>
-                        <div id="dash-warning-list" style="max-height: 240px; overflow-y: auto; padding-right: 4px;">
-                            <!-- Rendered by JS -->
+                        <div style="flex: 1 1 auto; overflow-y: auto; padding-right: 4px; min-height: 0;">
+                            <div id="dash-warning-list">
+                                <!-- Rendered by JS -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2120,7 +2122,7 @@
 
                     // Sort: Trễ hạn lâu nhất lên đầu, tiếp đến là còn ít ngày nhất
                     risks.sort((a, b) => a.daysDiff - b.daysDiff);
-                    let topRisks = risks.slice(0, 5); // Lấy top 5
+                    let topRisks = risks; // Hiển thị tất cả thay vì giới hạn top 5
 
                     warnList.innerHTML = '';
                     if (topRisks.length === 0) {

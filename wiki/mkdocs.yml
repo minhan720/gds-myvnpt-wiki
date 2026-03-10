@@ -42,6 +42,7 @@ nav:
     - Nguyên lý làm việc: getting-started.md
     - Checklist tuần đầu: bat-dau/checklist.md
     - Công cụ: bat-dau/cong-cu.md
+    - Hướng dẫn Quản lý Task: bat-dau/huong-dan-quan-ly-task.md
   - 🔄 Quy trình:
     - URD Execute (Autopilot): bat-dau/urd-execute-workflow.md
   - 👥 Teams:
@@ -50,7 +51,6 @@ nav:
     - PG Insights Team: teams/pg-insights.md
     - UIUX Audit Team: teams/uiux-audit.md
     - UX Design Team: teams/ux-design.md
-    - Hướng dẫn Quản lý Task: teams/huong-dan-quan-ly-task.md
   - 📋 Quản lý Task: task_manager.html
   - 🧠 Knowledge base: 'knowledge base/index.md'
 hooks:
