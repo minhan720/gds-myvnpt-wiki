@@ -2499,17 +2499,19 @@
                                     return t._start.getFullYear() + '-' + String(t._start.getMonth() + 1).padStart(2, '0') === m;
                                 }).length;
 
-                                let isActive = (m === window.currentKeHoachTab);
-                                let color = isActive ? '#4f46e5' : '#64748b';
-                                let border = isActive ? '#4f46e5' : 'transparent';
+                                if (count > 0) {
+                                    let isActive = (m === window.currentKeHoachTab);
+                                    let color = isActive ? '#4f46e5' : '#64748b';
+                                    let border = isActive ? '#4f46e5' : 'transparent';
 
-                                let div = document.createElement('div');
-                                div.className = 'kehoach-tab';
-                                div.dataset.month = m;
-                                div.onclick = () => window.switchKeHoachTab(m);
-                                div.style = `padding: 16px 24px; font-weight: 600; cursor: pointer; color: ${color}; border-bottom: 3px solid ${border}; transition: all 0.2s; white-space: nowrap;`;
-                                div.innerHTML = displayStr + `<span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; margin-left: 8px;">${count}</span>`;
-                                tabsContainer.appendChild(div);
+                                    let div = document.createElement('div');
+                                    div.className = 'kehoach-tab';
+                                    div.dataset.month = m;
+                                    div.onclick = () => window.switchKeHoachTab(m);
+                                    div.style = `padding: 16px 24px; font-weight: 600; cursor: pointer; color: ${color}; border-bottom: 3px solid ${border}; transition: all 0.2s; white-space: nowrap;`;
+                                    div.innerHTML = displayStr + `<span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; margin-left: 8px;">${count}</span>`;
+                                    tabsContainer.appendChild(div);
+                                }
                             });
 
                             // Render tab Archived
