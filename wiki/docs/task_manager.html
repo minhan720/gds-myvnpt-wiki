@@ -1932,9 +1932,21 @@
 
                             let hasContent = t['Ten dau viec'] || t['Tên đầu việc'] || t['Danh muc'] || t['Phu trach'];
 
-                            // Auto-generate local ID for manually added rows in Google Sheets
+                            // Auto-generate local ID for manually added rows in Google Sheets 
+                            // Using a Stable String Hash to prevent losing Priority tracking across reloads
                             if (hasContent && (!t.ID || String(t.ID).trim() === '')) {
-                                t.ID = 'GS_AUTO_' + new Date().getTime() + '_' + index;
+                                let stableString = (t['Ten dau viec'] || t['Tên đầu việc'] || '') + '|' + (t['Phu trach'] || '') + '|' + (t._sourceSheet || '') + '|' + index;
+
+                                // Simple string to 32bit integer hash (DJB2 variant)
+                                let hash = 0;
+                                for (let i = 0; i < stableString.length; i++) {
+                                    let char = stableString.charCodeAt(i);
+                                    hash = ((hash << 5) - hash) + char;
+                                    hash = hash & hash; // Convert to 32bit integer
+                                }
+
+                                // Make it positive and prefix it
+                                t.ID = 'GS_AUTO_' + Math.abs(hash).toString(36) + '_' + index;
                                 return true;
                             }
                             return t.ID && String(t.ID).trim() !== '';
