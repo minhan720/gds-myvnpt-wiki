@@ -2322,6 +2322,30 @@
                     if (window.tasksData) renderPhatSinhBoard(window.tasksData);
                 }
 
+                window.restorePhatSinhTask = function (safeID) {
+                    if (!confirm('Xác nhận: Khôi phục lại Task này về màn hình Kế Hoạch chưa xử lý?')) return;
+
+                    let foundTask = window.tasksData?.find(t => String(t.ID) === safeID);
+                    if (!foundTask) return;
+
+                    foundTask['Trang thai'] = 'Pending';
+                    const syncTask = { ID: safeID, 'Trang thai': 'Pending' };
+                    let actionPayload = { action: 'update', task: syncTask, targetSheetKey: 'phatsinh' };
+
+                    const existingIdx = pendingActions.findIndex(a => String(a.task.ID) === safeID && a.targetSheetKey === 'phatsinh');
+                    if (existingIdx !== -1) pendingActions[existingIdx] = actionPayload;
+                    else pendingActions.push(actionPayload);
+
+                    window.updateSyncUI();
+                    window.showToast("✅ Đã xác nhận. Đang khôi phục task.");
+
+                    if (window.tasksData) {
+                        window.renderPhatSinhBoard(window.tasksData);
+                    }
+                    setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
+                };
+
+
                 function renderPhatSinhBoard(tasks) {
                     const tbody = document.getElementById('phatsinh-tbody');
                     tbody.innerHTML = '';
@@ -2519,9 +2543,15 @@
                                     `;
                                 }
                                 let currentBadgeHtml = '';
-                                if (status === 'Approved') currentBadgeHtml = '<div style="font-size:0.8em; text-align:center; margin-top:6px; color:#10b981; font-weight:700; letter-spacing:0.5px;">✅ APPROVED</div>';
+                                if (status === 'Approved') {
+                                    currentBadgeHtml = '<div style="font-size:0.8em; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:6px; color:#10b981; font-weight:700; letter-spacing:0.5px;">✅ APPROVED ' +
+                                        '<button onclick="window.restorePhatSinhTask(\'' + safeID + '\')" title="Khôi phục Task về Kế Hoạch 🔴" style="cursor:pointer; background:none; border:none; padding:4px; font-size:1.1em; opacity:0.7; transition:0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">♻️</button></div>';
+                                }
                                 if (status === 'Postponed') currentBadgeHtml = '<div style="font-size:0.8em; text-align:center; margin-top:6px; color:#f59e0b; font-weight:700; letter-spacing:0.5px;">⏳ POSTPONED</div>';
-                                if (status === 'Rejected') currentBadgeHtml = '<div style="font-size:0.8em; text-align:center; margin-top:6px; color:#ef4444; font-weight:700; letter-spacing:0.5px;">❌ REJECTED</div>';
+                                if (status === 'Rejected') {
+                                    currentBadgeHtml = '<div style="font-size:0.8em; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:6px; color:#ef4444; font-weight:700; letter-spacing:0.5px;">❌ REJECTED ' +
+                                        '<button onclick="window.restorePhatSinhTask(\'' + safeID + '\')" title="Khôi phục Task về Kế Hoạch 🔴" style="cursor:pointer; background:none; border:none; padding:4px; font-size:1.1em; opacity:0.7; transition:0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">♻️</button></div>';
+                                }
 
                                 tr.innerHTML = `
                                     <td style="padding: 16px; color:#94a3b8; font-size:0.85em; text-align:center; vertical-align:middle;">${typeIndex}.${taskIndex}</td>
