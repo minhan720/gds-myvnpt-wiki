@@ -956,7 +956,7 @@
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 1.25em; font-weight: 600;">
                         <span id="scorecard-modal-title">Chi Tiết Công Việc</span>
                         <span style="cursor: pointer;"
-                            onclick="document.getElementById('scorecard-modal-overlay').style.display='none'">&times;</span>
+                            onclick="document.getElementById('scorecard-modal-overlay').classList.remove('active')">&times;</span>
                     </div>
                     <div id="scorecard-modal-list" style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
                         <!-- List render by JS -->
@@ -3621,7 +3621,7 @@
                         });
                     }
 
-                    document.getElementById('scorecard-modal-overlay').style.display = 'flex';
+                    document.getElementById('scorecard-modal-overlay').classList.add('active');
                 };
             </script>
             <script>
