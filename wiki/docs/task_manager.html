@@ -1861,6 +1861,7 @@
                                     prioMap[p.ID] = String(p.Priority);
                                 }
                             });
+                            window.prioMapData = prioMap; // LƯU RA BIẾN TOÀN CỤC ĐỂ CHECK LÚC SYNC
 
                             // Tag source sheet
                             bauArr.forEach(t => { t._sourceSheet = window.TM_CONFIG.SHEETS['bau']; t['Priority'] = prioMap[t.ID] || ''; });
@@ -2598,8 +2599,8 @@
 
                     // Sắp xếp Task theo cột Priority (Số nhỏ xếp trước)
                     filtered.sort((a, b) => {
-                        let pA = parseInt((a['Priority'] || '999').toString().trim()) || 999;
-                        let pB = parseInt((b['Priority'] || '999').toString().trim()) || 999;
+                        let pA = parseInt((a['Priority'] || '9999').toString().trim(), 10) || 9999;
+                        let pB = parseInt((b['Priority'] || '9999').toString().trim(), 10) || 9999;
 
                         if (pA !== pB) return pA - pB;
 
@@ -3474,7 +3475,23 @@
                         let actualTarget = actionItem.targetSheetKey || currentSheetKey;
 
                         let payloadTask;
-                        if (actualTarget === 'phatsinh') {
+                        let targetSheetName = window.TM_CONFIG.SHEETS[actualTarget];
+
+                        if (actualTarget === 'kehoach') {
+                            targetSheetName = 'Kehoachthang';
+                            payloadTask = {
+                                'ID': t.ID || '',
+                                'Priority': String(t.Priority || '')
+                            };
+                            // Quan trọng: Nếu ID chưa có trong Sheet phụ thì phải Add dòng mới
+                            if (!window.prioMapData || !window.prioMapData[t.ID]) {
+                                actionItem.action = 'add';
+                                if (!window.prioMapData) window.prioMapData = {};
+                                window.prioMapData[t.ID] = payloadTask.Priority; // Cache local
+                            } else {
+                                actionItem.action = 'update';
+                            }
+                        } else if (actualTarget === 'phatsinh') {
                             payloadTask = {
                                 'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_'))) ? '' : (t.ID || ''),
                                 'Danh muc': t['Danh muc'] || '',
@@ -3501,7 +3518,7 @@
                         }
 
                         // Protect against missing IDs on update
-                        if (actionItem.action === 'update' && payloadTask.ID === '') {
+                        if (actionItem.action === 'update' && payloadTask.ID === '' && actualTarget !== 'kehoach') {
                             actionItem.action = 'add';
                         }
 
@@ -3511,7 +3528,7 @@
                                 method: 'POST',
                                 mode: 'no-cors',
                                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                                body: JSON.stringify({ action: actionItem.action, sheetName: window.TM_CONFIG.SHEETS[actualTarget], task: payloadTask })
+                                body: JSON.stringify({ action: actionItem.action, sheetName: targetSheetName, task: payloadTask })
                             });
 
                             // Add a tiny delay to not bombard GAS too fast causing concurrent save locks
