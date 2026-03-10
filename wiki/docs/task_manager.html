@@ -529,6 +529,22 @@
             transform: translateY(0);
             opacity: 1;
         }
+
+        /* Dashboard Scorecard Hovers */
+        .tm-scorecard {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .tm-scorecard:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        .tm-scorecard.danger:hover {
+            border-color: #f87171 !important;
+        }
     </style>
 </head>
 
@@ -829,14 +845,14 @@
                 <!-- Tầng 1: Scorecards -->
                 <!-- Tầng 1: Scorecards -->
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
-                    <div
+                    <div class="tm-scorecard" onclick="openScorecardModal('active')"
                         style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                         <div style="font-size: 0.85em; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;"
                             title="Tổng số task trong trang Kế hoạch tháng nhưng chưa hoàn thành">
                             Active Tasks (Tháng này)</div>
                         <div id="dash-active-count" style="font-size: 2em; font-weight: 700; color: #0f172a;">0</div>
                     </div>
-                    <div
+                    <div class="tm-scorecard" onclick="openScorecardModal('completion')"
                         style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                         <div
                             style="font-size: 0.85em; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
@@ -845,7 +861,7 @@
                         </div>
                     </div>
 
-                    <div
+                    <div class="tm-scorecard" onclick="openScorecardModal('due_urd')"
                         style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                         <div
                             style="font-size: 0.85em; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
@@ -853,7 +869,7 @@
                         <div id="dash-due-urd-count" style="font-size: 2em; font-weight: 700; color: #f97316;">0</div>
                     </div>
 
-                    <div
+                    <div class="tm-scorecard" onclick="openScorecardModal('due_release')"
                         style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                         <div
                             style="font-size: 0.85em; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
@@ -862,7 +878,7 @@
                         </div>
                     </div>
 
-                    <div
+                    <div class="tm-scorecard danger" onclick="openScorecardModal('overdue_urd')"
                         style="background: white; border: 1px solid #fee2e2; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                         <div
                             style="font-size: 0.85em; color: #ef4444; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
@@ -871,7 +887,7 @@
                         </div>
                     </div>
 
-                    <div
+                    <div class="tm-scorecard danger" onclick="openScorecardModal('overdue_release')"
                         style="background: white; border: 1px solid #fee2e2; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                         <div
                             style="font-size: 0.85em; color: #ef4444; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
@@ -930,6 +946,20 @@
                                 <!-- Rendered by JS -->
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Chi Tiết Scorecard -->
+            <div class="tm-modal-overlay" id="scorecard-modal-overlay">
+                <div class="tm-modal" style="max-width: 800px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 1.25em; font-weight: 600;">
+                        <span id="scorecard-modal-title">Chi Tiết Công Việc</span>
+                        <span style="cursor: pointer;"
+                            onclick="document.getElementById('scorecard-modal-overlay').style.display='none'">&times;</span>
+                    </div>
+                    <div id="scorecard-modal-list" style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
+                        <!-- List render by JS -->
                     </div>
                 </div>
             </div>
@@ -3448,6 +3478,155 @@
                         btn.disabled = false;
                     }
                 }
+
+                // --- LOGIC SCORECARD MODAL ---
+                window.openScorecardModal = function (type) {
+                    if (!window.allTasks) return;
+                    let filtered = [];
+                    let title = "";
+
+                    const parseDateStr = (dateStr) => {
+                        if (!dateStr || dateStr.trim() === '') return null;
+                        const parts = dateStr.split('/');
+                        if (parts.length === 3) {
+                            return new Date(parts[2], parts[1] - 1, parts[0]);
+                        }
+                        return null;
+                    };
+
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    // Month checker for active/completed
+                    let currentMonthStr = (today.getMonth() + 1).toString().padStart(2, '0') + '/' + today.getFullYear();
+
+                    for (let sheet in window.allTasks) {
+                        if (!window.allTasks[sheet] || window.allTasks[sheet].length === 0) continue;
+
+                        window.allTasks[sheet].forEach(t => {
+                            if (!t['ID']) return;
+
+                            let status = t['Trang thai'] || t['Trạng thái'] || '';
+                            let isDone = status === 'Done' || status === 'Closed' || status.includes('100%');
+
+                            // Ad-hoc vs Main tasks mapping
+                            let name = t['Ten dau viec'] || t['Tên đầu việc'] || 'Untitled Task';
+                            let assignee = t['Phu trach'] || t['Phụ trách'] || 'Unassigned';
+                            if (sheet === 'phatsinh') assignee = 'Ad-hoc (Various)';
+                            let link = t['Jira'] || t['Link'] || '';
+
+                            let urdDateRaw = sheet === 'phatsinh' ? t['Ngay tiep nhan'] : t['URD date'];
+                            let endDateRaw = sheet === 'phatsinh' ? t['Ngay hoan thanh'] : (t['End date'] || t['End'] || t['Thời gian lên Live']);
+
+                            let urdDateObj = parseDateStr(urdDateRaw);
+                            let endDateObj = parseDateStr(endDateRaw);
+
+                            let inTarget = false;
+                            let badgeHtml = '';
+
+                            switch (type) {
+                                case 'active':
+                                    title = "Active Tasks (Tháng " + currentMonthStr + ")";
+                                    // Tasks in Ke Hoach Thang which are NOT done
+                                    if (sheet === 'kehoach' && !isDone) {
+                                        inTarget = true;
+                                        badgeHtml = `<span style="background:#e0e7ff; color:#4338ca; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Active</span>`;
+                                    }
+                                    break;
+                                case 'completion':
+                                    title = "Nhiệm vụ Đã Hoàn Thành (Tháng " + currentMonthStr + ")";
+                                    // Tasks in Ke Hoach Thang which ARE done
+                                    if (sheet === 'kehoach' && isDone) {
+                                        inTarget = true;
+                                        badgeHtml = `<span style="background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Completed</span>`;
+                                    }
+                                    break;
+                                case 'due_urd':
+                                    title = "Công việc Sắp Tới Hạn URD (<= 5 ngày)";
+                                    if (!isDone && urdDateObj) {
+                                        let diff = Math.floor((urdDateObj - today) / (1000 * 60 * 60 * 24));
+                                        if (diff >= 0 && diff <= 5) {
+                                            inTarget = true;
+                                            badgeHtml = `<span style="background:#ffedd5; color:#c2410c; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Còn ${diff} ngày URD</span>`;
+                                        }
+                                    }
+                                    break;
+                                case 'due_release':
+                                    title = "Công việc Sắp Release (<= 7 ngày)";
+                                    if (!isDone && endDateObj) {
+                                        let diff = Math.floor((endDateObj - today) / (1000 * 60 * 60 * 24));
+                                        if (diff >= 0 && diff <= 7) {
+                                            inTarget = true;
+                                            badgeHtml = `<span style="background:#fef3c7; color:#d97706; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Còn ${diff} ngày Live</span>`;
+                                        }
+                                    }
+                                    break;
+                                case 'overdue_urd':
+                                    title = "Công việc Đã Quá Hạn URD";
+                                    if (!isDone && urdDateObj) {
+                                        let diff = Math.floor((urdDateObj - today) / (1000 * 60 * 60 * 24));
+                                        if (diff < 0) {
+                                            inTarget = true;
+                                            badgeHtml = `<span style="background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Trễ ${Math.abs(diff)} ngày URD</span>`;
+                                        }
+                                    }
+                                    break;
+                                case 'overdue_release':
+                                    title = "Công việc Đã Quá Hạn Release";
+                                    if (!isDone && endDateObj) {
+                                        let diff = Math.floor((endDateObj - today) / (1000 * 60 * 60 * 24));
+                                        if (diff < 0) {
+                                            inTarget = true;
+                                            badgeHtml = `<span style="background:#fee2e2; color:#991b1b; padding:2px 6px; border-radius:4px; font-size:0.75em; font-weight:600;">Trễ ${Math.abs(diff)} ngày Live</span>`;
+                                        }
+                                    }
+                                    break;
+                            }
+
+                            if (inTarget) {
+                                filtered.push({
+                                    name: name,
+                                    assignee: assignee,
+                                    status: status,
+                                    sheet: window.TM_CONFIG.SHEETS[sheet],
+                                    badge: badgeHtml,
+                                    link: link
+                                });
+                            }
+                        });
+                    }
+
+                    document.getElementById('scorecard-modal-title').innerText = title;
+                    let listEl = document.getElementById('scorecard-modal-list');
+                    listEl.innerHTML = '';
+
+                    if (filtered.length === 0) {
+                        listEl.innerHTML = '<div style="padding:20px; text-align:center; color:#64748b;">Không có kết quả nào phù hợp.</div>';
+                    } else {
+                        filtered.forEach(item => {
+                            let safeName = window.escapeHTML(item.name);
+                            let safeAssignee = window.escapeHTML(item.assignee);
+                            let listHtml = `
+                                <div style="border-bottom: 1px solid #f1f5f9; padding: 16px 12px; transition: background 0.2s; border-radius: 6px; cursor: default;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
+                                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                                        <div style="font-weight:600; color:#0f172a; font-size:1em; max-width: 75%;">${safeName}</div>
+                                        ${item.badge}
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85em; color:#64748b;">
+                                        <div><span style="display:inline-block; margin-right:6px;">👤</span>${safeAssignee}</div>
+                                        <div style="display:flex; gap: 8px; align-items: center;">
+                                            <span style="background:#f1f5f9; color:#475569; padding:2px 8px; border-radius:12px; font-weight:500;">Sheet: ${item.sheet}</span>
+                                            ${item.link && item.link.includes('http') ? `<a href="${item.link}" target="_blank" style="color:#2563eb; text-decoration:none; display:flex; align-items:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>Link</a>` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            listEl.innerHTML += listHtml;
+                        });
+                    }
+
+                    document.getElementById('scorecard-modal-overlay').style.display = 'flex';
+                };
             </script>
             <script>
                 function toggleSidebar() {
