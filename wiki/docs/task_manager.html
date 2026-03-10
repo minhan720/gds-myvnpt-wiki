@@ -1402,13 +1402,14 @@
                 window.updateSyncUI = function () {
                     const btn = document.getElementById('btn-sync');
                     const count = document.getElementById('sync-count');
+
                     if (pendingActions.length > 0) {
-                        btn.style.display = 'flex';
-                        count.textContent = pendingActions.length;
+                        if (btn) btn.style.display = 'flex';
+                        if (count) count.textContent = pendingActions.length;
                         window.onbeforeunload = function () { return "Bạn có dữ liệu chưa đồng bộ!"; };
                     } else {
-                        btn.style.display = 'none';
-                        count.textContent = '0';
+                        if (btn) btn.style.display = 'none';
+                        if (count) count.textContent = '0';
                         window.onbeforeunload = null;
                     }
                 }
