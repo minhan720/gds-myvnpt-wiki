@@ -2437,8 +2437,8 @@
                     let archivedCount = 0;
 
                     uniqueTasks.forEach(t => {
-                        let status = (t['Trang thai'] || '').trim();
-                        let isArchived = (status === 'Approved' || status === 'Postponed' || status === 'Rejected');
+                        let status = (t['Trang thai'] || t['Trạng thái'] || '').trim();
+                        let isArchived = (status === 'Approved' || status === 'Postponed' || status === 'Rejected' || status === 'Completed' || status === '100%');
 
                         if (isArchived) {
                             archivedCount++;
@@ -2453,8 +2453,8 @@
 
                     // Filter tasks by active tab & search
                     let filteredTasks = uniqueTasks.filter(t => {
-                        let status = (t['Trang thai'] || '').trim();
-                        let isArchived = (status === 'Approved' || status === 'Postponed' || status === 'Rejected');
+                        let status = (t['Trang thai'] || t['Trạng thái'] || '').trim();
+                        let isArchived = (status === 'Approved' || status === 'Postponed' || status === 'Rejected' || status === 'Completed' || status === '100%');
 
                         if (window.currentPhatSinhTab === 'Archived') {
                             if (!isArchived) return false;
@@ -2555,8 +2555,8 @@
 
                                 let recDate = task['Ngay tiep nhan'] ? parseDate(task['Ngay tiep nhan']).toLocaleDateString('en-GB') : '';
                                 let dueDate = task['Ngay hoan thanh'] ? parseDate(task['Ngay hoan thanh']).toLocaleDateString('en-GB') : '';
-                                let status = task['Trang thai'] || 'Pending';
-                                let ghiChuRaw = task['Ghi chu'] || '';
+                                let status = task['Trang thai'] || task['Trạng thái'] || 'Pending';
+                                let ghiChuRaw = task['Ghi chu'] || task['Ghi chú'] || '';
                                 let ghiChu = ghiChuRaw.replace(/\[(LINK|LINK_TO|SOURCE_ID):[^\]]+\]/g, '').trim();
 
                                 let ghiChuHtml = '';
