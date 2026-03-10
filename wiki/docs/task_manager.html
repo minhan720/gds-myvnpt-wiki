@@ -1743,6 +1743,14 @@
                                     task['Trang thai'] = realValue; isChanged = true;
                                     window.showToast("✅ Đã xác nhận. Đang chuyển task vào Archive rổ chung.");
                                     setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
+                                } else if (isAlreadyCompleted && realValue !== '100%') {
+                                    if (!confirm('Xác nhận: Khôi phục lại Task này?\n\nHệ thống sẽ rút Task ra khỏi Lưu trữ và đưa trở lại Kế hoạch Đang chạy.')) {
+                                        td.innerHTML = originalHTML;
+                                        return;
+                                    }
+                                    task['Trang thai'] = realValue; isChanged = true;
+                                    window.showToast("✅ Đã xác nhận. Đang khôi phục task.");
+                                    setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
                                 } else if (realValue !== task['Trang thai']) {
                                     task['Trang thai'] = realValue; isChanged = true;
                                 }
@@ -1757,6 +1765,14 @@
                                     }
                                     task['Trang thai'] = newValue; isChanged = true;
                                     window.showToast("✅ Đã xác nhận. Đang chuyển task vào mục Lưu trữ.");
+                                    setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
+                                } else if (isAlreadyCompleted && newValue !== '100%') {
+                                    if (!confirm('Xác nhận: Khôi phục lại Task này?\n\nHệ thống sẽ rút Task ra khỏi Lưu trữ và đưa trở lại Kế hoạch Đang chạy.')) {
+                                        td.innerHTML = originalHTML;
+                                        return;
+                                    }
+                                    task['Trang thai'] = newValue; isChanged = true;
+                                    window.showToast("✅ Đã xác nhận. Đang khôi phục task.");
                                     setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
                                 } else if (newValue !== (task['Trang thai'] || '')) {
                                     task['Trang thai'] = newValue; isChanged = true;
