@@ -811,9 +811,6 @@
                                 <th
                                     style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 60px; text-align: center; background: inherit;">
                                     #</th>
-                                <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 60px; text-align: center; background: inherit;"
-                                    title="Độ ưu tiên (Con số cấu hình 1->x)">
-                                    Prio</th>
                                 <th
                                     style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 250px; background: inherit;">
                                     Tên Task
@@ -834,6 +831,9 @@
                                     style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 110px; background: inherit;">
                                     End Date
                                 </th>
+                                <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 60px; text-align: center; background: inherit;"
+                                    title="Độ ưu tiên (Con số cấu hình 1->x)">
+                                    Prio</th>
                                 <th
                                     style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 100px; background: inherit;">
                                     Progress
@@ -2660,12 +2660,12 @@
 
                         tr.innerHTML = `
                             <td style="padding: 12px 16px; color:#94a3b8; text-align:center; font-size:0.85em;">${index + 1}</td>
-                            <td style="padding: 12px 16px; text-align:center; font-weight:bold; color:#f97316; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'priority')" title="Click sửa Độ ưu tiên">${prioValue}</td>
                             <td style="padding: 12px 16px; font-weight:500; color:#1e293b; line-height:1.4; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'task')" title="Click để sửa">${sourceBadge}${name}</td>
                             <td style="padding: 12px 16px; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'lead')" title="Click để sửa">${assignValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'urd')" title="Click để sửa">${urdDateValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'start')" title="Click để sửa">${startDateValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'end')" title="Click để sửa">${endDateValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; font-weight:bold; color:#f97316; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'priority')" title="Click sửa Độ ưu tiên">${prioValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'status')" title="Click mở luồng Progress">${statusHtml}</td>
                             <td style="padding: 12px 16px; text-align:center;">${actionHTML}</td>
                          `;
