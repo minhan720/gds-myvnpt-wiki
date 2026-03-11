@@ -155,11 +155,13 @@ body.access-locked {
     box-sizing: border-box;
     margin-bottom: 8px;
 }
+
 .tm-input:focus {
     outline: none;
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
+
 .tm-label {
     display: block;
     font-size: 0.85rem;
@@ -167,6 +169,7 @@ body.access-locked {
     color: #475569;
     margin-bottom: 6px;
 }
+
 .tm-access-close {
     position: absolute;
     top: 16px;
@@ -178,46 +181,7 @@ body.access-locked {
     padding: 4px;
     display: none;
 }
+
 .tm-access-close:hover {
     color: #475569;
-}
-
-/* Global View Mode Indicator Styles */
-#global-view-mode-indicator {
-    display: flex;
-    align-items: center;
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    cursor: pointer;
-    color: #475569;
-    font-size: 0.8em;
-    font-weight: 600;
-    margin-left: 12px;
-}
-#global-view-mode-indicator:hover {
-    background: #f1f5f9;
-    border-color: #cbd5e1;
-}
-#global-view-mode-indicator svg {
-    margin-right: 6px;
-    color: #64748b;
-}
-#global-view-mode-indicator.view-mode-full {
-    color: #10b981;
-    border-color: #a7f3d0;
-    background: #ecfdf5;
-}
-#global-view-mode-indicator.view-mode-full:hover {
-    background: #d1fae5;
-}
-#global-view-mode-indicator .view-mode-icon-switch {
-    margin-left: 8px;
-    margin-right: 0;
-    opacity: 0.5;
-    transition: opacity 0.2s;
-}
-#global-view-mode-indicator:hover .view-mode-icon-switch {
-    opacity: 1;
 }

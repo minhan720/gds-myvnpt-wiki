@@ -72,11 +72,13 @@
 
         if (mode === 'full_access') {
             indicatorText.innerHTML = 'Mode: Full Access';
-            indicatorDiv.classList.add('view-mode-full');
+            indicatorText.style.color = '#a7f3d0';
+            indicatorIcon.style.color = '#a7f3d0';
             indicatorIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
         } else {
             indicatorText.innerHTML = 'Mode: View Only';
-            indicatorDiv.classList.remove('view-mode-full');
+            indicatorText.style.color = 'white';
+            indicatorIcon.style.color = 'white';
             indicatorIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
         }
     };

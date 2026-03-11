@@ -76,27 +76,34 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Insert indicator into header toolbar dynamically after Material for Mkdocs loads it
+    document.addEventListener("DOMContentLoaded", function () {
+        const parentContainer = document.querySelector(".md-header__source");
+        if (!parentContainer) return;
+
+        const indicatorHtml = `
+      <div id="global-view-mode-indicator" onclick="window.openAccessModalManually()" title="Chuyển đổi chế độ xem" style="margin-left: 10px; height: 32px; padding: 0 10px; display: flex; align-items: center; background: rgba(0,0,0,0.2) !important; color: white !important; border-radius: 4px; cursor: pointer;">
+          <svg id="global-view-mode-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; color: white;">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span id="global-view-mode-text" style="font-size: 0.8rem; font-weight: 600; white-space: nowrap;">Mode: View Only</span>
+          <svg class="view-mode-icon-switch" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px; color: white; opacity: 0.7;">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="14" x2="21" y2="3"></line>
+              <polyline points="8 21 3 21 3 16"></polyline>
+              <line x1="20" y1="10" x2="3" y2="21"></line>
+          </svg>
+      </div>`;
+        parentContainer.insertAdjacentHTML('beforebegin', indicatorHtml);
+    });
+</script>
 {% endblock %}
 
 {% block site_nav %}
 {{ super() }}
-
-<div
-    style="padding: 1rem 0; display: flex; justify-content: center; border-top: 1px solid var(--md-default-fg-color--lightest);">
-    <div id="global-view-mode-indicator" onclick="window.openAccessModalManually()" title="Chuyển đổi chế độ xem">
-        <svg id="global-view-mode-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-        <span id="global-view-mode-text">Mode: View Only</span>
-        <svg class="view-mode-icon-switch" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="16 3 21 3 21 8"></polyline>
-            <line x1="4" y1="14" x2="21" y2="3"></line>
-            <polyline points="8 21 3 21 3 16"></polyline>
-            <line x1="20" y1="10" x2="3" y2="21"></line>
-        </svg>
-    </div>
-</div>
 {% endblock %}
