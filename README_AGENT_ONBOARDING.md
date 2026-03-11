@@ -45,7 +45,7 @@ Sau khi bạn đã tải hoặc cập nhật xong, toàn bộ tri thức của A
 **Cú pháp:** Gõ `@` cộng với đường dẫn đến file Role của Agent cần gọi.
 
 **Ví dụ thực tế:**
-- **Gọi URD Mapper:** `@.agents/roles/URD mapper/figma_urd_mapper.md Hãy map link Figma này vào file URD: [Link Google Doc]`
+- **Gọi URD Mapper:** `@.agents/roles/Flow design/URD mapper/figma_urd_mapper.md Hãy map link Figma này vào file URD: [Link Google Doc]`
 - **Gọi Design Ops:** `@.agents/roles/Design Ops/design_ops.md Hãy phân tích màu sắc và component Badge trong file Figma này...`
 - **Gọi UI/UX Auditor:** `@.agents/roles/UIUX Audit/...`
 
