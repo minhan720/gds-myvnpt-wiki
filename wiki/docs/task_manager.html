@@ -1902,12 +1902,13 @@
                         if (currentTab === 'gantt' && window.currentGanttTab) {
                             window.renderGanttBoardByTab(window.currentGanttTab);
                         } else if (currentTab === 'kehoach') {
-                            window.renderKeHoachBoard(tasksData, true);
+                            window.renderKeHoachBoard(tasksData);
                         } else {
                             window.renderBoard(tasksData);
                         }
 
-                        window.updateQueueUI();
+                        window.updateSyncUI();
+                        window.renderGanttBoard(tasksData); // Force a full global refresh similar to handleInlineFileSelect
                         window.showToast('✅ Đã lưu link trực tiếp thành công!');
 
                         saveBackup();
@@ -2191,6 +2192,8 @@
                                 if (currentSheetKey === 'kehoach' && typeof window.renderKeHoachBoard === 'function') {
                                     window.renderKeHoachBoard(tasksData);
                                 }
+                                window.updateQueueUI(); // Refresh top queue icons
+                                saveBackup(); // Ensure it persists on reload
                                 return; // Skip the rest of finishEdit logic
                             }
                         } else if (fieldType === 'lead' && newValue !== (task['Phu trach'] || '')) {
