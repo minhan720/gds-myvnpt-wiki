@@ -2191,6 +2191,9 @@
                                 if (currentSheetKey === 'kehoach' && typeof window.renderKeHoachBoard === 'function') {
                                     window.renderKeHoachBoard(tasksData);
                                 }
+
+                                // Auto-sync so it doesn't get lost on F5
+                                setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
                                 return; // Skip the rest of finishEdit logic
                             }
                         } else if (fieldType === 'lead' && newValue !== (task['Phu trach'] || '')) {
