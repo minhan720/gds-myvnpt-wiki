@@ -1880,6 +1880,8 @@
                         if (docKeys.length > 0) {
                             docKeys.forEach(key => task[key] = url);
                         } else {
+                            task['Tai lieu'] = url;
+                            task['Tài liệu'] = url;
                             task['Doc'] = url;
                         }
 
@@ -1940,7 +1942,9 @@
                                 if (docKeys.length > 0) {
                                     docKeys.forEach(key => task[key] = extractedUrl);
                                 } else {
-                                    task['Doc'] = extractedUrl; // Tự động inject key 'Doc' nếu dòng hiện tại chưa có dữ liệu ở cột này (do GAS bỏ qua cột rỗng)
+                                    task['Tai lieu'] = extractedUrl;
+                                    task['Tài liệu'] = extractedUrl;
+                                    task['Doc'] = extractedUrl; // Inject multiple keys to ensure GAS backend matches exact column headers
                                 }
 
                                 let targetKey = null;
