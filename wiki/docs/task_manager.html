@@ -609,6 +609,138 @@
             transform: translateY(0);
             opacity: 1;
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .tm-sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--md-typeset-table-color);
+                flex-shrink: 0;
+                z-index: 100;
+            }
+
+            .tm-sidebar.collapsed {
+                width: 100%;
+                height: 64px;
+                overflow: hidden;
+            }
+
+            .tm-sidebar.collapsed .tm-sidebar-title {
+                opacity: 1 !important;
+                display: block !important;
+                pointer-events: auto !important;
+            }
+
+            .tm-sidebar.collapsed .tm-sidebar-menu,
+            .tm-sidebar.collapsed .tm-sidebar-footer {
+                display: none !important;
+            }
+
+            .tm-sidebar.collapsed .tm-menu-text,
+            .tm-sidebar.collapsed .tm-view-mode-indicator .view-mode-text,
+            .tm-sidebar.collapsed .view-mode-icon-switch {
+                display: inline-block !important;
+                opacity: 1 !important;
+            }
+
+            .tm-sidebar-menu {
+                max-height: 40vh;
+                overflow-y: auto;
+            }
+
+            .tm-main-content {
+                padding: 12px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Header and Controls */
+            .tm-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .tm-header>div {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            #tm-search {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+
+            .tm-select {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            /* Scorecards layout */
+            #tm-dashboard-container>div:first-child,
+            #tm-dashboard-container>div:nth-child(2),
+            #tm-dashboard-container>div:nth-child(3) {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Layout Containers */
+            #tm-kehoach-container,
+            #tm-gantt-container,
+            #tm-phatsinh-container {
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            /* Touch-friendly tabs */
+            #kehoach-tabs-container,
+            .phatsinh-tab-container,
+            #gantt-tabs-container {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            #kehoach-tabs-container::-webkit-scrollbar,
+            .phatsinh-tab-container::-webkit-scrollbar,
+            #gantt-tabs-container::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            #kehoach-tabs-container::-webkit-scrollbar-thumb,
+            .phatsinh-tab-container::-webkit-scrollbar-thumb,
+            #gantt-tabs-container::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 4px;
+            }
+
+            /* Modals */
+            .tm-modal {
+                padding: 16px;
+                margin: 12px;
+                width: calc(100% - 24px);
+                max-height: 95vh;
+            }
+
+            .tm-form-group input,
+            .tm-form-group select,
+            .tm-form-group textarea {
+                font-size: 16px;
+                /* Prevent iOS zoom */
+            }
+
+            #tm-access-cards {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
     </style>
 </head>
 
@@ -1570,6 +1702,12 @@
                 };
 
                 document.addEventListener('DOMContentLoaded', () => {
+                    // Auto-collapse sidebar on mobile
+                    if (window.innerWidth <= 768) {
+                        const sidebar = document.getElementById('tm-sidebar');
+                        if (sidebar) sidebar.classList.add('collapsed');
+                    }
+
                     // Initialize Sidebar Active State if loaded via URL param
                     document.querySelectorAll('.tm-menu-item').forEach(el => {
                         el.classList.remove('active');
