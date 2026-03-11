@@ -2191,9 +2191,6 @@
                                 if (currentSheetKey === 'kehoach' && typeof window.renderKeHoachBoard === 'function') {
                                     window.renderKeHoachBoard(tasksData);
                                 }
-
-                                // Auto-sync so it doesn't get lost on F5
-                                setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
                                 return; // Skip the rest of finishEdit logic
                             }
                         } else if (fieldType === 'lead' && newValue !== (task['Phu trach'] || '')) {
@@ -4421,7 +4418,7 @@
                                 break;
                             case 'due_urd':
                                 title = "Công việc Sắp Tới Hạn URD (<= 5 ngày)";
-                                if (!isCompleted && uD && !isNaN(uD.getTime())) {
+                                if (!isCompleted && uD && !isNaN(uD.getTime()) && !window.hasDocLink(t)) {
                                     let next5Days = new Date(now);
                                     next5Days.setDate(now.getDate() + 5);
                                     if (uD >= now && uD <= next5Days) {
@@ -4443,7 +4440,7 @@
                                 break;
                             case 'overdue_urd':
                                 title = "Công việc Quá Hạn URD";
-                                if (!isCompleted && uD && !isNaN(uD.getTime())) {
+                                if (!isCompleted && uD && !isNaN(uD.getTime()) && !window.hasDocLink(t)) {
                                     if (uD < now) {
                                         let diff = Math.floor((now - uD) / (1000 * 60 * 60 * 24));
                                         inTarget = true;
