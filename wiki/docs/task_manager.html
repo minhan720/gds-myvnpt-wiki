@@ -1426,6 +1426,42 @@
                 </div>
             </div>
 
+            <!-- URD/Doc Link Modal -->
+            <div id="doc-modal-overlay" class="tm-modal-overlay" style="z-index:10005;">
+                <div class="tm-modal tm-card" style="max-width:400px; padding:24px;">
+                    <h3 style="margin-top:0; color:var(--md-typeset-color); font-size:1.2rem; text-align: center;">Tài
+                        Liệu URD</h3>
+
+                    <p style="font-size:0.9em; color:#64748b; margin-bottom:10px; font-weight: 500;">Cách 1: Trích xuất
+                        tự động từ file Spec (.md)</p>
+                    <button class="tm-btn" style="width: 100%; justify-content: center; margin-bottom: 20px;"
+                        onclick="document.getElementById('doc-modal-overlay').classList.remove('active'); document.getElementById('inline-doc-upload').click();">
+                        📂 Chọn File Spec (.md)
+                    </button>
+
+                    <div
+                        style="display:flex; align-items:center; text-align:center; color:#94a3b8; margin-bottom:16px; font-size:0.85em;">
+                        <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                        <span style="padding:0 10px;">Hoặc</span>
+                        <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                    </div>
+
+                    <p style="font-size:0.9em; color:#64748b; margin-bottom:10px; font-weight: 500;">Cách 2: Dán trực
+                        tiếp Link Google Docs</p>
+                    <input type="text" id="doc-link-input" class="tm-input"
+                        placeholder="https://docs.google.com/document/d/..." style="width:100%; margin-bottom:16px;">
+
+                    <input type="hidden" id="doc-task-id">
+
+                    <div style="display:flex; justify-content:flex-end; gap:8px;">
+                        <button class="tm-btn"
+                            onclick="document.getElementById('doc-modal-overlay').classList.remove('active')">Trở
+                            lại</button>
+                        <button class="tm-btn tm-btn-primary" onclick="window.saveDocLink()">Lưu Link</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Modal Phê duyệt Task (Approve) -->
             <div class="tm-modal-overlay" id="tm-approve-modal-overlay" style="z-index:10005;">
                 <div class="tm-modal">
@@ -1800,12 +1836,81 @@
                     });
                     let docUrl = task && (docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu']));
 
-                    if (docUrl) {
+                    if (window.hasDocLink(task)) {
                         window.open(docUrl, '_blank');
                     } else {
-                        // Trigger hidden file input to select .md file and parse GDocs link
-                        document.getElementById('inline-doc-task-id').value = taskId;
-                        document.getElementById('inline-doc-upload').click();
+                        // Mở Modal cho phép chọn tải MD file HOẶC paste link
+                        document.getElementById('doc-task-id').value = taskId;
+                        document.getElementById('inline-doc-task-id').value = taskId; // Dành cho file upload picker
+                        document.getElementById('doc-link-input').value = '';
+                        document.getElementById('doc-modal-overlay').classList.add('active');
+                    }
+                }
+
+                window.saveDocLink = function () {
+                    const taskId = document.getElementById('doc-task-id').value;
+                    let url = document.getElementById('doc-link-input').value.trim();
+
+                    if (!url) {
+                        return window.showToast('Vui lòng điền link Google Docs hoặc chọn file.', 'error');
+                    }
+
+                    if (!url.startsWith('http')) {
+                        return window.showToast('Link có vẻ chưa đúng định dạng. Phải chứa http/https!', 'error');
+                    }
+
+                    document.getElementById('doc-modal-overlay').classList.remove('active');
+
+                    // Extract /edit if needed or just use as is
+                    if (!url.endsWith('/edit') && url.includes('docs.google.com')) {
+                        // attempt to attach /edit if cleanly ending in document id
+                        if (!url.includes('?')) {
+                            const lastChar = url[url.length - 1];
+                            if (lastChar !== '/') url += '/edit';
+                            else url += 'edit';
+                        }
+                    }
+
+                    let task = tasksData.find(t => String(t.ID) === String(taskId));
+                    if (task) {
+                        let docKeys = Object.keys(task).filter(k => {
+                            let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                            return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                        });
+                        if (docKeys.length > 0) {
+                            docKeys.forEach(key => task[key] = url);
+                        } else {
+                            task['Doc'] = url;
+                        }
+
+                        let targetKey = null;
+                        if (task._sourceSheet) {
+                            targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === task._sourceSheet);
+                        }
+
+                        const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
+                        if (existingActionIndex !== -1) {
+                            pendingActions[existingActionIndex].task = { ...task };
+                            if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                        } else {
+                            let actionPayload = { action: 'update', task: { ...task } };
+                            if (targetKey) actionPayload.targetSheetKey = targetKey;
+                            pendingActions.push(actionPayload);
+                        }
+
+                        let currentTab = Array.from(document.querySelectorAll('.tm-tab.active')).map(el => el.getAttribute('data-tab'))[0];
+                        if (currentTab === 'gantt' && window.currentGanttTab) {
+                            window.renderGanttBoardByTab(window.currentGanttTab);
+                        } else if (currentTab === 'kehoach') {
+                            window.renderKeHoachBoard(tasksData, true);
+                        } else {
+                            window.renderBoard(tasksData);
+                        }
+
+                        window.updateQueueUI();
+                        window.showToast('✅ Đã lưu link trực tiếp thành công!');
+
+                        saveBackup();
                     }
                 }
 
