@@ -2445,6 +2445,19 @@
                     // Step 3: Render Risk Table
                     renderDashboardWarnings(validTasks);
                 };
+                window.hasDocLink = function (t) {
+                    if (!t) return false;
+                    let docKeys = Object.keys(t).filter(k => {
+                        let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                        return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                    });
+
+                    for (let key of docKeys) {
+                        let val = String(t[key] || '').trim();
+                        if (val !== '' && (val.includes('http') || val.length > 5)) return true;
+                    }
+                    return false;
+                };
 
                 function renderDashboardScorecards(tasks) {
                     const now = new Date();
@@ -2483,8 +2496,8 @@
                                 }
                             }
 
-                            // 5, 6. Tính thẻ Quá hạn / Sắp tới hạn (Dựa vào URD Date)
-                            if (t['URD date'] && String(t['URD date']).trim() !== '') {
+                            // 5, 6. Tính thẻ Quá hạn / Sắp tới hạn (Dựa vào URD Date) - Bỏ qua các task ĐÃ CÓ link tài liệu URD
+                            if (!window.hasDocLink(t) && t['URD date'] && String(t['URD date']).trim() !== '') {
                                 let uD = window.parseDate(t['URD date']);
                                 if (uD && !isNaN(uD.getTime())) {
                                     uD.setHours(23, 59, 59, 999);
@@ -2656,7 +2669,8 @@
                     let risks = [];
 
                     tasks.forEach(t => {
-                        if (!window.isTaskCompleted(t) && t['URD date']) {
+                        // Chỉ cảnh báo nếu Task chưa hoàn thành (isCompleted = false) VÀ chưa nộp tài liệu URD (hasDocLink = false)
+                        if (!window.hasDocLink(t) && !window.isTaskCompleted(t) && t['URD date']) {
                             let uD = window.parseDate(t['URD date']);
                             if (uD && !isNaN(uD.getTime())) {
                                 uD.setHours(0, 0, 0, 0);
