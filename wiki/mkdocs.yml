@@ -2,6 +2,7 @@ site_name: GDS-MyVNPT Wiki
 site_description: Onboarding and Knowledge Base for GDS-MyVNPT
 theme:
   name: material
+  custom_dir: overrides
   features:
     - navigation.path
     - navigation.sections
@@ -28,6 +29,11 @@ theme:
         name: Switch to light mode
 extra_css:
   - stylesheets/custom_v2.css
+  - stylesheets/access_control.css
+
+extra_javascript:
+  - javascripts/access_control.js
+
 plugins:
   - search
 
