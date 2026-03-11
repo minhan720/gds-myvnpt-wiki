@@ -1834,7 +1834,7 @@
                         let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
                         return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
                     });
-                    let docUrl = task && (docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu']));
+                    let docUrl = task && (docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || task['Doc']));
 
                     if (window.hasDocLink(task)) {
                         window.open(docUrl, '_blank');
@@ -3340,7 +3340,7 @@
                             let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
                             return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
                         });
-                        let docUrl = docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || '');
+                        let docUrl = docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || task['Doc'] || '');
                         let hasDoc = window.hasDocLink(task);
                         let docIconColor = hasDoc ? '#4f46e5' : '#cbd5e1';
                         let docTitle = hasDoc ? "Mở Google Docs" : "Tìm link từ file Spec (.md)";
@@ -3596,7 +3596,7 @@
                                 let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
                                 return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
                             });
-                            let docUrl = docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || '');
+                            let docUrl = docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || task['Doc'] || '');
 
                             let hasDoc = !!docUrl;
                             let docIconColor = hasDoc ? '#4f46e5' : '#cbd5e1';
@@ -3817,7 +3817,7 @@
                     // Get original task to extract hidden fields like Jira, Tai lieu
                     let originalTask = tasksData.find(t => String(t.ID) === String(id));
                     let oldJira = originalTask ? (originalTask['Jira'] || localStorage.getItem('JIRA_LINK_' + id) || '') : '';
-                    let oldTaiLieu = originalTask ? (originalTask['Tai lieu'] || '') : '';
+                    let oldTaiLieu = originalTask ? (originalTask['Tai lieu'] || originalTask['Tài liệu'] || originalTask['Doc'] || '') : '';
 
                     // Note: Format dates back to dd/MM/yyyy for GAS compatibility
                     let formattedStart = start.split('-').reverse().join('/');
@@ -3968,7 +3968,7 @@
                     if (task._start) document.getElementById('task-start').value = task._start.toISOString().split('T')[0];
                     if (task._end) document.getElementById('task-end').value = task._end.toISOString().split('T')[0];
 
-                    document.getElementById('task-doc-url').value = task['Tai lieu'] || task['Tài liệu'] || '';
+                    document.getElementById('task-doc-url').value = task['Tai lieu'] || task['Tài liệu'] || task['Doc'] || '';
                     document.getElementById('task-doc-file').value = '';
 
                     let taskStatus = task['Trang thai'] || '0%';
