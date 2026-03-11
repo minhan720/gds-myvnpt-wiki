@@ -1900,17 +1900,17 @@
                             pendingActions.push(actionPayload);
                         }
 
-                        let currentTab = Array.from(document.querySelectorAll('.tm-tab.active')).map(el => el.getAttribute('data-tab'))[0];
-                        if (currentTab === 'gantt' && window.currentGanttTab) {
-                            window.renderGanttBoardByTab(window.currentGanttTab);
-                        } else if (currentTab === 'kehoach') {
-                            window.renderKeHoachBoard(tasksData);
+                        if (window.currentSheetKey === 'phatsinh') {
+                            if (typeof window.renderPhatSinhBoard === 'function') window.renderPhatSinhBoard(tasksData);
+                        } else if (window.currentSheetKey === 'kehoach') {
+                            if (typeof window.renderKeHoachBoard === 'function') window.renderKeHoachBoard(tasksData);
+                        } else if (window.currentSheetKey === 'dashboard') {
+                            if (typeof window.renderDashboardBoard === 'function') window.renderDashboardBoard(tasksData);
                         } else {
-                            window.renderBoard(tasksData);
+                            if (typeof window.renderGanttBoard === 'function') window.renderGanttBoard(tasksData);
                         }
 
                         window.updateSyncUI();
-                        window.renderGanttBoard(tasksData); // Force a full global refresh similar to handleInlineFileSelect
                         window.showToast('✅ Đã lưu link trực tiếp thành công!');
 
                         saveBackup();
@@ -1962,7 +1962,16 @@
                                     pendingActions.push(actionPayload);
                                 }
                                 window.updateSyncUI();
-                                window.renderGanttBoard(tasksData);
+                                if (window.currentSheetKey === 'phatsinh') {
+                                    if (typeof window.renderPhatSinhBoard === 'function') window.renderPhatSinhBoard(tasksData);
+                                } else if (window.currentSheetKey === 'kehoach') {
+                                    if (typeof window.renderKeHoachBoard === 'function') window.renderKeHoachBoard(tasksData);
+                                } else if (window.currentSheetKey === 'dashboard') {
+                                    if (typeof window.renderDashboardBoard === 'function') window.renderDashboardBoard(tasksData);
+                                } else {
+                                    if (typeof window.renderGanttBoard === 'function') window.renderGanttBoard(tasksData);
+                                }
+                                saveBackup(); // Ensure we save the file extracted URL safely
                             }
                         } else {
                             window.showToast('❌ Không tìm thấy link GDocs trong file.', 'error');
