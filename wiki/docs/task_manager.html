@@ -1585,16 +1585,16 @@
 
                 window.copyJiraCommand = function () {
                     if (navigator.clipboard && window.isSecureContext) {
-                        navigator.clipboard.writeText('/jira_tracking_master').then(() => {
-                            alert('Lệnh /jira_tracking_master đã được copy!\n\nHãy dán lệnh này vào khung chat của Antigravity để khởi chạy luồng Cập nhật từ Jira.');
+                        navigator.clipboard.writeText('/workflow_jira_weekly_recap').then(() => {
+                            alert('Lệnh /workflow_jira_weekly_recap đã được copy!\n\nHãy dán lệnh này vào khung chat của Antigravity để khởi chạy luồng Cập nhật từ Jira.');
                         }).catch(err => {
                             console.error('Lỗi copy: ', err);
-                            alert('Không thể tự động copy. Vui lòng gõ lệnh /jira_tracking_master vào khung chat!');
+                            alert('Không thể tự động copy. Vui lòng gõ lệnh /workflow_jira_weekly_recap vào khung chat!');
                         });
                     } else {
                         // Fallback cho trình duyệt không hỗ trợ API Clipboard trực tiếp
                         let textArea = document.createElement("textarea");
-                        textArea.value = "/jira_tracking_master";
+                        textArea.value = "/workflow_jira_weekly_recap";
                         textArea.style.position = "fixed";
                         textArea.style.left = "-999999px";
                         textArea.style.top = "-999999px";
@@ -1603,10 +1603,10 @@
                         textArea.select();
                         try {
                             document.execCommand('copy');
-                            alert('Lệnh /jira_tracking_master đã được copy!\n\nHãy dán lệnh này vào khung chat của Antigravity để khởi chạy luồng Cập nhật từ Jira.');
+                            alert('Lệnh /workflow_jira_weekly_recap đã được copy!\n\nHãy dán lệnh này vào khung chat của Antigravity để khởi chạy luồng Cập nhật từ Jira.');
                         } catch (err) {
                             console.error('Fallback copy fail', err);
-                            alert('Vui lòng gõ lệnh /jira_tracking_master vào khung chat!');
+                            alert('Vui lòng gõ lệnh /workflow_jira_weekly_recap vào khung chat!');
                         }
                         textArea.remove();
                     }

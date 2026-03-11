@@ -204,7 +204,7 @@ def sync_to_google_sheets(tasks):
             "action": action,
             "task": {
                 "ID": t['id'],
-                "Category": t['danh_muc'],
+                "Danh muc": t['danh_muc'],
                 "Phan loai": t['phan_loai'],
                 "Ten dau viec": t['summary'],
                 "Jira": t['link'],
