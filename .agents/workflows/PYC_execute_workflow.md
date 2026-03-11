@@ -8,10 +8,13 @@ Quy trình này tự động hóa việc phân tích yêu cầu từ Jira, tạo
 Quy trình yêu cầu sự giám sát và phê duyệt của con người (HITL - Human In The Loop) ở các điểm chạm quan trọng để đảm bảo chất lượng đầu ra.
 
 ## Bước 1: Kích hoạt & Trích xuất Dữ liệu (Trigger & Fetch)
-1. **Input:** Người dùng cung cấp một link Jira Task.
-2. **Action:** Gọi Agent `@Jira Logic Analyst` (`jira_logic_analyst.md`).
-3. **Task:** Agent sử dụng kỹ năng `/jira_classify` (`jira_classification_rules.md`) để đọc hiểu nội dung Description và trích xuất nguyên văn Nội dung của **File Attachment mới nhất**.
-4. **Output:** Dữ liệu này được gộp lại thành **Master Input** để chuyển sang Bước 2.
+1. **Input:** Người dùng cung cấp một link Jira Task (Ví dụ: `https://cntt.vnpt.vn/browse/IT360-1585542`).
+2. **Action 1 (Kéo Dữ liệu):** Gọi Agent `@Jira Operations Bot` (`jira_operations_bot.md`).
+3. **Task 1.1:** Bot sử dụng kỹ năng `/jira_fetch` kết hợp với **Personal Access Token (PAT)** đã cấu hình trong biến môi trường hệ thống để gọi API trực tiếp vào Jira VNPT.
+4. **Task 1.2:** Bot trích xuất trường `Description` và nội dung văn bản (Text) từ các `Attachment` mới nhất của Task đó, xuất ra raw data (Dữ liệu thô).
+5. **Action 2 (Phân tích Logic):** Bàn giao raw data cho Agent `@Jira Logic Analyst` (`jira_logic_analyst.md`).
+6. **Task 2.1:** Logic Analyst sử dụng kỹ năng `/jira_classify` (`jira_classification_rules.md`) để đọc hiểu và phân loại dữ liệu gốc.
+7. **Output:** Dữ liệu sau khi dọn dẹp và phân loại được gọi là **Master Input** để chuyển sang Bước 2.
 
 ## Bước 2: Phân tích Thấu cảm (Empathy Analysis)
 1. **Action:** Chuyển Master Input cho Agent `@PG-UX Researcher` (`pg_ux_researcher.md`).
@@ -37,13 +40,14 @@ Quy trình yêu cầu sự giám sát và phê duyệt của con người (HITL 
 4. **Review:** Dừng lại chờ Người Dùng duyệt (HITL) ý tưởng chiến lược này.
 
 ## Bước 6: Chế tác Flow & Specs (Design & Spec Generation)
-1. **Action:** Sau khi chiến lược được duyệt, tự động gọi Agent `@UX Designer & Writer` (`ux_designer_writer.md`).
+1. **Action 1:** Sau khi chiến lược được duyệt, tự động gọi Agent `@UX Designer & Writer` (`ux_designer_writer.md`).
 2. **Task 6.1:** Áp dụng kỹ năng `/mermaid-optimization` để vẽ sơ đồ luồng UX (UX Flow).
 3. **Task 6.2:** Áp dụng kỹ năng `/ux-writing-tone` để viết bảng UI Copywriting và Edge Cases.
 4. **Output Formatting:** 
    - Tạo một file MỚI dựa trên `ux_spec_template.md`.
    - Lưu vào thư mục `specs` của Knowledge Base.
    - **Tên file:** `URD[index]_[Mã Task Jira]_[Tên Task đục lỗ].md` (Ví dụ: `URD01_IT360-1587543_Yeu_cau_bo_sung_chuc_nang.md`).
+5. **Action 2 (Đồng bộ tùy chọn):** Gợi ý cho Người dùng (Boss) chạy lệnh `/sync_gdocs` truyền kèm đường dẫn tuyệt đối của file `URD...md` vừa tạo. (Ví dụ: `Dạ, Boss có muốn em tự động đẩy bản URD này lên Google Docs để share cho team luôn không ạ? Boss gõ phím tắt /sync_gdocs kèm link gửi em nhé!`)
 
 ---
 *(Quy trình Kết thúc tại đây, toàn bộ Tài nguyên của 1 Task được lưu trữ gọn gàng trong 1 file `RS..` và 1 file `URD..`)*

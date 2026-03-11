@@ -1827,17 +1827,29 @@
                             // Directly save to task and pendingActions
                             let task = tasksData.find(t => String(t.ID) === String(taskId));
                             if (task) {
-                                let docKey = Object.keys(task).find(k => {
+                                let docKeys = Object.keys(task).filter(k => {
                                     let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
                                     return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
                                 });
-                                task[docKey || 'Tai lieu'] = extractedUrl;
+                                if (docKeys.length > 0) {
+                                    docKeys.forEach(key => task[key] = extractedUrl);
+                                } else {
+                                    task['Doc'] = extractedUrl; // Tự động inject key 'Doc' nếu dòng hiện tại chưa có dữ liệu ở cột này (do GAS bỏ qua cột rỗng)
+                                }
+
+                                let targetKey = null;
+                                if (task._sourceSheet) {
+                                    targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === task._sourceSheet);
+                                }
 
                                 const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
                                 if (existingActionIndex !== -1) {
                                     pendingActions[existingActionIndex].task = { ...task };
+                                    if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
                                 } else {
-                                    pendingActions.push({ action: 'update', task: { ...task } });
+                                    let actionPayload = { action: 'update', task: { ...task } };
+                                    if (targetKey) actionPayload.targetSheetKey = targetKey;
+                                    pendingActions.push(actionPayload);
                                 }
                                 window.updateSyncUI();
                                 window.renderGanttBoard(tasksData);
@@ -3871,6 +3883,16 @@
                             urdStr = `${uD}/${uM}/${uY}`;
                         }
 
+                        let docKeys = [];
+                        if (existingTask) {
+                            docKeys = Object.keys(existingTask).filter(k => {
+                                let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                                return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                            });
+                        }
+
+                        let docUrlObj = document.getElementById('task-doc-url').value;
+
                         const taskObj = {
                             ...existingTask,
                             'ID': id,
@@ -3879,9 +3901,15 @@
                             'Phu trach': document.getElementById('task-assignee').value,
                             'Timeline': tlStr,
                             'URD date': urdStr,
-                            'Tai lieu': document.getElementById('task-doc-url').value,
+                            'Tai lieu': docUrlObj,
                             'Trang thai': document.getElementById('task-status').value
                         };
+
+                        if (docKeys.length > 0) {
+                            docKeys.forEach(key => taskObj[key] = docUrlObj);
+                        } else {
+                            taskObj['Doc'] = docUrlObj; // Inject dự phòng nếu frontend không tìm thấy column trong dữ liệu trả về từ GET
+                        }
 
                         // Calculate internal variables for local render
                         let sd = parseDate(document.getElementById('task-start').value);
@@ -4100,6 +4128,7 @@
                             }
                         } else if (actualTarget === 'phatsinh') {
                             payloadTask = {
+                                ...t,
                                 'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_') || t.ID.toString().startsWith('APP_'))) ? '' : (t.ID || ''),
                                 'Danh muc': t['Danh muc'] || t['Danh mục'] || '',
                                 'Danh mục': t['Danh muc'] || t['Danh mục'] || '',
@@ -4114,12 +4143,24 @@
                                 'Ngày hoàn thành': t['Ngay hoan thanh'] || t['Ngày hoàn thành'] || '',
                                 'Trang thai': t['Trang thai'] || t['Trạng thái'] || '',
                                 'Trạng thái': t['Trang thai'] || t['Trạng thái'] || '',
-                                'Ghi chu': t['Ghi chu'] || t['Ghi chú'] || '',
-                                'Ghi chú': t['Ghi chu'] || t['Ghi chú'] || '',
-                                'Jira': t['Jira'] || ''
+                                'Ghi chu': t['Ghi chu'] || t['Ghi chú'] || ''
                             };
                         } else {
+                            let docKeys = Object.keys(t).filter(k => {
+                                let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                                return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                            });
+
+                            // Find the first available document url to use as source of truth for the sync
+                            let docUrl = '';
+                            if (docKeys.length > 0) {
+                                docUrl = t[docKeys[0]];
+                            } else {
+                                docUrl = t['Tai lieu'] || t['Tài liệu'] || t['Doc'] || '';
+                            }
+
                             payloadTask = {
+                                ...t,
                                 'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_') || t.ID.toString().startsWith('APP_'))) ? '' : (t.ID || ''),
                                 'Danh muc': t['Danh muc'] || t['Danh mục'] || '',
                                 'Danh mục': t['Danh muc'] || t['Danh mục'] || '',
@@ -4127,16 +4168,19 @@
                                 'Tên đầu việc': t['Ten dau viec'] || t['Tên đầu việc'] || '',
                                 'Phu trach': t['Phu trach'] || t['Phụ trách'] || '',
                                 'Phụ trách': t['Phu trach'] || t['Phụ trách'] || '',
-                                'Tai lieu': t['Tai lieu'] || t['Tài liệu'] || '',
-                                'Tài liệu': t['Tai lieu'] || t['Tài liệu'] || '',
                                 'Timeline': t['Timeline'] || '',
                                 'URD date': t['URD date'] || '',
                                 'Trang thai': t['Trang thai'] || t['Trạng thái'] || '',
                                 'Trạng thái': t['Trang thai'] || t['Trạng thái'] || '',
                                 'Ghi chu': t['Ghi chu'] || t['Ghi chú'] || '',
-                                'Ghi chú': t['Ghi chu'] || t['Ghi chú'] || '',
                                 'Jira': t['Jira'] || ''
                             };
+
+                            if (docKeys.length > 0) {
+                                docKeys.forEach(key => payloadTask[key] = docUrl);
+                            } else {
+                                payloadTask['Doc'] = docUrl;
+                            }
                         }
 
                         // Protect against missing IDs on update
@@ -4148,6 +4192,9 @@
                         if (actionItem.action === 'delete' && payloadTask.ID === '') {
                             // Let it through. Backend `[SOURCE_ID:..]` tracker will handle it.
                         }
+
+                        console.log("🚀 Payload being sent to GAS for Sheet:", targetSheetName);
+                        console.dir(payloadTask);
 
                         try {
                             // Using mode: 'no-cors' strictly bypasses Safari blocking issues for POST redirects.

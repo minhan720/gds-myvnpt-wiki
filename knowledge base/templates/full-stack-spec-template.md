@@ -1,4 +1,5 @@
 # [Tên Tính năng / Tên Dự án]
+- **Link Google Docs:** [full-stack-spec-template](https://docs.google.com/document/d/1KiQFH6M9aK8SEMWRFgFGdhLvahBs7JCTY1mYe1EVo2w/edit)
 **Phiên bản (Version):** v1.0
 **Ngày bắt đầu:** DD/MM/YYYY
 **Người làm (Owner):** [Tên Agent/Người phụ trách]
@@ -12,7 +13,17 @@
 
 ---
 
-## Phần II: Trải nghiệm Người dùng (UX & Copywriting)
+## Phần II: Đo lường & Chỉ số (Metrics)
+- **Cơ chế đo lường (Measurement mechanism):** (Sử dụng Tool gì? Firebase, SQL, Google Analytics, Logs...)
+- **Chỉ số Bắc đẩu (North star):** (Chỉ số duy nhất quan trọng hàng đầu cho tính năng này)
+- **Chỉ số Thành công (Success metrics):** (Các Kpis cụ thể cần đạt được)
+- **Các chỉ số khác (Other metrics):** (Các chỉ số phụ hỗ trợ theo dõi hành vi)
+- **Chỉ số Rào chắn / Duy trì (Guardrail / Maintain):** (Chỉ số để đảm bảo tính năng không gây phản tác dụng cho hệ thống chung)
+- **Tracking & Analytics:** (Gắn thẻ ở các nút bấm nào, đếm tỷ lệ rời bỏ ở màn hình nào?)
+
+---
+
+## Phần III: Trải nghiệm Người dùng (UX & Copywriting)
 - **User Stories (Hành trình):** 
   - Là một [đối tượng], tôi muốn [hành động] để giải quyết [nỗi đau/mục tiêu].
 - **Sơ đồ UX (User Flow / Wireframe):** 
@@ -24,20 +35,13 @@
 
 ---
 
-## Phần III: Quy trình & UI Logic (Step-by-step)
-| Bước | Màn hình | Hành động của người dùng (User Action) | Phản hồi của hệ thống (System Response / UI Changes) |
-|---|---|---|---|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
+## Phần IV: Quy trình & Đặc tả Kỹ thuật (Master Flow & Logic)
+| Bước | Mã màn hình | Giao diện | Điểm chạm (Touch-point) | Hành động (User Action) | Phản hồi Hệ thống & UI (System/UI Response) | Quy tắc nghiệp vụ & Logic (Backend/Logic Rules) |
+|---|---|---|---|---|---|---|
+| 1 | | | | | | |
+| 2 | | | | | | |
+| 3 | | | | | | |
 
----
-
-## Phần IV: Đặc tả Nghiệp vụ & Kỹ thuật (Backend Logic)
-- **Luật kinh doanh (Business Rules):** 
-  - (Điều kiện áp dụng, đối tượng, phân khúc, thời hạn...)
-- **Quy tắc máy tính (Logic Rule / Algorithm):** 
-  - (Tỷ lệ quy đổi, xác suất ngẫu nhiên, giới hạn số lần thao tác...)
 - **Xử lý Ngoại lệ (Edge Cases / Exception Handling):** 
   - (Nếu giao dịch mất mạng giữa chừng, hết số dư, API bên thứ 3 chết thì sao?)
 - **Tác vụ ngầm (Background Jobs / Cronjobs):** 
@@ -50,5 +54,6 @@
   - (Các luồng chính cần pass QA, luồng âm...)
 - **Cấu hình CMS/Admin:** 
   - (Các tham số trên Portal Admin có thể bật tắt/chỉnh thông số mà không cần code lại)
-- **Tracking & Analytics:** 
-  - (Gắn thẻ ở các nút bấm nào, đếm tỷ lệ rời bỏ ở màn hình nào?)
+
+
+<!-- gdoc_id: 1KiQFH6M9aK8SEMWRFgFGdhLvahBs7JCTY1mYe1EVo2w -->

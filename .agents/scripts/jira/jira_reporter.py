@@ -192,26 +192,27 @@ def sync_to_google_sheets(tasks):
         except:
            pass
         
-        # Upsert determination pattern
-        action = "update" if str(t['id']).strip() in existing_ids else "add"
+        # Upsert determination pattern -> Changed to Add-only as requested
+        if str(t['id']).strip() in existing_ids:
+            print(f"  [{i+1}/{len(tasks)}] Task {t['id']} đã tồn tại. Bỏ qua (chỉ import task mới).")
+            continue
+            
+        action = "add"
         
         payload = {
             "sheetName": "PhatSinh",
             "action": action,
             "task": {
                 "ID": t['id'],
-                "Danh muc": t['danh_muc'],
+                "Category": t['danh_muc'],
                 "Phan loai": t['phan_loai'],
                 "Ten dau viec": t['summary'],
                 "Jira": t['link'],
                 "Ngay tiep nhan": created_dt,
                 "Ngay hoan thanh": due_dt if due_dt != 'Chưa set' else '',
-                # "Trang thai": "Pending" Mặc định để yên Status nếu là update (ko override), frontend/user có thể đổi
+                "Trang thai": "Pending"
             }
         }
-        
-        if action == "add":
-            payload["task"]["Trang thai"] = "Pending"
         
         try:
             print(f"  [{i+1}/{len(tasks)}] Đang {action} {t['id']}...")
