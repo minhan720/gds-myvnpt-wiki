@@ -80,7 +80,7 @@
 <script>
     // Insert indicator into header toolbar dynamically after Material for Mkdocs loads it
     document.addEventListener("DOMContentLoaded", function () {
-        const parentContainer = document.querySelector(".md-header__source");
+        const parentContainer = document.querySelector(".md-header__option") || document.querySelector("label[for='__search']");
         if (!parentContainer) return;
 
         const indicatorHtml = `
