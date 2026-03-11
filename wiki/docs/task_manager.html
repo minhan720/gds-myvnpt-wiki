@@ -1741,6 +1741,21 @@
                         });
                     }
 
+                    // Network Status Handling
+                    window.addEventListener('offline', () => {
+                        window.showToast('⚠️ Mất kết nối mạng! Vui lòng kiểm tra lại đường truyền.', 'error');
+                        document.body.classList.add('is-offline');
+                        const syncBtn = document.getElementById('btn-sync');
+                        if (syncBtn) syncBtn.disabled = true;
+                    });
+
+                    window.addEventListener('online', () => {
+                        window.showToast('✅ Đã kết nối lại mạng Internet.', 'success');
+                        document.body.classList.remove('is-offline');
+                        const syncBtn = document.getElementById('btn-sync');
+                        if (syncBtn) syncBtn.disabled = false;
+                    });
+
                     fetchTasks();
                 });
 
@@ -2210,7 +2225,7 @@
                     const fetchSheetData = (sheetNameParam) => {
                         return new Promise((resolve, reject) => {
                             let xhr = new XMLHttpRequest();
-                            xhr.timeout = 60000; // Tăng lên 60 giây để chờ 3 bảng tải xong ở Dashboard
+                            xhr.timeout = 15000; // Giảm xuống 15 giây để báo lỗi hiển thị Toast đỏ nếu rớt mạng
                             xhr.open('GET', SCRIPT_URL + '?t=' + new Date().getTime() + '&sheetName=' + encodeURIComponent(sheetNameParam), true);
 
                             xhr.onload = function () {
@@ -3830,6 +3845,8 @@
 
                 window.saveTask = async function (e) {
                     e.preventDefault();
+                    const btn = document.querySelector('.tm-modal-footer .tm-btn-primary');
+                    if (btn) btn.disabled = true; // Anti-spam lock
                     try {
                         let id = document.getElementById('task-id').value;
                         const action = id ? 'update' : 'add';
@@ -3918,6 +3935,9 @@
                     } catch (err) {
                         alert("Lỗi khi Lưu: " + err.message);
                         console.error('saveTask Error:', err);
+                    } finally {
+                        const btn = document.querySelector('.tm-modal-footer .tm-btn-primary');
+                        if (btn) btn.disabled = false;
                     }
                 }
 
@@ -4047,7 +4067,10 @@
                 window.syncToSheets = async function () {
                     if (pendingActions.length === 0) return;
                     const btn = document.getElementById('btn-sync');
+                    if (btn.disabled) return; // Prevent double click
+                    let originalBtnText = btn.innerHTML;
                     btn.innerHTML = '<div class="tm-loader" style="width:14px;height:14px;border-width:2px;margin:0 4px 0 0;animation:spin 1s linear infinite;"></div> Đang gửi...';
+                    btn.style.opacity = '0.7';
                     btn.disabled = true;
 
                     let errorCount = 0;
