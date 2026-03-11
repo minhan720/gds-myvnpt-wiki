@@ -7,6 +7,10 @@ import datetime
 import urllib.parse
 from getpass import getpass
 
+# Handle Windows terminal encoding for Vietnamese characters
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding='utf-8')
+
 # JIRA CONFIGURATION
 JIRA_BASE_URL = 'https://cntt.vnpt.vn'
 JIRA_TOKEN = os.getenv('JIRA_TOKEN', '')
