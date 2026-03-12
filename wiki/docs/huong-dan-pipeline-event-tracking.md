@@ -19,7 +19,7 @@ Người dùng sử dụng các lệnh điều hướng sau kèm theo link Googl
 
 | Câu lệnh (Slash Command) | Chức năng chính | Output mong đợi |
 | :--- | :--- | :--- |
-| **`/workflow_create_events_standard [link hoặc URD]`** | **Tạo chuẩn Taxonomy:** Tự động đọc URD, phân hạch Event theo đúng chuỗi 27 quy tắc, bóc tách đa dòng 8 cột chuẩn xác và nhúng trực tiếp vào Master File. | Bảng Draft & Cập nhật Master File tập trung. |
+| **`/create_event_tracking [link hoặc URD]`** | **Tạo chuẩn Taxonomy:** Tự động đọc URD, phân hạch Event theo đúng chuỗi 27 quy tắc, bóc tách đa dòng 8 cột chuẩn xác và nhúng trực tiếp vào Master File. | Bảng Draft & Cập nhật Master File tập trung. |
 | **`/workflow_event_tracking_master`** | **Điều phối Master Pipeline:** Gọi bảng hệ thống tổng hợp tất cả tiến trình Event Tracking (nếu cần xem luồng quy trình tổng). | Trả về thông tin Master Menu. |
 
 ---

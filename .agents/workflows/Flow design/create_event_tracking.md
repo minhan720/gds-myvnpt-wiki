@@ -1,7 +1,7 @@
 ---
 description: Pipeline Event Tracking GDS (Bản Chuẩn Taxonomy 2026) - Đọc URD, Ép chuẩn Taxonomy và xuất dữ liệu Đa dòng.
 ---
-# 📁 /workflow_create_events_standard [link hoặc file URD]
+# 📁 /create_event_tracking [link hoặc file URD]
 
 ## 🎯 MỤC ĐÍCH (PURPOSE)
 Hệ thống AI sẽ đóng vai trò Data Analyst, tự động đọc luồng từ URD và bóc tách thành một danh sách sự kiện Tracking **tuân thủ nghiêm ngặt 100% Taxonomy** của MyVNPT (Chuẩn 27 Events), sau đó tự động thiết kế định dạng đa dòng (Split-row) để đổ vào Master File.
