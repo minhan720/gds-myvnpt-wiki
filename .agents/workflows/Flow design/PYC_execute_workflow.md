@@ -1,5 +1,5 @@
 ---
-description: Pipeline Xuyên Mạch - Xử lý Yêu cầu Cải tiến (PYC) từ Jira đến khi ra bản thiết kế Spec cuối cùng (5 Bước + HITL)
+description: Pipeline Xuyên Mạch - Xử lý Yêu cầu Cải tiến (PYC) từ Jira đến khi ra bản thiết kế Spec cuối cùng (6 Bước + HITL)
 ---
 
 # Quy trình Xử lý Yêu cầu Cải tiến (PYC Workflow)
@@ -33,15 +33,20 @@ Quy trình yêu cầu sự giám sát và phê duyệt của con người (HITL 
    - **Nội dung:** Bắt buộc bao gồm Tóm tắt yêu cầu từ Jira, kết quả Ethnographic và JTBD.
 3. **Review:** Dừng lại chờ Người Dùng (Boss) phê duyệt file **Đạt** (Proceed) mới đi tiếp.
 
-## Bước 5: Chế tác Flow & Specs (Design & Spec Generation)
-1. **Action 1:** Sau khi Insight được duyệt ở Bước 4, tự động gọi Agent `@UX Designer & Writer` (`ux_designer_writer.md`).
-2. **Task 5.1:** Áp dụng kỹ năng `/mermaid-optimization` để vẽ sơ đồ luồng UX (UX Flow).
-3. **Task 5.2:** Áp dụng kỹ năng `/ux-writing-tone` để viết bảng UI Copywriting và Edge Cases.
+## Bước 5: Lên Thiết kế Chiến lược & Phê duyệt (Strategy Generation - HITL 2)
+1. **Action:** Sau khi được phê duyệt ở Bước 4, tự động gọi Agent `@Empathy Strategist` (`empathy_strategist.md`).
+2. **Task:** Đọc file `RSxx...md` vừa tạo, kích hoạt kỹ năng `/goosebumps-validation`.
+3. **Output Formatting:** **Ghi đè/Bổ sung (Append)** "Ý tưởng Giải pháp" (Vế Logic & Vế Emotion) trực tiếp vào *CUỐI* file `RSxx...md` đó. Tuyệt đối không tạo file mới.
+4. **Review:** Dừng lại chờ Người Dùng duyệt (HITL) ý tưởng chiến lược này.
+
+## Bước 6: Chế tác Flow & Specs (Design & Spec Generation)
+1. **Action 1:** Sau khi chiến lược được duyệt, tự động gọi Agent `@UX Designer & Writer` (`ux_designer_writer.md`).
+2. **Task 6.1:** Áp dụng kỹ năng `/mermaid-optimization` để vẽ sơ đồ luồng UX (UX Flow).
+3. **Task 6.2:** Áp dụng kỹ năng `/ux-writing-tone` để viết bảng UI Copywriting và Edge Cases.
 4. **Output Formatting:** 
    - Tạo một file MỚI dựa trên `ux_spec_template.md`.
    - Lưu vào thư mục `specs` của Knowledge Base.
    - **Tên file:** `URD[index]_[Mã Task Jira]_[Tên Task đục lỗ].md` (Ví dụ: `URD01_IT360-1587543_Yeu_cau_bo_sung_chuc_nang.md`).
-5. **Action 2 (Đồng bộ tùy chọn):** Gợi ý cho Người dùng (Boss) chạy lệnh `/sync_gdocs` truyền kèm đường dẫn tuyệt đối của file `URD...md` vừa tạo. (Ví dụ: `Dạ, Boss có muốn em tự động đẩy bản URD này lên Google Docs để share cho team luôn không ạ? Boss gõ phím tắt /sync_gdocs kèm link gửi em nhé!`)
 
 ---
 *(Quy trình Kết thúc tại đây, toàn bộ Tài nguyên của 1 Task được lưu trữ gọn gàng trong 1 file `RS..` và 1 file `URD..`)*
