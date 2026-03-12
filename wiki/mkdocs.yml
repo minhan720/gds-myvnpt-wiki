@@ -50,6 +50,7 @@ nav:
     - Công cụ: bat-dau/cong-cu.md
     - Hướng dẫn Quản lý Task: bat-dau/huong-dan-quan-ly-task.md
   - 🔄 Quy trình:
+    - Start Flow Design: huong-dan-start-flow-design.md
     - URD Execute (Autopilot): bat-dau/urd-execute-workflow.md
   - 👥 Teams:
     - Jira Tracking Team: teams/jira-tracking.md
