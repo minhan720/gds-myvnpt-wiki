@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bảng Theo Dõi Dự Án (Gantt Chart)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/access_control.css">
+    <script src="javascripts/access_control.js"></script>
     <style>
         :root {
             --md-default-bg-color: #ffffff;
@@ -171,6 +173,77 @@
             display: none;
         }
 
+        /* Sidebar Footer / View Mode Indicator */
+        .tm-sidebar-footer {
+            padding: 16px 12px;
+            border-top: 1px solid var(--md-typeset-table-color);
+            margin-top: auto;
+        }
+
+        .tm-view-mode-indicator {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #475569;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .tm-view-mode-indicator:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+        .tm-view-mode-indicator svg {
+            margin-right: 10px;
+            flex-shrink: 0;
+            color: #64748b;
+        }
+
+        .tm-sidebar.collapsed .tm-view-mode-indicator {
+            padding: 10px;
+            justify-content: center;
+        }
+
+        .tm-sidebar.collapsed .tm-view-mode-indicator svg {
+            margin-right: 0;
+        }
+
+        .tm-sidebar.collapsed .tm-view-mode-indicator .view-mode-text {
+            display: none;
+        }
+
+        .view-mode-full {
+            color: #10b981 !important;
+            border-color: #a7f3d0 !important;
+            background: #ecfdf5 !important;
+        }
+
+        .view-mode-full:hover {
+            background: #d1fae5 !important;
+        }
+
+        .tm-view-mode-indicator .view-mode-icon-switch {
+            margin-left: auto;
+            margin-right: 0;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .tm-view-mode-indicator:hover .view-mode-icon-switch {
+            opacity: 1;
+        }
+
+        .tm-sidebar.collapsed .view-mode-icon-switch {
+            display: none;
+        }
+
         /* Main Content wrapper */
         .tm-main-content {
             flex: 1;
@@ -305,29 +378,36 @@
             border-left: 1px solid var(--md-typeset-table-color);
         }
 
+        .col-urd {
+            left: 453px;
+            min-width: 100px;
+            text-align: center;
+            border-left: 1px solid var(--md-typeset-table-color);
+        }
+
         .col-start {
-            left: 473px;
+            left: 554px;
             min-width: 80px;
             text-align: center;
             border-left: 1px solid var(--md-typeset-table-color);
         }
 
         .col-end {
-            left: 574px;
+            left: 635px;
             min-width: 80px;
             text-align: center;
             border-left: 1px solid var(--md-typeset-table-color);
         }
 
         .col-status {
-            left: 675px;
+            left: 716px;
             min-width: 80px;
             text-align: center;
             border-left: 1px solid var(--md-typeset-table-color);
         }
 
         .col-action {
-            left: 776px;
+            left: 797px;
             min-width: 80px;
             text-align: center;
             border-left: 1px solid var(--md-typeset-table-color);
@@ -530,25 +610,268 @@
             opacity: 1;
         }
 
-        /* Dashboard Scorecard Hovers */
-        .tm-scorecard {
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
 
-        .tm-scorecard:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-            border-color: #cbd5e1 !important;
-        }
+            .tm-sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--md-typeset-table-color);
+                flex-shrink: 0;
+                z-index: 100;
+            }
 
-        .tm-scorecard.danger:hover {
-            border-color: #f87171 !important;
+            .tm-sidebar.collapsed {
+                width: 100%;
+                height: 64px;
+                overflow: hidden;
+            }
+
+            .tm-sidebar.collapsed .tm-sidebar-title {
+                opacity: 1 !important;
+                display: block !important;
+                pointer-events: auto !important;
+            }
+
+            .tm-sidebar.collapsed .tm-sidebar-menu,
+            .tm-sidebar.collapsed .tm-sidebar-footer {
+                display: none !important;
+            }
+
+            .tm-sidebar.collapsed .tm-menu-text,
+            .tm-sidebar.collapsed .tm-view-mode-indicator .view-mode-text,
+            .tm-sidebar.collapsed .view-mode-icon-switch {
+                display: inline-block !important;
+                opacity: 1 !important;
+            }
+
+            .tm-sidebar-menu {
+                max-height: 40vh;
+                overflow-y: auto;
+            }
+
+            .tm-main-content {
+                padding: 12px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Header and Controls */
+            .tm-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .tm-header>div {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            #tm-search {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+
+            .tm-select {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            /* Scorecards layout */
+            #tm-dashboard-container>div:first-child,
+            #tm-dashboard-container>div:nth-child(2),
+            #tm-dashboard-container>div:nth-child(3) {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Layout Containers */
+            #tm-kehoach-container,
+            #tm-gantt-container,
+            #tm-phatsinh-container {
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            /* Touch-friendly tabs */
+            #kehoach-tabs-container,
+            .phatsinh-tab-container,
+            #gantt-tabs-container {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            #kehoach-tabs-container::-webkit-scrollbar,
+            .phatsinh-tab-container::-webkit-scrollbar,
+            #gantt-tabs-container::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            #kehoach-tabs-container::-webkit-scrollbar-thumb,
+            .phatsinh-tab-container::-webkit-scrollbar-thumb,
+            #gantt-tabs-container::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 4px;
+            }
+
+            /* Modals */
+            .tm-modal {
+                padding: 16px;
+                margin: 12px;
+                width: calc(100% - 24px);
+                max-height: 95vh;
+            }
+
+            .tm-form-group input,
+            .tm-form-group select,
+            .tm-form-group textarea {
+                font-size: 16px;
+                /* Prevent iOS zoom */
+            }
+
+            #tm-access-cards {
+                flex-direction: column;
+                gap: 12px;
+            }
         }
     </style>
 </head>
 
-<body>
+<body class="access-locked">
+    <!-- Access Control Modal directly for task manager -->
+    <div id="tm-access-modal-overlay">
+        <div id="tm-access-modal">
+            <button class="tm-access-close" id="tm-access-close-btn" onclick="window.closeAccessModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="tm-access-header">
+                <h2>Bảng Theo Dõi Dự Án</h2>
+                <p>Vui lòng chọn chế độ truy cập</p>
+            </div>
+
+            <div class="tm-access-options" id="tm-access-cards">
+                <!-- View Only Option -->
+                <div class="tm-access-card" onclick="window.selectAccessMode('view_only')">
+                    <div class="tm-access-card-icon icon-view">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div class="tm-access-card-content">
+                        <h3>View Only (Guest)</h3>
+                        <p>Chỉ xem thông tin dự án, không thể chỉnh sửa</p>
+                    </div>
+                </div>
+
+                <!-- Full Access Option -->
+                <div class="tm-access-card" onclick="window.showLoginForm()">
+                    <div class="tm-access-card-icon icon-edit">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="tm-access-card-content">
+                        <h3>Full Access (Nội bộ)</h3>
+                        <p>Yêu cầu mật khẩu để có thể cập nhật trạng thái</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Form (Hidden by default) -->
+            <div id="tm-login-form">
+                <label class="tm-label" for="tm-access-password">Mật khẩu truy cập</label>
+                <input type="password" id="tm-access-password" class="tm-input" placeholder="Nhập mật khẩu..."
+                    onkeypress="if(event.key === 'Enter') window.selectAccessMode('full_access')">
+                <div id="tm-login-error"
+                    style="color: #ef4444; font-size: 0.85rem; margin-bottom: 12px; display: none;">Mật khẩu không chính
+                    xác</div>
+
+                <div class="tm-login-actions">
+                    <button class="tm-btn tm-btn-secondary" onclick="window.hideLoginForm()">Quay lại</button>
+                    <button class="tm-btn tm-btn-primary" onclick="window.selectAccessMode('full_access')">Đăng
+                        nhập</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.updateSidebarIndicator = function (mode) {
+            const indicatorText = document.getElementById('tm-view-mode-text');
+            const indicatorDiv = document.getElementById('tm-view-mode-indicator-div');
+            const indicatorIcon = document.getElementById('tm-view-mode-icon');
+
+            if (!indicatorText || !indicatorDiv || !indicatorIcon) return;
+
+            if (mode === 'full_access') {
+                indicatorText.innerHTML = 'Mode: Full Access';
+                indicatorDiv.classList.add('view-mode-full');
+                indicatorIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
+            } else {
+                indicatorText.innerHTML = 'Mode: View Only';
+                indicatorDiv.classList.remove('view-mode-full');
+                indicatorIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+            }
+        };
+    </script>
+    <script>
+        window.applyViewOnlyRestrictions = function () {
+            // Hide header action buttons
+            const btnAdd = document.getElementById('tm-btn-add-task');
+            if (btnAdd) btnAdd.style.display = 'none';
+
+            const btnJira = document.getElementById('jira-update-container');
+            if (btnJira) btnJira.style.display = 'none';
+
+            const btnSync = document.getElementById('btn-sync');
+            if (btnSync) btnSync.style.display = 'none';
+
+            // Override action functions
+            const restrictedFunctions = [
+                'openTaskModal',
+                'saveTask',
+                'openApproveModal',
+                'submitApproveModal',
+                'updatePhatSinhStatus',
+                'openRejectModal',
+                'submitRejectModal',
+                'restorePhatSinhTask',
+                'deleteTask',
+                'makeCellEditable',
+                'saveJiraLink',
+                'syncToSheets',
+                'handleJiraClick'
+            ];
+
+            restrictedFunctions.forEach(fn => {
+                const originalFn = window[fn];
+                window[fn] = function (...args) {
+                    if (window.TM_CONFIG && window.TM_CONFIG.checkAccess() === 'view_only') {
+                        window.showToast('Bạn đang ở chế độ View Only. Không thể thực hiện thao tác này.', 'error');
+                        if (args[0] && typeof args[0].preventDefault === 'function') {
+                            args[0].preventDefault();
+                        }
+                        return;
+                    }
+                    if (originalFn) return originalFn.apply(this, args);
+                };
+            });
+        };
+    </script>
     <div class="app-container">
         <!-- Sidebar -->
         <aside class="tm-sidebar" id="tm-sidebar">
@@ -629,8 +952,26 @@
                     </svg>
                     <span class="tm-menu-text">Phát sinh</span>
                 </a>
+            </div>
 
-
+            <div class="tm-sidebar-footer">
+                <div id="tm-view-mode-indicator-div" class="tm-view-mode-indicator"
+                    onclick="window.openAccessModalManually()" title="Chuyển đổi chế độ xem">
+                    <svg id="tm-view-mode-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <span id="tm-view-mode-text" class="view-mode-text" style="margin-right: 8px;">Mode: View
+                        Only</span>
+                    <svg class="view-mode-icon-switch" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 3 21 3 21 8"></polyline>
+                        <line x1="4" y1="14" x2="21" y2="3"></line>
+                        <polyline points="8 21 3 21 3 16"></polyline>
+                        <line x1="20" y1="10" x2="3" y2="21"></line>
+                    </svg>
+                </div>
             </div>
         </aside>
 
@@ -795,7 +1136,7 @@
                 </div>
 
                 <!-- Layout List Container -->
-                <div style="width: 100%; flex: 1; overflow-y: auto; background: #fff;">
+                <div id="kehoach-board-content" style="width: 100%; flex: 1; overflow-y: auto; background: #fff;">
                     <table
                         style="width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; font-size: 14px;">
                         <thead
@@ -813,17 +1154,20 @@
                                     LEAD
                                 </th>
                                 <th
-                                    style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 110px; background: inherit;">
-                                    Start
-                                    Date</th>
-                                <th
                                     style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 110px; text-align: center; background: inherit;">
                                     URD Date
                                 </th>
                                 <th
                                     style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 110px; background: inherit;">
+                                    Start Date
+                                </th>
+                                <th
+                                    style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 110px; background: inherit;">
                                     End Date
                                 </th>
+                                <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 60px; text-align: center; background: inherit;"
+                                    title="Độ ưu tiên (Con số cấu hình 1->x)">
+                                    Prio</th>
                                 <th
                                     style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0; width: 100px; background: inherit;">
                                     Progress
@@ -1082,6 +1426,42 @@
                 </div>
             </div>
 
+            <!-- URD/Doc Link Modal -->
+            <div id="doc-modal-overlay" class="tm-modal-overlay" style="z-index:10005;">
+                <div class="tm-modal tm-card" style="max-width:400px; padding:24px;">
+                    <h3 style="margin-top:0; color:var(--md-typeset-color); font-size:1.2rem; text-align: center;">Tài
+                        Liệu URD</h3>
+
+                    <p style="font-size:0.9em; color:#64748b; margin-bottom:10px; font-weight: 500;">Cách 1: Trích xuất
+                        tự động từ file Spec (.md)</p>
+                    <button class="tm-btn" style="width: 100%; justify-content: center; margin-bottom: 20px;"
+                        onclick="document.getElementById('doc-modal-overlay').classList.remove('active'); document.getElementById('inline-doc-upload').click();">
+                        📂 Chọn File Spec (.md)
+                    </button>
+
+                    <div
+                        style="display:flex; align-items:center; text-align:center; color:#94a3b8; margin-bottom:16px; font-size:0.85em;">
+                        <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                        <span style="padding:0 10px;">Hoặc</span>
+                        <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                    </div>
+
+                    <p style="font-size:0.9em; color:#64748b; margin-bottom:10px; font-weight: 500;">Cách 2: Dán trực
+                        tiếp Link Google Docs</p>
+                    <input type="text" id="doc-link-input" class="tm-input"
+                        placeholder="https://docs.google.com/document/d/..." style="width:100%; margin-bottom:16px;">
+
+                    <input type="hidden" id="doc-task-id">
+
+                    <div style="display:flex; justify-content:flex-end; gap:8px;">
+                        <button class="tm-btn"
+                            onclick="document.getElementById('doc-modal-overlay').classList.remove('active')">Trở
+                            lại</button>
+                        <button class="tm-btn tm-btn-primary" onclick="window.saveDocLink()">Lưu Link</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Modal Phê duyệt Task (Approve) -->
             <div class="tm-modal-overlay" id="tm-approve-modal-overlay" style="z-index:10005;">
                 <div class="tm-modal">
@@ -1207,7 +1587,7 @@
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
-                window.TM_CONFIG = {
+                window.TM_CONFIG = Object.assign(window.TM_CONFIG || {}, {
                     LEADS: ['Nguyễn Việt Hà', 'Hồ Phạm Quỳnh Mai', 'An Vũ Nhật Minh'],
                     SHEETS: {
                         'bau': 'BAU',
@@ -1224,7 +1604,7 @@
                         'kehoach': 'Kế hoạch tháng',
                         'dashboard': 'Dashboard Phân tích'
                     }
-                };
+                });
 
                 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFKPRwFvBVZGnpSkkz6km0NKaPMiwsg_kXCtcqeEL_QbBE9JyuQOk-gl3SnZQ6-RQj/exec";
                 let tasksData = [];
@@ -1241,16 +1621,16 @@
 
                 window.copyJiraCommand = function () {
                     if (navigator.clipboard && window.isSecureContext) {
-                        navigator.clipboard.writeText('/jira_tracking_master').then(() => {
-                            alert('Lệnh /jira_tracking_master đã được copy!\n\nHãy dán lệnh này vào khung chat của Antigravity để khởi chạy luồng Cập nhật từ Jira.');
+                        navigator.clipboard.writeText('/workflow_jira_weekly_recap').then(() => {
+                            alert('Lệnh /workflow_jira_weekly_recap đã được copy!\n\nHãy dán lệnh này vào khung chat của Antigravity để khởi chạy luồng Cập nhật từ Jira.');
                         }).catch(err => {
                             console.error('Lỗi copy: ', err);
-                            alert('Không thể tự động copy. Vui lòng gõ lệnh /jira_tracking_master vào khung chat!');
+                            alert('Không thể tự động copy. Vui lòng gõ lệnh /workflow_jira_weekly_recap vào khung chat!');
                         });
                     } else {
                         // Fallback cho trình duyệt không hỗ trợ API Clipboard trực tiếp
                         let textArea = document.createElement("textarea");
-                        textArea.value = "/jira_tracking_master";
+                        textArea.value = "/workflow_jira_weekly_recap";
                         textArea.style.position = "fixed";
                         textArea.style.left = "-999999px";
                         textArea.style.top = "-999999px";
@@ -1259,10 +1639,10 @@
                         textArea.select();
                         try {
                             document.execCommand('copy');
-                            alert('Lệnh /jira_tracking_master đã được copy!\n\nHãy dán lệnh này vào khung chat của Antigravity để khởi chạy luồng Cập nhật từ Jira.');
+                            alert('Lệnh /workflow_jira_weekly_recap đã được copy!\n\nHãy dán lệnh này vào khung chat của Antigravity để khởi chạy luồng Cập nhật từ Jira.');
                         } catch (err) {
                             console.error('Fallback copy fail', err);
-                            alert('Vui lòng gõ lệnh /jira_tracking_master vào khung chat!');
+                            alert('Vui lòng gõ lệnh /workflow_jira_weekly_recap vào khung chat!');
                         }
                         textArea.remove();
                     }
@@ -1358,6 +1738,12 @@
                 };
 
                 document.addEventListener('DOMContentLoaded', () => {
+                    // Auto-collapse sidebar on mobile
+                    if (window.innerWidth <= 768) {
+                        const sidebar = document.getElementById('tm-sidebar');
+                        if (sidebar) sidebar.classList.add('collapsed');
+                    }
+
                     // Initialize Sidebar Active State if loaded via URL param
                     document.querySelectorAll('.tm-menu-item').forEach(el => {
                         el.classList.remove('active');
@@ -1373,7 +1759,12 @@
                     }
 
                     // Update controls visibility on init
-                    window.updateHeaderControlsVisibility(currentSheetKey);
+                    // Only if not view_only
+                    if (window.TM_CONFIG && window.TM_CONFIG.checkAccess() !== 'view_only') {
+                        window.updateHeaderControlsVisibility(currentSheetKey);
+                    } else if (window.applyViewOnlyRestrictions) {
+                        window.applyViewOnlyRestrictions();
+                    }
 
                     // Populate Form Modal Leads
                     const assigneeSelect = document.getElementById('task-assignee');
@@ -1386,19 +1777,42 @@
                         });
                     }
 
+                    // Network Status Handling
+                    window.addEventListener('offline', () => {
+                        window.showToast('⚠️ Mất kết nối mạng! Vui lòng kiểm tra lại đường truyền.', 'error');
+                        document.body.classList.add('is-offline');
+                        const syncBtn = document.getElementById('btn-sync');
+                        if (syncBtn) syncBtn.disabled = true;
+                    });
+
+                    window.addEventListener('online', () => {
+                        window.showToast('✅ Đã kết nối lại mạng Internet.', 'success');
+                        document.body.classList.remove('is-offline');
+                        const syncBtn = document.getElementById('btn-sync');
+                        if (syncBtn) syncBtn.disabled = false;
+                    });
+
                     fetchTasks();
                 });
 
                 window.updateSyncUI = function () {
+                    if (window.TM_CONFIG && window.TM_CONFIG.checkAccess() === 'view_only') {
+                        const btn = document.getElementById('btn-sync');
+                        if (btn) btn.style.display = 'none';
+                        window.onbeforeunload = null;
+                        return;
+                    }
+
                     const btn = document.getElementById('btn-sync');
                     const count = document.getElementById('sync-count');
+
                     if (pendingActions.length > 0) {
-                        btn.style.display = 'flex';
-                        count.textContent = pendingActions.length;
+                        if (btn) btn.style.display = 'flex';
+                        if (count) count.textContent = pendingActions.length;
                         window.onbeforeunload = function () { return "Bạn có dữ liệu chưa đồng bộ!"; };
                     } else {
-                        btn.style.display = 'none';
-                        count.textContent = '0';
+                        if (btn) btn.style.display = 'none';
+                        if (count) count.textContent = '0';
                         window.onbeforeunload = null;
                     }
                 }
@@ -1420,14 +1834,86 @@
                         let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
                         return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
                     });
-                    let docUrl = task && (docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu']));
+                    let docUrl = task && (docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || task['Doc']));
 
-                    if (docUrl) {
+                    if (window.hasDocLink(task)) {
                         window.open(docUrl, '_blank');
                     } else {
-                        // Trigger hidden file input to select .md file and parse GDocs link
-                        document.getElementById('inline-doc-task-id').value = taskId;
-                        document.getElementById('inline-doc-upload').click();
+                        // Mở Modal cho phép chọn tải MD file HOẶC paste link
+                        document.getElementById('doc-task-id').value = taskId;
+                        document.getElementById('inline-doc-task-id').value = taskId; // Dành cho file upload picker
+                        document.getElementById('doc-link-input').value = '';
+                        document.getElementById('doc-modal-overlay').classList.add('active');
+                    }
+                }
+
+                window.saveDocLink = function () {
+                    const taskId = document.getElementById('doc-task-id').value;
+                    let url = document.getElementById('doc-link-input').value.trim();
+
+                    if (!url) {
+                        return window.showToast('Vui lòng điền link Google Docs hoặc chọn file.', 'error');
+                    }
+
+                    if (!url.startsWith('http')) {
+                        return window.showToast('Link có vẻ chưa đúng định dạng. Phải chứa http/https!', 'error');
+                    }
+
+                    document.getElementById('doc-modal-overlay').classList.remove('active');
+
+                    // Extract /edit if needed or just use as is
+                    if (!url.endsWith('/edit') && url.includes('docs.google.com')) {
+                        // attempt to attach /edit if cleanly ending in document id
+                        if (!url.includes('?')) {
+                            const lastChar = url[url.length - 1];
+                            if (lastChar !== '/') url += '/edit';
+                            else url += 'edit';
+                        }
+                    }
+
+                    let task = tasksData.find(t => String(t.ID) === String(taskId));
+                    if (task) {
+                        let docKeys = Object.keys(task).filter(k => {
+                            let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                            return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                        });
+                        if (docKeys.length > 0) {
+                            docKeys.forEach(key => task[key] = url);
+                        } else {
+                            task['Tai lieu'] = url;
+                            task['Tài liệu'] = url;
+                            task['Doc'] = url;
+                        }
+
+                        let targetKey = null;
+                        if (task._sourceSheet) {
+                            targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === task._sourceSheet);
+                        }
+
+                        const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
+                        if (existingActionIndex !== -1) {
+                            pendingActions[existingActionIndex].task = { ...task };
+                            if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                        } else {
+                            let actionPayload = { action: 'update', task: { ...task } };
+                            if (targetKey) actionPayload.targetSheetKey = targetKey;
+                            pendingActions.push(actionPayload);
+                        }
+
+                        if (window.currentSheetKey === 'phatsinh') {
+                            if (typeof window.renderPhatSinhBoard === 'function') window.renderPhatSinhBoard(tasksData);
+                        } else if (window.currentSheetKey === 'kehoach') {
+                            if (typeof window.renderKeHoachBoard === 'function') window.renderKeHoachBoard(tasksData);
+                        } else if (window.currentSheetKey === 'dashboard') {
+                            if (typeof window.renderDashboardBoard === 'function') window.renderDashboardBoard(tasksData);
+                        } else {
+                            if (typeof window.renderGanttBoard === 'function') window.renderGanttBoard(tasksData);
+                        }
+
+                        window.updateSyncUI();
+                        window.showToast('✅ Đã lưu link trực tiếp thành công!');
+
+                        saveBackup();
                     }
                 }
 
@@ -1449,20 +1935,43 @@
                             // Directly save to task and pendingActions
                             let task = tasksData.find(t => String(t.ID) === String(taskId));
                             if (task) {
-                                let docKey = Object.keys(task).find(k => {
+                                let docKeys = Object.keys(task).filter(k => {
                                     let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
                                     return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
                                 });
-                                task[docKey || 'Tai lieu'] = extractedUrl;
+                                if (docKeys.length > 0) {
+                                    docKeys.forEach(key => task[key] = extractedUrl);
+                                } else {
+                                    task['Tai lieu'] = extractedUrl;
+                                    task['Tài liệu'] = extractedUrl;
+                                    task['Doc'] = extractedUrl; // Inject multiple keys to ensure GAS backend matches exact column headers
+                                }
+
+                                let targetKey = null;
+                                if (task._sourceSheet) {
+                                    targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === task._sourceSheet);
+                                }
 
                                 const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
                                 if (existingActionIndex !== -1) {
                                     pendingActions[existingActionIndex].task = { ...task };
+                                    if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
                                 } else {
-                                    pendingActions.push({ action: 'update', task: { ...task } });
+                                    let actionPayload = { action: 'update', task: { ...task } };
+                                    if (targetKey) actionPayload.targetSheetKey = targetKey;
+                                    pendingActions.push(actionPayload);
                                 }
                                 window.updateSyncUI();
-                                window.renderGanttBoard(tasksData);
+                                if (window.currentSheetKey === 'phatsinh') {
+                                    if (typeof window.renderPhatSinhBoard === 'function') window.renderPhatSinhBoard(tasksData);
+                                } else if (window.currentSheetKey === 'kehoach') {
+                                    if (typeof window.renderKeHoachBoard === 'function') window.renderKeHoachBoard(tasksData);
+                                } else if (window.currentSheetKey === 'dashboard') {
+                                    if (typeof window.renderDashboardBoard === 'function') window.renderDashboardBoard(tasksData);
+                                } else {
+                                    if (typeof window.renderGanttBoard === 'function') window.renderGanttBoard(tasksData);
+                                }
+                                saveBackup(); // Ensure we save the file extracted URL safely
                             }
                         } else {
                             window.showToast('❌ Không tìm thấy link GDocs trong file.', 'error');
@@ -1575,6 +2084,9 @@
                     if (fieldType === 'task') {
                         originalValue = task['Ten dau viec'] || '';
                         td.innerHTML = `<input type="text" class="inline-edit-input" value="${escapeHTML(originalValue)}">`;
+                    } else if (fieldType === 'priority') {
+                        originalValue = task['Priority'] || '';
+                        td.innerHTML = `<input type="number" class="inline-edit-input" style="width:100%; text-align:center;" value="${escapeHTML(originalValue)}">`;
                     } else if (fieldType === 'lead') {
                         originalValue = task['Phu trach'] || '';
                         let opts = window.TM_CONFIG.LEADS;
@@ -1640,6 +2152,63 @@
 
                         if (fieldType === 'task' && newValue !== (task['Ten dau viec'] || '')) {
                             task['Ten dau viec'] = newValue; isChanged = true;
+                        } else if (fieldType === 'priority') {
+                            if (String(task.ID).startsWith('LOCAL_')) {
+                                window.showToast("⚠️ Vui lòng nhấn Đồng bộ (Bóc Mã số ID Đỏ) trước khi gán Số Khóa trên bảng Kế Hoạch!", "error");
+                                td.innerHTML = originalHTML; // revert UI
+                                return;
+                            }
+
+                            if (newValue !== (task['Priority'] || '')) {
+                                let newPrioNum = parseInt(newValue.trim(), 10);
+                                if (!isNaN(newPrioNum)) {
+                                    // Duplicate Check By Month Isolation & Ignore Archived
+                                    let curMKey = (task._start.getMonth() + 1).toString().padStart(2, '0') + '/' + task._start.getFullYear();
+
+                                    let duplicateTask = tasksData.find(otherT => {
+                                        if (String(otherT.ID) === String(task.ID)) return false;
+                                        if (String(otherT['Trang thai'] || '').trim().toLowerCase() === 'completed') return false;
+
+                                        if (!otherT._start || isNaN(otherT._start.getTime())) return false; // ADD CROSS-BOARD PROTECTION
+
+                                        let otherMKey = (otherT._start.getMonth() + 1).toString().padStart(2, '0') + '/' + otherT._start.getFullYear();
+                                        if (curMKey !== otherMKey) return false; // Different Month
+
+                                        return parseInt(String(otherT.Priority || '').trim(), 10) === newPrioNum;
+                                    });
+
+                                    if (duplicateTask) {
+                                        // Auto-Swap Logic
+                                        let oldPrioValue = task['Priority'] || '';
+
+                                        // 1. Assign old priority of current task to the duplicate task
+                                        duplicateTask['Priority'] = oldPrioValue;
+                                        let syncTaskDup = { ID: duplicateTask.ID, Priority: oldPrioValue };
+                                        let actionPayloadDup = { action: 'update', task: syncTaskDup, targetSheetKey: 'kehoach' };
+
+                                        const existingIdxDup = pendingActions.findIndex(a => String(a.task.ID) === String(duplicateTask.ID) && a.targetSheetKey === 'kehoach');
+                                        if (existingIdxDup !== -1) pendingActions[existingIdxDup] = actionPayloadDup;
+                                        else pendingActions.push(actionPayloadDup);
+                                    }
+                                }
+
+                                task['Priority'] = newValue;
+                                // Create isolated sync action for priority mapped to Kehoachthang sheet
+                                let syncTask = { ID: task.ID, Priority: newValue };
+                                let actionPayload = { action: 'update', task: syncTask, targetSheetKey: 'kehoach' };
+                                const existingIdx = pendingActions.findIndex(a => String(a.task.ID) === String(task.ID) && a.targetSheetKey === 'kehoach');
+                                if (existingIdx !== -1) pendingActions[existingIdx] = actionPayload;
+                                else pendingActions.push(actionPayload);
+                                window.updateSyncUI();
+
+                                // Re-render silently to show new number (and automatically sort)
+                                if (currentSheetKey === 'kehoach' && typeof window.renderKeHoachBoard === 'function') {
+                                    window.renderKeHoachBoard(tasksData);
+                                }
+                                window.updateQueueUI(); // Refresh top queue icons
+                                saveBackup(); // Ensure it persists on reload
+                                return; // Skip the rest of finishEdit logic
+                            }
                         } else if (fieldType === 'lead' && newValue !== (task['Phu trach'] || '')) {
                             task['Phu trach'] = newValue; isChanged = true;
                         } else if (fieldType === 'start' || fieldType === 'end' || fieldType === 'urd') {
@@ -1683,6 +2252,14 @@
                                     task['Trang thai'] = realValue; isChanged = true;
                                     window.showToast("✅ Đã xác nhận. Đang chuyển task vào Archive rổ chung.");
                                     setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
+                                } else if (isAlreadyCompleted && realValue !== '100%') {
+                                    if (!confirm('Xác nhận: Khôi phục lại Task này?\n\nHệ thống sẽ rút Task ra khỏi Lưu trữ và đưa trở lại Kế hoạch Đang chạy.')) {
+                                        td.innerHTML = originalHTML;
+                                        return;
+                                    }
+                                    task['Trang thai'] = realValue; isChanged = true;
+                                    window.showToast("✅ Đã xác nhận. Đang khôi phục task.");
+                                    setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
                                 } else if (realValue !== task['Trang thai']) {
                                     task['Trang thai'] = realValue; isChanged = true;
                                 }
@@ -1697,6 +2274,14 @@
                                     }
                                     task['Trang thai'] = newValue; isChanged = true;
                                     window.showToast("✅ Đã xác nhận. Đang chuyển task vào mục Lưu trữ.");
+                                    setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
+                                } else if (isAlreadyCompleted && newValue !== '100%') {
+                                    if (!confirm('Xác nhận: Khôi phục lại Task này?\n\nHệ thống sẽ rút Task ra khỏi Lưu trữ và đưa trở lại Kế hoạch Đang chạy.')) {
+                                        td.innerHTML = originalHTML;
+                                        return;
+                                    }
+                                    task['Trang thai'] = newValue; isChanged = true;
+                                    window.showToast("✅ Đã xác nhận. Đang khôi phục task.");
                                     setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
                                 } else if (newValue !== (task['Trang thai'] || '')) {
                                     task['Trang thai'] = newValue; isChanged = true;
@@ -1773,7 +2358,7 @@
                     const fetchSheetData = (sheetNameParam) => {
                         return new Promise((resolve, reject) => {
                             let xhr = new XMLHttpRequest();
-                            xhr.timeout = 60000; // Tăng lên 60 giây để chờ 3 bảng tải xong ở Dashboard
+                            xhr.timeout = 15000; // Giảm xuống 15 giây để báo lỗi hiển thị Toast đỏ nếu rớt mạng
                             xhr.open('GET', SCRIPT_URL + '?t=' + new Date().getTime() + '&sheetName=' + encodeURIComponent(sheetNameParam), true);
 
                             xhr.onload = function () {
@@ -1781,6 +2366,15 @@
                                 if (xhr.status >= 200 && xhr.status < 400) {
                                     try {
                                         let parsed = JSON.parse(xhr.responseText);
+                                        if (Array.isArray(parsed)) {
+                                            parsed = parsed.map(row => {
+                                                let cleanRow = {};
+                                                for (let key in row) {
+                                                    cleanRow[String(key).trim()] = row[key];
+                                                }
+                                                return cleanRow;
+                                            });
+                                        }
                                         resolve(parsed);
                                     } catch (e) {
                                         reject(new Error("API Google Sheets không trả về đúng định dạng JSON (" + sheetNameParam + ")"));
@@ -1807,11 +2401,12 @@
                         let data = [];
 
                         if (currentSheetKey === 'kehoach' || currentSheetKey === 'dashboard') {
-                            debugLog('Fetching BAU, SIP, and VNP parallel for ' + currentSheetKey + '...');
-                            const [bauResult, sipResult, vnpResult] = await Promise.all([
+                            debugLog('Fetching BAU, SIP, VNP and Kehoachthang parallel for ' + currentSheetKey + '...');
+                            const [bauResult, sipResult, vnpResult, prioResult] = await Promise.all([
                                 fetchSheetData(window.TM_CONFIG.SHEETS['bau']),
                                 fetchSheetData(window.TM_CONFIG.SHEETS['sip']),
-                                fetchSheetData(window.TM_CONFIG.SHEETS['vnp'])
+                                fetchSheetData(window.TM_CONFIG.SHEETS['vnp']),
+                                fetchSheetData('Kehoachthang') // Fetch mapping table
                             ]);
 
                             if (bauResult && bauResult.status === 'error') throw new Error("Lỗi BAU: " + bauResult.message);
@@ -1822,10 +2417,20 @@
                             let sipArr = Array.isArray(sipResult) ? sipResult : [];
                             let vnpArr = Array.isArray(vnpResult) ? vnpResult : [];
 
+                            // Build priority map
+                            let prioMap = {};
+                            let prioArr = Array.isArray(prioResult) ? prioResult : [];
+                            prioArr.forEach(p => {
+                                if (p.ID && p.Priority !== undefined) {
+                                    prioMap[p.ID] = String(p.Priority);
+                                }
+                            });
+                            window.prioMapData = prioMap; // LƯU RA BIẾN TOÀN CỤC ĐỂ CHECK LÚC SYNC
+
                             // Tag source sheet
-                            bauArr.forEach(t => t._sourceSheet = window.TM_CONFIG.SHEETS['bau']);
-                            sipArr.forEach(t => t._sourceSheet = window.TM_CONFIG.SHEETS['sip']);
-                            vnpArr.forEach(t => t._sourceSheet = window.TM_CONFIG.SHEETS['vnp']);
+                            bauArr.forEach(t => { t._sourceSheet = window.TM_CONFIG.SHEETS['bau']; t['Priority'] = prioMap[t.ID] || ''; });
+                            sipArr.forEach(t => { t._sourceSheet = window.TM_CONFIG.SHEETS['sip']; t['Priority'] = prioMap[t.ID] || ''; });
+                            vnpArr.forEach(t => { t._sourceSheet = window.TM_CONFIG.SHEETS['vnp']; t['Priority'] = prioMap[t.ID] || ''; });
 
                             data = [...bauArr, ...sipArr, ...vnpArr];
                         } else {
@@ -1843,17 +2448,30 @@
                         tasksData = data.filter((t, index) => {
                             if (!t || t.ID === 'ID') return false; // Skip header/nulls
 
-                            let hasContent = t['Ten dau viec'] || t['Tên đầu việc'] || t['Danh muc'] || t['Phu trach'];
+                            let statusVal = String(t['Trang thai'] || t['Trạng thái'] || '');
+                            let hasContent = t['Ten dau viec'] || t['Tên đầu việc'] || t['Danh muc'] || t['Phu trach'] || statusVal.trim().length > 0;
 
-                            // Auto-generate local ID for manually added rows in Google Sheets
+                            // Auto-generate local ID for manually added rows in Google Sheets 
+                            // Using a Stable String Hash to prevent losing Priority tracking across reloads
                             if (hasContent && (!t.ID || String(t.ID).trim() === '')) {
-                                t.ID = 'GS_AUTO_' + new Date().getTime() + '_' + index;
+                                let stableString = (t['Ten dau viec'] || t['Tên đầu việc'] || '') + '|' + (t['Phu trach'] || '') + '|' + (t._sourceSheet || '') + '|' + index;
+
+                                // Simple string to 32bit integer hash (DJB2 variant)
+                                let hash = 0;
+                                for (let i = 0; i < stableString.length; i++) {
+                                    let char = stableString.charCodeAt(i);
+                                    hash = ((hash << 5) - hash) + char;
+                                    hash = hash & hash; // Convert to 32bit integer
+                                }
+
+                                // Make it positive and prefix it
+                                t.ID = 'GS_AUTO_' + Math.abs(hash).toString(36) + '_' + index;
                                 return true;
                             }
                             return t.ID && String(t.ID).trim() !== '';
                         });
 
-                        // Parse dates safely
+                        // Parse dates safely first so we can use them for Month-based Isolation
                         debugLog('Parsing dates...');
                         tasksData.forEach(t => {
                             let parsed = false;
@@ -1876,6 +2494,30 @@
                             if (isNaN(t._start.getTime())) { t._start = new Date(); t._start.setHours(0, 0, 0, 0); }
                             if (isNaN(t._end.getTime())) { t._end = new Date(); t._end.setDate(t._start.getDate() + 1); t._end.setHours(0, 0, 0, 0); }
                             if (t._end < t._start) t._end = new Date(t._start.getTime());
+                        });
+
+                        // Isolated Priority Auto-Increment bounds by MM/YYYY
+                        let maxPrioByMonth = {};
+                        tasksData.forEach(t => {
+                            // Ignore Completed tasks for priority tracking
+                            if (String(t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
+
+                            let mKey = (t._start.getMonth() + 1).toString().padStart(2, '0') + '/' + t._start.getFullYear();
+                            if (maxPrioByMonth[mKey] === undefined) maxPrioByMonth[mKey] = 0;
+
+                            let pObj = parseInt(String(t.Priority || '').trim(), 10);
+                            if (!isNaN(pObj) && pObj > maxPrioByMonth[mKey]) maxPrioByMonth[mKey] = pObj;
+                        });
+
+                        tasksData.forEach(t => {
+                            if (String(t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
+
+                            let mKey = (t._start.getMonth() + 1).toString().padStart(2, '0') + '/' + t._start.getFullYear();
+                            if (!t.Priority || String(t.Priority).trim() === '') {
+                                if (maxPrioByMonth[mKey] === undefined) maxPrioByMonth[mKey] = 0;
+                                maxPrioByMonth[mKey]++;
+                                t.Priority = String(maxPrioByMonth[mKey]);
+                            }
                         });
 
                         // Render
@@ -1924,6 +2566,19 @@
                     // Step 3: Render Risk Table
                     renderDashboardWarnings(validTasks);
                 };
+                window.hasDocLink = function (t) {
+                    if (!t) return false;
+                    let docKeys = Object.keys(t).filter(k => {
+                        let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                        return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                    });
+
+                    for (let key of docKeys) {
+                        let val = String(t[key] || '').trim();
+                        if (val !== '' && (val.includes('http') || val.length > 5)) return true;
+                    }
+                    return false;
+                };
 
                 function renderDashboardScorecards(tasks) {
                     const now = new Date();
@@ -1962,8 +2617,8 @@
                                 }
                             }
 
-                            // 5, 6. Tính thẻ Quá hạn / Sắp tới hạn (Dựa vào URD Date)
-                            if (t['URD date'] && String(t['URD date']).trim() !== '') {
+                            // 5, 6. Tính thẻ Quá hạn / Sắp tới hạn (Dựa vào URD Date) - Bỏ qua các task ĐÃ CÓ link tài liệu URD
+                            if (!window.hasDocLink(t) && t['URD date'] && String(t['URD date']).trim() !== '') {
                                 let uD = window.parseDate(t['URD date']);
                                 if (uD && !isNaN(uD.getTime())) {
                                     uD.setHours(23, 59, 59, 999);
@@ -2135,7 +2790,8 @@
                     let risks = [];
 
                     tasks.forEach(t => {
-                        if (!window.isTaskCompleted(t) && t['URD date']) {
+                        // Chỉ cảnh báo nếu Task chưa hoàn thành (isCompleted = false) VÀ chưa nộp tài liệu URD (hasDocLink = false)
+                        if (!window.hasDocLink(t) && !window.isTaskCompleted(t) && t['URD date']) {
                             let uD = window.parseDate(t['URD date']);
                             if (uD && !isNaN(uD.getTime())) {
                                 uD.setHours(0, 0, 0, 0);
@@ -2199,6 +2855,55 @@
                     if (window.tasksData) renderPhatSinhBoard(window.tasksData);
                 }
 
+                window.restorePhatSinhTask = function (safeID) {
+                    if (!confirm('Xác nhận: Khôi phục lại Task này về màn hình Kế Hoạch chưa xử lý?')) return;
+
+                    let originalID = safeID.replace(/\\'/g, "'");
+                    let foundTask = (window.renderedPhatSinhTasks && window.renderedPhatSinhTasks[originalID]) || window.tasksData?.find(t => String(t.ID) === originalID);
+                    if (!foundTask) return;
+
+                    let oldStatus = foundTask['Trang thai'];
+                    foundTask['Trang thai'] = 'Pending';
+                    const syncTask = Object.assign({}, foundTask, { ID: safeID, 'Trang thai': 'Pending' });
+
+                    // Nếu task là Approved, trích xuất Ghi Chú để đi săn Fingerprint ID Clone
+                    if (oldStatus === 'Approved') {
+                        let ghiChu = foundTask['Ghi chu'] || '';
+                        let linkMatchOld = ghiChu.match(/\[LINK:(.*?)_.*?\]/);
+                        let linkMatchNew = ghiChu.match(/\[LINK_TO:(.*?)\]/);
+                        let targetSheet = linkMatchNew ? linkMatchNew[1] : (linkMatchOld ? linkMatchOld[1] : null);
+
+                        if (targetSheet) {
+                            // Phát lệnh Truy Sát (Delete) bằng Dấu vân tay [SOURCE_ID:..]
+                            pendingActions.push({
+                                action: 'delete',
+                                task: { ID: '', 'Ghi chu': `[SOURCE_ID:${safeID}]` },
+                                targetSheetKey: targetSheet
+                            });
+
+                            // Tẩy xóa dấu vết trên trán
+                            ghiChu = ghiChu.replace(/\[LINK:.*?\]/g, '').replace(/\[LINK_TO:.*?\]/g, '').trim();
+                            foundTask['Ghi chu'] = ghiChu;
+                            syncTask['Ghi chu'] = ghiChu;
+                        }
+                    }
+
+                    let actionPayload = { action: 'update', task: syncTask, targetSheetKey: 'phatsinh' };
+
+                    const existingIdx = pendingActions.findIndex(a => String(a.task.ID) === safeID && a.targetSheetKey === 'phatsinh');
+                    if (existingIdx !== -1) pendingActions[existingIdx] = actionPayload;
+                    else pendingActions.push(actionPayload);
+
+                    window.updateSyncUI();
+                    window.showToast("✅ Đã xác nhận. Đang khôi phục task.");
+
+                    if (window.tasksData) {
+                        window.renderPhatSinhBoard(window.tasksData);
+                    }
+                    setTimeout(() => { if (window.syncToSheets) window.syncToSheets(); }, 500);
+                };
+
+
                 function renderPhatSinhBoard(tasks) {
                     const tbody = document.getElementById('phatsinh-tbody');
                     tbody.innerHTML = '';
@@ -2256,8 +2961,8 @@
                     let archivedCount = 0;
 
                     uniqueTasks.forEach(t => {
-                        let status = (t['Trang thai'] || '').trim();
-                        let isArchived = (status === 'Approved' || status === 'Postponed' || status === 'Rejected');
+                        let status = (t['Trang thai'] || t['Trạng thái'] || '').trim();
+                        let isArchived = (status === 'Approved' || status === 'Postponed' || status === 'Rejected' || status === 'Completed' || status === '100%');
 
                         if (isArchived) {
                             archivedCount++;
@@ -2272,8 +2977,8 @@
 
                     // Filter tasks by active tab & search
                     let filteredTasks = uniqueTasks.filter(t => {
-                        let status = (t['Trang thai'] || '').trim();
-                        let isArchived = (status === 'Approved' || status === 'Postponed' || status === 'Rejected');
+                        let status = (t['Trang thai'] || t['Trạng thái'] || '').trim();
+                        let isArchived = (status === 'Approved' || status === 'Postponed' || status === 'Rejected' || status === 'Completed' || status === '100%');
 
                         if (window.currentPhatSinhTab === 'Archived') {
                             if (!isArchived) return false;
@@ -2362,6 +3067,8 @@
                                 tr.addEventListener('mouseleave', () => tr.style.background = 'transparent');
 
                                 let safeID = String(task.ID).replace(/'/g, "\\'");
+                                window.renderedPhatSinhTasks = window.renderedPhatSinhTasks || {};
+                                window.renderedPhatSinhTasks[String(task.ID)] = task;
                                 let name = escapeHTML(task['Ten dau viec'] || '');
 
                                 let jiraUrl = task['Jira'] || localStorage.getItem('JIRA_LINK_' + task.ID) || '';
@@ -2372,8 +3079,9 @@
 
                                 let recDate = task['Ngay tiep nhan'] ? parseDate(task['Ngay tiep nhan']).toLocaleDateString('en-GB') : '';
                                 let dueDate = task['Ngay hoan thanh'] ? parseDate(task['Ngay hoan thanh']).toLocaleDateString('en-GB') : '';
-                                let status = task['Trang thai'] || 'Pending';
-                                let ghiChu = task['Ghi chu'] || '';
+                                let status = task['Trang thai'] || task['Trạng thái'] || 'Pending';
+                                let ghiChuRaw = task['Ghi chu'] || task['Ghi chú'] || '';
+                                let ghiChu = ghiChuRaw.replace(/\[(LINK|LINK_TO|SOURCE_ID):[^\]]+\]/g, '').trim();
 
                                 let ghiChuHtml = '';
                                 if (ghiChu.trim() !== '') {
@@ -2396,9 +3104,15 @@
                                     `;
                                 }
                                 let currentBadgeHtml = '';
-                                if (status === 'Approved') currentBadgeHtml = '<div style="font-size:0.8em; text-align:center; margin-top:6px; color:#10b981; font-weight:700; letter-spacing:0.5px;">✅ APPROVED</div>';
+                                if (status === 'Approved') {
+                                    currentBadgeHtml = '<div style="font-size:0.8em; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:6px; color:#10b981; font-weight:700; letter-spacing:0.5px;">✅ APPROVED ' +
+                                        '<button onclick="window.restorePhatSinhTask(\'' + safeID + '\')" title="Khôi phục Task về Kế Hoạch 🔴" style="cursor:pointer; background:none; border:none; padding:4px; font-size:1.1em; opacity:0.7; transition:0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">♻️</button></div>';
+                                }
                                 if (status === 'Postponed') currentBadgeHtml = '<div style="font-size:0.8em; text-align:center; margin-top:6px; color:#f59e0b; font-weight:700; letter-spacing:0.5px;">⏳ POSTPONED</div>';
-                                if (status === 'Rejected') currentBadgeHtml = '<div style="font-size:0.8em; text-align:center; margin-top:6px; color:#ef4444; font-weight:700; letter-spacing:0.5px;">❌ REJECTED</div>';
+                                if (status === 'Rejected') {
+                                    currentBadgeHtml = '<div style="font-size:0.8em; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:6px; color:#ef4444; font-weight:700; letter-spacing:0.5px;">❌ REJECTED ' +
+                                        '<button onclick="window.restorePhatSinhTask(\'' + safeID + '\')" title="Khôi phục Task về Kế Hoạch 🔴" style="cursor:pointer; background:none; border:none; padding:4px; font-size:1.1em; opacity:0.7; transition:0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">♻️</button></div>';
+                                }
 
                                 tr.innerHTML = `
                                     <td style="padding: 16px; color:#94a3b8; font-size:0.85em; text-align:center; vertical-align:middle;">${typeIndex}.${taskIndex}</td>
@@ -2448,8 +3162,7 @@
 
                 function renderKeHoachBoard(tasks, skipTabRebuild = false) {
                     const tabsContainer = document.getElementById('kehoach-tabs-container');
-                    const tbody = document.getElementById('kehoach-tbody');
-                    if (!tabsContainer || !tbody) return;
+                    if (!tabsContainer) return;
 
                     // Lọc những task hợp lệ (có start date)
                     let validTasks = tasks.filter(t => t._start && !isNaN(t._start.getTime()));
@@ -2492,17 +3205,19 @@
                                     return t._start.getFullYear() + '-' + String(t._start.getMonth() + 1).padStart(2, '0') === m;
                                 }).length;
 
-                                let isActive = (m === window.currentKeHoachTab);
-                                let color = isActive ? '#4f46e5' : '#64748b';
-                                let border = isActive ? '#4f46e5' : 'transparent';
+                                if (count > 0) {
+                                    let isActive = (m === window.currentKeHoachTab);
+                                    let color = isActive ? '#4f46e5' : '#64748b';
+                                    let border = isActive ? '#4f46e5' : 'transparent';
 
-                                let div = document.createElement('div');
-                                div.className = 'kehoach-tab';
-                                div.dataset.month = m;
-                                div.onclick = () => window.switchKeHoachTab(m);
-                                div.style = `padding: 16px 24px; font-weight: 600; cursor: pointer; color: ${color}; border-bottom: 3px solid ${border}; transition: all 0.2s; white-space: nowrap;`;
-                                div.innerHTML = displayStr + `<span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; margin-left: 8px;">${count}</span>`;
-                                tabsContainer.appendChild(div);
+                                    let div = document.createElement('div');
+                                    div.className = 'kehoach-tab';
+                                    div.dataset.month = m;
+                                    div.onclick = () => window.switchKeHoachTab(m);
+                                    div.style = `padding: 16px 24px; font-weight: 600; cursor: pointer; color: ${color}; border-bottom: 3px solid ${border}; transition: all 0.2s; white-space: nowrap;`;
+                                    div.innerHTML = displayStr + `<span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; margin-left: 8px;">${count}</span>`;
+                                    tabsContainer.appendChild(div);
+                                }
                             });
 
                             // Render tab Archived
@@ -2522,6 +3237,31 @@
                             tabsContainer.appendChild(divArch);
                         }
                     }
+
+                    // Xác định thẻ ẩn cho biến CSS Tab Archived
+                    var isArchivedTab = (window.currentKeHoachTab === 'Archived');
+                    var prioStyle = isArchivedTab ? 'display:none;' : '';
+
+                    let tableHTML = `
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9em; table-layout: fixed;">
+                            <thead>
+                                <tr style="background:#f1f5f9; border-bottom:2px solid #cbd5e1; color:#475569; font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">
+                                    <th style="padding: 12px 16px; width:40px; text-align:center;">#</th>
+                                    <th style="padding: 12px 16px; width:30%;">Tên Task</th>
+                                    <th style="padding: 12px 16px; width:15%;">LEAD</th>
+                                    <th style="padding: 12px 16px; width:10%; text-align:center;">URD Date</th>
+                                    <th style="padding: 12px 16px; width:10%; text-align:center;">Start date</th>
+                                    <th style="padding: 12px 16px; width:10%; text-align:center;">End date</th>
+                                    <th style="padding: 12px 16px; width:8%; text-align:center; ${prioStyle}">PRIO</th>
+                                    <th style="padding: 12px 16px; width:10%; text-align:center;">Progress</th>
+                                    <th style="padding: 12px 16px; width:15%; text-align:center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kehoach-task-list"></tbody>
+                        </table>
+                    `;
+                    document.getElementById('kehoach-board-content').innerHTML = tableHTML;
+                    tbody = document.getElementById('kehoach-task-list');
 
                     // Filter task theo currentKeHoachTab và theo Từ khóa Tìm kiếm
                     let filtered = validTasks.filter(t => {
@@ -2550,9 +3290,22 @@
 
                     tbody.innerHTML = '';
                     if (filtered.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px;">Không có nhiệm vụ nào trong tháng này.</td></tr>';
+                        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:20px;">Không có nhiệm vụ nào trong tháng này.</td></tr>';
                         return;
                     }
+
+                    // Sắp xếp Task theo cột Priority (Số nhỏ xếp trước)
+                    filtered.sort((a, b) => {
+                        let pA = parseInt((a['Priority'] || '9999').toString().trim(), 10) || 9999;
+                        let pB = parseInt((b['Priority'] || '9999').toString().trim(), 10) || 9999;
+
+                        if (pA !== pB) return pA - pB;
+
+                        // Nếu priority ngang nhau, Sort mốc Start Date tăng dần
+                        let sA = a._start ? a._start.getTime() : 0;
+                        let sB = b._start ? b._start.getTime() : 0;
+                        return sA - sB;
+                    });
 
                     filtered.forEach((task, index) => {
                         const tr = document.createElement('tr');
@@ -2592,22 +3345,35 @@
 
                         let statusHtml = `<span style="display:inline-block; padding:4px 8px; font-size:0.85em; font-weight:600; color:${statusColor}; background:${statusBg}; border-radius:12px;">${statusValue}</span>`;
 
+                        let docKey = Object.keys(task).find(k => {
+                            let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                            return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                        });
+                        let docUrl = docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || task['Doc'] || '');
+                        let hasDoc = !!docUrl;
+                        let docIconColor = hasDoc ? '#4f46e5' : '#cbd5e1';
+                        let docTitle = hasDoc ? "Mở Google Docs" : "Tìm link từ file Spec (.md)";
+                        let docLinkHtml = '<a href="javascript:void(0)" onclick="window.handleDocClick(event, \'' + safeID + '\')" title="' + docTitle + '"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + docIconColor + '" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></a>';
+
                         let jiraVnpUrl = task['Jira'] ? task['Jira'].trim() : '';
                         let jiraVnpBtn = jiraVnpUrl
-                            ? `<a href="${jiraVnpUrl}" target="_blank" class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#2563eb; color:white; text-decoration:none; display:inline-block; margin-top:6px;" title="Mở Jira VNP">Jira (VNP)</a>`
-                            : `<button class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#94a3b8; color:white; cursor:not-allowed; margin-top:6px;" title="Chưa có link Jira từ quy trình đồng bộ" onclick="alert('Task này chưa có link Jira từ hệ thống (Workflow chưa cập nhật).')">Jira (VNP)</button>`;
+                            ? `<a href="${jiraVnpUrl}" target="_blank" class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#2563eb; color:white; text-decoration:none; display:inline-block;" title="Mở Jira VNP">Jira (VNP)</a>`
+                            : `<button class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#94a3b8; color:white; cursor:not-allowed;" title="Chưa có link Jira từ quy trình đồng bộ" onclick="alert('Task này chưa có link Jira từ hệ thống (Workflow chưa cập nhật).')">Jira (VNP)</button>`;
 
-                        let jiraNoiBoBtn = `<button class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#0284c7; color:white; margin-top:6px; margin-left:4px;" onclick="window.handleJiraClick(event, '${safeID}')" title="Mở Jira nội bộ hoặc thêm link mới">Jira (Nội bộ)</button>`;
+                        let jiraNoiBoBtn = `<button class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#0284c7; color:white; margin-left:4px;" onclick="window.handleJiraClick(event, '${safeID}')" title="Mở Jira nội bộ hoặc thêm link mới">Jira (Nội bộ)</button>`;
 
-                        let actionHTML = `<div style="display:flex; justify-content:center;">${jiraVnpBtn} ${jiraNoiBoBtn}</div>`;
+                        let actionHTML = `<div style="display:flex; justify-content:center; align-items:center; gap: 8px;">${docLinkHtml} <div style="display:flex;">${jiraVnpBtn} ${jiraNoiBoBtn}</div></div>`;
+
+                        let prioValue = escapeHTML(task['Priority'] || '');
 
                         tr.innerHTML = `
                             <td style="padding: 12px 16px; color:#94a3b8; text-align:center; font-size:0.85em;">${index + 1}</td>
                             <td style="padding: 12px 16px; font-weight:500; color:#1e293b; line-height:1.4; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'task')" title="Click để sửa">${sourceBadge}${name}</td>
                             <td style="padding: 12px 16px; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'lead')" title="Click để sửa">${assignValue}</td>
-                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'start')" title="Click để sửa">${startDateValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'urd')" title="Click để sửa">${urdDateValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'start')" title="Click để sửa">${startDateValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'end')" title="Click để sửa">${endDateValue}</td>
+                            <td style="padding: 12px 16px; text-align:center; font-weight:bold; color:#f97316; cursor:pointer; ${prioStyle}" onclick="window.makeCellEditable(event, '${safeID}', 'priority')" title="Click sửa Độ ưu tiên">${prioValue}</td>
                             <td style="padding: 12px 16px; text-align:center; cursor:pointer;" onclick="window.makeCellEditable(event, '${safeID}', 'status')" title="Click mở luồng Progress">${statusHtml}</td>
                             <td style="padding: 12px 16px; text-align:center;">${actionHTML}</td>
                          `;
@@ -2705,8 +3471,8 @@
                     tr1.innerHTML = '<th class="sticky-col col-wbs" rowspan="2">WBS</th>' +
                         '<th class="sticky-col col-task" rowspan="2">TASK</th>' +
                         '<th class="sticky-col col-lead" rowspan="2">LEAD</th>' +
-                        '<th class="sticky-col col-start" rowspan="2">START</th>' +
                         '<th class="sticky-col col-urd" style="text-align:center;" rowspan="2">URD</th>' +
+                        '<th class="sticky-col col-start" rowspan="2">START</th>' +
                         '<th class="sticky-col col-end" rowspan="2">END</th>' +
                         '<th class="sticky-col col-status" rowspan="2">% DONE</th>' +
                         '<th class="sticky-col col-action" rowspan="2">ACTION</th>';
@@ -2839,7 +3605,7 @@
                                 let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
                                 return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
                             });
-                            let docUrl = docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || '');
+                            let docUrl = docKey ? task[docKey] : (task['Tai lieu'] || task['Tài liệu'] || task['Doc'] || '');
 
                             let hasDoc = !!docUrl;
                             let docIconColor = hasDoc ? '#4f46e5' : '#cbd5e1';
@@ -2863,8 +3629,8 @@
                             taskRow.innerHTML = '<td class="sticky-col col-wbs" onclick="window.editTask(\'' + safeID + '\')" style="text-align:right; font-size:0.9em; color:#64748b; cursor:pointer;" title="Mở chi tiết Task">' + wbsString + '</td>' +
                                 '<td class="sticky-col col-task" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'task\')" style="cursor:text;" title="Click để sửa">' + escapeHTML(task['Ten dau viec']) + '</td>' +
                                 '<td class="sticky-col col-lead" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'lead\')" style="cursor:text;" title="Click để sửa">' + escapeHTML(task['Phu trach']) + '</td>' +
-                                '<td class="sticky-col col-start" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'start\')" style="cursor:pointer; font-size:0.9em; text-align:center;" title="Click đổi ngày (YYYY-MM-DD)">' + startStr + '</td>' +
                                 '<td class="sticky-col col-urd" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'urd\')" style="cursor:text; font-size:0.9em; text-align:center;" title="Click sửa URD Date">' + urdStr + '</td>' +
+                                '<td class="sticky-col col-start" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'start\')" style="cursor:pointer; font-size:0.9em; text-align:center;" title="Click đổi ngày (YYYY-MM-DD)">' + startStr + '</td>' +
                                 '<td class="sticky-col col-end" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'end\')" style="cursor:pointer; font-size:0.9em; text-align:center;" title="Click đổi ngày (YYYY-MM-DD)">' + endStr + '</td>' +
                                 '<td class="sticky-col col-status" onclick="window.makeCellEditable(event, \'' + safeID + '\', \'status\')" style="cursor:pointer;" title="Click đổi %"><span class="badge ' + badgeClass + '">' + progText + '</span></td>' +
                                 '<td class="sticky-col col-action"><div style="display:flex; justify-content:center; align-items:center; gap:8px;">' + docLinkHtml + jiraHtml + '</div></td>';
@@ -2906,6 +3672,7 @@
                             gRow.innerHTML = '<td class="sticky-col col-wbs" style="color:' + textColor + ';">' + wbsL1 + '</td>' +
                                 '<td class="sticky-col col-task" style="font-size: 1.05em; font-weight:600; color:' + textColor + ';">' + escapeHTML(displayName) + '</td>' +
                                 '<td class="sticky-col col-lead" style="background-color:' + bgColor + ';"></td>' +
+                                '<td class="sticky-col col-urd" style="background-color:' + bgColor + ';"></td>' +
                                 '<td class="sticky-col col-start" style="background-color:' + bgColor + ';"></td>' +
                                 '<td class="sticky-col col-end" style="background-color:' + bgColor + ';"></td>' +
                                 '<td class="sticky-col col-status" style="background-color:' + bgColor + ';"></td>' +
@@ -2929,6 +3696,7 @@
                                     subRow.innerHTML = '<td class="sticky-col col-wbs" style="font-size:0.9em; text-align:right; font-weight:600; color:#475569;">' + wbsL1 + '.' + wbsL2 + '</td>' +
                                         '<td class="sticky-col col-task" style="font-size: 0.95em; padding-left: 24px; font-weight:600; color:#334155;">📁 ' + escapeHTML(subG.name) + '</td>' +
                                         '<td class="sticky-col col-lead" style="background-color:#f1f5f9;"></td>' +
+                                        '<td class="sticky-col col-urd" style="background-color:#f1f5f9;"></td>' +
                                         '<td class="sticky-col col-start" style="background-color:#f1f5f9;"></td>' +
                                         '<td class="sticky-col col-end" style="background-color:#f1f5f9;"></td>' +
                                         '<td class="sticky-col col-status" style="background-color:#f1f5f9;"></td>' +
@@ -2998,8 +3766,13 @@
                 }
 
                 window.openApproveModal = function (id) {
-                    let task = tasksData.find(t => String(t.ID) === String(id));
+                    let task = (window.renderedPhatSinhTasks && window.renderedPhatSinhTasks[String(id)]) || (window.tasksData || tasksData).find(t => String(t.ID) === String(id));
                     if (!task) return;
+
+                    if (String(id).startsWith('LOCAL_') || String(id).startsWith('GS_AUTO_') || String(id).startsWith('APP_')) {
+                        window.showToast("⚠️ Task này chưa có ID chính thức trên Sheets. Vui lòng Đồng bộ trước khi Phê duyệt (Approve)!", "error");
+                        return;
+                    }
 
                     // Populate Lead Options if empty
                     const assigneeSelect = document.getElementById('approve-task-assignee');
@@ -3020,7 +3793,7 @@
 
                     // Pre-fill data
                     document.getElementById('approve-task-id').value = id;
-                    document.getElementById('approve-task-name').value = task['Ten dau viec'] || '';
+                    document.getElementById('approve-task-name').value = task['Ten dau viec'] || task['Tên đầu việc'] || '';
                     // Có thể danh mục từ Jira sẽ không khớp hoàn toàn với các board kia, nhưng cứ set text hiện tại làm string mặc định
                     document.getElementById('approve-task-category').value = task['Danh muc'] || '';
 
@@ -3053,7 +3826,7 @@
                     // Get original task to extract hidden fields like Jira, Tai lieu
                     let originalTask = tasksData.find(t => String(t.ID) === String(id));
                     let oldJira = originalTask ? (originalTask['Jira'] || localStorage.getItem('JIRA_LINK_' + id) || '') : '';
-                    let oldTaiLieu = originalTask ? (originalTask['Tai lieu'] || '') : '';
+                    let oldTaiLieu = originalTask ? (originalTask['Tai lieu'] || originalTask['Tài liệu'] || originalTask['Doc'] || '') : '';
 
                     // Note: Format dates back to dd/MM/yyyy for GAS compatibility
                     let formattedStart = start.split('-').reverse().join('/');
@@ -3062,7 +3835,8 @@
 
                     // 1. Setup the NEW TASK object for the Target Sheet (BAU or SIP)
                     let newTargetTask = {
-                        ID: 'LOCAL_' + new Date().getTime(), // local dummy ID
+                        ID: 'APP_' + new Date().getTime(), // Biển số Cứng - Được Google Sheets Tôn Trọng Lưu Lại
+                        'Ghi chu': `[SOURCE_ID:${id}]`, // Nhúng vân tay vào Clone để Restore còn tìm diệt được
                         'Danh muc': cat,
                         'Ten dau viec': name,
                         'Phu trach': assignee,
@@ -3083,6 +3857,16 @@
                     // 2. Setup the UPDATE action for the original Phat Sinh task
                     if (originalTask) {
                         originalTask['Trang thai'] = 'Approved';
+
+                        // Xăm mã Linkage ID vào Ghi chú
+                        let oldGhiChu = originalTask['Ghi chu'] || '';
+                        let linkTag = `[LINK_TO:${targetSheetKey}]`;
+                        // Cào sạch rác cũ (format [LINK:..]) trước khi đắp vân tay mới
+                        oldGhiChu = oldGhiChu.replace(/\[LINK:[^\]]+\]/g, '').replace(/\[LINK_TO:[^\]]+\]/g, '').replace(/\[SOURCE_ID:[^\]]+\]/g, '').trim();
+                        if (!oldGhiChu.includes(linkTag)) {
+                            originalTask['Ghi chu'] = (oldGhiChu + '\n' + linkTag).trim();
+                        }
+
                         // Keep ID to update existing row
                         pendingActions = pendingActions.filter(a => !(a.task.ID === id && a.action === 'update'));
                         pendingActions.push({
@@ -3193,7 +3977,7 @@
                     if (task._start) document.getElementById('task-start').value = task._start.toISOString().split('T')[0];
                     if (task._end) document.getElementById('task-end').value = task._end.toISOString().split('T')[0];
 
-                    document.getElementById('task-doc-url').value = task['Tai lieu'] || task['Tài liệu'] || '';
+                    document.getElementById('task-doc-url').value = task['Tai lieu'] || task['Tài liệu'] || task['Doc'] || '';
                     document.getElementById('task-doc-file').value = '';
 
                     let taskStatus = task['Trang thai'] || '0%';
@@ -3218,6 +4002,8 @@
 
                 window.saveTask = async function (e) {
                     e.preventDefault();
+                    const btn = document.querySelector('.tm-modal-footer .tm-btn-primary');
+                    if (btn) btn.disabled = true; // Anti-spam lock
                     try {
                         let id = document.getElementById('task-id').value;
                         const action = id ? 'update' : 'add';
@@ -3242,6 +4028,16 @@
                             urdStr = `${uD}/${uM}/${uY}`;
                         }
 
+                        let docKeys = [];
+                        if (existingTask) {
+                            docKeys = Object.keys(existingTask).filter(k => {
+                                let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                                return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                            });
+                        }
+
+                        let docUrlObj = document.getElementById('task-doc-url').value;
+
                         const taskObj = {
                             ...existingTask,
                             'ID': id,
@@ -3250,9 +4046,15 @@
                             'Phu trach': document.getElementById('task-assignee').value,
                             'Timeline': tlStr,
                             'URD date': urdStr,
-                            'Tai lieu': document.getElementById('task-doc-url').value,
+                            'Tai lieu': docUrlObj,
                             'Trang thai': document.getElementById('task-status').value
                         };
+
+                        if (docKeys.length > 0) {
+                            docKeys.forEach(key => taskObj[key] = docUrlObj);
+                        } else {
+                            taskObj['Doc'] = docUrlObj; // Inject dự phòng nếu frontend không tìm thấy column trong dữ liệu trả về từ GET
+                        }
 
                         // Calculate internal variables for local render
                         let sd = parseDate(document.getElementById('task-start').value);
@@ -3265,6 +4067,8 @@
                             taskObj._sourceSheet = window.TM_CONFIG.SHEETS[document.getElementById('task-id').dataset.sourceSheet || currentSheetKey];
                         }
 
+                        let addActionIdx = pendingActions.findIndex(a => a.action === 'add' && String(a.task.ID) === String(id));
+
                         if (action === 'add') {
                             tasksData.push(taskObj);
                         } else {
@@ -3272,18 +4076,24 @@
                             if (idx > -1) tasksData[idx] = taskObj;
                         }
 
-                        // Remove previous same ID actions if in queue to prevent bloat
-                        pendingActions = pendingActions.filter(a => !(String(a.task.ID) === String(id) && a.action === 'update'));
+                        // Nếu là lệnh Update nhưng Task này vừa mới được Add cục bộ (vẫn đang kẹt trong Hàng chờ), ta Lồng update vào Add Action luôn!
+                        if (action === 'update' && addActionIdx > -1) {
+                            pendingActions[addActionIdx].task = { ...pendingActions[addActionIdx].task, ...taskObj };
+                            pendingActions = pendingActions.filter((a, idx) => !(String(a.task.ID) === String(id) && a.action === 'update' && idx !== addActionIdx));
+                        } else {
+                            // Remove previous same ID actions if in queue to prevent bloat
+                            pendingActions = pendingActions.filter(a => !(String(a.task.ID) === String(id) && a.action === 'update'));
 
-                        let targetKey = null;
-                        if (taskObj._sourceSheet) {
-                            targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === taskObj._sourceSheet);
+                            let targetKey = null;
+                            if (taskObj._sourceSheet) {
+                                targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === taskObj._sourceSheet);
+                            }
+
+                            let actionPayload = { action: action, task: taskObj };
+                            if (targetKey) actionPayload.targetSheetKey = targetKey;
+
+                            pendingActions.push(actionPayload);
                         }
-
-                        let actionPayload = { action: action, task: taskObj };
-                        if (targetKey) actionPayload.targetSheetKey = targetKey;
-
-                        pendingActions.push(actionPayload);
                         window.updateSyncUI();
 
                         if (currentSheetKey === 'phatsinh' && typeof window.renderPhatSinhBoard === 'function') {
@@ -3298,6 +4108,9 @@
                     } catch (err) {
                         alert("Lỗi khi Lưu: " + err.message);
                         console.error('saveTask Error:', err);
+                    } finally {
+                        const btn = document.querySelector('.tm-modal-footer .tm-btn-primary');
+                        if (btn) btn.disabled = false;
                     }
                 }
 
@@ -3339,7 +4152,32 @@
                     window.showToast('✅ Đã xóa khỏi bảng nháp.');
                 }
 
+                window.updatePriority = function (taskId, newPrio) {
+                    if (String(taskId).startsWith('LOCAL_')) {
+                        window.showToast("⚠️ Vui lòng bầm Đồng bộ dữ liệu để Sinh Mã ID chính quy trước khi Gán Kế Hoạch!", "error");
+                        if (window.renderKeHoachBoard && window.tasksData) window.renderKeHoachBoard(window.tasksData);
+                        return;
+                    }
+                    if (!window.prioMapData) window.prioMapData = {};
+                    window.prioMapData[taskId] = newPrio;
+
+                    let taskToSync = { ID: taskId, Priority: newPrio };
+
+                    // Remove previous same ID actions if in queue to prevent bloat
+                    pendingActions = pendingActions.filter(a => !(a.task.ID === taskId && a.action === 'update' && a.targetSheetKey === 'kehoach'));
+                    pendingActions.push({ action: 'update', task: taskToSync, targetSheetKey: 'kehoach' });
+
+                    window.updateSyncUI();
+                    if (window.renderKeHoachBoard && window.tasksData) window.renderKeHoachBoard(window.tasksData);
+                    window.showToast(`✅ Đã cập nhật độ ưu tiên. Đang tự động đồng bộ...`);
+                    window.syncToSheets();
+                }
+
                 window.updatePhatSinhStatus = function (id, newStatus) {
+                    if (String(id).startsWith('LOCAL_')) {
+                        window.showToast("⚠️ Vui lòng ấn Đồng bộ để máy chủ phát ID chuẩn trước khi thay đổi Trạng Thái.", "error");
+                        return;
+                    }
                     let updatedTasks = tasksData.filter(t => String(t.ID) === String(id));
                     if (updatedTasks.length === 0) return;
 
@@ -3351,7 +4189,7 @@
 
                     // Remove previous same ID actions if in queue to prevent bloat
                     pendingActions = pendingActions.filter(a => !(a.task.ID === id && a.action === 'update'));
-                    pendingActions.push({ action: 'update', task: taskToSync });
+                    pendingActions.push({ action: 'update', task: taskToSync, targetSheetKey: 'phatsinh' });
 
                     window.updateSyncUI();
                     window.renderPhatSinhBoard(tasksData);
@@ -3402,7 +4240,10 @@
                 window.syncToSheets = async function () {
                     if (pendingActions.length === 0) return;
                     const btn = document.getElementById('btn-sync');
+                    if (btn.disabled) return; // Prevent double click
+                    let originalBtnText = btn.innerHTML;
                     btn.innerHTML = '<div class="tm-loader" style="width:14px;height:14px;border-width:2px;margin:0 4px 0 0;animation:spin 1s linear infinite;"></div> Đang gửi...';
+                    btn.style.opacity = '0.7';
                     btn.disabled = true;
 
                     let errorCount = 0;
@@ -3414,36 +4255,91 @@
                         let actualTarget = actionItem.targetSheetKey || currentSheetKey;
 
                         let payloadTask;
-                        if (actualTarget === 'phatsinh') {
+                        let targetSheetName = window.TM_CONFIG.SHEETS[actualTarget];
+
+                        if (actualTarget === 'kehoach') {
+                            targetSheetName = 'Kehoachthang';
                             payloadTask = {
-                                'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_'))) ? '' : (t.ID || ''),
-                                'Danh muc': t['Danh muc'] || '',
-                                'Phan loai': t['Phan loai'] || '',
-                                'Ten dau viec': t['Ten dau viec'] || '',
+                                'ID': t.ID || '',
+                                'Priority': String(t.Priority || '')
+                            };
+                            // Quan trọng: Nếu ID chưa có trong Sheet phụ thì phải Add dòng mới
+                            if (!window.prioMapData || !window.prioMapData[t.ID]) {
+                                actionItem.action = 'add';
+                                if (!window.prioMapData) window.prioMapData = {};
+                                window.prioMapData[t.ID] = payloadTask.Priority; // Cache local
+                            } else {
+                                actionItem.action = 'update';
+                            }
+                        } else if (actualTarget === 'phatsinh') {
+                            payloadTask = {
+                                ...t,
+                                'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_') || t.ID.toString().startsWith('APP_'))) ? '' : (t.ID || ''),
+                                'Danh muc': t['Danh muc'] || t['Danh mục'] || '',
+                                'Danh mục': t['Danh muc'] || t['Danh mục'] || '',
+                                'Phan loai': t['Phan loai'] || t['Phân loại'] || '',
+                                'Phân loại': t['Phan loai'] || t['Phân loại'] || '',
+                                'Ten dau viec': t['Ten dau viec'] || t['Tên đầu việc'] || '',
+                                'Tên đầu việc': t['Ten dau viec'] || t['Tên đầu việc'] || '',
                                 'Jira': t['Jira'] || '',
-                                'Ngay tiep nhan': t['Ngay tiep nhan'] || '',
-                                'Ngay hoan thanh': t['Ngay hoan thanh'] || '',
-                                'Trang thai': t['Trang thai'] || '',
-                                'Ghi chu': t['Ghi chu'] || ''
+                                'Ngay tiep nhan': t['Ngay tiep nhan'] || t['Ngày tiếp nhận'] || '',
+                                'Ngày tiếp nhận': t['Ngay tiep nhan'] || t['Ngày tiếp nhận'] || '',
+                                'Ngay hoan thanh': t['Ngay hoan thanh'] || t['Ngày hoàn thành'] || '',
+                                'Ngày hoàn thành': t['Ngay hoan thanh'] || t['Ngày hoàn thành'] || '',
+                                'Trang thai': t['Trang thai'] || t['Trạng thái'] || '',
+                                'Trạng thái': t['Trang thai'] || t['Trạng thái'] || '',
+                                'Ghi chu': t['Ghi chu'] || t['Ghi chú'] || ''
                             };
                         } else {
+                            let docKeys = Object.keys(t).filter(k => {
+                                let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                                return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                            });
+
+                            // Find the first available document url to use as source of truth for the sync
+                            let docUrl = '';
+                            if (docKeys.length > 0) {
+                                docUrl = t[docKeys[0]];
+                            } else {
+                                docUrl = t['Tai lieu'] || t['Tài liệu'] || t['Doc'] || '';
+                            }
+
                             payloadTask = {
-                                'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_'))) ? '' : (t.ID || ''),
-                                'Danh muc': t['Danh muc'] || '',
-                                'Ten dau viec': t['Ten dau viec'] || '',
-                                'Phu trach': t['Phu trach'] || '',
-                                'Tai lieu': t['Tai lieu'] || t['Tài liệu'] || '',
+                                ...t,
+                                'ID': (t.ID && (t.ID.toString().startsWith('LOCAL_') || t.ID.toString().startsWith('GS_AUTO_') || t.ID.toString().startsWith('APP_'))) ? '' : (t.ID || ''),
+                                'Danh muc': t['Danh muc'] || t['Danh mục'] || '',
+                                'Danh mục': t['Danh muc'] || t['Danh mục'] || '',
+                                'Ten dau viec': t['Ten dau viec'] || t['Tên đầu việc'] || '',
+                                'Tên đầu việc': t['Ten dau viec'] || t['Tên đầu việc'] || '',
+                                'Phu trach': t['Phu trach'] || t['Phụ trách'] || '',
+                                'Phụ trách': t['Phu trach'] || t['Phụ trách'] || '',
                                 'Timeline': t['Timeline'] || '',
                                 'URD date': t['URD date'] || '',
-                                'Trang thai': t['Trang thai'] || '',
+                                'Trang thai': t['Trang thai'] || t['Trạng thái'] || '',
+                                'Trạng thái': t['Trang thai'] || t['Trạng thái'] || '',
+                                'Ghi chu': t['Ghi chu'] || t['Ghi chú'] || '',
                                 'Jira': t['Jira'] || ''
                             };
+
+                            if (docKeys.length > 0) {
+                                docKeys.forEach(key => payloadTask[key] = docUrl);
+                            } else {
+                                payloadTask['Doc'] = docUrl;
+                            }
                         }
 
                         // Protect against missing IDs on update
-                        if (actionItem.action === 'update' && payloadTask.ID === '') {
+                        if (actionItem.action === 'update' && payloadTask.ID === '' && actualTarget !== 'kehoach') {
                             actionItem.action = 'add';
                         }
+
+                        // Explicitly permit delete without ID if fingerprint is present
+                        if (actionItem.action === 'delete' && payloadTask.ID === '') {
+                            // Let it through. Backend `[SOURCE_ID:..]` tracker will handle it.
+                        }
+
+                        console.log("🚀 Payload being sent to GAS for Sheet:", targetSheetName);
+                        console.dir(payloadTask);
 
                         try {
                             // Using mode: 'no-cors' strictly bypasses Safari blocking issues for POST redirects.
@@ -3451,7 +4347,7 @@
                                 method: 'POST',
                                 mode: 'no-cors',
                                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                                body: JSON.stringify({ action: actionItem.action, sheetName: window.TM_CONFIG.SHEETS[actualTarget], task: payloadTask })
+                                body: JSON.stringify({ action: actionItem.action, sheetName: targetSheetName, task: payloadTask })
                             });
 
                             // Add a tiny delay to not bombard GAS too fast causing concurrent save locks
@@ -3466,7 +4362,7 @@
                     if (errorCount === 0) {
                         pendingActions = [];
                         window.updateSyncUI();
-                        btn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 0 1 9-9"></path></svg> Đồng bộ (0)';
+                        btn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 0 1 9-9"></path></svg> Đồng bộ (<span id="sync-count">0</span>)';
                         btn.disabled = false;
                         window.showToast("🚀 Đồng bộ dữ liệu lên Google Sheets thành công!");
 
@@ -3538,7 +4434,7 @@
                                 break;
                             case 'due_urd':
                                 title = "Công việc Sắp Tới Hạn URD (<= 5 ngày)";
-                                if (!isCompleted && uD && !isNaN(uD.getTime())) {
+                                if (!isCompleted && uD && !isNaN(uD.getTime()) && !window.hasDocLink(t)) {
                                     let next5Days = new Date(now);
                                     next5Days.setDate(now.getDate() + 5);
                                     if (uD >= now && uD <= next5Days) {
@@ -3560,7 +4456,7 @@
                                 break;
                             case 'overdue_urd':
                                 title = "Công việc Quá Hạn URD";
-                                if (!isCompleted && uD && !isNaN(uD.getTime())) {
+                                if (!isCompleted && uD && !isNaN(uD.getTime()) && !window.hasDocLink(t)) {
                                     if (uD < now) {
                                         let diff = Math.floor((now - uD) / (1000 * 60 * 60 * 24));
                                         inTarget = true;

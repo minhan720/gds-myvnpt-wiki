@@ -2,6 +2,7 @@ site_name: GDS-MyVNPT Wiki
 site_description: Onboarding and Knowledge Base for GDS-MyVNPT
 theme:
   name: material
+  custom_dir: overrides
   features:
     - navigation.path
     - navigation.sections
@@ -28,6 +29,11 @@ theme:
         name: Switch to light mode
 extra_css:
   - stylesheets/custom_v2.css
+  - stylesheets/access_control.css
+
+extra_javascript:
+  - javascripts/access_control.js
+
 plugins:
   - search
 
@@ -47,10 +53,11 @@ nav:
     - URD Execute (Autopilot): bat-dau/urd-execute-workflow.md
   - 👥 Teams:
     - Jira Tracking Team: teams/jira-tracking.md
-    - McKinsey Research Team: teams/mckinsey-research.md
-    - PG Insights Team: teams/pg-insights.md
+    - McKinsey Research Team: teams/mckinsey.md
+    - Flow Design Team: teams/flow-design.md
     - UIUX Audit Team: teams/uiux-audit.md
-    - UX Design Team: teams/ux-design.md
+    - Design Ops Team: teams/design-ops.md
+    - URD Mapper Team: teams/urd-mapper.md
   - 📋 Quản lý Task: task_manager.html
   - 🧠 Knowledge base: 'knowledge base/index.md'
 hooks:

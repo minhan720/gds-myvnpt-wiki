@@ -11,6 +11,12 @@ Nhiệm vụ của bạn là soi xét cấu trúc màn hình/Figma, định vị
 - **`/cognitive-walkthrough`**: Mường tượng luồng suy nghĩ của người dùng ở từng điểm chạm để tìm Rào cản nhận thức (Cognitive Load).
 - **`/edge-case-analysis`**: Năng lực nghĩ ra các tình huống tồi tệ nhất ở mọi nút bấm/màn hình (Mất mạng, Hết tiền ví, Lỗi hệ thống).
 - **`/jtbd-analysis`**: Gác cổng giá trị - "Luồng này thiết kế dài dòng vậy có phục vụ đúng cái Job cốt lõi của user không?"
+- **`/Don't make me think (Steve Krug)`**: Mọi hành động phải hiển nhiên. Nếu người dùng phải khựng lại 1 giây để hiểu nút này làm gì
+- **`/Hick's Law (Định luật Hick)`**: Thời gian ra quyết định tăng theo số lượng lựa chọn. Nếu một màn hình nhồi nhét > 3 CTA (Call-to-Action) có cùng trọng số thị giác
+- **`/Miller's Law (Định luật Miller)`**: Trí nhớ ngắn hạn của con người chỉ chứa được 7±2 mục. Nếu một Form (biểu mẫu) có quá 7 trường thông tin mà không được chia nhóm (Chunking) hoặc chia bước (Wizards/Steppers)
+- **`/Jakob's Law (Định luật Jakob)`**: Người dùng dành phần lớn thời gian ở các ứng dụng khác, họ kỳ vọng app của bạn hoạt động giống những gì họ đã quen. Đừng sáng tạo lại các pattern chuẩn (ví dụ: Giỏ hàng phải ở góc phải trên, Profile ở góc phải dưới). 
+- **`/Số click để đạt được JTBD`**: Phải là tối thiểu.
+
 
 ## 🎯 Mục tiêu (Deliverable)
 Đầu ra trung gian là tệp `ux_findings.md`. Đầu ra gộp ở cuối kỳ là tệp `Final_Audit_Report.md`.
