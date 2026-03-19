@@ -1410,12 +1410,24 @@
             <!-- Jira Link Modal -->
             <div id="jira-modal-overlay" class="tm-modal-overlay" style="z-index:10005;">
                 <div class="tm-modal tm-card" style="max-width:400px; padding:24px;">
-                    <h3 style="margin-top:0; color:var(--md-typeset-color); font-size:1.2rem;">Thêm link Jira</h3>
+                    <h3 style="margin-top:0; color:var(--md-typeset-color); font-size:1.2rem;">Sửa link Jira (Tiến trình
+                        Đồng bộ 2 chiều)</h3>
                     <p style="font-size:0.9em; color:#64748b; margin-bottom:16px;">
-                        Dán đường link truy cập nhanh Jira cho task này. (Được lưu bí mật trên trình duyệt của bạn)
+                        Dữ liệu Khai báo ở đây sẽ được <b>ghi đè trực tiếp</b> lên Google Sheets tại đúng Sheet gốc chứa
+                        Task này.
                     </p>
-                    <input type="text" id="jira-link-input" class="tm-input"
-                        placeholder="https://jira.example.com/browse/PROJ-123" style="width:100%; margin-bottom:16px;">
+
+                    <label
+                        style="font-size:0.85em; font-weight:600; color:var(--md-typeset-color); display:block; margin-bottom:4px;">Jira
+                        (VNP) | Bỏ trống nếu muốn xoá link</label>
+                    <input type="text" id="jira-link-input" class="tm-input" placeholder="https://..."
+                        style="width:100%; margin-bottom:12px;">
+
+                    <label
+                        style="font-size:0.85em; font-weight:600; color:var(--md-typeset-color); display:block; margin-bottom:4px;">Jira
+                        (Nội bộ) | Bỏ trống nếu muốn xoá link</label>
+                    <input type="text" id="jira-link-input-internal" class="tm-input" placeholder="https://..."
+                        style="width:100%; margin-bottom:16px;">
                     <input type="hidden" id="jira-task-id">
 
                     <div id="jira-urd-subtask-container" style="display:none; margin-bottom: 16px;">
@@ -1992,154 +2004,197 @@
                 }
 
                 window.handleJiraClick = function (e, taskId) {
-                    e.preventDefault();
-                    e.stopPropagation(); // Ngăn hiển thị modal sửa task
-                    let jiraUrl = localStorage.getItem('JIRA_LINK_' + taskId);
+                    if (e) { e.preventDefault(); e.stopPropagation(); }
 
-                    if (!jiraUrl) {
-                        document.getElementById('jira-task-id').value = taskId;
-                        document.getElementById('jira-link-input').value = '';
+                    let task = tasksData.find(t => String(t.ID) === String(taskId));
+                    if (!task) return;
 
-                        let parentTask = tasksData.find(t => String(t.ID) === String(taskId));
-                        let checkboxContainer = document.getElementById('jira-urd-subtask-container');
-                        if (checkboxContainer) {
-                            if (parentTask && window.hasDocLink(parentTask)) {
-                                checkboxContainer.style.display = 'block';
-                                document.getElementById('jira-create-urd-subtask').checked = false;
-                            } else {
-                                checkboxContainer.style.display = 'none';
-                            }
+                    let jiraVnp = task['Jira'] || task['Jira (VNP)'] || localStorage.getItem('JIRA_LINK_' + taskId) || '';
+                    let jiraNoibo = task['Jira (Nội bộ)'] || task['Jira (IN)'] || '';
+
+                    document.getElementById('jira-task-id').value = taskId;
+                    document.getElementById('jira-link-input').value = jiraVnp;
+
+                    let internalInput = document.getElementById('jira-link-input-internal');
+                    if (internalInput) internalInput.value = jiraNoibo;
+
+                    let checkboxContainer = document.getElementById('jira-urd-subtask-container');
+                    if (checkboxContainer) {
+                        if (window.hasDocLink && window.hasDocLink(task)) {
+                            checkboxContainer.style.display = 'block';
+                            document.getElementById('jira-create-urd-subtask').checked = false;
+                        } else {
+                            checkboxContainer.style.display = 'none';
                         }
-
-                        document.getElementById('jira-modal-overlay').classList.add('active');
-                        setTimeout(() => { document.getElementById('jira-link-input').focus(); }, 150);
-                    } else {
-                        window.open(jiraUrl, '_blank');
                     }
+
+                    document.getElementById('jira-modal-overlay').classList.add('active');
+                    setTimeout(() => { document.getElementById('jira-link-input').focus(); }, 150);
                 }
 
                 window.saveJiraLink = async function () {
                     let taskId = document.getElementById('jira-task-id').value;
-                    let link = document.getElementById('jira-link-input').value.trim();
+                    let linkVnp = document.getElementById('jira-link-input').value.trim();
+                    let internalInput = document.getElementById('jira-link-input-internal');
+                    let linkNoibo = internalInput ? internalInput.value.trim() : '';
+
                     let createSubtask = document.getElementById('jira-create-urd-subtask') && document.getElementById('jira-create-urd-subtask').checked;
 
-                    if (link) {
-                        localStorage.setItem('JIRA_LINK_' + taskId, link);
-                        document.getElementById('jira-modal-overlay').classList.remove('active');
+                    let parentTask = tasksData.find(t => String(t.ID) === String(taskId));
+                    if (!parentTask) return;
 
-                        if (createSubtask) {
-                            let parentTask = tasksData.find(t => String(t.ID) === String(taskId));
-                            if (parentTask) {
-                                let domainMatch = link.match(/^(https?:\/\/[^\/]+)/);
-                                let domain = domainMatch ? domainMatch[1] : '';
-                                let parentKeyMatch = link.match(/\/browse\/([A-Z0-9\-]+)/);
-                                let parentKey = parentKeyMatch ? parentKeyMatch[1] : '';
+                    // Xoá logic lưu cục bộ cũ
+                    localStorage.removeItem('JIRA_LINK_' + taskId);
 
-                                if (domain && parentKey) {
-                                    let projKey = parentKey.split('-')[0];
+                    // Cập nhật local task
+                    parentTask['Jira'] = linkVnp;
+                    parentTask['Jira (Nội bộ)'] = linkNoibo;
 
-                                    // Extract URD link using hasDocLink logic
-                                    let docLink = '';
-                                    let docKeys = Object.keys(parentTask).filter(k => {
-                                        let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-                                        return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
-                                    });
-                                    for (let key of docKeys) {
-                                        let val = String(parentTask[key] || '').trim();
-                                        if (val !== '' && (val.includes('http') || val.length > 5)) {
-                                            docLink = val; break;
-                                        }
-                                    }
+                    // Xác định targetSheetKey để báo cho Google Apps Script biết cần File ở Sheet nào
+                    let targetKey = window.currentSheetKey;
+                    if (parentTask._sourceSheet) {
+                        targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === parentTask._sourceSheet) || targetKey;
+                    }
 
-                                    let jiraPat = localStorage.getItem('JIRA_PAT');
-                                    if (!jiraPat) {
-                                        jiraPat = prompt("Để tự động tạo Subtask, vui lòng nhập Jira Personal Access Token (PAT) của bạn:\n(Mã sẽ được lưu vào trình duyệt của bạn)");
-                                        if (jiraPat) {
-                                            jiraPat = jiraPat.trim().split(/\s+/)[0];
-                                            localStorage.setItem('JIRA_PAT', jiraPat);
-                                        } else {
-                                            return window.showToast("Bạn đã hủy nhập mã PAT. Không thể tạo Subtask URD.", "error");
-                                        }
-                                    } else {
-                                        jiraPat = jiraPat.trim().split(/\s+/)[0];
-                                    }
+                    // Đẩy lệnh update vào Hàng đợi đồng bộ (pendingActions)
+                    let existingActionIndex = pendingActions.findIndex(a => String(a.task.ID) === String(taskId) && a.action === 'update');
+                    if (existingActionIndex >= 0) {
+                        pendingActions[existingActionIndex].task['Jira'] = linkVnp;
+                        pendingActions[existingActionIndex].task['Jira (Nội bộ)'] = linkNoibo;
+                    } else {
+                        pendingActions.push({
+                            action: 'update',
+                            task: { ID: taskId, "Jira": linkVnp, "Jira (Nội bộ)": linkNoibo },
+                            targetSheetKey: targetKey
+                        });
+                    }
 
-                                    let assigneeName = String(parentTask['Phu trach'] || '').trim();
+                    document.getElementById('jira-modal-overlay').classList.remove('active');
 
-                                    // --- 3 BƯỚC KHỞI TẠO THÔNG MINH QUA PROXY ---
-                                    async function proxyJira(endpoint, method = 'GET', body = null) {
-                                        let res = await fetch(SCRIPT_URL, {
-                                            method: 'POST',
-                                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                                            body: JSON.stringify({ action: 'proxy_jira', jiraPat, domain, endpoint, method, payload: body })
-                                        });
-                                        let text = await res.text();
-                                        let obj;
-                                        try { obj = JSON.parse(text); } catch (e) { throw new Error("Lỗi máy chủ Google: " + text); }
-                                        if (obj.status !== 'success') {
-                                            let errorDetail = obj.data;
-                                            try {
-                                                let p = JSON.parse(obj.data);
-                                                errorDetail = (p.errors && Object.values(p.errors).join(', ')) || (p.errorMessages && p.errorMessages.join(', ')) || obj.data;
-                                            } catch (e) { }
-                                            throw new Error("Jira API " + obj.responseCode + ": " + errorDetail);
-                                        }
-                                        try { return JSON.parse(obj.data); } catch (e) { return obj.data; }
-                                    }
+                    // Render UI lập tức
+                    if (window.currentSheetKey === 'kehoach' && typeof window.renderKeHoachBoard === 'function') {
+                        window.renderKeHoachBoard(tasksData);
+                    } else {
+                        window.renderGanttBoard(tasksData);
+                    }
 
-                                    try {
-                                        window.showToast("B1/3: Đang tra cứu cấu hình Project " + projKey + "...", "info");
-                                        let projMeta = await proxyJira(`/rest/api/2/project/${projKey}`);
-                                        if (!projMeta || !projMeta.issueTypes) throw new Error("Không lấy được dữ liệu dự án (Sai Key hoặc Không có quyền).");
-                                        let subtaskType = projMeta.issueTypes.find(t => t.subtask);
-                                        if (!subtaskType) throw new Error("Dự án này không bật bất kỳ loại thẻ 'Sub-task' nào!");
+                    // Kích hoạt đồng bộ nền
+                    if (window.syncToSheets) window.syncToSheets();
 
-                                        let realUsername = null;
-                                        if (assigneeName) {
-                                            if (assigneeName.includes('Nguyễn Việt Hà') || assigneeName.includes('Nguyen Viet Ha')) {
-                                                realUsername = 'viethanguyen';
-                                            } else if (assigneeName.includes('Hồ Phạm Quỳnh Mai') || assigneeName.includes('Ho Pham Quynh Mai')) {
-                                                realUsername = 'maiho';
-                                            } else {
-                                                window.showToast("B2/3: Đang định danh User " + assigneeName + "...", "info");
-                                                let users = await proxyJira(`/rest/api/2/user/search?username=${encodeURIComponent(assigneeName)}`);
-                                                if (Array.isArray(users) && users.length > 0) {
-                                                    realUsername = users[0].name || users[0].accountId;
-                                                }
-                                            }
-                                        }
-
-                                        window.showToast("B3/3: Bắt đầu tạo dữ liệu Subtask...", "info");
-                                        let requestPayload = {
-                                            fields: {
-                                                project: { key: projKey },
-                                                parent: { key: parentKey },
-                                                summary: `[PO] Viết URD cho task ${parentTask['Ten dau viec'] || parentTask['Tên đầu việc'] || 'Không tên'}`,
-                                                issuetype: { id: subtaskType.id }
-                                            }
-                                        };
-                                        if (docLink) requestPayload.fields.description = `Link URD: ${docLink}`;
-                                        if (realUsername) requestPayload.fields.assignee = { name: realUsername };
-
-                                        let finalRes = await proxyJira('/rest/api/2/issue', 'POST', requestPayload);
-                                        window.showToast("Tạo Subtask URD thành công: " + finalRes.key, "success");
-
-                                    } catch (err) {
-                                        console.error("Create Jira Subtask Error:", err);
-                                        let errMsg = err.message;
-                                        if (errMsg.includes('401') || errMsg.includes('Token') || errMsg.includes('Unauthorized')) {
-                                            localStorage.removeItem('JIRA_PAT');
-                                        }
-                                        window.showToast("Tạo Subtask thất bại: " + errMsg, "error");
-                                    }
-                                } else {
-                                    window.showToast("Không thể bóc tách Domain/Key từ link Jira.", "error");
-                                }
-                            }
+                    // Nếu có checkbox Tạo subtask
+                    if (createSubtask) {
+                        let targetLink = linkNoibo || linkVnp;
+                        if (!targetLink) {
+                            return window.showToast("Cần đường link Jira (VNP hoặc Nội bộ) để tạo Subtask!", "error");
                         }
 
-                        window.renderGanttBoard(tasksData);
-                        if (!createSubtask) window.showToast('Gắn link Jira thành công!');
+                        let domainMatch = targetLink.match(/^(https?:\/\/[^\/]+)/);
+                        let domain = domainMatch ? domainMatch[1] : '';
+                        let parentKeyMatch = targetLink.match(/\/browse\/([A-Z0-9\-]+)/);
+                        let parentKey = parentKeyMatch ? parentKeyMatch[1] : '';
+
+                        if (domain && parentKey) {
+                            let projKey = parentKey.split('-')[0];
+
+                            let docLink = '';
+                            if (window.hasDocLink && window.hasDocLink(parentTask)) {
+                                let docKeys = Object.keys(parentTask).filter(k => {
+                                    let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                                    return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                                });
+                                for (let key of docKeys) {
+                                    let val = String(parentTask[key] || '').trim();
+                                    if (val !== '' && (val.includes('http') || val.length > 5)) {
+                                        docLink = val; break;
+                                    }
+                                }
+                            }
+
+                            let jiraPat = localStorage.getItem('JIRA_PAT');
+                            if (!jiraPat) {
+                                jiraPat = prompt("Để tự động tạo Subtask, vui lòng nhập Jira Personal Access Token (PAT) của bạn:\n(Mã sẽ được lưu vào trình duyệt của bạn)");
+                                if (jiraPat) {
+                                    jiraPat = jiraPat.trim().split(/\s+/)[0];
+                                    localStorage.setItem('JIRA_PAT', jiraPat);
+                                } else {
+                                    return window.showToast("Bạn đã hủy nhập mã PAT. Không thể tạo Subtask URD.", "error");
+                                }
+                            } else {
+                                jiraPat = jiraPat.trim().split(/\s+/)[0];
+                            }
+
+                            let assigneeName = String(parentTask['Phu trach'] || '').trim();
+
+                            async function proxyJira(endpoint, method = 'GET', body = null) {
+                                let res = await fetch(SCRIPT_URL, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                    body: JSON.stringify({ action: 'proxy_jira', jiraPat, domain, endpoint, method, payload: body })
+                                });
+                                let text = await res.text();
+                                let obj;
+                                try { obj = JSON.parse(text); } catch (e) { throw new Error("Lỗi máy chủ Google: " + text); }
+                                if (obj.status !== 'success') {
+                                    let errorDetail = obj.data;
+                                    try {
+                                        let p = JSON.parse(obj.data);
+                                        errorDetail = (p.errors && Object.values(p.errors).join(', ')) || (p.errorMessages && p.errorMessages.join(', ')) || obj.data;
+                                    } catch (e) { }
+                                    throw new Error("Jira API " + obj.responseCode + ": " + errorDetail);
+                                }
+                                try { return JSON.parse(obj.data); } catch (e) { return obj.data; }
+                            }
+
+                            try {
+                                window.showToast("B1/3: Đang tra cứu cấu hình Project " + projKey + "...", "info");
+                                let projMeta = await proxyJira(`/rest/api/2/project/${projKey}`);
+                                if (!projMeta || !projMeta.issueTypes) throw new Error("Không lấy được dữ liệu dự án (Sai Key hoặc Không có quyền).");
+                                let subtaskType = projMeta.issueTypes.find(t => t.subtask);
+                                if (!subtaskType) throw new Error("Dự án này không bật bất kỳ loại thẻ 'Sub-task' nào!");
+
+                                let realUsername = null;
+                                if (assigneeName) {
+                                    if (assigneeName.includes('Nguyễn Việt Hà') || assigneeName.includes('Nguyen Viet Ha')) {
+                                        realUsername = 'viethanguyen';
+                                    } else if (assigneeName.includes('Hồ Phạm Quỳnh Mai') || assigneeName.includes('Ho Pham Quynh Mai')) {
+                                        realUsername = 'maiho';
+                                    } else {
+                                        window.showToast("B2/3: Đang định danh User " + assigneeName + "...", "info");
+                                        let users = await proxyJira(`/rest/api/2/user/search?username=${encodeURIComponent(assigneeName)}`);
+                                        if (Array.isArray(users) && users.length > 0) {
+                                            realUsername = users[0].name || users[0].accountId;
+                                        }
+                                    }
+                                }
+
+                                window.showToast("B3/3: Bắt đầu tạo dữ liệu Subtask...", "info");
+                                let requestPayload = {
+                                    fields: {
+                                        project: { key: projKey },
+                                        parent: { key: parentKey },
+                                        summary: `[PO] Viết URD cho task ${parentTask['Ten dau viec'] || parentTask['Tên đầu việc'] || 'Không tên'}`,
+                                        issuetype: { id: subtaskType.id }
+                                    }
+                                };
+                                if (docLink) requestPayload.fields.description = `Link URD: ${docLink}`;
+                                if (realUsername) requestPayload.fields.assignee = { name: realUsername };
+
+                                let finalRes = await proxyJira('/rest/api/2/issue', 'POST', requestPayload);
+                                window.showToast("Tạo Subtask URD thành công: " + finalRes.key, "success");
+
+                            } catch (err) {
+                                console.error("Create Jira Subtask Error:", err);
+                                let errMsg = err.message;
+                                if (errMsg.includes('401') || errMsg.includes('Token') || errMsg.includes('Unauthorized')) {
+                                    localStorage.removeItem('JIRA_PAT');
+                                }
+                                window.showToast("Tạo Subtask thất bại: " + errMsg, "error");
+                            }
+                        } else {
+                            window.showToast("Không thể bóc tách Domain/Key từ link Jira.", "error");
+                        }
+                    } else {
+                        window.showToast('Gắn link Jira thành công! Cập nhật đang được tải lên.');
                     }
                 }
 
@@ -3207,11 +3262,18 @@
                                 window.renderedPhatSinhTasks[String(task.ID)] = task;
                                 let name = escapeHTML(task['Ten dau viec'] || '');
 
-                                let jiraUrl = task['Jira'] || localStorage.getItem('JIRA_LINK_' + task.ID) || '';
-                                let jiraIconColor = jiraUrl ? '#2563eb' : '#cbd5e1';
-                                let jiraHtml = jiraUrl
-                                    ? `<a href="${jiraUrl}" target="_blank" title="Mở link Jira trực tiếp" style="display:inline-block; padding:6px; border-radius:6px; background:#eff6ff; transition:all 0.2s; cursor:pointer;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${jiraIconColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg></a>`
-                                    : `<span title="Không có link Jira" style="display:inline-block; padding:6px; opacity:0.5;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${jiraIconColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg></span>`;
+                                let jVnp = task['Jira'] || task['Jira (VNP)'] || '';
+                                let jNoiBo = task['Jira (Nội bộ)'] || task['Jira (IN)'] || '';
+
+                                let vnpBtn = jVnp
+                                    ? `<a href="${jVnp}" target="_blank" class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#2563eb; color:white; text-decoration:none; display:inline-block; margin-bottom:4px;" title="Mở Jira VNP (Hệ thống)">VNP</a>`
+                                    : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white; margin-bottom:4px;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link VNP">+ VNP</button>`;
+
+                                let nbBtn = jNoiBo
+                                    ? `<a href="${jNoiBo}" target="_blank" class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#0284c7; color:white; text-decoration:none; display:inline-block;" title="Mở Jira Nội bộ (Hệ thống)">Int</a>`
+                                    : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link Nội bộ">+ Int</button>`;
+
+                                let jiraHtml = `<div style="display:flex; flex-direction:column; align-items:center;">${vnpBtn}${nbBtn}</div>`;
 
                                 let recDate = task['Ngay tiep nhan'] ? parseDate(task['Ngay tiep nhan']).toLocaleDateString('en-GB') : '';
                                 let dueDate = task['Ngay hoan thanh'] ? parseDate(task['Ngay hoan thanh']).toLocaleDateString('en-GB') : '';
@@ -3491,12 +3553,16 @@
                         let docTitle = hasDoc ? "Mở Google Docs" : "Tìm link từ file Spec (.md)";
                         let docLinkHtml = '<a href="javascript:void(0)" onclick="window.handleDocClick(event, \'' + safeID + '\')" title="' + docTitle + '"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + docIconColor + '" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></a>';
 
-                        let jiraVnpUrl = task['Jira'] ? task['Jira'].trim() : '';
-                        let jiraVnpBtn = jiraVnpUrl
-                            ? `<a href="${jiraVnpUrl}" target="_blank" class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#2563eb; color:white; text-decoration:none; display:inline-block;" title="Mở Jira VNP">Jira (VNP)</a>`
-                            : `<button class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#94a3b8; color:white; cursor:not-allowed;" title="Chưa có link Jira từ quy trình đồng bộ" onclick="alert('Task này chưa có link Jira từ hệ thống (Workflow chưa cập nhật).')">Jira (VNP)</button>`;
+                        let jVnp = task['Jira'] || task['Jira (VNP)'] || '';
+                        let jNoiBo = task['Jira (Nội bộ)'] || task['Jira (IN)'] || '';
 
-                        let jiraNoiBoBtn = `<button class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#0284c7; color:white; margin-left:4px;" onclick="window.handleJiraClick(event, '${safeID}')" title="Mở Jira nội bộ hoặc thêm link mới">Jira (Nội bộ)</button>`;
+                        let jiraVnpBtn = jVnp
+                            ? `<a href="${jVnp}" target="_blank" class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#2563eb; color:white; text-decoration:none; display:inline-block;" title="Mở Jira VNP">Jira (VNP)</a>`
+                            : `<button class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#cbd5e1; color:white; cursor:pointer;" title="Thêm Link VNP" onclick="window.handleJiraClick(event, '${safeID}')">+ Jira (VNP)</button>`;
+
+                        let jiraNoiBoBtn = jNoiBo
+                            ? `<a href="${jNoiBo}" target="_blank" class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#0284c7; color:white; text-decoration:none; display:inline-block; margin-left:4px;" title="Mở Jira Nội bộ">Jira (Nội bộ)</a>`
+                            : `<button class="tm-btn" style="padding:4px 8px; font-size:0.75em; background:#cbd5e1; color:white; margin-left:4px; cursor:pointer;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link Nội bộ">+ Jira (Nội bộ)</button>`;
 
                         let actionHTML = `<div style="display:flex; justify-content:center; align-items:center; gap: 8px;">${docLinkHtml} <div style="display:flex;">${jiraVnpBtn} ${jiraNoiBoBtn}</div></div>`;
 
@@ -3748,15 +3814,18 @@
                             let docTitle = hasDoc ? "Mở Google Docs" : "Tìm link từ file Spec (.md)";
                             let docLinkHtml = '<a href="javascript:void(0)" onclick="window.handleDocClick(event, \'' + String(task.ID).replace(/'/g, "\\'") + '\')" title="' + docTitle + '"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="' + docIconColor + '" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></a>';
 
-                            let sheetJiraUrl = task['Jira'] && String(task['Jira']).trim() !== '' ? String(task['Jira']).trim() : null;
-                            let localJiraUrl = localStorage.getItem('JIRA_LINK_' + task.ID);
-                            let hasJira = sheetJiraUrl || localJiraUrl;
-                            let jiraIconColor = hasJira ? '#2563eb' : '#cbd5e1';
-                            let jiraTitle = hasJira ? (sheetJiraUrl ? "Mở link Jira (Hệ thống)" : "Mở link Jira (Local)") : "Thêm link Jira (Local)";
-                            let jiraSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="' + jiraIconColor + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>';
-                            let jiraHtml = sheetJiraUrl
-                                ? '<a href="' + sheetJiraUrl + '" target="_blank" title="' + jiraTitle + '">' + jiraSvg + '</a>'
-                                : '<a href="javascript:void(0)" onclick="window.handleJiraClick(event, \'' + String(task.ID).replace(/'/g, "\\'") + '\')" title="' + jiraTitle + '">' + jiraSvg + '</a>';
+                            let jVnp = task['Jira'] || task['Jira (VNP)'] || '';
+                            let jNoiBo = task['Jira (Nội bộ)'] || task['Jira (IN)'] || '';
+
+                            let vnpBtn = jVnp
+                                ? `<a href="${jVnp}" target="_blank" class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#2563eb; color:white; text-decoration:none; display:inline-block; margin-bottom:4px;" title="Mở Jira VNP (Hệ thống)">VNP</a>`
+                                : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white; margin-bottom:4px;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link VNP">+ VNP</button>`;
+
+                            let nbBtn = jNoiBo
+                                ? `<a href="${jNoiBo}" target="_blank" class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#0284c7; color:white; text-decoration:none; display:inline-block;" title="Mở Jira Nội bộ (Hệ thống)">Int</a>`
+                                : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link Nội bộ">+ Int</button>`;
+
+                            let jiraHtml = `<div style="display:flex; flex-direction:column; align-items:center;">${vnpBtn}${nbBtn}</div>`;
 
                             const taskRow = document.createElement('tr');
                             taskRow.className = 'gantt-task-row';
