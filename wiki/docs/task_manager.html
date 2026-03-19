@@ -2097,7 +2097,7 @@
                                         let realUsername = null;
                                         if (assigneeName) {
                                             window.showToast("B2/3: Đang định danh User " + assigneeName + "...", "info");
-                                            let users = await proxyJira(`/rest/api/2/user/search?query=${encodeURIComponent(assigneeName)}`);
+                                            let users = await proxyJira(`/rest/api/2/user/search?username=${encodeURIComponent(assigneeName)}`);
                                             if (Array.isArray(users) && users.length > 0) {
                                                 realUsername = users[0].name || users[0].accountId;
                                             }
