@@ -2066,52 +2066,65 @@
 
                                     let assigneeName = String(parentTask['Phu trach'] || '').trim();
 
-                                    let payload = {
-                                        fields: {
-                                            project: { key: projKey },
-                                            parent: { key: parentKey },
-                                            summary: `[PO] Viết URD cho task ${parentTask['Ten dau viec'] || ''}`,
-                                            description: `Link URD: ${docLink}`,
-                                            issuetype: { name: 'Sub-Task' }
-                                        }
-                                    };
-
-                                    if (assigneeName) {
-                                        payload.fields.assignee = { name: assigneeName };
-                                    }
-
-                                    window.showToast("Đang đẩy lệnh tạo Subtask sang Backend GAS...", "info");
-                                    try {
-                                        let response = await fetch(SCRIPT_URL, {
+                                    // --- 3 BƯỚC KHỞI TẠO THÔNG MINH QUA PROXY ---
+                                    async function proxyJira(endpoint, method = 'GET', body = null) {
+                                        let res = await fetch(SCRIPT_URL, {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                                            body: JSON.stringify({
-                                                action: 'create_jira_subtask',
-                                                jiraPat: jiraPat,
-                                                domain: domain,
-                                                payload: payload
-                                            })
+                                            body: JSON.stringify({ action: 'proxy_jira', jiraPat, domain, endpoint, method, payload: body })
                                         });
-
-                                        let errData = await response.text();
-                                        let resData;
-                                        try {
-                                            resData = JSON.parse(errData);
-                                        } catch (e) {
-                                            throw new Error("Invalid response from GAS: " + errData);
+                                        let text = await res.text();
+                                        let obj;
+                                        try { obj = JSON.parse(text); } catch (e) { throw new Error("Lỗi máy chủ Google: " + text); }
+                                        if (obj.status !== 'success') {
+                                            let errorDetail = obj.data;
+                                            try {
+                                                let p = JSON.parse(obj.data);
+                                                errorDetail = (p.errors && Object.values(p.errors).join(', ')) || (p.errorMessages && p.errorMessages.join(', ')) || obj.data;
+                                            } catch (e) { }
+                                            throw new Error("Jira API " + obj.responseCode + ": " + errorDetail);
                                         }
+                                        try { return JSON.parse(obj.data); } catch (e) { return obj.data; }
+                                    }
 
-                                        if (resData.status !== 'success') {
-                                            let errorMsg = resData.message || (resData.error && resData.error.message) || JSON.stringify(resData);
-                                            if (errorMsg.includes('401') || errorMsg.includes('400') || errorMsg.includes('invalid value') || errorMsg.includes('Token')) {
-                                                localStorage.removeItem('JIRA_PAT');
+                                    try {
+                                        window.showToast("B1/3: Đang tra cứu cấu hình Project " + projKey + "...", "info");
+                                        let projMeta = await proxyJira(`/rest/api/2/project/${projKey}`);
+                                        if (!projMeta || !projMeta.issueTypes) throw new Error("Không lấy được dữ liệu dự án (Sai Key hoặc Không có quyền).");
+                                        let subtaskType = projMeta.issueTypes.find(t => t.subtask);
+                                        if (!subtaskType) throw new Error("Dự án này không bật bất kỳ loại thẻ 'Sub-task' nào!");
+
+                                        let realUsername = null;
+                                        if (assigneeName) {
+                                            window.showToast("B2/3: Đang định danh User " + assigneeName + "...", "info");
+                                            let users = await proxyJira(`/rest/api/2/user/search?query=${encodeURIComponent(assigneeName)}`);
+                                            if (Array.isArray(users) && users.length > 0) {
+                                                realUsername = users[0].name || users[0].accountId;
                                             }
-                                            throw new Error("Backend Error: " + errorMsg);
                                         }
-                                        window.showToast("Tạo Subtask URD thành công: " + resData.key, "success");
+
+                                        window.showToast("B3/3: Bắt đầu tạo dữ liệu Subtask...", "info");
+                                        let requestPayload = {
+                                            fields: {
+                                                project: { key: projKey },
+                                                parent: { key: parentKey },
+                                                summary: `[PO] Viết URD cho task ${parentTask['Ten dau viec'] || parentTask['Tên đầu việc'] || 'Không tên'}`,
+                                                issuetype: { id: subtaskType.id }
+                                            }
+                                        };
+                                        if (docLink) requestPayload.fields.description = `Link URD: ${docLink}`;
+                                        if (realUsername) requestPayload.fields.assignee = { name: realUsername };
+
+                                        let finalRes = await proxyJira('/rest/api/2/issue', 'POST', requestPayload);
+                                        window.showToast("Tạo Subtask URD thành công: " + finalRes.key, "success");
+
                                     } catch (err) {
                                         console.error("Create Jira Subtask Error:", err);
-                                        window.showToast("Tạo Subtask thất bại: " + err.message, "error");
+                                        let errMsg = err.message;
+                                        if (errMsg.includes('401') || errMsg.includes('Token') || errMsg.includes('Unauthorized')) {
+                                            localStorage.removeItem('JIRA_PAT');
+                                        }
+                                        window.showToast("Tạo Subtask thất bại: " + errMsg, "error");
                                     }
                                 } else {
                                     window.showToast("Không thể bóc tách Domain/Key từ link Jira.", "error");
