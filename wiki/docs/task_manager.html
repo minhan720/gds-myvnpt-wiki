@@ -2179,6 +2179,30 @@
                                 if (docLink) requestPayload.fields.description = `Link URD: ${docLink}`;
                                 if (realUsername) requestPayload.fields.assignee = { name: realUsername };
 
+                                // Tự động dò và điền các trường bắt buộc (ví dụ: Work Stage, Tên đầu việc...)
+                                try {
+                                    let createMeta = await proxyJira(`/rest/api/2/issue/createmeta?projectKeys=${projKey}&issuetypeIds=${subtaskType.id}&expand=projects.issuetypes.fields`);
+                                    if (createMeta && createMeta.projects && createMeta.projects.length > 0) {
+                                        let fieldsDef = createMeta.projects[0].issuetypes[0].fields;
+                                        for (let fieldKey in fieldsDef) {
+                                            let fieldMeta = fieldsDef[fieldKey];
+                                            if (fieldMeta.required) {
+                                                // Nếu là Work Stage hoặc list chọn
+                                                if ((fieldMeta.name === "Work Stage" || fieldMeta.name === "Hạng mục công việc") && fieldMeta.allowedValues && fieldMeta.allowedValues.length > 0) {
+                                                    let val = fieldMeta.allowedValues[0].id;
+                                                    requestPayload.fields[fieldKey] = (fieldMeta.schema && fieldMeta.schema.type === 'array') ? [{ id: val }] : { id: val };
+                                                }
+                                                // Nếu là Tên đầu việc
+                                                else if (fieldMeta.name === "Tên đầu việc" && fieldMeta.schema && fieldMeta.schema.type === 'string') {
+                                                    requestPayload.fields[fieldKey] = parentTask['Ten dau viec'] || parentTask['Tên đầu việc'] || "N/A";
+                                                }
+                                            }
+                                        }
+                                    }
+                                } catch (e) {
+                                    console.warn("Lỗi fetch createmeta, fallback to default payload:", e);
+                                }
+
                                 let finalRes = await proxyJira('/rest/api/2/issue', 'POST', requestPayload);
                                 window.showToast("Tạo Subtask URD thành công: " + finalRes.key, "success");
 
