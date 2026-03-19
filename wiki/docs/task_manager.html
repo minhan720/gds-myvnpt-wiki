@@ -2080,26 +2080,34 @@
                                         payload.fields.assignee = { name: assigneeName };
                                     }
 
-                                    window.showToast("Đang tạo Subtask trên Jira, vui lòng chờ...", "info");
+                                    window.showToast("Đang đẩy lệnh tạo Subtask sang Backend GAS...", "info");
                                     try {
-                                        let response = await fetch(`${domain}/rest/api/2/issue`, {
+                                        let response = await fetch(window.TM_CONFIG.SCRIPT_URL, {
                                             method: 'POST',
-                                            headers: {
-                                                'Authorization': `Bearer ${jiraPat}`,
-                                                'Content-Type': 'application/json',
-                                                'Accept': 'application/json'
-                                            },
-                                            body: JSON.stringify(payload)
+                                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                            body: JSON.stringify({
+                                                action: 'create_jira_subtask',
+                                                jiraPat: jiraPat,
+                                                domain: domain,
+                                                payload: payload
+                                            })
                                         });
 
-                                        if (!response.ok) {
-                                            let errData = await response.text();
-                                            if (response.status === 401 || response.status === 400 || errData.includes('invalid value')) {
+                                        let errData = await response.text();
+                                        let resData;
+                                        try {
+                                            resData = JSON.parse(errData);
+                                        } catch (e) {
+                                            throw new Error("Invalid response from GAS: " + errData);
+                                        }
+
+                                        if (resData.status !== 'success') {
+                                            let errorMsg = resData.message || (resData.error && resData.error.message) || JSON.stringify(resData);
+                                            if (errorMsg.includes('401') || errorMsg.includes('400') || errorMsg.includes('invalid value') || errorMsg.includes('Token')) {
                                                 localStorage.removeItem('JIRA_PAT');
                                             }
-                                            throw new Error("Jira API Error: " + response.status + " " + errData);
+                                            throw new Error("Backend Error: " + errorMsg);
                                         }
-                                        let resData = await response.json();
                                         window.showToast("Tạo Subtask URD thành công: " + resData.key, "success");
                                     } catch (err) {
                                         console.error("Create Jira Subtask Error:", err);
