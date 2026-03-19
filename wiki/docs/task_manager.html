@@ -1434,8 +1434,8 @@
                         <label style="display:flex; align-items:center; cursor:pointer;">
                             <input type="checkbox" id="jira-create-urd-subtask"
                                 style="margin-right:8px; width:auto; height:auto;">
-                            <span style="font-size:0.9em; color:var(--md-typeset-color);">Tạo sub task đính kèm
-                                URD</span>
+                            <span style="font-size:0.9em; color:var(--md-typeset-color);">Tạo sub task đính kèm URD (chỉ
+                                hỗ trợ Nội bộ)</span>
                         </label>
                     </div>
 
@@ -3270,8 +3270,8 @@
                                     : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white; margin-bottom:4px;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link VNP">+ VNP</button>`;
 
                                 let nbBtn = jNoiBo
-                                    ? `<a href="${jNoiBo}" target="_blank" class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#0284c7; color:white; text-decoration:none; display:inline-block;" title="Mở Jira Nội bộ (Hệ thống)">Int</a>`
-                                    : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link Nội bộ">+ Int</button>`;
+                                    ? `<a href="${jNoiBo}" target="_blank" class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#0284c7; color:white; text-decoration:none; display:inline-block;" title="Mở Jira Nội bộ (Hệ thống)">Nội bộ</a>`
+                                    : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link Nội bộ">+ Nội bộ</button>`;
 
                                 let jiraHtml = `<div style="display:flex; flex-direction:column; align-items:center;">${vnpBtn}${nbBtn}</div>`;
 
@@ -3824,8 +3824,8 @@
                                 : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white; margin-bottom:4px;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link VNP">+ VNP</button>`;
 
                             let nbBtn = jNoiBo
-                                ? `<a href="${jNoiBo}" target="_blank" class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#0284c7; color:white; text-decoration:none; display:inline-block;" title="Mở Jira Nội bộ (Hệ thống)">Int</a>`
-                                : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link Nội bộ">+ Int</button>`;
+                                ? `<a href="${jNoiBo}" target="_blank" class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#0284c7; color:white; text-decoration:none; display:inline-block;" title="Mở Jira Nội bộ (Hệ thống)">Nội bộ</a>`
+                                : `<button class="tm-btn" style="padding:4px 6px; font-size:0.7em; background:#cbd5e1; color:white;" onclick="window.handleJiraClick(event, '${safeID}')" title="Thêm Link Nội bộ">+ Nội bộ</button>`;
 
                             let jiraHtml = `<div style="display:flex; flex-direction:column; align-items:center;">${vnpBtn}${nbBtn}</div>`;
 
