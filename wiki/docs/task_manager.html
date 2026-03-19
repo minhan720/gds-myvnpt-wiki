@@ -2055,10 +2055,13 @@
                                     if (!jiraPat) {
                                         jiraPat = prompt("Để tự động tạo Subtask, vui lòng nhập Jira Personal Access Token (PAT) của bạn:\n(Mã sẽ được lưu vào trình duyệt của bạn)");
                                         if (jiraPat) {
+                                            jiraPat = jiraPat.trim().split(/\s+/)[0];
                                             localStorage.setItem('JIRA_PAT', jiraPat);
                                         } else {
                                             return window.showToast("Bạn đã hủy nhập mã PAT. Không thể tạo Subtask URD.", "error");
                                         }
+                                    } else {
+                                        jiraPat = jiraPat.trim().split(/\s+/)[0];
                                     }
 
                                     let assigneeName = String(parentTask['Phu trach'] || '').trim();
@@ -2091,6 +2094,9 @@
 
                                         if (!response.ok) {
                                             let errData = await response.text();
+                                            if (response.status === 401 || response.status === 400 || errData.includes('invalid value')) {
+                                                localStorage.removeItem('JIRA_PAT');
+                                            }
                                             throw new Error("Jira API Error: " + response.status + " " + errData);
                                         }
                                         let resData = await response.json();
