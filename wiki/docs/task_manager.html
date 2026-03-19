@@ -2018,14 +2018,95 @@
                     }
                 }
 
-                window.saveJiraLink = function () {
+                window.saveJiraLink = async function () {
                     let taskId = document.getElementById('jira-task-id').value;
                     let link = document.getElementById('jira-link-input').value.trim();
+                    let createSubtask = document.getElementById('jira-create-urd-subtask') && document.getElementById('jira-create-urd-subtask').checked;
+
                     if (link) {
                         localStorage.setItem('JIRA_LINK_' + taskId, link);
                         document.getElementById('jira-modal-overlay').classList.remove('active');
+
+                        if (createSubtask) {
+                            let parentTask = tasksData.find(t => String(t.ID) === String(taskId));
+                            if (parentTask) {
+                                let domainMatch = link.match(/^(https?:\/\/[^\/]+)/);
+                                let domain = domainMatch ? domainMatch[1] : '';
+                                let parentKeyMatch = link.match(/\/browse\/([A-Z0-9\-]+)/);
+                                let parentKey = parentKeyMatch ? parentKeyMatch[1] : '';
+
+                                if (domain && parentKey) {
+                                    let projKey = parentKey.split('-')[0];
+
+                                    // Extract URD link using hasDocLink logic
+                                    let docLink = '';
+                                    let docKeys = Object.keys(parentTask).filter(k => {
+                                        let kl = String(k).toLowerCase().replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/ì|í|ị|ỉ|ĩ/g, "i").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                                        return kl.includes('tai lieu') || kl.includes('doc') || kl.includes('spec');
+                                    });
+                                    for (let key of docKeys) {
+                                        let val = String(parentTask[key] || '').trim();
+                                        if (val !== '' && (val.includes('http') || val.length > 5)) {
+                                            docLink = val; break;
+                                        }
+                                    }
+
+                                    let jiraPat = localStorage.getItem('JIRA_PAT');
+                                    if (!jiraPat) {
+                                        jiraPat = prompt("Để tự động tạo Subtask, vui lòng nhập Jira Personal Access Token (PAT) của bạn:\n(Mã sẽ được lưu vào trình duyệt của bạn)");
+                                        if (jiraPat) {
+                                            localStorage.setItem('JIRA_PAT', jiraPat);
+                                        } else {
+                                            return window.showToast("Bạn đã hủy nhập mã PAT. Không thể tạo Subtask URD.", "error");
+                                        }
+                                    }
+
+                                    let assigneeName = String(parentTask['Phu trach'] || '').trim();
+
+                                    let payload = {
+                                        fields: {
+                                            project: { key: projKey },
+                                            parent: { key: parentKey },
+                                            summary: `[PO] Viết URD cho task ${parentTask['Ten dau viec'] || ''}`,
+                                            description: `Link URD: ${docLink}`,
+                                            issuetype: { name: 'Sub-Task' }
+                                        }
+                                    };
+
+                                    if (assigneeName) {
+                                        payload.fields.assignee = { name: assigneeName };
+                                    }
+
+                                    window.showToast("Đang tạo Subtask trên Jira, vui lòng chờ...", "info");
+                                    try {
+                                        let response = await fetch(`${domain}/rest/api/2/issue`, {
+                                            method: 'POST',
+                                            headers: {
+                                                'Authorization': `Bearer ${jiraPat}`,
+                                                'Content-Type': 'application/json',
+                                                'Accept': 'application/json'
+                                            },
+                                            body: JSON.stringify(payload)
+                                        });
+
+                                        if (!response.ok) {
+                                            let errData = await response.text();
+                                            throw new Error("Jira API Error: " + response.status + " " + errData);
+                                        }
+                                        let resData = await response.json();
+                                        window.showToast("Tạo Subtask URD thành công: " + resData.key, "success");
+                                    } catch (err) {
+                                        console.error("Create Jira Subtask Error:", err);
+                                        window.showToast("Tạo Subtask thất bại: " + err.message, "error");
+                                    }
+                                } else {
+                                    window.showToast("Không thể bóc tách Domain/Key từ link Jira.", "error");
+                                }
+                            }
+                        }
+
                         window.renderGanttBoard(tasksData);
-                        window.showToast('Gắn link Jira thành công!');
+                        if (!createSubtask) window.showToast('Gắn link Jira thành công!');
                     }
                 }
 
