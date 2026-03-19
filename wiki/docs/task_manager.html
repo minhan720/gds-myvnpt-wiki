@@ -2096,10 +2096,16 @@
 
                                         let realUsername = null;
                                         if (assigneeName) {
-                                            window.showToast("B2/3: Đang định danh User " + assigneeName + "...", "info");
-                                            let users = await proxyJira(`/rest/api/2/user/search?username=${encodeURIComponent(assigneeName)}`);
-                                            if (Array.isArray(users) && users.length > 0) {
-                                                realUsername = users[0].name || users[0].accountId;
+                                            if (assigneeName.includes('Nguyễn Việt Hà') || assigneeName.includes('Nguyen Viet Ha')) {
+                                                realUsername = 'havietnguyen';
+                                            } else if (assigneeName.includes('Hồ Phạm Quỳnh Mai') || assigneeName.includes('Ho Pham Quynh Mai')) {
+                                                realUsername = 'maiho';
+                                            } else {
+                                                window.showToast("B2/3: Đang định danh User " + assigneeName + "...", "info");
+                                                let users = await proxyJira(`/rest/api/2/user/search?username=${encodeURIComponent(assigneeName)}`);
+                                                if (Array.isArray(users) && users.length > 0) {
+                                                    realUsername = users[0].name || users[0].accountId;
+                                                }
                                             }
                                         }
 
