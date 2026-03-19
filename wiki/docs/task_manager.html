@@ -2059,12 +2059,11 @@
                     // Đẩy lệnh update vào Hàng đợi đồng bộ (pendingActions)
                     let existingActionIndex = pendingActions.findIndex(a => String(a.task.ID) === String(taskId) && a.action === 'update');
                     if (existingActionIndex >= 0) {
-                        pendingActions[existingActionIndex].task['Jira'] = linkVnp;
-                        pendingActions[existingActionIndex].task['Jira (Nội bộ)'] = linkNoibo;
+                        pendingActions[existingActionIndex].task = parentTask;
                     } else {
                         pendingActions.push({
                             action: 'update',
-                            task: { ID: taskId, "Jira": linkVnp, "Jira (Nội bộ)": linkNoibo },
+                            task: parentTask,
                             targetSheetKey: targetKey
                         });
                     }
@@ -4509,9 +4508,9 @@
                                 'Danh mục': t['Danh muc'] || t['Danh mục'] || '',
                                 'Phan loai': t['Phan loai'] || t['Phân loại'] || '',
                                 'Phân loại': t['Phan loai'] || t['Phân loại'] || '',
-                                'Ten dau viec': t['Ten dau viec'] || t['Tên đầu việc'] || '',
                                 'Tên đầu việc': t['Ten dau viec'] || t['Tên đầu việc'] || '',
                                 'Jira': t['Jira'] || '',
+                                'Jira (Nội bộ)': t['Jira (Nội bộ)'] || '',
                                 'Ngay tiep nhan': t['Ngay tiep nhan'] || t['Ngày tiếp nhận'] || '',
                                 'Ngày tiếp nhận': t['Ngay tiep nhan'] || t['Ngày tiếp nhận'] || '',
                                 'Ngay hoan thanh': t['Ngay hoan thanh'] || t['Ngày hoàn thành'] || '',
@@ -4548,7 +4547,8 @@
                                 'Trang thai': t['Trang thai'] || t['Trạng thái'] || '',
                                 'Trạng thái': t['Trang thai'] || t['Trạng thái'] || '',
                                 'Ghi chu': t['Ghi chu'] || t['Ghi chú'] || '',
-                                'Jira': t['Jira'] || ''
+                                'Jira': t['Jira'] || '',
+                                'Jira (Nội bộ)': t['Jira (Nội bộ)'] || ''
                             };
 
                             if (docKeys.length > 0) {
