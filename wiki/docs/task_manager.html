@@ -1417,6 +1417,16 @@
                     <input type="text" id="jira-link-input" class="tm-input"
                         placeholder="https://jira.example.com/browse/PROJ-123" style="width:100%; margin-bottom:16px;">
                     <input type="hidden" id="jira-task-id">
+
+                    <div id="jira-urd-subtask-container" style="display:none; margin-bottom: 16px;">
+                        <label style="display:flex; align-items:center; cursor:pointer;">
+                            <input type="checkbox" id="jira-create-urd-subtask"
+                                style="margin-right:8px; width:auto; height:auto;">
+                            <span style="font-size:0.9em; color:var(--md-typeset-color);">Tạo sub task đính kèm
+                                URD</span>
+                        </label>
+                    </div>
+
                     <div style="display:flex; justify-content:flex-end; gap:8px;">
                         <button class="tm-btn"
                             onclick="document.getElementById('jira-modal-overlay').classList.remove('active')">Trở
@@ -1989,6 +1999,18 @@
                     if (!jiraUrl) {
                         document.getElementById('jira-task-id').value = taskId;
                         document.getElementById('jira-link-input').value = '';
+
+                        let parentTask = tasksData.find(t => String(t.ID) === String(taskId));
+                        let checkboxContainer = document.getElementById('jira-urd-subtask-container');
+                        if (checkboxContainer) {
+                            if (parentTask && window.hasDocLink(parentTask)) {
+                                checkboxContainer.style.display = 'block';
+                                document.getElementById('jira-create-urd-subtask').checked = false;
+                            } else {
+                                checkboxContainer.style.display = 'none';
+                            }
+                        }
+
                         document.getElementById('jira-modal-overlay').classList.add('active');
                         setTimeout(() => { document.getElementById('jira-link-input').focus(); }, 150);
                     } else {
@@ -2162,26 +2184,25 @@
                             if (newValue !== (task['Priority'] || '')) {
                                 let newPrioNum = parseInt(newValue.trim(), 10);
                                 if (!isNaN(newPrioNum)) {
-                                    // Duplicate Check By Month Isolation & Ignore Archived
+                                    // --- Robust Auto-Swap Priority Logic ---
                                     let curMKey = (task._start.getMonth() + 1).toString().padStart(2, '0') + '/' + task._start.getFullYear();
 
+                                    // 1. Find the duplicate task within the same month
                                     let duplicateTask = tasksData.find(otherT => {
                                         if (String(otherT.ID) === String(task.ID)) return false;
                                         if (String(otherT['Trang thai'] || '').trim().toLowerCase() === 'completed') return false;
-
-                                        if (!otherT._start || isNaN(otherT._start.getTime())) return false; // ADD CROSS-BOARD PROTECTION
-
+                                        if (!otherT._start || isNaN(otherT._start.getTime())) return false;
                                         let otherMKey = (otherT._start.getMonth() + 1).toString().padStart(2, '0') + '/' + otherT._start.getFullYear();
-                                        if (curMKey !== otherMKey) return false; // Different Month
+                                        if (curMKey !== otherMKey) return false;
 
                                         return parseInt(String(otherT.Priority || '').trim(), 10) === newPrioNum;
                                     });
 
+                                    // 2. Perform Swap if there's a collision
                                     if (duplicateTask) {
-                                        // Auto-Swap Logic
-                                        let oldPrioValue = task['Priority'] || '';
+                                        let oldPrioValue = String(task['Priority'] || '').trim();
 
-                                        // 1. Assign old priority of current task to the duplicate task
+                                        // Gán mức Prio bị bỏ trống của Target cho con Duplicate dính chưởng
                                         duplicateTask['Priority'] = oldPrioValue;
                                         let syncTaskDup = { ID: duplicateTask.ID, Priority: oldPrioValue };
                                         let actionPayloadDup = { action: 'update', task: syncTaskDup, targetSheetKey: 'kehoach' };
@@ -2190,16 +2211,17 @@
                                         if (existingIdxDup !== -1) pendingActions[existingIdxDup] = actionPayloadDup;
                                         else pendingActions.push(actionPayloadDup);
                                     }
-                                }
 
-                                task['Priority'] = newValue;
-                                // Create isolated sync action for priority mapped to Kehoachthang sheet
-                                let syncTask = { ID: task.ID, Priority: newValue };
-                                let actionPayload = { action: 'update', task: syncTask, targetSheetKey: 'kehoach' };
-                                const existingIdx = pendingActions.findIndex(a => String(a.task.ID) === String(task.ID) && a.targetSheetKey === 'kehoach');
-                                if (existingIdx !== -1) pendingActions[existingIdx] = actionPayload;
-                                else pendingActions.push(actionPayload);
-                                window.updateSyncUI();
+                                    // 3. Set the new priority for our target task
+                                    task['Priority'] = String(newPrioNum);
+                                    let syncTask = { ID: task.ID, Priority: String(newPrioNum) };
+                                    let actionPayload = { action: 'update', task: syncTask, targetSheetKey: 'kehoach' };
+                                    let existingIdx = pendingActions.findIndex(a => String(a.task.ID) === String(task.ID) && a.targetSheetKey === 'kehoach');
+                                    if (existingIdx !== -1) pendingActions[existingIdx] = actionPayload;
+                                    else pendingActions.push(actionPayload);
+
+                                    window.updateSyncUI();
+                                }
 
                                 // Re-render silently to show new number (and automatically sort)
                                 if (currentSheetKey === 'kehoach' && typeof window.renderKeHoachBoard === 'function') {
