@@ -1,7 +1,7 @@
 import os
 import subprocess
 import shutil
-
+import sys
 def build_kb_nav():
     KB_DIR = "docs/knowledge base"
     if not os.path.exists(KB_DIR):
@@ -118,7 +118,7 @@ def on_post_build(config, **kwargs):
         my_env["BUILD_KB_ONLY"] = "1"
         
         try:
-            subprocess.run(["python3", "-m", "mkdocs", "build", "-d", "/tmp/site-kb"], env=my_env, check=True)
+            subprocess.run([sys.executable, "-m", "mkdocs", "build", "-d", "/tmp/site-kb"], env=my_env, check=True)
             
             # 3. Copy knowledge base folder from site-kb to site
             src = "/tmp/site-kb/knowledge base"
