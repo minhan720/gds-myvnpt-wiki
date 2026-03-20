@@ -13,7 +13,7 @@ Thay vì hiển thị dọc theo cây Menu như trước, toàn bộ cấu trúc
   <h2 style="margin-top: 0;">Khám Phá Tài Nguyên Dự Án</h2>
   <p class="tagline" style="margin-bottom: 2rem;">Truy cập Wiki để tìm kiếm mọi tài nguyên của đội ngũ!</p>
   <div class="actions">
-    <a href="https://gds-myvnpt-wiki.vercel.app/knowledge%20base/tonghop" target="_blank" class="md-button md-button--primary">
+    <a href="https://gds-myvnpt-wiki.vercel.app/knowledge%20base/tonghop/" target="_blank" class="md-button md-button--primary">
       Truy Cập Wiki của MyVNPT 🚀
     </a>
   </div>
