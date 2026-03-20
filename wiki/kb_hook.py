@@ -57,7 +57,35 @@ def build_kb_nav():
     
     return kb_nav
 
+import unicodedata
+
+def normalize_to_nfc(target_dir):
+    """
+    Recursively rename all directories and files in target_dir to NFC.
+    This fixes the Safari 404 issue caused by NFD filenames tracked in Git from macOS.
+    """
+    if not os.path.exists(target_dir):
+        return
+
+    # Process bottom-up so renaming a parent doesn't break root path of children
+    for root, dirs, files in os.walk(target_dir, topdown=False):
+        for name in dirs + files:
+            nfc_name = unicodedata.normalize('NFC', name)
+            if name != nfc_name:
+                old_path = os.path.join(root, name)
+                new_path = os.path.join(root, nfc_name)
+                temp_path = old_path + ".tmp_nfc_rename"
+                try:
+                    os.rename(old_path, temp_path)
+                    os.rename(temp_path, new_path)
+                except Exception as e:
+                    print(f"Hook Warning: Failed to normalize {old_path} to NFC: {e}")
+
 def on_config(config, **kwargs):
+    # Normalize files to NFC before anything else
+    normalize_to_nfc("docs")
+    normalize_to_nfc("../../knowledge base")
+    
     # This edits the config nav dynamically!
     
     kb_nav = build_kb_nav()
