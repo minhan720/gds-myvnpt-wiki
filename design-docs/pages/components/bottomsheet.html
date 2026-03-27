@@ -1,0 +1,145 @@
+<!-- Bottom Sheet Component Documentation — Sourced from Figma Design System -->
+<div class="content component-doc">
+
+    <!-- 1. Header -->
+    <div class="component-header">
+        <span class="component-badge">Component</span>
+        <h1>Bottom Sheet</h1>
+        <p class="component-description">Bottom sheet là panel trượt lên từ đáy màn hình, dùng để hiển thị nội dung bổ sung, biểu mẫu, hoặc hành động mà không rời khỏi context hiện tại.</p>
+        <div class="component-links">
+            <a href="https://www.figma.com/design/LEPP6mucy8IwApPlDQ7VAH/-Mobile-App--Design-System?node-id=4797-1123" target="_blank" class="component-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                View in Figma
+            </a>
+        </div>
+    </div>
+
+    <!-- 2. Visual Preview — Figma Screenshots -->
+    <section class="doc-section" id="visual-preview">
+        <h2>Visual Preview</h2>
+        <p>Component set gồm 5 variants hiển thị toàn bộ bottom sheet layouts:</p>
+        <div class="preview-box" style="background: #F4F4F4; padding: 24px; overflow-x: auto;">
+            <img src="assets/images/components/bottomsheet-variant1.png" alt="Bottom Sheet — All Types from Figma" style="max-width: 100%; border-radius: 12px;" />
+        </div>
+        <p style="margin-top: 16px;">Title & Description sub-component (Light / Dark modes):</p>
+        <div class="preview-box" style="background: #BFBFBF; padding: 24px; display: flex; justify-content: center;">
+            <img src="assets/images/components/bottomsheet-title-desc.png" alt="Title & Description component" style="max-width: 375px; border-radius: 8px;" />
+        </div>
+    </section>
+
+    <!-- 3. Anatomy -->
+    <section class="doc-section" id="anatomy">
+        <h2>Anatomy</h2>
+        <table class="spec-table">
+            <thead><tr><th>Element</th><th>Mô tả</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Top Navigation Bar</strong></td><td>Chứa nút Close (Xmark icon, bên trái) và label. Padding: 20px 20px 0px, width: 375px</td></tr>
+                <tr><td><strong>Body</strong></td><td>Vùng nội dung chính, padding: 16px, auto-layout column</td></tr>
+                <tr><td><strong>Title & Description</strong></td><td>Sub-component: Title (24px Bold) + Description (14px Regular, #717981)</td></tr>
+                <tr><td><strong>Button(s)</strong></td><td>Primary button (Large, fill brand) và/hoặc Secondary button (Large, outline)</td></tr>
+                <tr><td><strong>Home Indicator</strong></td><td>Standard iOS home indicator ở bottom</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 4. Variants -->
+    <section class="doc-section" id="variants">
+        <h2>Variants</h2>
+        <p>Bottom Sheet có <strong>5 variants</strong> theo property <code>Type</code>:</p>
+        <table class="spec-table">
+            <thead><tr><th>Type</th><th>Mô tả</th><th>Nội dung</th></tr></thead>
+            <tbody>
+                <tr><td><strong>No title</strong></td><td>Sheet cơ bản chỉ có navigation bar + body trống</td><td>Top Nav + Empty Body + Home Indicator</td></tr>
+                <tr><td><strong>With title</strong></td><td>Có tiêu đề và mô tả trong body</td><td>Top Nav + Title & Description + Home Indicator</td></tr>
+                <tr><td><strong>Search bar</strong></td><td>Có ô tìm kiếm trong body</td><td>Top Nav + Search Input (border-radius 999px) + Home Indicator</td></tr>
+                <tr><td><strong>1 button</strong></td><td>Có tiêu đề + 1 nút hành động Primary</td><td>Top Nav + Title & Description + Primary Button (Large)</td></tr>
+                <tr><td><strong>2 buttons</strong></td><td>Có tiêu đề + 2 nút (Primary + Secondary)</td><td>Top Nav + Title & Description + Primary + Secondary Button</td></tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top: 24px;">Title & Description Sub-component</h3>
+        <p>Sub-component <code>Title & Description</code> hỗ trợ 2 modes:</p>
+        <table class="spec-table">
+            <thead><tr><th>Mode</th><th>Title color</th><th>Description color</th><th>Background</th></tr></thead>
+            <tbody>
+                <tr><td>Light</td><td>#34404B</td><td>#717981</td><td>Transparent</td></tr>
+                <tr><td>Dark</td><td>#FFFFFF</td><td>#FFFFFF</td><td>Transparent</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 5. Design Specs -->
+    <section class="doc-section" id="design-specs">
+        <h2>Design Specs</h2>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Container background</td><td><code>#FFFFFF</code></td></tr>
+                <tr><td>Border radius</td><td>16px 16px 0px 0px (top corners only)</td></tr>
+                <tr><td>Layout</td><td>Column, align-items: center</td></tr>
+                <tr><td>Top Nav padding</td><td>20px 20px 0px</td></tr>
+                <tr><td>Top Nav gap</td><td>16px</td></tr>
+                <tr><td>Body padding</td><td>16px</td></tr>
+                <tr><td>Title font</td><td>SF Pro Display, 24px, Bold (700), line-height 1.33em</td></tr>
+                <tr><td>Title color</td><td><code>#34404B</code> (Light) / <code>#FFFFFF</code> (Dark)</td></tr>
+                <tr><td>Description font</td><td>SF Pro Display, 14px, Regular (400), line-height 1.43em</td></tr>
+                <tr><td>Description color</td><td><code>#717981</code> (Light) / <code>#FFFFFF</code> (Dark)</td></tr>
+                <tr><td>Title-Description gap</td><td>8px</td></tr>
+                <tr><td>Button width</td><td>Fill container</td></tr>
+                <tr><td>Button border-radius</td><td>999px (pill shape)</td></tr>
+                <tr><td>Primary button fill</td><td><code>#3079FF</code> (brand)</td></tr>
+                <tr><td>Secondary button</td><td>White bg, border <code>#3079FF</code> 1px</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 6. API Reference -->
+    <section class="doc-section" id="api-reference">
+        <h2>API Reference</h2>
+        <h3>Bottom Sheet</h3>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Type</th><th>Values</th></tr></thead>
+            <tbody>
+                <tr><td>Type</td><td>VARIANT</td><td>No title, With title, Search bar, 1 button, 2 buttons</td></tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top: 20px;">Top Navigation Bar (nested)</h3>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Type</th><th>Default</th></tr></thead>
+            <tbody>
+                <tr><td>Mode</td><td>VARIANT</td><td>Light</td></tr>
+                <tr><td>Page label</td><td>TEXT</td><td>"Page name"</td></tr>
+                <tr><td>Left button</td><td>BOOLEAN</td><td>true</td></tr>
+                <tr><td>Left Icon</td><td>INSTANCE_SWAP</td><td>Xmark</td></tr>
+                <tr><td>Right button</td><td>BOOLEAN</td><td>false</td></tr>
+                <tr><td>Button label</td><td>BOOLEAN</td><td>true</td></tr>
+                <tr><td>Page name</td><td>BOOLEAN</td><td>false</td></tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top: 20px;">Title & Description (nested)</h3>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Type</th><th>Default</th></tr></thead>
+            <tbody>
+                <tr><td>Type</td><td>VARIANT</td><td>Light</td></tr>
+                <tr><td>Title</td><td>TEXT</td><td>"Title"</td></tr>
+                <tr><td>Desc Content</td><td>TEXT</td><td>"Description text"</td></tr>
+                <tr><td>Description</td><td>BOOLEAN</td><td>true</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 7. Accessibility -->
+    <section class="doc-section" id="accessibility">
+        <h2>Accessibility</h2>
+        <ul class="checklist">
+            <li>Sử dụng <code>role="dialog"</code> với <code>aria-modal="true"</code></li>
+            <li>Focus trap: khi sheet mở, focus bị giữ trong sheet</li>
+            <li>Nút Close (Xmark) phải có <code>aria-label="Đóng"</code></li>
+            <li>Hỗ trợ đóng bằng phím <kbd>Escape</kbd></li>
+            <li>Khi đóng, focus quay về element đã trigger mở sheet</li>
+        </ul>
+    </section>
+
+</div>

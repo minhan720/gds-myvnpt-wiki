@@ -1,0 +1,114 @@
+<!-- Cell Item Component Documentation — Sourced from Figma Design System -->
+<div class="content component-doc">
+
+    <!-- 1. Header -->
+    <div class="component-header">
+        <span class="component-badge">Component</span>
+        <h1>Cell Item</h1>
+        <p class="component-description">Cell item là thành phần hiển thị một hàng thông tin trong danh sách, với nhãn bên trái, nội dung bên phải, và icon trailing để chỉ ra hành động điều hướng.</p>
+        <div class="component-links">
+            <a href="https://www.figma.com/design/LEPP6mucy8IwApPlDQ7VAH/-Mobile-App--Design-System?node-id=4-3426" target="_blank" class="component-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                View in Figma
+            </a>
+        </div>
+    </div>
+
+    <!-- 2. Visual Preview -->
+    <section class="doc-section" id="visual-preview">
+        <h2>Visual Preview</h2>
+        <div class="preview-box" style="background: #fff; padding: 32px; display: flex; justify-content: center;">
+            <img src="assets/images/components/cell-item.png" alt="Cell Item from Figma" style="max-width: 100%; border-radius: 8px;" />
+        </div>
+    </section>
+
+    <!-- 3. Anatomy -->
+    <section class="doc-section" id="anatomy">
+        <h2>Anatomy</h2>
+        <table class="spec-table">
+            <thead><tr><th>Element</th><th>Mô tả</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Label (bên trái)</strong></td><td>Text "Information" — Body default/Regular, 14px, #717981</td></tr>
+                <tr><td><strong>Right section</strong></td><td>Frame chứa content text + trailing icon</td></tr>
+                <tr><td><strong>Content text</strong></td><td>"Content here" — Body default/Medium, 14px, #34404B, text-align: RIGHT</td></tr>
+                <tr><td><strong>Trailing icon</strong></td><td>Copy icon (20×20px), color #3079FF (brand)</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 4. Live Demo -->
+    <section class="doc-section" id="demo">
+        <h2>Demo</h2>
+        <div class="preview-box" style="padding: 16px; max-width: 375px; margin: 0 auto;">
+            <div class="ds-cell">
+                <span class="ds-cell__label">Information</span>
+                <div class="ds-cell__right">
+                    <span class="ds-cell__value">Content here</span>
+                    <svg class="ds-cell__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3079FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </div>
+            </div>
+            <div class="ds-cell" style="border-top: 1px solid #EDEDED;">
+                <span class="ds-cell__label">Full name</span>
+                <div class="ds-cell__right">
+                    <span class="ds-cell__value">Nguyễn Văn A</span>
+                    <svg class="ds-cell__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3079FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </div>
+            </div>
+            <div class="ds-cell" style="border-top: 1px solid #EDEDED;">
+                <span class="ds-cell__label">Phone</span>
+                <div class="ds-cell__right">
+                    <span class="ds-cell__value">0901 234 567</span>
+                    <svg class="ds-cell__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3079FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Design Specs -->
+    <section class="doc-section" id="design-specs">
+        <h2>Design Specs</h2>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Container width</td><td>343px (fixed)</td></tr>
+                <tr><td>Layout</td><td>Row, align-items: center</td></tr>
+                <tr><td>Gap</td><td>24px (giữa label và right section)</td></tr>
+                <tr><td>Padding</td><td>8px 0px</td></tr>
+                <tr><td>Background</td><td><code>#FFFFFF</code></td></tr>
+                <tr><td>Label font</td><td>SF Pro Display, 14px, Regular (400), line-height 1.43em</td></tr>
+                <tr><td>Label color</td><td><code>#717981</code></td></tr>
+                <tr><td>Value font</td><td>SF Pro Display, 14px, Medium (500), line-height 1.43em</td></tr>
+                <tr><td>Value color</td><td><code>#34404B</code></td></tr>
+                <tr><td>Value text-align</td><td>RIGHT</td></tr>
+                <tr><td>Right section layout</td><td>Row, align-items: center, gap: 4px</td></tr>
+                <tr><td>Icon size</td><td>20×20px</td></tr>
+                <tr><td>Icon color</td><td><code>#3079FF</code> (brand blue)</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 6. API Reference -->
+    <section class="doc-section" id="api-reference">
+        <h2>API Reference</h2>
+        <p>Cell Item là một single component (không có variant property). Toàn bộ nội dung được tùy chỉnh thông qua child text nodes và icon instance swap.</p>
+        <table class="spec-table">
+            <thead><tr><th>Element</th><th>Customizable</th><th>Notes</th></tr></thead>
+            <tbody>
+                <tr><td>Label text</td><td>✅ Editable</td><td>Thay đổi trực tiếp text node "Information"</td></tr>
+                <tr><td>Value text</td><td>✅ Editable</td><td>Thay đổi trực tiếp text node "Content here"</td></tr>
+                <tr><td>Trailing icon</td><td>✅ Instance swap</td><td>Mặc định: Copy icon. Có thể swap sang Chevron-right, etc.</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 7. Accessibility -->
+    <section class="doc-section" id="accessibility">
+        <h2>Accessibility</h2>
+        <ul class="checklist">
+            <li>Mỗi cell nên sử dụng semantic <code>&lt;dl&gt;</code> / <code>&lt;dt&gt;</code> / <code>&lt;dd&gt;</code> hoặc <code>&lt;table&gt;</code> cho nội dung key-value</li>
+            <li>Nếu trailing icon là actionable (copy), cần <code>role="button"</code> và <code>aria-label="Sao chép"</code></li>
+            <li>Contrast: label #717981 trên #FFFFFF đạt 4.48:1 (AA cho text >14px); value #34404B đạt 10.2:1</li>
+        </ul>
+    </section>
+
+</div>

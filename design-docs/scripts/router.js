@@ -9,12 +9,14 @@ const routes = {
     '#/typography': 'pages/foundation/typography.html',
 
     // Components
+    '#/alert': 'pages/components/alert.html',
     '#/avatar': 'pages/components/avatar.html',
     '#/badge': 'pages/components/badge.html',
+    '#/bottomsheet': 'pages/components/bottomsheet.html',
     '#/button': 'pages/components/button.html',
-    '#/card': 'pages/components/card.html',
-    '#/checkbox': 'pages/components/checkbox.html',
-    '#/dropdown': 'pages/components/dropdown.html',
+    '#/cell': 'pages/components/cell.html',
+    '#/checkbox-radio': 'pages/components/checkbox-radio.html',
+    '#/chip': 'pages/components/chip.html',
     '#/input': 'pages/components/input.html',
     '#/modal': 'pages/components/modal.html',
     '#/tab': 'pages/components/tab.html',

@@ -1,0 +1,127 @@
+<!-- Chip & Tab Component Documentation — Sourced from Figma Design System -->
+<div class="content component-doc">
+
+    <!-- 1. Header -->
+    <div class="component-header">
+        <span class="component-badge">Component</span>
+        <h1>Chip & Tab</h1>
+        <p class="component-description">Sử dụng để phân loại nội dung, lọc dữ liệu hoặc chuyển đổi giữa các view trong một phân đoạn. Gồm 3 loại chính: Chip, Tab và Filter.</p>
+        <div class="component-links">
+            <a href="https://www.figma.com/design/LEPP6mucy8IwApPlDQ7VAH/-Mobile-App--Design-System?node-id=4-3802" target="_blank" class="component-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                View in Figma
+            </a>
+        </div>
+    </div>
+
+    <!-- 2. Visual Preview -->
+    <section class="doc-section" id="visual-preview">
+        <h2>Visual Preview</h2>
+        <div class="preview-box" style="background: #F4F4F4; padding: 32px; display: flex; justify-content: center;">
+            <img src="assets/images/components/chip.png" alt="Chip & Tab Variants from Figma" style="max-width: 100%; border-radius: 12px;" />
+        </div>
+    </section>
+
+    <!-- 3. Anatomy -->
+    <section class="doc-section" id="anatomy">
+        <h2>Anatomy</h2>
+        <table class="spec-table">
+            <thead><tr><th>Element</th><th>Mô tả</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Container</strong></td><td>Pill shape (border-radius 999px), height ~32-40px</td></tr>
+                <tr><td><strong>Label</strong></td><td>SF Pro Display, 14px. Cân giữa trong container.</td></tr>
+                <tr><td><strong>Left Icon</strong> (Optional)</td><td>16×16px hoặc 20×20px icon bổ trợ ngữ nghĩa.</td></tr>
+                <tr><td><strong>Right Icon</strong> (Optional)</td><td>Thường dùng cho Filter (Chevron-down) hoặc nút X để xóa chip.</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 4. Variants & States -->
+    <section class="doc-section" id="variants">
+        <h2>Variants & States</h2>
+        <p>Component set sử dụng 2 trạng thái cơ bản cho tất cả các loại:</p>
+        
+        <div class="variant-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 16px;">
+            <!-- Active State -->
+            <div class="variant-card">
+                <h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600;">State=Active</h4>
+                <div class="preview-box" style="padding: 16px; background: #fff;">
+                    <div class="ds-chip ds-chip--active">Label</div>
+                </div>
+                <ul class="variant-note" style="font-size: 13px; margin: 8px 0 0 16px; color: #555;">
+                    <li>Background: <code>#34404B</code></li>
+                    <li>Text: <code>#FFFFFF</code> (Medium 500)</li>
+                    <li>Border: None</li>
+                </ul>
+            </div>
+
+            <!-- Default State -->
+            <div class="variant-card">
+                <h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600;">State=Default</h4>
+                <div class="preview-box" style="padding: 16px; background: #fff;">
+                    <div class="ds-chip ds-chip--default">Label</div>
+                </div>
+                <ul class="variant-note" style="font-size: 13px; margin: 8px 0 0 16px; color: #555;">
+                    <li>Background: <code>#FFFFFF</code></li>
+                    <li>Text: <code>#34404B</code> (Regular 400)</li>
+                    <li>Border: <code>#EDEDED</code> 1px solid</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 24px;">Types</h3>
+        <table class="spec-table">
+            <thead><tr><th>Type</th><th>Mô tả</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Chip</strong></td><td>Dùng làm tag hoặc nhãn phân loại. Thường có nút X để xóa.</td></tr>
+                <tr><td><strong>Tab</strong></td><td>Dùng điều hướng nhóm nội dung (Switch view). Không có border khi active.</td></tr>
+                <tr><td><strong>Filter</strong></td><td>Dùng để lọc danh sách. Thường đi kèm Right Icon (Chevron-down).</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 5. Design Specs -->
+    <section class="doc-section" id="design-specs">
+        <h2>Design Specs</h2>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Height</td><td>32px (Small) / 36px (Default) / 40px (Large)</td></tr>
+                <tr><td>Border Radius</td><td>999px</td></tr>
+                <tr><td>Horizontal Padding</td><td>12px (không icon) / 8px (có icon)</td></tr>
+                <tr><td>Gap (Icon-Text)</td><td>4px hoặc 6px</td></tr>
+                <tr><td>Label Font</td><td>SF Pro Display, 14px</td></tr>
+                <tr><td>Colors (Active)</td><td>Bg: #34404B, Text: #FFFFFF</td></tr>
+                <tr><td>Colors (Default)</td><td>Bg: #FFFFFF, Text: #34404B, Border: #EDEDED</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 6. API Reference -->
+    <section class="doc-section" id="api-reference">
+        <h2>API Reference</h2>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Type</th><th>Values</th><th>Default</th></tr></thead>
+            <tbody>
+                <tr><td>Type</td><td>VARIANT</td><td>Chip, Tab, Filter</td><td>Chip</td></tr>
+                <tr><td>State</td><td>VARIANT</td><td>Default, Active</td><td>Default</td></tr>
+                <tr><td>Show Left icon</td><td>BOOLEAN</td><td>true, false</td><td>false</td></tr>
+                <tr><td>Show Right icon</td><td>BOOLEAN</td><td>true, false</td><td>false</td></tr>
+                <tr><td>Label</td><td>TEXT</td><td>Custom string</td><td>"Label"</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 7. Accessibility -->
+    <section class="doc-section" id="accessibility">
+        <h2>Accessibility</h2>
+        <ul class="checklist">
+            <li>Tab variant: sử dụng <code>role="tab"</code> trong <code>role="tablist"</code></li>
+            <li>Chip variant (removable): nút xóa phải có <code>aria-label="Xóa [tên chip]"</code></li>
+            <li>Filter variant: sử dụng <code>aria-haspopup="true"</code> và <code>aria-expanded</code></li>
+            <li>Đảm bảo target size tối thiểu 44×44px cho cảm ứng (có thể dùng padding tàng hình)</li>
+            <li>Độ tương phản (Contrast) đạt chuẩn WCAG AA</li>
+        </ul>
+    </section>
+
+</div>
