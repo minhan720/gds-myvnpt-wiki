@@ -1,0 +1,135 @@
+<div class="content-header">
+    <div class="header-breadcrumb">Components / Tab</div>
+    <h1 class="header-title">Tab</h1>
+    <p class="header-desc">
+        Organize and allow navigation between groups of content that are related and at the same level of hierarchy.
+    </p>
+</div>
+
+<link rel="stylesheet" href="styles/components/tab.css">
+
+<div class="content-section">
+    <h2>Preview (Line Variant)</h2>
+    <div class="component-preview" style="align-items: stretch; background: white;">
+
+        <div class="tabs js-tabs">
+            <div class="tab-list" role="tablist" aria-label="Example Tabs">
+                <button class="tab-trigger active" role="tab" aria-selected="true"
+                    data-target="panel-1">Account</button>
+                <button class="tab-trigger" role="tab" aria-selected="false" data-target="panel-2">Password</button>
+                <button class="tab-trigger" role="tab" aria-selected="false"
+                    data-target="panel-3">Notifications</button>
+                <button class="tab-trigger is-disabled" role="tab" aria-selected="false" data-target="panel-4"
+                    disabled>Advanced (Disabled)</button>
+            </div>
+
+            <div class="tab-panel active" id="panel-1" role="tabpanel">
+                <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 18px; font-weight: 600;">Account Settings</h3>
+                <p>Manage your account settings and preferences here. Notice how the active tab has a solid brand
+                    underline.</p>
+            </div>
+
+            <div class="tab-panel" id="panel-2" role="tabpanel">
+                <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 18px; font-weight: 600;">Security</h3>
+                <p>Update your password and robust security questions to protect your account from unauthorized access.
+                </p>
+            </div>
+
+            <div class="tab-panel" id="panel-3" role="tabpanel">
+                <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 18px; font-weight: 600;">Alerts</h3>
+                <p>Configure how and when you want to be notified about important events related to your services.</p>
+            </div>
+
+            <div class="tab-panel" id="panel-4" role="tabpanel">
+                <p>This content should not be visible normally because the tab is disabled.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Preview (Pill Variant)</h2>
+    <div class="component-preview" style="align-items: stretch; background: white;">
+
+        <div class="tabs tabs-pill js-tabs">
+            <div class="tab-list" role="tablist" aria-label="Pill Tabs">
+                <button class="tab-trigger active" role="tab" aria-selected="true"
+                    data-target="panel-pill-1">Overview</button>
+                <button class="tab-trigger" role="tab" aria-selected="false"
+                    data-target="panel-pill-2">Analytics</button>
+                <button class="tab-trigger" role="tab" aria-selected="false" data-target="panel-pill-3">Reports</button>
+            </div>
+
+            <div class="tab-panel active" id="panel-pill-1" role="tabpanel">
+                <p>Pill tabs are useful for inner-page navigation where a line-style tab might conflict with a
+                    higher-level navigation element.</p>
+            </div>
+
+            <div class="tab-panel" id="panel-pill-2" role="tabpanel">
+                <p>Analytics view. The active state resembles a raised card on a slightly darker background.</p>
+            </div>
+
+            <div class="tab-panel" id="panel-pill-3" role="tabpanel">
+                <p>Reports and exported data view.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Usage</h2>
+    <div class="code-block">
+        <div class="code-header">
+            <span class="language">HTML</span>
+            <button class="copy-btn">Copy</button>
+        </div>
+        <pre><code>&lt;!-- Wrapper --&gt;
+&lt;div class="tabs"&gt;
+    &lt;!-- Tab List --&gt;
+    &lt;div class="tab-list" role="tablist"&gt;
+        &lt;button class="tab-trigger active" data-target="tab1"&gt;Tab 1&lt;/button&gt;
+        &lt;button class="tab-trigger" data-target="tab2"&gt;Tab 2&lt;/button&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Panels --&gt;
+    &lt;div class="tab-panel active" id="tab1"&gt;Content 1&lt;/div&gt;
+    &lt;div class="tab-panel" id="tab2"&gt;Content 2&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+</div>
+
+<script>
+    // Simple Tab Interactions for Demo
+    setTimeout(() => {
+        const tabGroups = document.querySelectorAll('.js-tabs');
+
+        tabGroups.forEach(group => {
+            const triggers = group.querySelectorAll('.tab-trigger:not(:disabled)');
+            const panels = group.querySelectorAll('.tab-panel');
+
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    // Remove active from all in this group
+                    triggers.forEach(t => {
+                        t.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    panels.forEach(p => p.classList.remove('active'));
+
+                    // Add active to clicked
+                    trigger.classList.add('active');
+                    trigger.setAttribute('aria-selected', 'true');
+
+                    // Show target panel
+                    const targetId = trigger.getAttribute('data-target');
+                    if (targetId) {
+                        const targetPanel = group.querySelector('#' + targetId);
+                        if (targetPanel) targetPanel.classList.add('active');
+                    }
+                });
+            });
+        });
+    }, 100);
+</script>

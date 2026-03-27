@@ -1,0 +1,266 @@
+<div class="content">
+
+    <!-- Section 1: Page Header -->
+    <h1>Input</h1>
+    <p class="description">A fundamental building block that allows users to type in text information.</p>
+
+    <link rel="stylesheet" href="styles/components/input.css">
+
+    <!-- Section 2: Visual Preview -->
+    <h2 class="section-heading">Preview</h2>
+    <div class="pane">
+
+        <div class="variant-group-label">DEFAULT STATE</div>
+        <div class="variant-row" style="margin-bottom: 32px; align-items: flex-start;">
+            <div class="input-wrapper" style="width: 320px;">
+                <label class="input-label">Label</label>
+                <div class="input-container">
+                    <input type="text" class="input-field" placeholder="Place holder">
+                </div>
+                <div class="input-help-text">Hint message here.</div>
+            </div>
+        </div>
+
+        <div class="variant-group-label">STATES & VALIDATION</div>
+        <div class="variant-row" style="margin-bottom: 32px; align-items: flex-start;">
+            <div class="input-wrapper" style="width: 250px;">
+                <label class="input-label input-label-required">Disabled Input</label>
+                <div class="input-container">
+                    <input type="text" class="input-field" value="Uneditable text" disabled>
+                </div>
+                <div class="input-help-text">This field cannot be edited.</div>
+            </div>
+
+            <div class="input-wrapper is-error" style="width: 250px;">
+                <label class="input-label input-label-required">Error Input</label>
+                <div class="input-container">
+                    <input type="text" class="input-field" value="Wrong data">
+                </div>
+                <div class="input-help-text">This field is required and invalid.</div>
+            </div>
+        </div>
+
+        <div class="variant-group-label">TEXT INPUT (ICONS)</div>
+        <div class="variant-row" style="margin-bottom: 32px; flex-direction: column; align-items: flex-start;">
+            <div class="input-wrapper input-icon-both" style="width: 320px;">
+                <label class="input-label">Label</label>
+                <div class="input-container">
+                    <svg class="icon-left" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor"
+                        stroke-width="2" fill="none">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <input type="text" class="input-field" placeholder="Place holder">
+                    <svg class="icon-right" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor"
+                        stroke-width="2" fill="none">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </div>
+                <div class="input-help-text">Hint message here.</div>
+            </div>
+        </div>
+
+        <div class="variant-group-label">SEARCH INPUT</div>
+        <div class="variant-row" style="margin-bottom: 32px; flex-direction: column; align-items: flex-start;">
+            <div class="input-wrapper input-search" style="width: 320px;">
+                <div class="input-container">
+                    <svg class="icon-left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" class="input-field" value="Filled content">
+                    <div class="icon-clear">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="input-help-text">Hint message here.</div>
+            </div>
+        </div>
+
+        <div class="variant-group-label">TEXT AREA</div>
+        <div class="variant-row" style="margin-bottom: 32px; flex-direction: column; align-items: flex-start;">
+            <div class="input-wrapper" style="width: 360px;">
+                <label class="input-label">Note</label>
+                <div class="textarea-container">
+                    <textarea class="input-field" placeholder="Text value"></textarea>
+                    <div class="input-counter">0/300</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="variant-group-label">BIG INPUT (CURRENCY)</div>
+        <div class="variant-row" style="margin-bottom: 32px; flex-direction: column; align-items: flex-start;">
+            <div class="input-wrapper input-big" style="width: 320px;">
+                <label class="input-label">Label <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor"
+                        stroke-width="2" fill="none" style="vertical-align: middle; color: var(--color-brand-500);">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg></label>
+                <div class="input-container">
+                    <input type="text" class="input-field" value="100.000">
+                    <div class="input-big-suffix">
+                        <div class="icon-clear">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </div>
+                        <span class="input-big-currency">đ</span>
+                    </div>
+                </div>
+                <div class="input-help-text">Hint message here.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: Usage / Code Snippet -->
+    <h2 class="section-heading">Usage</h2>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">HTML</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy
+            </button>
+        </div>
+        <div class="usage-content">
+            <pre><code>&lt;!-- Include input.css --&gt;
+&lt;link rel="stylesheet" href="styles/components/input.css"&gt;
+
+&lt;!-- Standard Input Structure --&gt;
+&lt;div class="input-wrapper"&gt;
+  &lt;label class="input-label input-label-required"&gt;Email Address&lt;/label&gt;
+  &lt;div class="input-container"&gt;
+    &lt;input type="email" class="input-field" placeholder="name@vnpt.vn"&gt;
+  &lt;/div&gt;
+  &lt;div class="input-help-text"&gt;We will never share your email.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- Section 4: API Reference / Props -->
+    <h2 class="section-heading">Props Reference</h2>
+    <div class="pane" style="padding: 0; overflow: hidden;">
+        <table class="props-table">
+            <thead>
+                <tr>
+                    <th>Class / Target</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><span class="prop-tag">is-error</span></td>
+                    <td><span class="prop-tag">modifier class</span></td>
+                    <td><span class="prop-tag">false</span></td>
+                    <td>Applied to <code>.input-wrapper</code> to turn borders and help text Red.</td>
+                </tr>
+                <tr>
+                    <td><span class="prop-tag">disabled</span></td>
+                    <td><span class="prop-tag">boolean</span></td>
+                    <td><span class="prop-tag">false</span></td>
+                    <td>Native browser property applied to the <code>&lt;input&gt;</code> element to disable
+                        interactivity.</td>
+                </tr>
+                <tr>
+                    <td><span class="prop-tag">input-icon-left</span></td>
+                    <td><span class="prop-tag">modifier class</span></td>
+                    <td><span class="prop-tag">false</span></td>
+                    <td>Applied to <code>.input-wrapper</code> to add padding for a leading SVG icon.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Section 4.5: Design Specifications -->
+    <h2 class="section-heading">Design Specifications</h2>
+    <div class="pane" style="padding: 0; overflow: hidden;">
+        <table class="props-table">
+            <thead>
+                <tr>
+                    <th>Element</th>
+                    <th>Property</th>
+                    <th>Token / Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>.input-field</code></td>
+                    <td>Height</td>
+                    <td><span class="prop-tag">48px</span></td>
+                </tr>
+                <tr>
+                    <td><code>.input-field</code></td>
+                    <td>Padding (Vertical)</td>
+                    <td><span class="prop-tag">var(--space-12x)</span> / 12px (Text Area)</td>
+                </tr>
+                <tr>
+                    <td><code>.input-field</code></td>
+                    <td>Padding (Horizontal)</td>
+                    <td><span class="prop-tag">var(--space-16x)</span> / 16px</td>
+                </tr>
+                <tr>
+                    <td><code>.input-field</code></td>
+                    <td>Border Radius</td>
+                    <td><span class="prop-tag">var(--br-12x)</span> / 12px</td>
+                </tr>
+                <tr>
+                    <td><code>.input-label</code></td>
+                    <td>Margin Bottom</td>
+                    <td><span class="prop-tag">var(--space-8x)</span> / 8px</td>
+                </tr>
+                <tr>
+                    <td>Icons (Left/Right)</td>
+                    <td>Offset</td>
+                    <td><span class="prop-tag">12px</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Section 5: Accessibility -->
+    <h2 class="section-heading">Accessibility Considerations</h2>
+    <div class="pane">
+        <ul class="a11y-list">
+            <li>
+                <svg class="a11y-check" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Always associate the <code>&lt;label&gt;</code> with the <code>&lt;input&gt;</code> using
+                <code>for</code> and <code>id</code>
+                attributes.
+            </li>
+            <li>
+                <svg class="a11y-check" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                The default focus state utilizes a solid 2px ring with strong contrast to visibly highlight the active
+                input area for keyboard users.
+            </li>
+            <li>
+                <svg class="a11y-check" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                When using the <code>is-error</code> state, ensure the descriptive help text clearly states how to fix
+                the error, rather than just relying on color conveying the error.
+            </li>
+        </ul>
+    </div>
+
+</div>
