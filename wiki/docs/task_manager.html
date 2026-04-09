@@ -2763,7 +2763,6 @@
                             if (!isNaN(pObj) && pObj > maxPrioByMonth[mKey]) maxPrioByMonth[mKey] = pObj;
                         });
 
-                        let needsAutoSync = false;
                         tasksData.forEach(t => {
                             if (String(t['Trang thai'] || '').trim().toLowerCase() === 'completed') return;
 
@@ -2772,21 +2771,8 @@
                                 if (maxPrioByMonth[mKey] === undefined) maxPrioByMonth[mKey] = 0;
                                 maxPrioByMonth[mKey]++;
                                 t.Priority = String(maxPrioByMonth[mKey]);
-
-                                if (currentSheetKey === 'kehoach' || currentSheetKey === 'dashboard') {
-                                    let syncTask = { ID: t.ID, Priority: t.Priority };
-                                    let actionPayload = { action: 'update', task: syncTask, targetSheetKey: 'kehoach' };
-                                    const existingIdx = pendingActions.findIndex(a => String(a.task.ID) === String(t.ID) && a.targetSheetKey === 'kehoach');
-                                    if (existingIdx !== -1) pendingActions[existingIdx] = actionPayload;
-                                    else pendingActions.push(actionPayload);
-                                    needsAutoSync = true;
-                                }
                             }
                         });
-
-                        if (needsAutoSync) {
-                            setTimeout(() => { if (window.updateSyncUI) window.updateSyncUI(); }, 500);
-                        }
 
 
                         // Render
