@@ -1,0 +1,243 @@
+<div class="content-header">
+    <div class="header-breadcrumb">Components / Modal</div>
+    <h1 class="header-title">Modal</h1>
+    <p class="header-desc">
+        A dialog interface overlaying the main view to focus user attention on actionable content or crucial
+        information.
+    </p>
+</div>
+
+<!-- Import component CSS -->
+<link rel="stylesheet" href="styles/components/modal.css">
+<!-- Also need button CSS for footer actions -->
+<link rel="stylesheet" href="styles/components/button.css">
+
+<div class="content-section">
+    <h2>Preview</h2>
+    <div class="component-preview"
+        style="min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+        <!-- Simulated inline modal for preview -->
+        <div class="modal modal-md" style="transform: none; opacity: 1; max-height: none; width: 100%;">
+            <div class="modal-header">
+                <h3 class="modal-title">Deactivate Account</h3>
+                <button class="modal-close" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to deactivate your account? All of your data will be permanently removed. This
+                    action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-tertiary btn-md">Cancel</button>
+                <button class="btn btn-destructive btn-md">Deactivate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Interactive Demo & Sizes</h2>
+    <div class="component-preview" style="gap: 16px; display: flex; flex-direction: column; align-items: flex-start;">
+        <p style="margin-top: 0; font-size: 14px; color: var(--text-secondary);">Click the buttons below to open the
+            modal in different sizes.</p>
+        <div style="display: flex; gap: 16px;">
+            <button class="btn btn-secondary btn-md" id="demo-modal-sm-btn">Small Modal (400px)</button>
+            <button class="btn btn-secondary btn-md" id="demo-modal-md-btn">Medium Modal (600px)</button>
+            <button class="btn btn-secondary btn-md" id="demo-modal-lg-btn">Large Modal (800px)</button>
+        </div>
+    </div>
+</div>
+
+<!-- Actual Modals for Demo (Hidden by default) -->
+<div class="modal-overlay" id="demo-modal-sm">
+    <div class="modal modal-sm">
+        <div class="modal-header">
+            <h3 class="modal-title">Small Modal</h3>
+            <button class="modal-close close-demo-modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            This is a small modal, ideal for quick confirmations or simple forms.
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary btn-md close-demo-modal">Got it</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="demo-modal-md">
+    <div class="modal modal-md">
+        <div class="modal-header">
+            <h3 class="modal-title">Medium Modal</h3>
+            <button class="modal-close close-demo-modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            This is a medium modal (default size), suitable for most content like settings, complex forms, or detailed
+            information.
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-tertiary btn-md close-demo-modal">Cancel</button>
+            <button class="btn btn-primary btn-md">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="demo-modal-lg">
+    <div class="modal modal-lg">
+        <div class="modal-header">
+            <h3 class="modal-title">Large Modal</h3>
+            <button class="modal-close close-demo-modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>This is a large modal, providing ample space for data-heavy views, wizards, or complex multi-step
+                processes.</p>
+            <p style="margin-top: 16px;">Scrollable content area ensures the footer remains visible even with extensive
+                information.</p>
+            <div
+                style="height: 300px; background-color: var(--bg-tertiary); margin-top: 16px; border-radius: var(--br-8x); padding: 16px;">
+                Placeholder for large content mapping...
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-tertiary btn-md close-demo-modal">Close</button>
+            <button class="btn btn-primary btn-md">Confirm Selection</button>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Usage</h2>
+    <div class="code-block">
+        <div class="code-header">
+            <span class="language">HTML</span>
+            <button class="copy-btn">Copy</button>
+        </div>
+        <pre><code>&lt;!-- Modal Overlay/Backdrop --&gt;
+&lt;div class="modal-overlay is-open"&gt;
+    &lt;!-- Modal Container --&gt;
+    &lt;div class="modal modal-md"&gt;
+        
+        &lt;!-- Header --&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;h3 class="modal-title"&gt;Modal Title&lt;/h3&gt;
+            &lt;button class="modal-close" aria-label="Close"&gt;
+                &lt;!-- SVG Close Icon --&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Body --&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;p&gt;Modal content goes here...&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Footer --&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-tertiary btn-md"&gt;Cancel&lt;/button&gt;
+            &lt;button class="btn btn-primary btn-md"&gt;Confirm&lt;/button&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="code-block" style="margin-top: 24px;">
+        <div class="code-header">
+            <span class="language">JS</span>
+            <button class="copy-btn">Copy</button>
+        </div>
+        <pre><code>// Simple toggle logic example
+function openModal(id) {
+    document.getElementById(id).classList.add('is-open');
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('is-open');
+}</code></pre>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Props Reference</h2>
+    <table class="props-table">
+        <thead>
+            <tr>
+                <th>Class / Role</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>.modal-overlay</code></td>
+                <td>The backdrop layer. Add <code>.is-open</code> to display the modal.</td>
+            </tr>
+            <tr>
+                <td><code>.modal</code></td>
+                <td>The main dialog container. Holds header, body, and footer.</td>
+            </tr>
+            <tr>
+                <td><code>.modal-sm</code> | <code>-md</code> | <code>-lg</code></td>
+                <td>Size modifier classes applied to <code>.modal</code>. Controls <code>max-width</code>. Default is
+                    unbounded or ~600px depending on logic.</td>
+            </tr>
+            <tr>
+                <td><code>.modal-header</code></td>
+                <td>Header section, typically flex container for Title and Close button. Has bottom border.</td>
+            </tr>
+            <tr>
+                <td><code>.modal-body</code></td>
+                <td>Scrollable content area with padding.</td>
+            </tr>
+            <tr>
+                <td><code>.modal-footer</code></td>
+                <td>Action area at the bottom, right-aligned. Has top border and slightly darker background.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Demo Interactions
+    setTimeout(() => {
+        const smBtn = document.getElementById('demo-modal-sm-btn');
+        const mdBtn = document.getElementById('demo-modal-md-btn');
+        const lgBtn = document.getElementById('demo-modal-lg-btn');
+
+        if (smBtn) smBtn.addEventListener('click', () => document.getElementById('demo-modal-sm').classList.add('is-open'));
+        if (mdBtn) mdBtn.addEventListener('click', () => document.getElementById('demo-modal-md').classList.add('is-open'));
+        if (lgBtn) lgBtn.addEventListener('click', () => document.getElementById('demo-modal-lg').classList.add('is-open'));
+
+        document.querySelectorAll('.close-demo-modal').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.target.closest('.modal-overlay').classList.remove('is-open');
+            });
+        });
+
+        // Click outside to close (Optional based on design requirements, standard practice)
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('is-open');
+                }
+            });
+        });
+    }, 100);
+</script>

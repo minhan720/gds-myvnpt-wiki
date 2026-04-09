@@ -1,0 +1,99 @@
+/* =============================================
+   Alert Component
+   ============================================= */
+
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-12x);
+    padding: var(--space-16x);
+    border-radius: var(--br-12x);
+    border: 1px solid transparent;
+    font-size: var(--font-font-size-sm);
+    line-height: var(--font-font-line-height-sm);
+}
+
+.alert-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.alert-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4x);
+    min-width: 0;
+}
+
+.alert-title {
+    font-weight: 600;
+    font-size: var(--font-font-size-sm);
+    line-height: var(--font-font-line-height-sm);
+}
+
+.alert-description {
+    font-size: var(--font-font-size-sm);
+    line-height: var(--font-font-line-height-sm);
+}
+
+/* --- Variants --- */
+
+/* Info */
+.alert-info {
+    background-color: var(--bg-brand-primary);
+    border-color: var(--border-brand_subtle);
+}
+.alert-info .alert-icon {
+    color: var(--fg-brand);
+}
+.alert-info .alert-title {
+    color: var(--text-brand_high-contrast);
+}
+.alert-info .alert-description {
+    color: var(--color-brand-700);
+}
+
+/* Success */
+.alert-success {
+    background-color: var(--bg-success-primary);
+    border-color: var(--border-success_subtle);
+}
+.alert-success .alert-icon {
+    color: var(--fg-success);
+}
+.alert-success .alert-title {
+    color: var(--text-success_high-contrast);
+}
+.alert-success .alert-description {
+    color: var(--color-green-700);
+}
+
+/* Warning */
+.alert-warning {
+    background-color: var(--bg-warning-primary);
+    border-color: var(--border-warning_subtle);
+}
+.alert-warning .alert-icon {
+    color: var(--fg-warning);
+}
+.alert-warning .alert-title {
+    color: var(--text-warning_high-contrast);
+}
+.alert-warning .alert-description {
+    color: var(--color-yellow-700);
+}
+
+/* Error */
+.alert-error {
+    background-color: var(--bg-error-primary);
+    border-color: var(--border-error_subtle);
+}
+.alert-error .alert-icon {
+    color: var(--fg-error);
+}
+.alert-error .alert-title {
+    color: var(--text-error_high-contrast);
+}
+.alert-error .alert-description {
+    color: var(--color-red-700);
+}

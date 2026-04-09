@@ -1,0 +1,161 @@
+<!-- Checkbox & Radio Option Documentation — Sourced from Figma Design System -->
+<div class="content component-doc">
+
+    <!-- 1. Header -->
+    <div class="component-header">
+        <span class="component-badge">Component</span>
+        <h1>Checkbox & Radio Option</h1>
+        <p class="component-description">Bộ components cho phép người dùng chọn một hoặc nhiều lựa chọn. Gồm 4 component sets: Check box, Checkbox option, Radio, và Radio Option.</p>
+        <div class="component-links">
+            <a href="https://www.figma.com/design/LEPP6mucy8IwApPlDQ7VAH/-Mobile-App--Design-System?node-id=4-3397" target="_blank" class="component-link" style="margin-right: 12px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                Checkbox in Figma
+            </a>
+            <a href="https://www.figma.com/design/LEPP6mucy8IwApPlDQ7VAH/-Mobile-App--Design-System?node-id=4-3373" target="_blank" class="component-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                Radio in Figma
+            </a>
+        </div>
+    </div>
+
+    <!-- 2. Visual Preview — Figma Screenshots -->
+    <section class="doc-section" id="visual-preview">
+        <h2>Visual Preview</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+            <div>
+                <h4 style="margin: 0 0 8px; font-size: 13px; color: var(--text-secondary);">Check box</h4>
+                <div class="preview-box" style="background: #fff; padding: 24px; display: flex; justify-content: center;">
+                    <img src="assets/images/components/checkbox.png" alt="Checkbox states" style="max-height: 280px;" />
+                </div>
+            </div>
+            <div>
+                <h4 style="margin: 0 0 8px; font-size: 13px; color: var(--text-secondary);">Radio</h4>
+                <div class="preview-box" style="background: #fff; padding: 24px; display: flex; justify-content: center;">
+                    <img src="assets/images/components/radio.png" alt="Radio states" style="max-height: 280px;" />
+                </div>
+            </div>
+            <div>
+                <h4 style="margin: 0 0 8px; font-size: 13px; color: var(--text-secondary);">Checkbox Option</h4>
+                <div class="preview-box" style="background: #fff; padding: 24px; display: flex; justify-content: center;">
+                    <img src="assets/images/components/checkbox-option.png" alt="Checkbox Option" style="max-width: 100%;" />
+                </div>
+            </div>
+            <div>
+                <h4 style="margin: 0 0 8px; font-size: 13px; color: var(--text-secondary);">Radio Option</h4>
+                <div class="preview-box" style="background: #fff; padding: 24px; display: flex; justify-content: center;">
+                    <img src="assets/images/components/radio-option.png" alt="Radio Option" style="max-width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Check box Component -->
+    <section class="doc-section" id="checkbox">
+        <h2>Check box</h2>
+        <p>Component cơ bản, 2 sizes × 3 trạng thái:</p>
+        <table class="spec-table">
+            <thead><tr><th>Variant</th><th>Size</th><th>Fill</th><th>Stroke</th><th>Border Radius</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Active</strong></td><td>24×24 / 20×20</td><td>#3079FF (brand)</td><td>—</td><td>6px</td></tr>
+                <tr><td><strong>_Checkbox base</strong> (unchecked)</td><td>24×24 / 20×20</td><td>#FFFFFF</td><td>#9AA0A5, 1px</td><td>6px</td></tr>
+                <tr><td><strong>Disable</strong></td><td>24×24 / 20×20</td><td>#D6D9DB</td><td>#9AA0A5, 1px</td><td>6px</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 12px;">Active state hiển thị checkmark icon (white) bên trong, kích thước 16.8×16.8 (size 24) hoặc 14×14 (size 20).</p>
+
+        <h3 style="margin-top: 24px;">API</h3>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Type</th><th>Values</th></tr></thead>
+            <tbody>
+                <tr><td>Tyoe (Note: typo trong Figma)</td><td>VARIANT</td><td>Active, _Checkbox base, Disable</td></tr>
+                <tr><td>Size</td><td>VARIANT</td><td>24, 20</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 4. Checkbox Option Component -->
+    <section class="doc-section" id="checkbox-option">
+        <h2>Checkbox Option</h2>
+        <p>Checkbox kèm label text, hỗ trợ 2 layouts:</p>
+        <table class="spec-table">
+            <thead><tr><th>Type</th><th>Layout</th><th>Mô tả</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Right</strong></td><td><code>Label — Checkbox (phải)</code></td><td>Text trước, checkbox sau. Gap: 32px, padding: 12px 0</td></tr>
+                <tr><td><strong>Left</strong></td><td><code>Checkbox — Label (trái)</code></td><td>Checkbox trước, text sau. Gap: 16px, padding: 12px 0</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 12px;">Label: SF Pro Display, 16px, Medium (500), #34404B. Checkbox mặc định: Active, Size 20.</p>
+    </section>
+
+    <!-- 5. Radio Component -->
+    <section class="doc-section" id="radio">
+        <h2>Radio</h2>
+        <p>Component cơ bản, 2 sizes × 4 trạng thái:</p>
+        <table class="spec-table">
+            <thead><tr><th>Status</th><th>Size</th><th>Fill</th><th>Stroke</th><th>Inner dot</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Active</strong></td><td>24 / 20</td><td>#FFFFFF</td><td>#3079FF, 1px</td><td>12×12 / 10×10, fill #3079FF</td></tr>
+                <tr><td><strong>Off</strong></td><td>24 / 20</td><td>#FFFFFF</td><td>#9AA0A5, 1px</td><td>—</td></tr>
+                <tr><td><strong>Disable</strong> (selected)</td><td>24 / 20</td><td>#FFFFFF</td><td>#9AA0A5, 1px</td><td>12×12 / 10×10, fill #9AA0A5</td></tr>
+                <tr><td><strong>Disable off</strong></td><td>24 / 20</td><td>#D6D9DB</td><td>#9AA0A5, 1px</td><td>—</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 12px;">Border-radius: 999px (perfect circle). Inner dot position: 6px offset (size 24) hoặc 5px offset (size 20).</p>
+
+        <h3 style="margin-top: 24px;">API</h3>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Type</th><th>Values</th></tr></thead>
+            <tbody>
+                <tr><td>Status</td><td>VARIANT</td><td>Active, Off, Disable, Disable off</td></tr>
+                <tr><td>Size</td><td>VARIANT</td><td>24, 20</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 6. Radio Option Component -->
+    <section class="doc-section" id="radio-option">
+        <h2>Radio Option</h2>
+        <p>Sử dụng khi muốn người dùng chọn 1 trong nhiều lựa chọn đưa ra. Gồm 3 types:</p>
+        <table class="spec-table">
+            <thead><tr><th>Type</th><th>Layout</th><th>Mô tả</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Long content</strong></td><td>Radio (trái) + Label</td><td>Radio trước, gap: 16px, padding: 16px 0, width: 343px</td></tr>
+                <tr><td><strong>Short content</strong></td><td>Label + Radio (phải)</td><td>Label trước, radio cuối, gap: 16px, padding: 16px 0</td></tr>
+                <tr><td><strong>Answer</strong></td><td>Radio + Label trong card</td><td>Có border #EDEDED 1px, border-radius: 16px, padding: 16px</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 12px;">Label: SF Pro Display, 16px, Medium (500), #34404B. Radio mặc định: Status=Off, Size=20.</p>
+    </section>
+
+    <!-- 7. Design Specs Summary -->
+    <section class="doc-section" id="design-specs">
+        <h2>Design Specs</h2>
+        <table class="spec-table">
+            <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+            <tbody>
+                <tr><td>Brand blue</td><td><code>#3079FF</code></td><td>Checkbox active fill, Radio active dot & stroke</td></tr>
+                <tr><td>Neutral border</td><td><code>#9AA0A5</code></td><td>Unchecked/disabled borders</td></tr>
+                <tr><td>Disabled fill</td><td><code>#D6D9DB</code></td><td>Checkbox disable, Radio disable off</td></tr>
+                <tr><td>Text primary</td><td><code>#34404B</code></td><td>Label text color</td></tr>
+                <tr><td>Card border</td><td><code>#EDEDED</code></td><td>Radio Option "Answer" card border</td></tr>
+                <tr><td>Checkbox radius</td><td>6px</td><td>Rounded square</td></tr>
+                <tr><td>Radio radius</td><td>999px</td><td>Perfect circle</td></tr>
+                <tr><td>Label font</td><td>SF Pro Display, 16px, Medium (500)</td><td>Option label text</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 8. Accessibility -->
+    <section class="doc-section" id="accessibility">
+        <h2>Accessibility</h2>
+        <ul class="checklist">
+            <li>Checkbox: sử dụng <code>&lt;input type="checkbox"&gt;</code> native hoặc <code>role="checkbox"</code> với <code>aria-checked</code></li>
+            <li>Radio: sử dụng <code>&lt;input type="radio"&gt;</code> trong <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code></li>
+            <li>Disabled states: thêm <code>aria-disabled="true"</code>, không chỉ visual</li>
+            <li>Label phải liên kết với input qua <code>for</code>/<code>id</code> hoặc wrapping <code>&lt;label&gt;</code></li>
+            <li>Keyboard: <kbd>Space</kbd> toggle checkbox; <kbd>Arrow keys</kbd> navigate radio group</li>
+            <li>Focus visible: outline rõ ràng khi tab-focused</li>
+        </ul>
+    </section>
+
+</div>
