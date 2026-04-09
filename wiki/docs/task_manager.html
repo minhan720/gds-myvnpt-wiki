@@ -4533,6 +4533,8 @@
                     let errorCount = 0;
 
                     for (let i = 0; i < pendingActions.length; i++) {
+                        btn.innerHTML = '<div class="tm-loader" style="width:14px;height:14px;border-width:2px;margin:0 4px 0 0;animation:spin 1s linear infinite;"></div> Đang gửi... (' + (i + 1) + '/' + pendingActions.length + ')';
+
                         let actionItem = pendingActions[i];
                         let t = actionItem.task;
                         // Decide where this action is routed to
