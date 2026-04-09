@@ -1873,6 +1873,11 @@
                     const taskId = document.getElementById('doc-task-id').value;
                     let url = document.getElementById('doc-link-input').value.trim();
 
+                    if (String(taskId).startsWith('GS_AUTO_') || String(taskId).startsWith('APP_')) {
+                        document.getElementById('doc-modal-overlay').classList.remove('active');
+                        return window.showToast('⚠️ Task này được tạo tay trên GSheet và chưa có ID chuẩn. Vui lòng bấm Đồng bộ trước khi Sửa link!', 'error');
+                    }
+
                     if (!url) {
                         return window.showToast('Vui lòng điền link Google Docs hoặc chọn file.', 'error');
                     }
@@ -1912,14 +1917,20 @@
                             targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === task._sourceSheet);
                         }
 
-                        const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
-                        if (existingActionIndex !== -1) {
-                            pendingActions[existingActionIndex].task = { ...task };
-                            if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                        let addActionIdx = pendingActions.findIndex(a => a.action === 'add' && String(a.task.ID) === String(task.ID));
+                        if (addActionIdx > -1) {
+                            pendingActions[addActionIdx].task = { ...task };
+                            if (targetKey) pendingActions[addActionIdx].targetSheetKey = targetKey;
                         } else {
-                            let actionPayload = { action: 'update', task: { ...task } };
-                            if (targetKey) actionPayload.targetSheetKey = targetKey;
-                            pendingActions.push(actionPayload);
+                            const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
+                            if (existingActionIndex !== -1) {
+                                pendingActions[existingActionIndex].task = { ...task };
+                                if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                            } else {
+                                let actionPayload = { action: 'update', task: { ...task } };
+                                if (targetKey) actionPayload.targetSheetKey = targetKey;
+                                pendingActions.push(actionPayload);
+                            }
                         }
 
                         if (window.currentSheetKey === 'phatsinh') {
@@ -1943,6 +1954,10 @@
                     const taskId = document.getElementById('inline-doc-task-id').value;
                     const file = e.target.files[0];
                     if (!file || !taskId) return;
+
+                    if (String(taskId).startsWith('GS_AUTO_') || String(taskId).startsWith('APP_')) {
+                        return window.showToast('⚠️ Task này được tạo tay trên GSheet và chưa có ID chuẩn. Vui lòng bấm Đồng bộ trước khi Upload file!', 'error');
+                    }
 
                     const reader = new FileReader();
                     reader.onload = function (evt) {
@@ -1974,14 +1989,20 @@
                                     targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === task._sourceSheet);
                                 }
 
-                                const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
-                                if (existingActionIndex !== -1) {
-                                    pendingActions[existingActionIndex].task = { ...task };
-                                    if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                                let addActionIdx = pendingActions.findIndex(a => a.action === 'add' && String(a.task.ID) === String(task.ID));
+                                if (addActionIdx > -1) {
+                                    pendingActions[addActionIdx].task = { ...task };
+                                    if (targetKey) pendingActions[addActionIdx].targetSheetKey = targetKey;
                                 } else {
-                                    let actionPayload = { action: 'update', task: { ...task } };
-                                    if (targetKey) actionPayload.targetSheetKey = targetKey;
-                                    pendingActions.push(actionPayload);
+                                    const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
+                                    if (existingActionIndex !== -1) {
+                                        pendingActions[existingActionIndex].task = { ...task };
+                                        if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                                    } else {
+                                        let actionPayload = { action: 'update', task: { ...task } };
+                                        if (targetKey) actionPayload.targetSheetKey = targetKey;
+                                        pendingActions.push(actionPayload);
+                                    }
                                 }
                                 window.updateSyncUI();
                                 if (window.currentSheetKey === 'phatsinh') {
@@ -2057,15 +2078,27 @@
                     }
 
                     // Đẩy lệnh update vào Hàng đợi đồng bộ (pendingActions)
-                    let existingActionIndex = pendingActions.findIndex(a => String(a.task.ID) === String(taskId) && a.action === 'update');
-                    if (existingActionIndex >= 0) {
-                        pendingActions[existingActionIndex].task = parentTask;
+                    if (String(taskId).startsWith('GS_AUTO_') || String(taskId).startsWith('APP_')) {
+                        document.getElementById('jira-modal-overlay').classList.remove('active');
+                        return window.showToast('⚠️ Task này được tạo tay trên GSheet và chưa có ID chuẩn. Vui lòng bấm Đồng bộ trước!', 'error');
+                    }
+
+                    let addActionIdx = pendingActions.findIndex(a => a.action === 'add' && String(a.task.ID) === String(taskId));
+                    if (addActionIdx > -1) {
+                        pendingActions[addActionIdx].task = parentTask;
+                        if (targetKey) pendingActions[addActionIdx].targetSheetKey = targetKey;
                     } else {
-                        pendingActions.push({
-                            action: 'update',
-                            task: parentTask,
-                            targetSheetKey: targetKey
-                        });
+                        let existingActionIndex = pendingActions.findIndex(a => String(a.task.ID) === String(taskId) && a.action === 'update');
+                        if (existingActionIndex >= 0) {
+                            pendingActions[existingActionIndex].task = parentTask;
+                            if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                        } else {
+                            pendingActions.push({
+                                action: 'update',
+                                task: parentTask,
+                                targetSheetKey: targetKey
+                            });
+                        }
                     }
 
                     document.getElementById('jira-modal-overlay').classList.remove('active');
@@ -2515,14 +2548,20 @@
                                 targetKey = Object.keys(window.TM_CONFIG.SHEETS).find(k => window.TM_CONFIG.SHEETS[k] === task._sourceSheet);
                             }
 
-                            const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
-                            if (existingActionIndex !== -1) {
-                                pendingActions[existingActionIndex].task = { ...task };
-                                if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                            let addActionIdx = pendingActions.findIndex(a => a.action === 'add' && String(a.task.ID) === String(task.ID));
+                            if (addActionIdx > -1) {
+                                pendingActions[addActionIdx].task = { ...task };
+                                if (targetKey) pendingActions[addActionIdx].targetSheetKey = targetKey;
                             } else {
-                                let actionPayload = { action: 'update', task: { ...task } };
-                                if (targetKey) actionPayload.targetSheetKey = targetKey;
-                                pendingActions.push(actionPayload);
+                                const existingActionIndex = pendingActions.findIndex(a => a.action === 'update' && String(a.task.ID) === String(task.ID));
+                                if (existingActionIndex !== -1) {
+                                    pendingActions[existingActionIndex].task = { ...task };
+                                    if (targetKey) pendingActions[existingActionIndex].targetSheetKey = targetKey;
+                                } else {
+                                    let actionPayload = { action: 'update', task: { ...task } };
+                                    if (targetKey) actionPayload.targetSheetKey = targetKey;
+                                    pendingActions.push(actionPayload);
+                                }
                             }
                             window.updateSyncUI();
                         }
@@ -2635,8 +2674,9 @@
                             let prioMap = {};
                             let prioArr = Array.isArray(prioResult) ? prioResult : [];
                             prioArr.forEach(p => {
-                                if (p.ID && p.Priority !== undefined) {
-                                    prioMap[p.ID] = String(p.Priority);
+                                let trueId = p.ID || p['Mã ID'] || p['Task ID'];
+                                if (trueId && p.Priority !== undefined) {
+                                    prioMap[trueId] = String(p.Priority);
                                 }
                             });
                             window.prioMapData = prioMap; // LƯU RA BIẾN TOÀN CỤC ĐỂ CHECK LÚC SYNC
@@ -4387,8 +4427,8 @@
                         if (window.renderKeHoachBoard && window.tasksData) window.renderKeHoachBoard(window.tasksData);
                         return;
                     }
-                    if (!window.prioMapData) window.prioMapData = {};
-                    window.prioMapData[taskId] = newPrio;
+                    let tDataObj = window.tasksData.find(t => String(t.ID) === String(taskId));
+                    if (tDataObj) tDataObj['Priority'] = newPrio;
 
                     let taskToSync = { ID: taskId, Priority: newPrio };
 
@@ -4489,16 +4529,19 @@
                         if (actualTarget === 'kehoach') {
                             targetSheetName = 'Kehoachthang';
                             payloadTask = {
-                                'ID': t.ID || '',
+                                'ID': t.ID || '',         // Giữ ID để Backend định vị dòng khi update
+                                'Mã ID': t.ID || '',      // Bypass luật cấm chèn ID khi add
+                                'Task ID': t.ID || '',    // Bypass dự phòng
                                 'Priority': String(t.Priority || '')
                             };
-                            // Quan trọng: Nếu ID chưa có trong Sheet phụ thì phải Add dòng mới
-                            if (!window.prioMapData || !window.prioMapData[t.ID]) {
+
+                            if (!window.prioMapData || window.prioMapData[t.ID] === undefined) {
                                 actionItem.action = 'add';
                                 if (!window.prioMapData) window.prioMapData = {};
-                                window.prioMapData[t.ID] = payloadTask.Priority; // Cache local
+                                window.prioMapData[t.ID] = payloadTask.Priority;
                             } else {
                                 actionItem.action = 'update';
+                                window.prioMapData[t.ID] = payloadTask.Priority;
                             }
                         } else if (actualTarget === 'phatsinh') {
                             payloadTask = {
