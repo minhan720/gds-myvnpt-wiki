@@ -48,7 +48,8 @@ async function loadPage() {
     }
 
     try {
-        const response = await fetch(routes[hash]);
+        // Bust cache in development
+        const response = await fetch(`${routes[hash]}?t=${Date.now()}`);
         if (!response.ok) throw new Error('Page not found');
 
         const html = await response.text();
@@ -59,6 +60,9 @@ async function loadPage() {
 
         // Build Table of Contents for component/foundation pages
         buildTableOfContents();
+
+        // Setup color swatch copy functionality
+        setupColorCopy();
 
     } catch (error) {
         appContent.innerHTML = `
@@ -122,6 +126,47 @@ function setupCopyButtons() {
                     }, 2000);
                 });
             }
+        });
+    });
+}
+
+/**
+ * Setup Click-to-Copy for color cards in the Foundation/Colors page
+ */
+function setupColorCopy() {
+    const colorCards = appContent.querySelectorAll('.color-swatch-card');
+    if (colorCards.length === 0) return;
+
+    colorCards.forEach(card => {
+        const hexElement = card.querySelector('.color-swatch-hex');
+        if (!hexElement) return;
+
+        const hexValue = hexElement.innerText.trim();
+        card.title = `Click to copy ${hexValue}`;
+
+        card.addEventListener('click', () => {
+            navigator.clipboard.writeText(hexValue).then(() => {
+                const originalText = hexElement.innerText;
+                if (originalText === 'COPIED') return;
+
+                // Feedback
+                hexElement.innerText = 'COPIED';
+                const originalWeight = hexElement.style.fontWeight;
+                const originalColor = hexElement.style.color;
+                
+                hexElement.style.fontWeight = '700';
+                hexElement.style.color = '#10b981'; // Success Green
+                
+                // Temporary visual scale down
+                card.style.transform = 'scale(0.96)';
+
+                setTimeout(() => {
+                    hexElement.innerText = originalText;
+                    hexElement.style.fontWeight = originalWeight;
+                    hexElement.style.color = originalColor;
+                    card.style.transform = '';
+                }, 1000);
+            });
         });
     });
 }

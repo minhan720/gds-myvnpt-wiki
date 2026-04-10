@@ -2,7 +2,7 @@
 
     <!-- Section 1: Page Header -->
     <h1>Card</h1>
-    <p class="description">A flexible and extensible content container with multiple variants and options.</p>
+    <p class="description">Khung chứa nội dung linh hoạt có nhiều biến thể và tuỳ chọn.</p>
 
     <link rel="stylesheet" href="styles/components/card.css">
     <link rel="stylesheet" href="styles/components/button.css">
@@ -18,7 +18,7 @@
             <div class="card" style="max-width: 400px; width: 100%;">
                 <div class="card-header">
                     <h3 class="card-title">Create project</h3>
-                    <p class="card-description">Deploy your new project in one-click.</p>
+                    <p class="card-description">Triển khai dự án mới của bạn chỉ với một lần nhấp.</p>
                 </div>
                 <div class="card-content">
                     <p style="margin: 0; color: var(--text-secondary);">Here you can place form inputs, charts, or any
@@ -41,7 +41,7 @@
                     alt="Code laptop" class="card-image" style="height: 180px;">
                 <div class="card-header">
                     <h3 class="card-title">My VNPT Guide</h3>
-                    <p class="card-description">Learn how to integrate the design system.</p>
+                    <p class="card-description">Tìm hiểu cách tích hợp hệ thống design system.</p>
                 </div>
                 <div class="card-content">
                     Comprehensive tutorials covering HTML, CSS variables, and building components.
@@ -64,12 +64,11 @@
 
     <!-- Section 3: Usage / Code Snippet -->
     <h2 class="section-heading">Usage</h2>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
@@ -77,25 +76,62 @@
             </button>
         </div>
         <div class="usage-content">
-            <pre><code>&lt;!-- Include card.css --&gt;
-&lt;link rel="stylesheet" href="styles/components/card.css"&gt;
+            <pre><code>import MyVNPTDesignSystem
 
-&lt;!-- Card Structure --&gt;
-&lt;div class="card"&gt;
-  &lt;div class="card-header"&gt;
-    &lt;h3 class="card-title"&gt;Card Title&lt;/h3&gt;
-    &lt;p class="card-description"&gt;Card description goes here.&lt;/p&gt;
-  &lt;/div&gt;
-  
-  &lt;div class="card-content"&gt;
-    &lt;p&gt;Main content of the card.&lt;/p&gt;
-  &lt;/div&gt;
-  
-  &lt;div class="card-footer"&gt;
-    &lt;button class="btn btn-secondary btn-md"&gt;Cancel&lt;/button&gt;
-    &lt;button class="btn btn-primary btn-md"&gt;Action&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+DSCard {
+    // Header
+    DSCardHeader(
+        title: "Card Title",
+        description: "Card description goes here."
+    )
+    
+    // Content
+    DSCardContent {
+        Text("Main content of the card.")
+    }
+    
+    // Footer
+    DSCardFooter {
+        DSButton(text: "Cancel", style: .secondary)
+        DSButton(text: "Action", style: .primary)
+    }
+}</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy
+            </button>
+        </div>
+        <div class="usage-content">
+            <pre><code>import vn.myvnpt.designsystem.components.card.*
+import vn.myvnpt.designsystem.components.button.*
+import androidx.compose.material3.Text
+
+DSCard {
+    // Header
+    DSCardHeader(
+        title = "Card Title",
+        description = "Card description goes here."
+    )
+    
+    // Content
+    DSCardContent {
+        Text("Main content of the card.")
+    }
+    
+    // Footer
+    DSCardFooter {
+        DSButton(text = "Cancel", style = ButtonStyle.Secondary)
+        DSButton(text = "Action", style = ButtonStyle.Primary)
+    }
+}</code></pre>
         </div>
     </div>
 

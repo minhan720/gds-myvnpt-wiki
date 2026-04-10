@@ -5,7 +5,7 @@
     <div class="component-header">
         <span class="component-badge">Component</span>
         <h1>Bottom Sheet</h1>
-        <p class="component-description">Bottom sheet là panel trượt lên từ đáy màn hình, dùng để hiển thị nội dung bổ sung, biểu mẫu, hoặc hành động mà không rời khỏi context hiện tại.</p>
+        <p class="component-description">Bottom sheet là panel trượt lên từ đáy màn hình, dùng để hiển thị nội dung bổ sung, biểu mẫu, hoặc hành động mà không rời khỏi context hiện tại. Thích hợp cho mobile.</p>
         <div class="component-links">
             <a href="https://www.figma.com/design/LEPP6mucy8IwApPlDQ7VAH/-Mobile-App--Design-System?node-id=4797-1123" target="_blank" class="component-link">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
@@ -14,37 +14,68 @@
         </div>
     </div>
 
-    <!-- 2. Visual Preview — Figma Screenshots -->
-    <section class="doc-section" id="visual-preview">
-        <h2>Visual Preview</h2>
-        <p>Component set gồm 5 variants hiển thị toàn bộ bottom sheet layouts:</p>
-        <div class="preview-box" style="background: #F4F4F4; padding: 24px; overflow-x: auto;">
-            <img src="assets/images/components/bottomsheet-variant1.png" alt="Bottom Sheet — All Types from Figma" style="max-width: 100%; border-radius: 12px;" />
-        </div>
-        <p style="margin-top: 16px;">Title & Description sub-component (Light / Dark modes):</p>
-        <div class="preview-box" style="background: #BFBFBF; padding: 24px; display: flex; justify-content: center;">
-            <img src="assets/images/components/bottomsheet-title-desc.png" alt="Title & Description component" style="max-width: 375px; border-radius: 8px;" />
+    <!-- 2. Hero Preview -->
+    <section class="doc-section" id="hero-preview">
+        <h2>Hero Preview</h2>
+        <div class="hero-demo" style="margin-top: 24px;">
+            <div style="padding: 64px; display: flex; justify-content: center; align-items: center; background: #f8fafc; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
+                <!-- Type: 1 Button -->
+                <div style="width: 375px; background: #ffffff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); overflow: hidden;">
+                    <!-- Top Navigation Bar -->
+                    <div style="padding: 20px 20px 0px 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E293B"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <!-- Body -->
+                    <div style="padding: 16px; display: flex; flex-direction: column; gap: 24px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="font-family: 'SF Pro Display', sans-serif; font-size: 24px; font-weight: 700; color: #1E293B;">Title</div>
+                            <div style="font-family: 'SF Pro Display', sans-serif; font-size: 14px; font-weight: 400; color: #64748B;">Description text</div>
+                        </div>
+                        <div style="width: 100%; background: #3B82F6; color: white; height: 48px; border-radius: 24px; display: flex; align-items: center; justify-content: center; font-family: 'SF Pro Display', sans-serif; font-weight: 600; font-size: 16px;">Primary Action</div>
+                    </div>
+                    <!-- Home Indicator -->
+                    <div style="height: 34px; padding-bottom: 8px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 134px; height: 5px; background: #000; border-radius: 100px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="usage-pane" style="margin-bottom: 16px;">
+                <div class="usage-header"><span class="usage-lang">iOS (Swift)</span><button class="usage-copy">Copy</button></div>
+                <div class="usage-content">
+<pre><code>import MyVNPTDesignSystem
+
+DSBottomSheet(
+    type: .oneButton,
+    title: "Title",
+    description: "Description text",
+    primaryAction: {
+        // primary action
+    }
+)</code></pre>
+                </div>
+            </div>
+            <div class="usage-pane" style="margin: 32px 32px 32px 0;">
+                <div class="usage-header"><span class="usage-lang">Android (Kotlin)</span><button class="usage-copy">Copy</button></div>
+                <div class="usage-content">
+<pre><code>import vn.myvnpt.designsystem.components.DSBottomSheet
+import vn.myvnpt.designsystem.components.BottomSheetType
+
+DSBottomSheet(
+    type = BottomSheetType.OneButton,
+    title = "Title",
+    description = "Description text",
+    onPrimaryAction = {
+        // primary action
+    }
+)</code></pre>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- 3. Anatomy -->
-    <section class="doc-section" id="anatomy">
-        <h2>Anatomy</h2>
-        <table class="spec-table">
-            <thead><tr><th>Element</th><th>Mô tả</th></tr></thead>
-            <tbody>
-                <tr><td><strong>Top Navigation Bar</strong></td><td>Chứa nút Close (Xmark icon, bên trái) và label. Padding: 20px 20px 0px, width: 375px</td></tr>
-                <tr><td><strong>Body</strong></td><td>Vùng nội dung chính, padding: 16px, auto-layout column</td></tr>
-                <tr><td><strong>Title & Description</strong></td><td>Sub-component: Title (24px Bold) + Description (14px Regular, #717981)</td></tr>
-                <tr><td><strong>Button(s)</strong></td><td>Primary button (Large, fill brand) và/hoặc Secondary button (Large, outline)</td></tr>
-                <tr><td><strong>Home Indicator</strong></td><td>Standard iOS home indicator ở bottom</td></tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- 4. Variants -->
+    <!-- 3. Examples / Variants -->
     <section class="doc-section" id="variants">
-        <h2>Variants</h2>
+        <h2>Examples / Variants</h2>
         <p>Bottom Sheet có <strong>5 variants</strong> theo property <code>Type</code>:</p>
         <table class="spec-table">
             <thead><tr><th>Type</th><th>Mô tả</th><th>Nội dung</th></tr></thead>
@@ -57,8 +88,108 @@
             </tbody>
         </table>
 
-        <h3 style="margin-top: 24px;">Title & Description Sub-component</h3>
-        <p>Sub-component <code>Title & Description</code> hỗ trợ 2 modes:</p>
+        <!-- No Title -->
+        <h3 class="subsection-heading" id="variant-notitle" style="margin-top: 24px; font-size: 1.25rem;">Type: No title</h3>
+        <p style="margin-bottom: 16px; color: var(--color-gray-600);">Sheet cơ bản chỉ có navigation bar + body trống.</p>
+        <div class="variant-showcase" style="padding: 32px 0;">
+            <div style="background: #f8fafc; padding: 48px; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #e2e8f0;">
+                <div style="width: 375px; background: #ffffff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); overflow: hidden;">
+                    <!-- Top Navigation Bar -->
+                    <div style="padding: 20px 20px 0px 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E293B"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <!-- Empty Body padding -->
+                    <div style="padding: 16px; min-height: 80px;"></div>
+                    <!-- Home Indicator -->
+                    <div style="height: 34px; padding-bottom: 8px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 134px; height: 5px; background: #000; border-radius: 100px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search bar -->
+        <h3 class="subsection-heading" id="variant-search" style="margin-top: 48px; font-size: 1.25rem;">Type: Search bar</h3>
+        <p style="margin-bottom: 16px; color: var(--color-gray-600);">Có ô tìm kiếm trong body (border-radius 999px).</p>
+        <div class="variant-showcase" style="padding: 32px 0;">
+            <div style="background: #f8fafc; padding: 48px; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #e2e8f0;">
+                <div style="width: 375px; background: #ffffff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); overflow: hidden;">
+                    <!-- Top Navigation Bar -->
+                    <div style="padding: 20px 20px 0px 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E293B"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <!-- Body with Search -->
+                    <div style="padding: 16px;">
+                        <div style="background: #F1F5F9; border-radius: 999px; height: 36px; padding: 0 16px; display: flex; align-items: center; color: #94A3B8; font-family: 'SF Pro Display', sans-serif; font-size: 14px;">
+                            Search...
+                        </div>
+                    </div>
+                    <!-- Home Indicator -->
+                    <div style="height: 34px; padding-bottom: 8px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 134px; height: 5px; background: #000; border-radius: 100px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Usage Guidelines -->
+    <section class="doc-section" id="usage-guidelines">
+        <h2>Usage Guidelines</h2>
+        <p>Bottom Sheet cung cấp diện tích lớn và nằm ngay gần ngón tay cái, rất phù hợp cho UX thiết bị di động.</p>
+        <ul class="checklist">
+            <li><strong>Do:</strong> Cung cấp nội dung có thể scroll được nếu nó dài hơn chiều cao hiển thị.</li>
+            <li><strong>Do:</strong> Luôn cho phép người dùng kéo (swipe down) hoặc tap ra ngoài (overlay) để dismiss (đóng) sheet.</li>
+            <li><strong>Don't:</strong> Tránh đặt một Bottom Sheet bên trong một Bottom Sheet khác.</li>
+            <li><strong>Don't:</strong> Không che phủ hoàn toàn màn hình trên các thiết bị màn hình tỷ lệ rộng; thay vào đó, hãy chừa lại một dải an toàn (safe area) ở trên cùng.</li>
+        </ul>
+    </section>
+
+    <!-- 5. Accessibility -->
+    <section class="doc-section" id="accessibility">
+        <h2>Accessibility</h2>
+        <ul class="checklist">
+            <li>Sử dụng <code>role="dialog"</code> với <code>aria-modal="true"</code> cho đối tượng screen readers.</li>
+            <li><strong>Focus trap:</strong> khi bottom sheet mở, tab focus bắt buộc phải bị nhốt trong bottom sheet.</li>
+            <li>Nút Close (chữ X) hoặc overlay dismiss phải thiết lập thuộc tính <code>aria-label="Close"</code>.</li>
+            <li>Hỗ trợ thao tác ESCAPE trên thiết bị ngoại vi hoặc nút Back (hệ thống Android) để dismiss trực tiếp bottom sheet.</li>
+            <li>Khi đóng, focus tự động trả về vị trí element cuối cùng trigger mở sheet.</li>
+        </ul>
+    </section>
+
+    <!-- 6. Design Specifications -->
+    <section class="doc-section" id="design-specifications">
+        <h2>Design Specifications</h2>
+        <table class="spec-table">
+            <thead><tr><th>Element</th><th>Property</th><th>Token / Value</th></tr></thead>
+            <tbody>
+                <tr><td>Container</td><td>Background color</td><td><code>#FFFFFF</code></td></tr>
+                <tr><td>Container</td><td>Corner radius</td><td>16px (chỉ canh top-left & top-right)</td></tr>
+                <tr><td>Layout</td><td>Align Items</td><td>Center (Column direction)</td></tr>
+                <tr><td>Top Navigation</td><td>Padding</td><td>20px 20px 0px</td></tr>
+                <tr><td>Body</td><td>Padding</td><td>16px</td></tr>
+                <tr><td>Title</td><td>Typography</td><td>SF Pro Display / 24px / Bold (700)</td></tr>
+                <tr><td>Title</td><td>Color</td><td><code>#34404B</code> (Light) / <code>#FFFFFF</code> (Dark)</td></tr>
+                <tr><td>Description</td><td>Typography</td><td>SF Pro Display / 14px / Regular (400)</td></tr>
+                <tr><td>Description</td><td>Color</td><td><code>#717981</code> (Light) / <code>#FFFFFF</code> (Dark)</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 7. API Reference / Props Table -->
+    <section class="doc-section" id="api-reference">
+        <h2>API Reference / Props Table</h2>
+        <h3>Component: Bottom Sheet</h3>
+        <table class="spec-table">
+            <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Type</td><td><code>Enum</code></td><td><code>No title</code></td><td>Xác định cấu trúc của Bottom sheet (No title, With title, Search bar, 1 button, 2 buttons).</td></tr>
+                <tr><td>Title</td><td><code>String</code></td><td><code>""</code></td><td>Tiêu đề chính hiển thị cho bottom sheet (bắt buộc cho những variant 'With Title').</td></tr>
+                <tr><td>Description</td><td><code>String</code></td><td><code>""</code></td><td>Dòng chữ giải thích hoặc tóm tắt phụ trợ bên dưới title.</td></tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top: 24px;">Sub-component: Title & Description</h3>
         <table class="spec-table">
             <thead><tr><th>Mode</th><th>Title color</th><th>Description color</th><th>Background</th></tr></thead>
             <tbody>
@@ -66,80 +197,6 @@
                 <tr><td>Dark</td><td>#FFFFFF</td><td>#FFFFFF</td><td>Transparent</td></tr>
             </tbody>
         </table>
-    </section>
-
-    <!-- 5. Design Specs -->
-    <section class="doc-section" id="design-specs">
-        <h2>Design Specs</h2>
-        <table class="spec-table">
-            <thead><tr><th>Property</th><th>Value</th></tr></thead>
-            <tbody>
-                <tr><td>Container background</td><td><code>#FFFFFF</code></td></tr>
-                <tr><td>Border radius</td><td>16px 16px 0px 0px (top corners only)</td></tr>
-                <tr><td>Layout</td><td>Column, align-items: center</td></tr>
-                <tr><td>Top Nav padding</td><td>20px 20px 0px</td></tr>
-                <tr><td>Top Nav gap</td><td>16px</td></tr>
-                <tr><td>Body padding</td><td>16px</td></tr>
-                <tr><td>Title font</td><td>SF Pro Display, 24px, Bold (700), line-height 1.33em</td></tr>
-                <tr><td>Title color</td><td><code>#34404B</code> (Light) / <code>#FFFFFF</code> (Dark)</td></tr>
-                <tr><td>Description font</td><td>SF Pro Display, 14px, Regular (400), line-height 1.43em</td></tr>
-                <tr><td>Description color</td><td><code>#717981</code> (Light) / <code>#FFFFFF</code> (Dark)</td></tr>
-                <tr><td>Title-Description gap</td><td>8px</td></tr>
-                <tr><td>Button width</td><td>Fill container</td></tr>
-                <tr><td>Button border-radius</td><td>999px (pill shape)</td></tr>
-                <tr><td>Primary button fill</td><td><code>#3079FF</code> (brand)</td></tr>
-                <tr><td>Secondary button</td><td>White bg, border <code>#3079FF</code> 1px</td></tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- 6. API Reference -->
-    <section class="doc-section" id="api-reference">
-        <h2>API Reference</h2>
-        <h3>Bottom Sheet</h3>
-        <table class="spec-table">
-            <thead><tr><th>Property</th><th>Type</th><th>Values</th></tr></thead>
-            <tbody>
-                <tr><td>Type</td><td>VARIANT</td><td>No title, With title, Search bar, 1 button, 2 buttons</td></tr>
-            </tbody>
-        </table>
-
-        <h3 style="margin-top: 20px;">Top Navigation Bar (nested)</h3>
-        <table class="spec-table">
-            <thead><tr><th>Property</th><th>Type</th><th>Default</th></tr></thead>
-            <tbody>
-                <tr><td>Mode</td><td>VARIANT</td><td>Light</td></tr>
-                <tr><td>Page label</td><td>TEXT</td><td>"Page name"</td></tr>
-                <tr><td>Left button</td><td>BOOLEAN</td><td>true</td></tr>
-                <tr><td>Left Icon</td><td>INSTANCE_SWAP</td><td>Xmark</td></tr>
-                <tr><td>Right button</td><td>BOOLEAN</td><td>false</td></tr>
-                <tr><td>Button label</td><td>BOOLEAN</td><td>true</td></tr>
-                <tr><td>Page name</td><td>BOOLEAN</td><td>false</td></tr>
-            </tbody>
-        </table>
-
-        <h3 style="margin-top: 20px;">Title & Description (nested)</h3>
-        <table class="spec-table">
-            <thead><tr><th>Property</th><th>Type</th><th>Default</th></tr></thead>
-            <tbody>
-                <tr><td>Type</td><td>VARIANT</td><td>Light</td></tr>
-                <tr><td>Title</td><td>TEXT</td><td>"Title"</td></tr>
-                <tr><td>Desc Content</td><td>TEXT</td><td>"Description text"</td></tr>
-                <tr><td>Description</td><td>BOOLEAN</td><td>true</td></tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- 7. Accessibility -->
-    <section class="doc-section" id="accessibility">
-        <h2>Accessibility</h2>
-        <ul class="checklist">
-            <li>Sử dụng <code>role="dialog"</code> với <code>aria-modal="true"</code></li>
-            <li>Focus trap: khi sheet mở, focus bị giữ trong sheet</li>
-            <li>Nút Close (Xmark) phải có <code>aria-label="Đóng"</code></li>
-            <li>Hỗ trợ đóng bằng phím <kbd>Escape</kbd></li>
-            <li>Khi đóng, focus quay về element đã trigger mở sheet</li>
-        </ul>
     </section>
 
 </div>

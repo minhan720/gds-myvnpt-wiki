@@ -4,7 +4,7 @@
     <div class="page-header" style="margin-bottom: 32px;">
         <h1 style="margin-bottom: 8px;">Button</h1>
         <p class="description" style="font-size: 1.125rem; color: var(--color-gray-600); max-width: 750px;">
-            Displays a button or a component that looks like a button.
+            Hiển thị một nút bấm hoặc một thành phần có giao diện như nút bấm để kích hoạt hành động.
         </p>
     </div>
 
@@ -13,45 +13,47 @@
         <div style="padding: 64px; display: flex; justify-content: center; align-items: center; background: var(--color-gray-50);">
             <button class="btn btn-primary btn-md">Button</button>
         </div>
-        <div class="usage-pane" style="margin: 0; border: none; border-top: 1px solid var(--color-gray-200); border-radius: 0;">
+        <div class="usage-pane" style="margin-bottom: 16px; border: none; border-top: 1px solid var(--color-gray-200); border-radius: 0;">
             <div class="usage-header">
-                <span class="usage-lang">HTML</span>
+                <span class="usage-lang">iOS (Swift)</span>
                 <button class="usage-copy">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                     Copy
                 </button>
             </div>
             <div class="usage-content">
-                <pre><code>&lt;button class="btn btn-primary btn-md"&gt;Button&lt;/button&gt;</code></pre>
+<pre><code>import MyVNPTDesignSystem
+
+DSButton(text: "Button", style: .primary, size: .md)</code></pre>
+            </div>
+        </div>
+        <div class="usage-pane" style="margin: 0; border: none; border-top: 1px solid var(--color-gray-200); border-radius: 0;">
+            <div class="usage-header">
+                <span class="usage-lang">Android (Kotlin)</span>
+                <button class="usage-copy">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copy
+                </button>
+            </div>
+            <div class="usage-content">
+<pre><code>import vn.myvnpt.designsystem.components.DSButton
+import vn.myvnpt.designsystem.components.ButtonStyle
+
+DSButton(
+    text = "Button",
+    style = ButtonStyle.Primary
+)</code></pre>
             </div>
         </div>
     </div>
 
-    <!-- Section 3: Installation & Usage -->
-    <h2 class="section-heading" id="installation-usage" style="margin-top: 48px;">Installation &amp; Usage</h2>
-    <h3 style="margin-top: 24px; font-size: 1.125rem;">Installation</h3>
-    <div class="usage-pane">
-        <div class="usage-header">
-            <span class="usage-lang">HTML</span>
-            <button class="usage-copy">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                Copy
-            </button>
-        </div>
-        <div class="usage-content">
-            <pre><code>&lt;link rel="stylesheet" href="styles/components/button.css"&gt;</code></pre>
-        </div>
-    </div>
-
-    <h3 style="margin-top: 24px; font-size: 1.125rem;">Usage</h3>
-    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Use the <code>btn</code> base class along with variant and size modifiers.</p>
 
     <!-- Section 4: Examples / Variants -->
     <h2 class="section-heading" id="examples" style="margin-top: 48px;">Examples / Variants</h2>
 
     <!-- Primary -->
     <h3 class="subsection-heading" id="primary" style="margin-top: 24px; font-size: 1.25rem;">Primary</h3>
-    <p style="margin-bottom: 16px; color: var(--color-gray-600);">The default high-emphasis button for principal actions.</p>
+    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Nút bấm có độ nhấn mạnh cao mặc định cho các hành động chính.</p>
     
     <div class="pane" style="margin-bottom: 16px; display: flex; justify-content: center; padding: 48px;">
         <div class="variant-row" style="gap: 16px; justify-content: center;">
@@ -59,21 +61,32 @@
             <button class="btn btn-primary btn-md" disabled>Label</button>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;button class="btn btn-primary btn-md"&gt;Label&lt;/button&gt;</code></pre>
+<pre><code>DSButton(text: "Label", style: .primary)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>DSButton(text = "Label", style = ButtonStyle.Primary)</code></pre>
         </div>
     </div>
 
     <!-- Secondary -->
     <h3 class="subsection-heading" id="secondary" style="margin-top: 48px; font-size: 1.25rem;">Secondary</h3>
-    <p style="margin-bottom: 16px; color: var(--color-gray-600);">For medium-emphasis secondary actions. Has a brand-colored border and text.</p>
+    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Dành cho các hành động phụ có độ ưu tiên trung bình. Có đường viền và chữ theo màu thương hiệu.</p>
     
     <div class="pane" style="margin-bottom: 16px; display: flex; justify-content: center; padding: 48px;">
         <div class="variant-row" style="gap: 16px; justify-content: center;">
@@ -81,21 +94,32 @@
             <button class="btn btn-secondary btn-md" disabled>Label</button>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;button class="btn btn-secondary btn-md"&gt;Label&lt;/button&gt;</code></pre>
+<pre><code>DSButton(text: "Label", style: .secondary)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>DSButton(text = "Label", style = ButtonStyle.Secondary)</code></pre>
         </div>
     </div>
 
     <!-- Tertiary -->
     <h3 class="subsection-heading" id="tertiary" style="margin-top: 48px; font-size: 1.25rem;">Tertiary</h3>
-    <p style="margin-bottom: 16px; color: var(--color-gray-600);">A low-emphasis variant without border or background, keeping brand-colored text.</p>
+    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Biến thể có độ nhấn mạnh thấp, không có đường viền hay hình nền, giữ nguyên màu chữ của thương hiệu.</p>
     
     <div class="pane" style="margin-bottom: 16px; display: flex; justify-content: center; padding: 48px;">
         <div class="variant-row" style="gap: 16px; justify-content: center;">
@@ -103,15 +127,26 @@
             <button class="btn btn-tertiary btn-md" disabled>Label</button>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;button class="btn btn-tertiary btn-md"&gt;Label&lt;/button&gt;</code></pre>
+<pre><code>DSButton(text: "Label", style: .tertiary)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>DSButton(text = "Label", style = ButtonStyle.Tertiary)</code></pre>
         </div>
     </div>
 
@@ -125,21 +160,32 @@
             <button class="btn btn-ghost btn-md" disabled>Label</button>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;button class="btn btn-ghost btn-md"&gt;Label&lt;/button&gt;</code></pre>
+<pre><code>DSButton(text: "Label", style: .ghost)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>DSButton(text = "Label", style = ButtonStyle.Ghost)</code></pre>
         </div>
     </div>
 
     <!-- Underline -->
     <h3 class="subsection-heading" id="underline" style="margin-top: 48px; font-size: 1.25rem;">Underline</h3>
-    <p style="margin-bottom: 16px; color: var(--color-gray-600);">An inline text button with an underline, representing the Link hierarchy.</p>
+    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Nút bấm dạng chữ inline kèm đường gạch chân, biểu thị cấu trúc của Link.</p>
     
     <div class="pane" style="margin-bottom: 16px; display: flex; justify-content: center; padding: 48px;">
         <div class="variant-row" style="gap: 16px; justify-content: center;">
@@ -147,15 +193,26 @@
             <button class="btn btn-link btn-md" disabled>Label</button>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;button class="btn btn-link btn-md"&gt;Label&lt;/button&gt;</code></pre>
+<pre><code>DSButton(text: "Label", style: .link)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>DSButton(text = "Label", style = ButtonStyle.Link)</code></pre>
         </div>
     </div>
 
@@ -179,25 +236,34 @@
             </button>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;!-- Icon Left --&gt;
-&lt;button class="btn btn-primary btn-md btn-icon-left"&gt;
-  &lt;svg ...&gt;&lt;/svg&gt;
-  Label
-&lt;/button&gt;
+<pre><code>// Icon Left
+DSButton(text: "Label", style: .primary, leftIcon: UIImage(named: "ic_check"))
 
-&lt;!-- Icon Right --&gt;
-&lt;button class="btn btn-primary btn-md btn-icon-right"&gt;
-  Label
-  &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/button&gt;</code></pre>
+// Icon Right
+DSButton(text: "Label", style: .primary, rightIcon: UIImage(named: "ic_check"))</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>// Icon Left
+DSButton(text = "Label", style = ButtonStyle.Primary, leftIcon = R.drawable.ic_check)
+
+// Icon Right
+DSButton(text = "Label", style = ButtonStyle.Primary, rightIcon = R.drawable.ic_check)</code></pre>
         </div>
     </div>
 
@@ -215,17 +281,36 @@
             </button>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;button class="btn btn-secondary btn-sm btn-icon-only" aria-label="Settings"&gt;
-  &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/button&gt;</code></pre>
+<pre><code>DSButton(
+    style: .secondary,
+    size: .sm,
+    leftIcon: UIImage(named: "ic_settings"),
+    isIconOnly: true
+)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>DSButton(
+    style = ButtonStyle.Secondary,
+    size = ButtonSize.Sm,
+    leftIcon = R.drawable.ic_settings,
+    isIconOnly = true
+)</code></pre>
         </div>
     </div>
 

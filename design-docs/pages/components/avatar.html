@@ -4,7 +4,7 @@
     <div class="page-header" style="margin-bottom: 32px;">
         <h1 style="margin-bottom: 8px;">Avatar</h1>
         <p class="description" style="font-size: 1.125rem; color: var(--color-gray-600); max-width: 750px;">
-            An image element with a fallback for representing the user or an entity.
+            Thành phần hình ảnh có tính năng dự phòng dùng để đại diện cho người dùng hoặc một thực thể.
         </p>
     </div>
 
@@ -15,51 +15,54 @@
               <img class="avatar-image" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User Name">
             </div>
         </div>
-        <div class="usage-pane" style="margin: 32px;">
+        <div class="usage-pane" style="margin-bottom: 16px;">
             <div class="usage-header">
-                <span class="usage-lang">HTML</span>
+                <span class="usage-lang">iOS (Swift)</span>
                 <button class="usage-copy">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                     Copy
                 </button>
             </div>
             <div class="usage-content">
-                <pre><code>&lt;div class="avatar avatar-md avatar-circle"&gt;
-  &lt;img class="avatar-image" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User Name"&gt;
-&lt;/div&gt;</code></pre>
+<pre><code>import MyVNPTDesignSystem
+
+DSAvatar(
+    imageURL: URL(string: "https://..."),
+    size: .md,
+    shape: .circle
+)</code></pre>
+            </div>
+        </div>
+        <div class="usage-pane" style="margin: 32px 32px 32px 0;">
+            <div class="usage-header">
+                <span class="usage-lang">Android (Kotlin)</span>
+                <button class="usage-copy">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copy
+                </button>
+            </div>
+            <div class="usage-content">
+<pre><code>import vn.myvnpt.designsystem.components.DSAvatar
+import vn.myvnpt.designsystem.components.AvatarSize
+import vn.myvnpt.designsystem.components.AvatarShape
+
+DSAvatar(
+    imageUrl = "https://...",
+    size = AvatarSize.Md,
+    shape = AvatarShape.Circle
+)</code></pre>
             </div>
         </div>
     </div>
 
-    <!-- Section 3: Installation & Usage -->
-    <h2 class="section-heading" id="installation-usage" style="margin-top: 48px;">Installation &amp; Usage</h2>
-    <h3 style="margin-top: 24px; font-size: 1.125rem;">Installation</h3>
-    <div class="usage-pane">
-        <div class="usage-header">
-            <span class="usage-lang">HTML</span>
-            <button class="usage-copy">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-                Copy
-            </button>
-        </div>
-        <div class="usage-content">
-            <pre><code>&lt;link rel="stylesheet" href="styles/components/avatar.css"&gt;</code></pre>
-        </div>
-    </div>
 
-    <h3 style="margin-top: 24px; font-size: 1.125rem;">Usage</h3>
-    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Use the <code>avatar</code> base class with <code>avatar-image</code> or fallback content.</p>
 
     <!-- Section 4: Examples / Variants -->
     <h2 class="section-heading" id="examples" style="margin-top: 48px;">Examples / Variants</h2>
 
     <!-- Image & Fallback -->
     <h3 class="subsection-heading" id="image-fallback" style="margin-top: 24px; font-size: 1.25rem;">Image &amp; Fallback</h3>
-    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Avatar supports image, text initials, and icon fallbacks.</p>
+    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Avatar hỗ trợ hiển thị hình ảnh, ký tự viết tắt, và biểu tượng dự phòng.</p>
     
     <div class="pane" style="margin-bottom: 24px; display: flex; justify-content: center;">
         <div class="variant-row" style="justify-content: center;">
@@ -82,33 +85,40 @@
             </div>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;!-- Image Avatar --&gt;
-&lt;div class="avatar avatar-md avatar-circle"&gt;
-  &lt;img class="avatar-image" src="..." alt="User profile photo"&gt;
-&lt;/div&gt;
+<pre><code>// Image Avatar
+DSAvatar(imageURL: URL(string: "..."), size: .md)
 
-&lt;!-- Initials Fallback --&gt;
-&lt;div class="avatar avatar-md avatar-circle"&gt;
-  &lt;div class="avatar-fallback"&gt;VQ&lt;/div&gt;
-&lt;/div&gt;
+// Initials Fallback
+DSAvatar(fallbackString: "VQ", size: .md)
 
-&lt;!-- Icon Fallback --&gt;
-&lt;div class="avatar avatar-md avatar-circle"&gt;
-  &lt;div class="avatar-fallback"&gt;
-    &lt;svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;
-      &lt;path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"&gt;&lt;/path&gt;
-      &lt;circle cx="12" cy="7" r="4"&gt;&lt;/circle&gt;
-    &lt;/svg&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+// Icon Fallback
+DSAvatar(fallbackIcon: UIImage(named: "ic_user"), size: .md)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>// Image Avatar
+DSAvatar(imageUrl = "...", size = AvatarSize.Md)
+
+// Initials Fallback
+DSAvatar(fallbackString = "VQ", size = AvatarSize.Md)
+
+// Icon Fallback
+DSAvatar(fallbackIcon = R.drawable.ic_user, size = AvatarSize.Md)</code></pre>
         </div>
     </div>
 
@@ -136,43 +146,52 @@
             </div>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;!-- Small with Online Status --&gt;
-&lt;div class="avatar avatar-sm avatar-circle"&gt;
-  &lt;img class="avatar-image" src="..." alt="User"&gt;
-  &lt;span class="avatar-status status-online"&gt;&lt;/span&gt;
-&lt;/div&gt;
+<pre><code>// Small with Online Status
+DSAvatar(imageURL: URL(string: "..."), size: .sm, status: .online)
 
-&lt;!-- Medium with Away Status --&gt;
-&lt;div class="avatar avatar-md avatar-circle"&gt;
-  &lt;img class="avatar-image" src="..." alt="User"&gt;
-  &lt;span class="avatar-status status-away"&gt;&lt;/span&gt;
-&lt;/div&gt;
+// Medium with Away Status
+DSAvatar(imageURL: URL(string: "..."), size: .md, status: .away)
 
-&lt;!-- Large with Busy Status --&gt;
-&lt;div class="avatar avatar-lg avatar-circle"&gt;
-  &lt;img class="avatar-image" src="..." alt="User"&gt;
-  &lt;span class="avatar-status status-busy"&gt;&lt;/span&gt;
-&lt;/div&gt;
+// Large with Busy Status
+DSAvatar(imageURL: URL(string: "..."), size: .lg, status: .busy)
 
-&lt;!-- Extra Large Fallback with Offline Status --&gt;
-&lt;div class="avatar avatar-xl avatar-circle"&gt;
-  &lt;div class="avatar-fallback"&gt;A&lt;/div&gt;
-  &lt;span class="avatar-status status-offline"&gt;&lt;/span&gt;
-&lt;/div&gt;</code></pre>
+// Extra Large Fallback with Offline Status
+DSAvatar(fallbackString: "A", size: .xl, status: .offline)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>// Small with Online Status
+DSAvatar(imageUrl = "...", size = AvatarSize.Sm, status = AvatarStatus.Online)
+
+// Medium with Away Status
+DSAvatar(imageUrl = "...", size = AvatarSize.Md, status = AvatarStatus.Away)
+
+// Large with Busy Status
+DSAvatar(imageUrl = "...", size = AvatarSize.Lg, status = AvatarStatus.Busy)
+
+// Extra Large Fallback with Offline Status
+DSAvatar(fallbackString = "A", size = AvatarSize.Xl, status = AvatarStatus.Offline)</code></pre>
         </div>
     </div>
 
     <!-- Shapes -->
     <h3 class="subsection-heading" id="shapes" style="margin-top: 48px; font-size: 1.25rem;">Shapes</h3>
-    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Avatars can be rendered as full circles or slightly rounded squares.</p>
+    <p style="margin-bottom: 16px; color: var(--color-gray-600);">Avatar có thể hiển thị dưới dạng hình tròn khối hoặc hình vuông bo góc nhẹ.</p>
     
     <div class="pane" style="margin-bottom: 24px; display: flex; justify-content: center;">
         <div class="variant-row" style="justify-content: center;">
@@ -188,23 +207,34 @@
             </div>
         </div>
     </div>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
             </button>
         </div>
         <div class="usage-content">
-<pre><code>&lt;!-- Circle Shape (Default) --&gt;
-&lt;div class="avatar avatar-lg avatar-circle"&gt;
-  &lt;img class="avatar-image" src="..." alt="User"&gt;
-&lt;/div&gt;
+<pre><code>// Circle Shape (Default)
+DSAvatar(imageURL: URL(string: "..."), size: .lg, shape: .circle)
 
-&lt;!-- Rounded Square Shape --&gt;
-&lt;div class="avatar avatar-lg avatar-rounded"&gt;
-  &lt;img class="avatar-image" src="..." alt="User"&gt;
-&lt;/div&gt;</code></pre>
+// Rounded Square Shape
+DSAvatar(imageURL: URL(string: "..."), size: .lg, shape: .rounded)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy
+            </button>
+        </div>
+        <div class="usage-content">
+<pre><code>// Circle Shape (Default)
+DSAvatar(imageUrl = "...", size = AvatarSize.Lg, shape = AvatarShape.Circle)
+
+// Rounded Square Shape
+DSAvatar(imageUrl = "...", size = AvatarSize.Lg, shape = AvatarShape.Rounded)</code></pre>
         </div>
     </div>
 

@@ -17,5 +17,24 @@ urd_doc_*.txt
 temp_*.py
 temp_*.json
 inbox_mail/
-.agents/scripts/token.json
-.agents/scripts/credentials.json
+
+# Dependencies
+node_modules/
+bower_components/
+
+# Environments
+.venv/
+venv/
+ENV/
+env.bak/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -3,27 +3,44 @@
 ## MỤC TIÊU
 Dùng MCP quét Component cụ thể từ Figma, viết code UI Component chuẩn mực và tạo trang tài liệu (Docs Page) chi tiết cho nó.
 
+
+
 ## CẤU TRÚC TRANG & XỬ LÝ VISUAL (BẮT BUỘC TUÂN THỦ 100%)
 **Cụ thể, mỗi trang Component CHỈ ĐƯỢC BAO GỒM các phần (Sections) sau theo đúng thứ tự:**
 
-1. **Page Header (Tiêu đề & Phụ đề):**
-   - Tên Component (H1 lớn, font-bold).
-   - Một câu mô tả ngắn gọn (Description) ngay bên dưới.
+Khi render nội dung trang tài liệu cho Component, ngươi BẮT BUỘC phải tuân thủ thứ tự 7 phần (Sections) sau đây. Không được tự ý thay đổi thứ tự hay bỏ sót bất kỳ phần nào:
 
-2. **Visual Preview (Khu vực Hiển thị / Demo):**
-   - Đây là phần quan trọng nhất. Ngươi phải tạo một Box/Card hiển thị giao diện thực tế của Component (ví dụ: Button, Card) căn giữa (center-aligned).
-   - Component bên trong phải hiển thị chính xác dựa trên Design Tokens đã quét, không bị méo hoặc vỡ layout.
+**1. Header (Định vị):** 
+- Tiêu đề (H1) là tên Component.
+- Một câu mô tả ngắn gọn về chức năng của Component dựa trên file Figma.
 
-3. **Usage / Code Snippet (Đoạn mã sử dụng):**
-   - Đặt ngay dưới phần Preview.
-   - Cung cấp một khối code (Code Block) định dạng syntax highlighting đúng chuẩn.
-   - Có nút "Copy" ở góc trên cùng bên phải của khối code
+**2. Hero Preview (Trưng bày):** 
+- Tạo một khối `PreviewBox` căn giữa, chứa biến thể mặc định (Primary/Default) của Component.
+- Ngay bên dưới, cung cấp khối `CodeBlock` chứa cấu trúc code cơ bản nhất để gọi Component này. Khối code BẮT BUỘC dùng ngôn ngữ cho từng hệ điều hành: iOS dùng Swift, Android dùng Kotlin.
 
-4. **API Reference / Props Table (Bảng thuộc tính):**
-   - Hiển thị danh sách các Variants (Primary, Secondary) và Props dưới dạng bảng (Table) đơn giản, viền mảnh, font chữ rõ ràng.
 
-5. **⚠️ Cảnh báo Edge Cases / Accessibility:**
-   - Liệt kê các giới hạn, trạng thái lỗi hoặc quy tắc thiết kế rủi ro (Resilience Design) đã định nghĩa trong file hệ thống.
+**3. Examples / Variants (Các biến thể):** 
+- Dùng MCP quét toàn bộ Properties của Component trong Figma (VD: Secondary, Destructive, Outline, With Icon, Loading).
+- Với MỖI biến thể, tạo một tiểu mục (H3) bao gồm: 
+  + Khối `PreviewBox` hiển thị UI thực tế của biến thể đó.
+  + Khối `CodeBlock` chứa code của biến thể tương ứng, BẮT BUỘC dùng ngôn ngữ theo nền tảng: iOS (Swift) và Android (Kotlin).
+
+**4. Usage Guidelines (Hướng dẫn sử dụng):** 
+- Khi nào nên dùng, khi nào KHÔNG nên dùng component này.
+
+**5. Accessibility - a11y (Khả năng tiếp cận):** 
+- Các quy tắc về ARIA, focus state, contrast ratio.
+
+**6. Design Specifications (Bảng thông số Thiết kế):**
+- BẮT BUỘC tạo một bảng bóc tách chi tiết thông số UI từ Figma gồm 3 cột: `Element`, `Property`, và `Token / Value`.
+- **Cột Element:** Tên của class CSS hoặc thành phần con được bọc trong thẻ code (Ví dụ: `.btn-sm`, `.btn-lg`, `Icon & Text`, `Icons (Left/Right)`).
+- **Cột Property:** Tên thuộc tính thiết kế được đo xuất ra từ Auto-layout/Styles (Ví dụ: `Height / Padding / Font`, `Border Radius`, `Spacing (Gap)`, `Offset`).
+- **Cột Token / Value:** Giá trị bắt buộc phải chứa tên Token (Variable) nếu có, kèm theo thông số pixel thực tế. Định dạng chuẩn: `var(--tên-biến) / [giá trị]px` (Ví dụ: `var(--space-8x) / 8px`, `var(--br-full) / 9999px`, hoặc `12px`). Highlight các giá trị này để Dev dễ nhìn.
+
+**7. API Reference / Props Table (Bảng thuộc tính Code):** 
+- Tạo một bảng Markdown liệt kê các Props dùng trong React/Code.
+- Bảng gồm các cột: `Prop` (Tên thuộc tính), `Type` (Kiểu dữ liệu TypeScript), `Default` (Giá trị mặc định), và `Description` (Mô tả).
+
 
 **🚫 LỆNH CẤM KHI XỬ LÝ VISUAL:**
 - KHÔNG thêm các hiệu ứng rườm rà (animation phức tạp, màu sắc lòe loẹt) nếu trang mẫu không có.
@@ -40,12 +57,7 @@ Dùng MCP quét Component cụ thể từ Figma, viết code UI Component chuẩ
 
 2. **Xây dựng Trang Tài liệu Component (Component Page Assembly):**
    - Lắp ghép các UI Components đã tạo vào trang tài liệu chi tiết.
-   - Mỗi trang component BẮT BUỘC phải có đầy đủ 5 phần sau theo thứ tự:
-     1. **Tổng quan (Overview):** Đoạn mô tả ngắn gọn về tác dụng của component.
-     2. **Biến thể (Variants):** Bảng hiển thị các trạng thái (Primary, Secondary, Disabled,...) và Props tương ứng.
-     3. **Hướng dẫn sử dụng (Usage Guidelines):** Khi nào nên dùng, khi nào KHÔNG nên dùng component này.
-     4. **Khả năng tiếp cận (Accessibility - a11y):** Các quy tắc về ARIA, focus state, contrast ratio.
-     5. **Đoạn mã code (Code Snippets):** Block code chuẩn xác để lập trình viên có thể copy và sử dụng ngay.
+   - Mỗi trang component BẮT BUỘC phải có đầy đủ 8 phần theo đúng thứ tự đã đề cập trong **Cấu trúc trang** bên trên
 
 3. **INTERACTIVE CHECKPOINT (BẮT BUỘC DỪNG LẠI):**
    - 🛑 KHÔNG tự ý chuyển sang component tiếp theo.

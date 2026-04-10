@@ -2,7 +2,7 @@
     <div class="header-breadcrumb">Components / Dropdown</div>
     <h1 class="header-title">Dropdown</h1>
     <p class="header-desc">
-        Displays a list of actions or options triggered by clicking an element, used for navigation or command menus.
+        Hiển thị danh sách các hành động hoặc tùy chọn khi nhấp vào một thành phần, được sử dụng cho menu điều hướng hoặc lệnh.
     </p>
 </div>
 
@@ -95,34 +95,65 @@
 
 <div class="content-section">
     <h2>Usage</h2>
-    <div class="code-block">
-        <div class="code-header">
-            <span class="language">HTML</span>
-            <button class="copy-btn">Copy</button>
+    <div class="usage-pane" style="margin-bottom: 16px;">
+        <div class="usage-header">
+            <span class="usage-lang">iOS (Swift)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy
+            </button>
         </div>
-        <pre><code>&lt;!-- Dropdown Wrapper (Needs .dropdown and toggle JS) --&gt;
-&lt;div class="dropdown is-open"&gt;
-    &lt;!-- Trigger Button --&gt;
-    &lt;button class="btn btn-secondary btn-md"&gt;Options&lt;/button&gt;
-    
-    &lt;!-- Menu Container --&gt;
-    &lt;div class="dropdown-menu"&gt;
-        &lt;!-- Optional Label --&gt;
-        &lt;div class="dropdown-label"&gt;Group Name&lt;/div&gt;
-        
-        &lt;!-- Standard Item --&gt;
-        &lt;button class="dropdown-item"&gt;Profile&lt;/button&gt;
-        
-        &lt;!-- Divider --&gt;
-        &lt;div class="dropdown-divider"&gt;&lt;/div&gt;
-        
-        &lt;!-- Disabled Item --&gt;
-        &lt;button class="dropdown-item is-disabled" disabled&gt;Unavailable&lt;/button&gt;
-        
-        &lt;!-- Destructive Action --&gt;
-        &lt;button class="dropdown-item is-destructive"&gt;Delete&lt;/button&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+        <div class="usage-content">
+            <pre><code>import MyVNPTDesignSystem
+
+// Dropdown (Menu / ActionSheet)
+DSDropdown(
+    title: "Options",
+    items: [
+        DSDropdownItem(title: "Profile", icon: nil),
+        DSDropdownItem(title: "Billing", icon: nil),
+        DSDropdownItem(title: "Delete", isDestructive: true)
+    ],
+    onSelect: { item in
+        print("Selected \(item.title)")
+    }
+)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy
+            </button>
+        </div>
+        <div class="usage-content">
+            <pre><code>import vn.myvnpt.designsystem.components.DSDropdown
+import vn.myvnpt.designsystem.components.DSDropdownItem
+
+// Dropdown Menu
+DSDropdown(
+    title = "Options",
+    items = listOf(
+        DSDropdownItem(title = "Profile"),
+        DSDropdownItem(title = "Billing"),
+        DSDropdownItem(
+            title = "Delete",
+            isDestructive = true
+        )
+    ),
+    onItemClick = { item ->
+        // Handle selection
+    }
+)</code></pre>
+        </div>
     </div>
 </div>
 

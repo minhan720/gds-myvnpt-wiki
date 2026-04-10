@@ -2,8 +2,8 @@
 
     <!-- Section 1: Page Header -->
     <h1>Checkbox</h1>
-    <p class="description">A control that allows the user to toggle between checked and not checked states, typically
-        used in forms to select multiple options.</p>
+    <p class="description">Thành phần điều khiển cho phép chuyển đổi trạng thái đánh dấu, thường dùng
+        trong biểu mẫu để chọn nhiều tùy chọn.</p>
 
     <link rel="stylesheet" href="styles/components/checkbox.css">
 
@@ -74,12 +74,11 @@
 
     <!-- Section 3: Usage / Code Snippet -->
     <h2 class="section-heading">Usage</h2>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
@@ -87,25 +86,47 @@
             </button>
         </div>
         <div class="usage-content">
-            <pre><code>&lt;!-- Include checkbox.css --&gt;
-&lt;link rel="stylesheet" href="styles/components/checkbox.css"&gt;
+            <pre><code>import MyVNPTDesignSystem
 
-&lt;!-- Standard Checkbox --&gt;
-&lt;label class="checkbox-wrapper"&gt;
-  &lt;input type="checkbox" class="checkbox-input"&gt;
-  &lt;div class="checkbox-content"&gt;
-    &lt;span class="checkbox-label"&gt;Remember me&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/label&gt;
+// Standard Checkbox
+DSCheckbox(text: "Remember me", isChecked: $isChecked)
 
-&lt;!-- Checkbox with Description --&gt;
-&lt;label class="checkbox-wrapper"&gt;
-  &lt;input type="checkbox" class="checkbox-input"&gt;
-  &lt;div class="checkbox-content"&gt;
-    &lt;span class="checkbox-label"&gt;Subscribe to newsletter&lt;/span&gt;
-    &lt;span class="checkbox-desc"&gt;Get daily updates directly to your inbox.&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/label&gt;</code></pre>
+// Checkbox with Description
+DSCheckbox(
+    text: "Subscribe to newsletter",
+    description: "Get daily updates directly to your inbox.",
+    isChecked: $isChecked
+)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy
+            </button>
+        </div>
+        <div class="usage-content">
+            <pre><code>import vn.myvnpt.designsystem.components.DSCheckbox
+
+// Standard Checkbox
+DSCheckbox(
+    text = "Remember me",
+    isChecked = isChecked,
+    onCheckedChange = { isChecked = it }
+)
+
+// Checkbox with Description
+DSCheckbox(
+    text = "Subscribe to newsletter",
+    description = "Get daily updates directly to your inbox.",
+    isChecked = isChecked,
+    onCheckedChange = { isChecked = it }
+)</code></pre>
         </div>
     </div>
 

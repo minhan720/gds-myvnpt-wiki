@@ -2,7 +2,7 @@
 
     <!-- Section 1: Page Header -->
     <h1>Toggle</h1>
-    <p class="description">A control that allows the user to turn a single setting on or off instantly.</p>
+    <p class="description">Thành phần điều khiển cho phép người dùng bật tắt ngay lập tức một trạng thái cài đặt.</p>
 
     <link rel="stylesheet" href="styles/components/toggle.css">
 
@@ -74,12 +74,11 @@
 
     <!-- Section 3: Usage / Code Snippet -->
     <h2 class="section-heading">Usage</h2>
-    <div class="usage-pane">
+    <div class="usage-pane" style="margin-bottom: 16px;">
         <div class="usage-header">
-            <span class="usage-lang">HTML</span>
+            <span class="usage-lang">iOS (Swift)</span>
             <button class="usage-copy">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
@@ -87,25 +86,50 @@
             </button>
         </div>
         <div class="usage-content">
-            <pre><code>&lt;!-- Include toggle.css --&gt;
-&lt;link rel="stylesheet" href="styles/components/toggle.css"&gt;
+            <pre><code>import MyVNPTDesignSystem
 
-&lt;!-- Standard Toggle --&gt;
-&lt;label class="toggle-wrapper"&gt;
-  &lt;input type="checkbox" class="toggle-input"&gt;
-  &lt;div class="toggle-content"&gt;
-    &lt;span class="toggle-label"&gt;Dark Mode&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/label&gt;
+// Standard Toggle
+DSToggle(
+    title: "Push notifications",
+    isOn: $pushEnabled
+)
 
-&lt;!-- Small Toggle with Description --&gt;
-&lt;label class="toggle-wrapper toggle-sm"&gt;
-  &lt;input type="checkbox" class="toggle-input" checked&gt;
-  &lt;div class="toggle-content"&gt;
-    &lt;span class="toggle-label"&gt;Mute notifications&lt;/span&gt;
-    &lt;span class="toggle-desc"&gt;Do not disturb mode.&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/label&gt;</code></pre>
+// Toggle with Description
+DSToggle(
+    title: "Automatic backup",
+    description: "Saves your progress to the cloud every 10 minutes.",
+    isOn: $backupEnabled
+)</code></pre>
+        </div>
+    </div>
+    <div class="usage-pane">
+        <div class="usage-header">
+            <span class="usage-lang">Android (Kotlin)</span>
+            <button class="usage-copy">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy
+            </button>
+        </div>
+        <div class="usage-content">
+            <pre><code>import vn.myvnpt.designsystem.components.DSToggle
+
+// Standard Toggle
+DSToggle(
+    title = "Push notifications",
+    isChecked = pushEnabled,
+    onCheckedChange = { pushEnabled = it }
+)
+
+// Toggle with Description
+DSToggle(
+    title = "Automatic backup",
+    description = "Saves your progress to the cloud every 10 minutes.",
+    isChecked = backupEnabled,
+    onCheckedChange = { backupEnabled = it }
+)</code></pre>
         </div>
     </div>
 
