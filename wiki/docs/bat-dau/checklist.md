@@ -1,6 +1,7 @@
 ---
 hide:
   - toc
+password: gds@ptsp
 ---
 # ✅ Checklist Tuần Đầu (Getting Started)
 
