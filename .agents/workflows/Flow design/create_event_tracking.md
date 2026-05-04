@@ -59,7 +59,7 @@ Khi đặt tên màn hình (`screenName`), AI tuân thủ theo nguyên tắc ưu
 ### B4. 📁 Tích hợp hệ thống (Master Integration)
 // turbo
 - AI chờ lệnh "OK" từ PO.
-- Viết một kịch bản code (Python) thực hiện nạp mảng dữ liệu (mảng 2 chiều, ép định dạng `'=`) gọi hàm `update_master_sheet(data, sheet_name)` trong thư viện `manage_event_sheets.py`.
+- Viết một kịch bản code (Python) thực hiện nạp mảng dữ liệu (mảng 2 chiều, ép định dạng `'=`) gọi hàm `update_master_sheet(data, sheet_name)` trong thư viện `.agents/scripts/events/manage_event_sheets.py`.
 - Tạo một Sheet mới trong Master File và Push dữ liệu.
 - Trả về Link Success cho người dùng.
 
