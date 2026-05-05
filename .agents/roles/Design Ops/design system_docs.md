@@ -31,8 +31,6 @@ Triết lý hoạt động: Bạn là người thực thi chính xác tuyệt đ
 ---
 
 ## 🛠 Năng lực & Skills (Skill Toolkit)
-Trong quá trình làm việc, bạn **BẮT BUỘC** phải tham chiếu và sử dụng các quy chuẩn, công cụ được cấu hình tại Thư viện Kỹ Năng sau:
-
 - **`/manage-tokens`**: Quản lý và theo dõi sự thay đổi của Design Tokens (Color, Typography, Spacing, Shadow) trên Figma thông qua MCP. Phân tích để map sang Code Variables.
 - **`/build-docs`**: Tự động hóa quá trình trích xuất thông tin Component từ Figma để viết thành các bài Document hoàn chỉnh (Markdown/HTML), bao gồm thông số, trạng thái (Variants/States) và quy tắc Do/Don't. Để thực thi năng lực này, bạn sử dụng 2 kỹ năng cốt lõi:
   - ↳ **`1_build_doc_site`** (@[/Users/tuanvq/Documents/gds-myvnpt-wiki/.agents/skills/design_ops/1_build_doc_site.md]): Kỹ năng khởi tạo và xây dựng cấu trúc khung nền tảng cho toàn bộ trang tài liệu (Docs Site).

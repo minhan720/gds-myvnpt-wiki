@@ -6,7 +6,7 @@ Quy trình Hand-off Design-to-Code tiêu chuẩn đã được tinh chỉnh chuy
 
 ### PHẦN 1: ĐỒNG BỘ & CHUẨN BỊ (PRE-HANDOFF)
 Trước khi gọi AI, bạn cần đảm bảo đầu vào đã sẵn sàng:
-1. **Chốt Tech Stack:** Thống nhất với Dev về nền tảng: **iOS (Swift / SwiftUI)** hoặc **Android (Kotlin / Jetpack Compose / XML)**.
+1. **Chốt Tech Stack:** Thống nhất với Dev về nền tảng: **iOS (Swift / SwiftUI)** và **Android (Kotlin / Jetpack Compose / XML)**.
 2. **AI-Ready Audit (Chuẩn hóa Figma):**
    - 100% sử dụng **Auto-layout** từ ngoài vào trong. (Vô cùng quan trọng để AI dịch ra `VStack/HStack` của iOS hoặc `Column/Row` của Android).
    - Đặt tên Layer rõ ràng, có ngữ nghĩa (vd: `HeaderView`, `HeroSection`, `BottomBar`).
