@@ -15,31 +15,33 @@ Trước khi gọi AI, bạn cần đảm bảo đầu vào đã sẵn sàng:
 ---
 
 ### PHẦN 2: THỰC THI TRÍCH XUẤT (THE EXTRACTION)
-*Lưu ý: Tuyệt đối KHÔNG extract toàn bộ luồng/file cùng lúc. Tiến hành theo thứ tự từ nền tảng đến màn hình.*
+*Lưu ý: Tuyệt đối KHÔNG extract toàn bộ luồng/file cùng lúc. Tiến hành theo thứ tự từ Kế hoạch -> Nền tảng -> Màn hình.*
+
+**Bước 0: Lập kế hoạch kiến trúc (Planning)**
+- **Mục tiêu:** Áp dụng kỹ năng `writing-plans` từ bộ `.dev full` để định hình cấu trúc Component Tree trước khi code.
+- **Hành động:** Phân tách bản vẽ Figma thành danh sách các Component cần làm. Xác định rõ Component nào là Atoms, Component nào chứa logic phức tạp.
 
 **Bước 1: Trích xuất Nền tảng (Foundation & Tokens)**
 - **Mục tiêu:** Dạy AI "ngôn ngữ" của Design System trên nền tảng Mobile.
 - **Hành động:** Yêu cầu AI dùng MCP quét toàn bộ Tokens (màu sắc, khoảng cách, font chữ, shadow).
 - **Kết quả:** Sinh ra các file Theme cốt lõi. Kể từ lúc này, mọi giao diện bắt buộc gọi từ biến, **nghiêm cấm hardcode hex/dp/pt**.
-  - *iOS:* `Theme.swift`, extension cho `Color`, `Font`.
-  - *Android:* `Theme.kt`, `Color.kt`, `Type.kt` (hoặc `colors.xml`).
 
 **Bước 2: Trích xuất Component nguyên tử (Atomic Level)**
 - **Mục tiêu:** Xây dựng thư viện UI View tái sử dụng chuẩn 100%.
-- **Hành động:** Truyền `NodeID` của từng component nhỏ (Button, TextField, Card) cho AI. Yêu cầu AI đọc kỹ toàn bộ trạng thái (States: Pressed, Disabled, Focused) và Properties.
-- **Kết quả:** File View độc lập sử dụng Modifiers chuẩn. (vd: `PrimaryButton.swift` hoặc `PrimaryButton.kt`).
+- **Hành động:** Kích hoạt `executing-plans` để code tuần tự theo bản thiết kế ở Bước 0. Truyền `NodeID` của từng component nhỏ cho AI đọc kỹ toàn bộ trạng thái (States: Pressed, Disabled, Focused).
+- **Kết quả:** File View độc lập sử dụng Modifiers chuẩn.
 
 **Bước 3: Trích xuất Màn hình cụ thể (Screen Level)**
-- **Mục tiêu:** Ráp nối giao diện màn hình lớn mà không làm quá tải ngữ cảnh của AI.
-- **Hành động:** Truyền `NodeID` của **một màn hình duy nhất**. AI tập trung dịch cấu trúc Auto Layout thành các khối logic (`VStack`, `HStack`, `ZStack` trên iOS hoặc `Column`, `Row`, `Box` trên Android), gọi lại các Atomic Views (Bước 2) và áp dụng Tokens (Bước 1).
+- **Mục tiêu:** Ráp nối giao diện màn hình lớn.
+- **Hành động:** Truyền `NodeID` của **một màn hình duy nhất**. Dịch cấu trúc Auto Layout thành các khối logic. Nếu gặp lỗi vỡ Layout hoặc sai margin/padding, BẮT BUỘC kích hoạt kỹ năng `systematic-debugging` để rà soát có hệ thống thay vì sửa mò.
 - **Kết quả:** File code Screen hoàn chỉnh chuẩn xác tỷ lệ màn hình điện thoại.
 
 ---
 
 ### PHẦN 3: KIỂM ĐỊNH & BÀN GIAO (QA & HANDOFF)
-1. **Ping-pong Tự động (Visual QA):**
-   - Build và chạy code trên **Simulator (iOS)** hoặc **Emulator (Android)**.
-   - Chụp ảnh màn hình app thực tế và đối chiếu với Node gốc trên Figma để tự động rà soát, căn chỉnh những sai số nhỏ nhất về padding/margin.
+1. **Kiểm thử tự động (Verification & QA):**
+   - Kích hoạt kỹ năng `verification-before-completion` để tự đánh giá lại độ chuẩn xác (1:1 Visual Parity).
+   - Build và chạy code trên **Simulator (iOS)** hoặc **Emulator (Android)**. Chụp ảnh màn hình app thực tế và đối chiếu với Node gốc trên Figma để căn chỉnh những sai số nhỏ nhất.
 2. **Đóng gói (Packaging):**
    - Lưu đoạn code hoàn thiện thành file (ví dụ: `ProductCard.swift` hoặc `ProductCard.kt`).
    - Đính kèm file này cùng Link Figma để bàn giao cho Mobile Dev.
