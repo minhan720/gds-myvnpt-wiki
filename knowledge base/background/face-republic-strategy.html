@@ -1,0 +1,2606 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Face Republic — Brand & Booking Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Azeret+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   FACE REPUBLIC — DESIGN TOKENS
+   Brand color: #1AB4E7 (signature blue)
+   ============================================ */
+:root {
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: 'Azeret Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Brand */
+  --fr-blue: #1AB4E7;
+  --fr-blue-dark: #0E8FBC;
+  --fr-blue-light: #5FCEF2;
+  --fr-blue-soft: rgba(26, 180, 231, 0.08);
+  --fr-blue-glow: rgba(26, 180, 231, 0.15);
+
+  /* Neutrals (from brand palette grayscale) */
+  --bg: #fafbfc;
+  --surface: #ffffff;
+  --surface-soft: #f4f6f8;
+  --surface-recessed: #eef1f3;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-bright: rgba(15, 23, 42, 0.14);
+  --text: #0f172a;
+  --text-mid: #334155;
+  --text-dim: #64748b;
+  --text-faint: #94a3b8;
+
+  /* Semantic for data */
+  --success: #10a37f;
+  --success-soft: rgba(16, 163, 127, 0.1);
+  --warning: #d97706;
+  --warning-soft: rgba(217, 119, 6, 0.1);
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.08);
+
+  /* Black/dark tones from brand palette */
+  --ink: #1a1a1a;
+  --ink-soft: #2d2d2d;
+  --gray-mid: #6b7280;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(ellipse 800px 600px at 90% -10%, var(--fr-blue-glow) 0%, transparent 60%),
+    radial-gradient(ellipse 600px 400px at 0% 30%, var(--fr-blue-soft) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   SIDEBAR NAV (Desktop)
+   ============================================ */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 28px 24px;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+  text-decoration: none;
+}
+.brand-logo-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--fr-blue);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.brand-logo-icon svg { width: 30px; height: 30px; }
+.brand-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+.brand-logo-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--fr-blue);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.brand-logo-tag {
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.toc-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toc-label::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--fr-blue);
+}
+
+.toc-list { list-style: none; }
+.toc-item {
+  margin-bottom: 2px;
+}
+.toc-link {
+  display: block;
+  padding: 9px 12px;
+  font-size: 13.5px;
+  color: var(--text-mid);
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+  position: relative;
+}
+.toc-link:hover {
+  background: var(--fr-blue-soft);
+  color: var(--fr-blue-dark);
+}
+.toc-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-right: 8px;
+  font-weight: 500;
+}
+.toc-sub {
+  padding-left: 32px;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   MOBILE NAV
+   ============================================ */
+.mobile-nav {
+  display: none;
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  padding: 12px 16px;
+}
+.mobile-nav-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mobile-brand-icon {
+  width: 32px; height: 32px;
+  background: var(--fr-blue);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-brand-icon svg { width: 22px; height: 22px; }
+.mobile-brand-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fr-blue);
+  letter-spacing: -0.01em;
+}
+
+.mobile-toc {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+.mobile-toc::-webkit-scrollbar { display: none; }
+.mobile-toc-link {
+  white-space: nowrap;
+  font-size: 12px;
+  padding: 7px 12px;
+  background: var(--surface-soft);
+  color: var(--text-mid);
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 500;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.mobile-toc-link:active {
+  background: var(--fr-blue-soft);
+  color: var(--fr-blue-dark);
+  border-color: var(--fr-blue);
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.content {
+  padding: 48px 56px 80px;
+  max-width: 1080px;
+  width: 100%;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  margin-bottom: 56px;
+  padding: 48px 0 12px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--fr-blue-dark);
+  background: var(--fr-blue-soft);
+  padding: 7px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  border: 1px solid var(--fr-blue);
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--fr-blue);
+  box-shadow: 0 0 0 3px var(--fr-blue-glow);
+}
+.hero-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: 18px;
+  color: var(--text);
+}
+.hero-title .accent { color: var(--fr-blue); }
+.hero-sub {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--text-mid);
+  max-width: 720px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.hero-meta {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hero-meta-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.hero-meta-value {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+.section {
+  margin-bottom: 72px;
+  scroll-margin-top: 80px;
+}
+
+.section-header {
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--fr-blue);
+  background: var(--fr-blue-soft);
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--fr-blue);
+}
+.section-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.section-title {
+  font-size: clamp(24px, 3.5vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.sub-section {
+  margin-bottom: 40px;
+  scroll-margin-top: 80px;
+}
+.sub-section-title {
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-bottom: 16px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sub-section-title::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  background: var(--fr-blue);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+p { margin-bottom: 12px; color: var(--text-mid); font-size: 14.5px; line-height: 1.7; }
+p strong { color: var(--text); font-weight: 600; }
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover {
+  border-color: var(--border-bright);
+}
+.card-hero {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--fr-blue-soft) 100%);
+  border: 1px solid var(--fr-blue);
+  padding: 32px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.card-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, var(--fr-blue-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.card-recessed {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+
+/* Grid layouts */
+.grid {
+  display: grid;
+  gap: 16px;
+}
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* ============================================
+   KPI / METRIC CARDS
+   ============================================ */
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+}
+.kpi-card.kpi-hero {
+  background: linear-gradient(135deg, var(--fr-blue) 0%, var(--fr-blue-dark) 100%);
+  color: white;
+  border: none;
+}
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.kpi-card.kpi-hero .kpi-label { color: rgba(255,255,255,0.85); }
+
+.kpi-value {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-card.kpi-hero .kpi-value { color: white; font-size: 34px; }
+.kpi-card.kpi-hero .kpi-value sup { font-size: 16px; opacity: 0.8; }
+
+.kpi-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--success);
+  background: var(--success-soft);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+.kpi-card.kpi-hero .kpi-delta {
+  color: white;
+  background: rgba(255,255,255,0.2);
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  margin-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+.table-wrap::-webkit-scrollbar { height: 8px; }
+.table-wrap::-webkit-scrollbar-track { background: var(--surface-soft); }
+.table-wrap::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 4px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  min-width: 600px;
+}
+thead {
+  background: var(--surface-soft);
+}
+th {
+  text-align: left;
+  padding: 13px 16px;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  border-bottom: 1px solid var(--border-bright);
+  white-space: nowrap;
+}
+th.num, td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+th.center, td.center { text-align: center; }
+td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-mid);
+  vertical-align: top;
+  line-height: 1.55;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-soft); }
+tbody tr.row-highlight {
+  background: var(--fr-blue-soft);
+  font-weight: 600;
+}
+tbody tr.row-highlight td { color: var(--text); }
+td strong { color: var(--text); font-weight: 600; }
+td .cell-label {
+  font-weight: 600;
+  color: var(--text);
+}
+td .cell-meta {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 3px;
+  display: block;
+}
+
+/* Badges in tables */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.badge-pri-high { background: var(--danger-soft); color: var(--danger); }
+.badge-pri-very-high { background: var(--fr-blue-soft); color: var(--fr-blue-dark); border: 1px solid var(--fr-blue); }
+.badge-pri-mid { background: var(--warning-soft); color: var(--warning); }
+.badge-success { background: var(--success-soft); color: var(--success); }
+.badge-info { background: var(--fr-blue-soft); color: var(--fr-blue-dark); }
+.badge-neutral { background: var(--surface-recessed); color: var(--text-mid); }
+
+/* ============================================
+   CALLOUT BOX
+   ============================================ */
+.callout {
+  background: var(--fr-blue-soft);
+  border-left: 3px solid var(--fr-blue);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.callout-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fr-blue-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+}
+.callout p:last-child { margin-bottom: 0; }
+
+.callout-warning {
+  background: var(--warning-soft);
+  border-left-color: var(--warning);
+}
+.callout-warning .callout-title { color: var(--warning); }
+
+/* ============================================
+   BIG IDEA SPECIAL BLOCK
+   ============================================ */
+.big-idea {
+  background: linear-gradient(135deg, var(--fr-blue) 0%, var(--fr-blue-dark) 100%);
+  border-radius: 18px;
+  padding: 56px 40px;
+  text-align: center;
+  color: white;
+  margin: 24px 0;
+  position: relative;
+  overflow: hidden;
+}
+.big-idea::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: -10%;
+  width: 60%;
+  height: 180%;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.big-idea::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  right: -10%;
+  width: 50%;
+  height: 180%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.big-idea-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
+}
+.big-idea-quote {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+.big-idea-translation {
+  font-size: clamp(15px, 2vw, 18px);
+  opacity: 0.92;
+  font-weight: 400;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================
+   TIMELINE — 3 MONTHS
+   ============================================ */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 20px 0;
+}
+.timeline-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--fr-blue);
+}
+.timeline-card.month-1::before { background: linear-gradient(90deg, var(--fr-blue-light), var(--fr-blue)); }
+.timeline-card.month-2::before { background: linear-gradient(90deg, var(--fr-blue), var(--fr-blue-dark)); }
+.timeline-card.month-3::before { background: linear-gradient(90deg, var(--fr-blue-dark), var(--ink-soft)); }
+.timeline-phase {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.timeline-month {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--fr-blue);
+  margin-bottom: 14px;
+}
+.timeline-target {
+  font-size: 13px;
+  color: var(--text-mid);
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border);
+}
+.timeline-target strong {
+  display: block;
+  font-size: 19px;
+  color: var(--text);
+  font-weight: 700;
+  margin-top: 2px;
+}
+.timeline-list {
+  list-style: none;
+  font-size: 13px;
+  color: var(--text-mid);
+}
+.timeline-list li {
+  padding: 6px 0;
+  display: flex;
+  gap: 8px;
+}
+.timeline-list li::before {
+  content: '→';
+  color: var(--fr-blue);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   LIST WITH MARKERS
+   ============================================ */
+.list-clean {
+  list-style: none;
+  margin: 12px 0;
+}
+.list-clean li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  color: var(--text-mid);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.list-clean li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 17px;
+  width: 8px;
+  height: 2px;
+  background: var(--fr-blue);
+  border-radius: 1px;
+}
+.list-clean li strong { color: var(--text); }
+
+/* Hook templates style */
+.hook-list { display: grid; gap: 10px; margin: 16px 0; }
+.hook-item {
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--fr-blue);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-mid);
+}
+.hook-item strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fr-blue-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+/* ============================================
+   KEY FINDINGS BOX
+   ============================================ */
+.key-finding {
+  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden;
+}
+.key-finding-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fr-blue-light);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.key-finding p {
+  color: rgba(255,255,255,0.92);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+.key-finding p strong {
+  color: var(--fr-blue-light);
+  font-weight: 700;
+}
+
+/* ============================================
+   WHITE SPACE BLOCK
+   ============================================ */
+.whitespace-block {
+  border: 2px solid var(--fr-blue);
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin: 20px 0;
+  position: relative;
+}
+.whitespace-tag {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: var(--fr-blue);
+  color: white;
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.whitespace-headline {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}
+
+/* ============================================
+   DO / DONT GRID
+   ============================================ */
+.dodont-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.dodont-col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.dodont-col.do-col { border-top: 3px solid var(--success); }
+.dodont-col.dont-col { border-top: 3px solid var(--danger); }
+.dodont-head {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.do-col .dodont-head { color: var(--success); }
+.dont-col .dodont-head { color: var(--danger); }
+.dodont-list {
+  list-style: none;
+  font-size: 13.5px;
+  color: var(--text-mid);
+}
+.dodont-list li {
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.55;
+  border-bottom: 1px dashed var(--border);
+}
+.dodont-list li:last-child { border-bottom: none; }
+.do-col .dodont-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0; top: 8px;
+  color: var(--success);
+  font-weight: 700;
+}
+.dont-col .dodont-list li::before {
+  content: '✕';
+  position: absolute;
+  left: 0; top: 8px;
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+/* ============================================
+   FOR PRINT / SCROLLBAR
+   ============================================ */
+.content::-webkit-scrollbar { width: 8px; }
+.content::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 4px; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .app { grid-template-columns: 240px 1fr; }
+  .sidebar { padding: 24px 18px; }
+  .content { padding: 40px 36px 64px; }
+}
+
+@media (max-width: 880px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .mobile-nav { display: block; }
+  .content {
+    padding: 24px 18px 56px;
+    max-width: 100%;
+  }
+  .hero { padding: 24px 0 0; margin-bottom: 40px; }
+  .hero-meta { gap: 20px; margin-top: 24px; padding-top: 20px; }
+  .section { margin-bottom: 48px; }
+  .section-header { margin-bottom: 22px; padding-bottom: 14px; }
+  .sub-section { margin-bottom: 28px; }
+  .big-idea { padding: 40px 24px; border-radius: 14px; }
+
+  /* Grids collapse */
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr; }
+  .dodont-grid { grid-template-columns: 1fr; }
+
+  .card-hero { padding: 22px; }
+
+  /* Table: keep horizontal scroll on mobile */
+  table { font-size: 12.5px; min-width: 540px; }
+  th { padding: 10px 12px; font-size: 10.5px; }
+  td { padding: 11px 12px; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .content { padding: 20px 14px 48px; }
+  .hero { padding: 16px 0 0; }
+  .hero-badge { font-size: 10.5px; padding: 6px 12px; }
+  .hero-meta {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .big-idea { padding: 32px 20px; }
+  .big-idea-quote { font-size: 22px; }
+  .card { padding: 18px 18px; }
+  .card-hero { padding: 20px; }
+  .timeline-card { padding: 20px; }
+  .key-finding { padding: 20px; }
+  .whitespace-block { padding: 24px 22px; }
+  .callout { padding: 14px 18px; }
+
+  table { font-size: 12px; min-width: 480px; }
+  th { padding: 9px 10px; }
+  td { padding: 10px 10px; }
+
+  .kpi-value { font-size: 24px; }
+  .kpi-card.kpi-hero .kpi-value { font-size: 28px; }
+}
+
+/* Animations — gentle entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeUp 0.5s ease-out backwards; }
+.section:nth-child(1) { animation-delay: 0.05s; }
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.15s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Logo SVG reusable -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="fr-logo" viewBox="0 0 60 70">
+      <!-- Stylized "fr" with leaf detail, in white on blue square -->
+      <path d="M12 50 V25 C12 18, 16 14, 22 14 H26 V20 H23 C20 20, 19 22, 19 25 V32 H26 V37 H19 V50 H12 Z" fill="white"/>
+      <path d="M32 50 V32 C32 26, 35 22, 41 22 H46 V28 H43 C40 28, 39 30, 39 33 V50 H32 Z" fill="white"/>
+      <!-- Leaf on top of f -->
+      <ellipse cx="20" cy="11" rx="2.5" ry="4.5" transform="rotate(-25 20 11)" fill="white"/>
+      <!-- Leaf on top of r -->
+      <ellipse cx="40" cy="19" rx="2" ry="3.5" transform="rotate(-20 40 19)" fill="white"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="app">
+
+  <!-- ============================================
+       SIDEBAR (Desktop)
+       ============================================ -->
+  <aside class="sidebar">
+    <a class="brand-logo" href="#top">
+      <span class="brand-logo-icon">
+        <svg><use href="#fr-logo"/></svg>
+      </span>
+      <span class="brand-logo-text">
+        <span class="brand-logo-name">face republic</span>
+        <span class="brand-logo-tag">clean · vegan · effortless</span>
+      </span>
+    </a>
+
+    <div class="toc-label">Mục lục</div>
+    <ul class="toc-list">
+      <li class="toc-item"><a class="toc-link" href="#part-1"><span class="toc-num">01</span>Khoảng cách & Objectives</a></li>
+      <li class="toc-item"><a class="toc-link" href="#part-2"><span class="toc-num">02</span>Nghiên cứu thị trường</a></li>
+      <li class="toc-item"><a class="toc-link" href="#part-3"><span class="toc-num">03</span>Big Idea & Lộ trình</a></li>
+      <li class="toc-item"><a class="toc-link" href="#part-4"><span class="toc-num">04</span>Content & Booking</a></li>
+      <li class="toc-item"><a class="toc-link toc-sub" href="#month-7">Tháng 7 — Seed</a></li>
+      <li class="toc-item"><a class="toc-link toc-sub" href="#month-8">Tháng 8 — Grow</a></li>
+      <li class="toc-item"><a class="toc-link toc-sub" href="#month-9">Tháng 9 — Scale</a></li>
+      <li class="toc-item"><a class="toc-link" href="#part-5"><span class="toc-num">05</span>Chi phí & Ngân sách</a></li>
+      <li class="toc-item"><a class="toc-link" href="#part-6"><span class="toc-num">06</span>Phụ lục</a></li>
+      <li class="toc-item"><a class="toc-link" href="#references"><span class="toc-num">—</span>Nguồn tham khảo</a></li>
+    </ul>
+  </aside>
+
+  <!-- ============================================
+       MOBILE NAV
+       ============================================ -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav-top">
+      <div class="mobile-brand">
+        <span class="mobile-brand-icon">
+          <svg><use href="#fr-logo"/></svg>
+        </span>
+        <span class="mobile-brand-name">face republic</span>
+      </div>
+    </div>
+    <div class="mobile-toc">
+      <a class="mobile-toc-link" href="#part-1">01 · Objectives</a>
+      <a class="mobile-toc-link" href="#part-2">02 · Thị trường</a>
+      <a class="mobile-toc-link" href="#part-3">03 · Big Idea</a>
+      <a class="mobile-toc-link" href="#part-4">04 · Content</a>
+      <a class="mobile-toc-link" href="#part-5">05 · Ngân sách</a>
+      <a class="mobile-toc-link" href="#part-6">06 · Phụ lục</a>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       MAIN CONTENT
+       ============================================ -->
+  <main class="content" id="top">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-badge">Brand &amp; Booking Strategy · Management Trainee</div>
+      <h1 class="hero-title">
+        Đưa Face Republic từ <span class="accent">300 triệu</span><br>
+        chạm mốc <span class="accent">1 tỷ NMV/tháng</span>
+      </h1>
+      <p class="hero-sub">
+        Chiến lược 3 tháng (T7 → T9/2026) định vị Face Republic là thương hiệu K-Beauty đầu tiên được phát triển riêng cho làn da Đông Nam Á, mở rộng creator network và tối ưu bundle để tăng cả số đơn lẫn AOV.
+      </p>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Ứng viên</span>
+          <span class="hero-meta-value">An Vũ Thu Thảo</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Vị trí</span>
+          <span class="hero-meta-value">Management Trainee</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Đơn vị vận hành</span>
+          <span class="hero-meta-value">UpBase</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Mốc thời gian</span>
+          <span class="hero-meta-value">07 → 09 / 2026</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============================================
+         PART 1
+         ============================================ -->
+    <section class="section" id="part-1">
+      <div class="section-header">
+        <div class="section-eyebrow">
+          <span class="section-num">PHẦN 01</span>
+          <span class="section-kicker">Gap Analysis &amp; Objectives</span>
+        </div>
+        <h2 class="section-title">Khoảng cách tăng trưởng &amp; Mục tiêu</h2>
+      </div>
+
+      <!-- 1.1 Gap Analysis -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">1.1 Gap Analysis</h3>
+        <p>NMV hiện tại <strong>300 triệu đồng/tháng cần tăng lên 1 tỷ đồng</strong> vào tháng <strong>9/2026</strong>, tương đương mức <strong>tăng 233%</strong> trong <strong>3 tháng</strong>. Lợi nhuận ròng mục tiêu: <strong>30–50 triệu đồng/tháng (3–5% NMV)</strong>.</p>
+
+        <div class="grid grid-4" style="margin: 20px 0;">
+          <div class="kpi-card kpi-hero">
+            <div class="kpi-label">NMV mục tiêu T9</div>
+            <div class="kpi-value">1 tỷ<sup>đ</sup></div>
+            <div class="kpi-delta">↑ +233%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">NMV hiện tại</div>
+            <div class="kpi-value">300tr</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">đ/tháng</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">AOV mục tiêu</div>
+            <div class="kpi-value">650K</div>
+            <div class="kpi-delta">↑ +35%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Đơn/tháng mục tiêu</div>
+            <div class="kpi-value">1.538</div>
+            <div class="kpi-delta">↑ +146%</div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Chỉ số</th>
+                <th class="center">Hiện tại</th>
+                <th class="center">Mục tiêu T9/2026</th>
+                <th class="center">Mức thay đổi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">NMV / tháng</span></td>
+                <td class="center">300 triệu</td>
+                <td class="center"><strong>1 tỷ đồng</strong></td>
+                <td class="center"><span class="badge badge-pri-very-high">×3,33 · +233%</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Lợi nhuận ròng</span></td>
+                <td class="center">Chưa xác định</td>
+                <td class="center">30–50 triệu</td>
+                <td class="center"><span class="badge badge-info">3–5% NMV</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">AOV (giả định)</span></td>
+                <td class="center">~480.000 đ</td>
+                <td class="center">~650.000 đ</td>
+                <td class="center"><span class="badge badge-success">+35%</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Số đơn / tháng (giả định)</span></td>
+                <td class="center">~625 đơn</td>
+                <td class="center">~1.538 đơn</td>
+                <td class="center"><span class="badge badge-success">+146%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Cơ sở giả định AOV &amp; số đơn</div>
+          <p>Quan sát giá bán thực tế trên Shopee Mall: SKU đơn lẻ 310–435K, combo nhỏ 800–900K, combo lớn 1,2–1,5 triệu. Thương hiệu đang ở giai đoạn thâm nhập nên cơ cấu đơn thiên về mua thử (70% đơn lẻ / 25% combo nhỏ / 5% combo lớn) → weighted AOV ước tính ~480K/đơn. Từ đó: 300M ÷ 480K ≈ 625 đơn/tháng. Kịch bản đẩy bundle để tăng cả số đơn và AOV ít áp lực hơn kịch bản giữ nguyên AOV (cần 2.083 đơn).</p>
+        </div>
+      </div>
+
+      <!-- 1.2 Đòn bẩy tăng trưởng -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">1.2 Các đòn bẩy tăng trưởng</h3>
+        <p>Công thức: <strong>NMV = Order × AOV</strong>, trong đó <strong>Order = Traffic × Conversion Rate</strong>. Các đòn bẩy tác động mạnh tới 3 yếu tố Traffic, CR và AOV:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Đòn bẩy</th>
+                <th>Chỉ số tác động</th>
+                <th>Hành động chính</th>
+                <th class="center">Ưu tiên</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">Booking creator (KOC/KOL)</span></td>
+                <td>Traffic, CR</td>
+                <td>Mở rộng affiliate network, collab live</td>
+                <td class="center"><span class="badge badge-pri-very-high">Rất cao</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Content organic viral</span></td>
+                <td>Traffic</td>
+                <td>Video hook mạnh, series giáo dục, trend</td>
+                <td class="center"><span class="badge badge-pri-high">Cao</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Campaign theo double day</span></td>
+                <td>Traffic, CR</td>
+                <td>8.8, 9.9 flash sale, countdown</td>
+                <td class="center"><span class="badge badge-pri-high">Cao</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Tăng AOV qua bundle</span></td>
+                <td>AOV</td>
+                <td>Gợi ý combo theo skin type, upsell trong live</td>
+                <td class="center"><span class="badge badge-pri-high">Cao</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">TikTok Ads / Spark Ads</span></td>
+                <td>Traffic, CR</td>
+                <td>Boost video organic, Video Shopping Ads</td>
+                <td class="center"><span class="badge badge-pri-mid">Trung bình</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size: 12.5px; color: var(--text-dim); font-style: italic; margin-top: 4px;">Nguồn: Hunter Agency 2026</p>
+      </div>
+
+      <!-- 1.3 SMART Objectives -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">1.3 SMART Objectives</h3>
+        <div class="grid grid-3" style="margin-top: 16px;">
+          <div class="card">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 10px;">Business Objective</div>
+            <p style="font-size: 13.5px; margin-bottom: 14px;">Đạt <strong>NMV 1 tỷ đồng/tháng</strong> trên TikTok Shop vào 30/9/2026, duy trì lợi nhuận ròng 3–5% trên NMV.</p>
+            <div style="padding-top: 12px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--text-dim);"><strong style="color: var(--text-mid);">Đo lường:</strong> NMV từ TikTok Shop Seller Center; báo cáo P&amp;L tháng</div>
+          </div>
+          <div class="card">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 10px;">Marketing Objective</div>
+            <p style="font-size: 13.5px; margin-bottom: 14px;">Tăng số đơn từ ~625 lên <strong>~1.538 đơn/tháng</strong> và AOV từ ~480K lên <strong>~650K</strong> vào tháng 9/2026 thông qua mở rộng creator network và tối ưu bundle.</p>
+            <div style="padding-top: 12px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--text-dim);"><strong style="color: var(--text-mid);">Đo lường:</strong> Đơn hàng/tháng và AOV từ Seller Center</div>
+          </div>
+          <div class="card">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 10px;">Communication Objective</div>
+            <p style="font-size: 13.5px; margin-bottom: 14px;">Trong 3 tháng, xây dựng nhận thức về Face Republic là <strong>thương hiệu K-Beauty đầu tiên được phát triển riêng cho làn da Đông Nam Á</strong> trong nhóm người dùng Việt 18–35 tuổi.</p>
+            <div style="padding-top: 12px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--text-dim);"><strong style="color: var(--text-mid);">Đo lường:</strong> Brand mention trên TikTok; search volume tên thương hiệu</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         PART 2 — Market Research
+         ============================================ -->
+    <section class="section" id="part-2">
+      <div class="section-header">
+        <div class="section-eyebrow">
+          <span class="section-num">PHẦN 02</span>
+          <span class="section-kicker">Market Research</span>
+        </div>
+        <h2 class="section-title">Nghiên cứu thị trường</h2>
+      </div>
+
+      <!-- 2.1 Tổng quan thị trường -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">2.1 Tổng quan thị trường</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 24%;">Chỉ số</th>
+                <th>Dữ liệu</th>
+                <th>Nhận xét</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">Ngành Làm đẹp TMĐT VN 2025</span></td>
+                <td>74,4 nghìn tỷ đồng, tăng <strong>29,5%</strong> so với 2024 (Metric 2026). Q1/2026: dẫn đầu thị trường với 24,4 nghìn tỷ đồng, tăng 35,63% YoY (Metric, Q1/2026)</td>
+                <td>Ngành đang tăng trưởng mạnh và ổn định — Face Republic gia nhập đúng thời điểm</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Xu hướng tiêu dùng</span></td>
+                <td>Tốc độ tăng doanh thu (+23%) cao gấp <strong>2,5×</strong> tốc độ tăng sản lượng (+9%) Q4/2025. Giá trị TB mỗi đơn tăng 13% (Metric &amp; UpBase 2026)</td>
+                <td>Người tiêu dùng sẵn sàng trả giá cao hơn cho sản phẩm chất lượng — phù hợp định vị mid-premium của Face Republic</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Hành vi người dùng 2026</span></td>
+                <td><strong>84%</strong> ưu tiên thành phần rõ ràng, minh bạch; <strong>82%</strong> muốn cải thiện bền vững thay vì kết quả tức thời (Q&amp;Me Skincare Report 2026)</td>
+                <td>Cam kết clean – vegan – dermatology tested của Face Republic đúng với kỳ vọng người dùng</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Shop Mall trên TMĐT</span></td>
+                <td>Chỉ chiếm 2,47% tổng shop nhưng đóng góp <strong>32,4%</strong> tổng doanh số trên Shopee, Lazada, TikTok Shop. Doanh thu gian hàng chính hãng tăng 53% (Metric Q1/2026)</td>
+                <td>Lợi thế của UpBase khi vận hành gian hàng Mall — uy tín và doanh thu cao hơn hẳn</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">TikTok Shop VN H1/2025</span></td>
+                <td>GMV tăng <strong>148%</strong> YoY, chiếm <strong>42%</strong> thị phần TMĐT (Fint Global 2025). Q1/2026: toàn thị trường TMĐT 148,6 nghìn tỷ, tăng 46,6%</td>
+                <td>Kênh tăng trưởng nhanh nhất — thời điểm chiếm vị thế sớm trên TikTok Shop</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Live stream mua sắm</span></td>
+                <td><strong>38%</strong> người tiêu dùng Việt xem live stream 3+ giờ/tuần, <strong>50%</strong> đã mua hàng sau khi xem live (Accio 2025)</td>
+                <td>Live stream là kênh chuyển đổi trực tiếp, không chỉ tạo nhận biết</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="key-finding">
+          <div class="key-finding-label">⚑ Key Finding</div>
+          <p>Báo cáo Metric &amp; UpBase (3/2026) cảnh báo: lạm dụng flash sale liên tục làm suy yếu biên lợi nhuận và kéo giá tham chiếu xuống thấp. Vì vậy, <strong>chiến lược của Face Republic cần cân bằng giữa đòn bẩy giá và xây dựng giá trị thương hiệu dài hạn.</strong></p>
+        </div>
+      </div>
+
+      <!-- 2.2 Đối thủ -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">2.2 Phân tích đối thủ cạnh tranh</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Thương hiệu</th>
+                <th>Hero SKUs</th>
+                <th>Điểm mạnh</th>
+                <th>Điểm yếu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">COSRX</span></td>
+                <td>Low pH Cleanser</td>
+                <td>Content: Snail mucin, centella spotlight; before/after rõ ràng. 67.5K Followers TikTok. Shopee Mall mạnh, nhận diện cao</td>
+                <td>Định vị mỹ phẩm thành phần thân thiện với da — thiếu tính cụ thể, customize cho người dùng Việt Nam</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Some By Mi</span></td>
+                <td>AHA BHA PHA toner 30-day transformation</td>
+                <td>Proof: 30-day transformation. 50K Followers TikTok. Branding nhất quán</td>
+                <td>Không có full routine ecosystem</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">SKIN1004</span></td>
+                <td>Serum rau má Madagascar (Centella)</td>
+                <td>Đã ở thị trường Việt lâu, có chỗ đứng vững chắc. Content pillar nổi bật: Centella education, testimonial da nhạy cảm</td>
+                <td>Không chuyên biệt cho làn da SEA</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Cocoon (local)</span></td>
+                <td>Toner Rau má, bưởi Việt Nam</td>
+                <td>Branding tốt với Local pride. Có package full routine</td>
+                <td>Chiết xuất thiên nhiên 100% đôi khi đem đến nghi ngờ về hiệu quả</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2.3 User insights -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">2.3 Hành vi người dùng — Các insight cốt lõi</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 50%;">Insight</th>
+                <th>Hàm ý chiến lược</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>77%</strong> người mua online Việt Nam đã từng mua theo recommendation của KOL (AsiaKOL 2024)</td>
+                <td>Creator-first là <strong>bắt buộc</strong>. Booking creator có ROI cao hơn paid ads thuần trong ngành skincare</td>
+              </tr>
+              <tr>
+                <td>KOC 1K–50K followers có conversion rate cao hơn macro-KOL trong ngành beauty Việt Nam (Fint Global 2026)</td>
+                <td>Ưu tiên <strong>micro và nano KOC</strong>: chi phí thấp hơn, nội dung authentic hơn, tỷ lệ chuyển đổi tốt hơn</td>
+              </tr>
+              <tr>
+                <td>Top sản phẩm skincare tìm kiếm nhiều nhất: cleanser (49%), sunscreen (31%), moisturizer (25%) (Statista 2023)</td>
+                <td><strong>Cleanser và sunscreen là hero SKU dễ viral</strong> — dùng làm điểm tiếp cận người dùng mới</td>
+              </tr>
+              <tr>
+                <td>Người tiêu dùng chuyển từ phân khúc dưới 100K sang 200K–500K và 500K–1M, ưu tiên hiệu quả trên giá cả (Metric 2026)</td>
+                <td>Face Republic đang đúng price point — không quá đắt để thử, không quá rẻ để mất tin tưởng</td>
+              </tr>
+              <tr style="background: var(--fr-blue-soft);">
+                <td><strong>Nhu cầu formula nhẹ, dịu, phù hợp khí hậu nhiệt đới ngày càng được nhắc đến rõ ràng hơn</strong> trên mạng xã hội (B-Company 2025; Inkwood Research 2025)</td>
+                <td>Narrative về skincare được tạo ra cho khí hậu Đông Nam Á <strong>chưa có thương hiệu nào chiếm — ▶ WHITE SPACE</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2.4 White Space -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">2.4 White Space</h3>
+        <p>Sau khi phân tích toàn bộ đối thủ đang hoạt động trên TikTok Shop và Shopee Việt Nam, <strong>có một khoảng trống positioning</strong> rõ ràng chưa brand nào khai thác:</p>
+
+        <div class="whitespace-block">
+          <span class="whitespace-tag">⬢ White Space</span>
+          <div class="whitespace-headline">"Skincare được tạo ra để hiểu làn da của bạn, không phải da của người khác"</div>
+          <ul class="list-clean">
+            <li>Không một thương hiệu K-Beauty nào đang truyền thông về việc formula được điều chỉnh riêng cho điều kiện khí hậu và đặc điểm da Đông Nam Á.</li>
+            <li>Người dùng Việt đang chăm da bằng routine được thiết kế cho da Đông Bắc Á (trọng ẩm, trọng trắng sáng) hoặc da Tây (trọng bảo vệ) — trong khi <strong>da nhiệt đới có nhu cầu khác biệt</strong>: chịu nhiệt ẩm, kiểm soát dầu, không bít lỗ chân lông.</li>
+            <li>Face Republic là thương hiệu K-Beauty duy nhất có thể claim positioning này một cách credible: <strong>được thành lập từ 2017 với sứ mệnh phát triển riêng cho làn da Đông Nam Á</strong>.</li>
+            <li>Complete SEA-optimized routine: không chỉ một sản phẩm đơn lẻ, mà là <strong>toàn bộ hệ thống skincare</strong> được thiết kế cho điều kiện Đông Nam Á.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         PART 3 — Big Idea
+         ============================================ -->
+    <section class="section" id="part-3">
+      <div class="section-header">
+        <div class="section-eyebrow">
+          <span class="section-num">PHẦN 03</span>
+          <span class="section-kicker">Big Idea &amp; Roadmap</span>
+        </div>
+        <h2 class="section-title">Big Idea &amp; Tổng quan lộ trình 3 tháng</h2>
+      </div>
+
+      <!-- 3.1 Big Idea -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">3.1 Big Idea</h3>
+
+        <div class="big-idea">
+          <div class="big-idea-label">— Big Idea —</div>
+          <div class="big-idea-quote">"Your Skin, Finally Understood."</div>
+          <div class="big-idea-translation">Da của bạn, cuối cùng đã được thấu hiểu.</div>
+        </div>
+
+        <div class="grid grid-2" style="margin-top: 24px;">
+          <div class="card">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 12px;">⚠ Tension</div>
+            <p style="font-size: 14.5px; margin-bottom: 10px;">Người Việt đang chăm da bằng sản phẩm được làm cho người Nhật, người Hàn, người Pháp — trong khi làn da của họ sống trong khí hậu và nhịp sống hoàn toàn khác.</p>
+            <p style="font-size: 14.5px; color: var(--fr-blue-dark); font-weight: 600; margin-bottom: 0;">▶ Kết quả: da vẫn bí, vẫn nhờn, vẫn kích ứng dù dùng đúng sản phẩm, đúng routine.</p>
+          </div>
+          <div class="card">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 12px;">✓ Face Republic's Right to Say</div>
+            <ul class="list-clean" style="margin: 0;">
+              <li>Thành lập <strong>2017</strong> với tuyên ngôn rõ ràng: phát triển sản phẩm riêng cho làn da Đông Nam Á</li>
+              <li>Công thức <strong>Clean – Vegan – Effortless</strong>, kiểm nghiệm da liễu, không hương liệu nhân tạo</li>
+              <li>4 dòng sản phẩm theo nhu cầu thực: <strong>Hydro, Calming, Glow, Blooming</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.2 Roadmap -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">3.2 Tổng quan lộ trình 3 tháng</h3>
+
+        <div class="timeline">
+          <div class="timeline-card month-1">
+            <div class="timeline-phase">Tháng 7</div>
+            <div class="timeline-month">SEED</div>
+            <div class="timeline-target">
+              NMV mục tiêu
+              <strong>400 – 450 triệu</strong>
+            </div>
+            <p style="font-size: 13px; color: var(--text-mid); margin-bottom: 12px; line-height: 1.55;">Gieo narrative SEA skin, xây nền creator network</p>
+            <ul class="timeline-list">
+              <li><strong>Campaign:</strong> Skin Type Awareness</li>
+              <li><strong>Video/tuần:</strong> 15–20</li>
+              <li><strong>Live/tuần:</strong> 3–4</li>
+              <li><strong>Creator active:</strong> 10–15 KOC</li>
+            </ul>
+          </div>
+          <div class="timeline-card month-2">
+            <div class="timeline-phase">Tháng 8</div>
+            <div class="timeline-month">GROW</div>
+            <div class="timeline-target">
+              NMV mục tiêu
+              <strong>650 – 700 triệu</strong>
+            </div>
+            <p style="font-size: 13px; color: var(--text-mid); margin-bottom: 12px; line-height: 1.55;">Đẩy routine set, upsell bundle</p>
+            <ul class="timeline-list">
+              <li><strong>Campaign:</strong> 8.8 + Build Your Routine</li>
+              <li><strong>Video/tuần:</strong> 25–30</li>
+              <li><strong>Live/tuần:</strong> 5–6</li>
+              <li><strong>Creator:</strong> 25–35 KOC, 3–5 KOL</li>
+            </ul>
+          </div>
+          <div class="timeline-card month-3">
+            <div class="timeline-phase">Tháng 9</div>
+            <div class="timeline-month">SCALE</div>
+            <div class="timeline-target">
+              NMV mục tiêu
+              <strong>1 tỷ+</strong>
+            </div>
+            <p style="font-size: 13px; color: var(--text-mid); margin-bottom: 12px; line-height: 1.55;">Mega campaign 9.9 — ra mắt routine được tạo ra cho bạn</p>
+            <ul class="timeline-list">
+              <li><strong>Campaign:</strong> 9.9 Mega Sale</li>
+              <li><strong>Video/tuần:</strong> 35–40</li>
+              <li><strong>Live/tuần:</strong> 7–10</li>
+              <li><strong>Creator:</strong> 40–50 KOC, 8–10 KOL</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         PART 4 — Content & Booking
+         ============================================ -->
+    <section class="section" id="part-4">
+      <div class="section-header">
+        <div class="section-eyebrow">
+          <span class="section-num">PHẦN 04</span>
+          <span class="section-kicker">Content &amp; Booking Strategy</span>
+        </div>
+        <h2 class="section-title">Chi tiết chiến lược Content &amp; Booking</h2>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">▶ Nguyên tắc dẫn về Conversion (TikTok Shop &amp; Shopee)</div>
+        <ul class="list-clean" style="margin-top: 6px;">
+          <li><strong>Primary:</strong> TikTok Shop — in-app checkout, friction thấp nhất. Mọi video và live phải tag sản phẩm TikTok Shop.</li>
+          <li><strong>Secondary:</strong> Shopee Mall — phục vụ intent demand. Creator có hệ sinh thái affiliate Shopee mạnh book riêng cho kênh này.</li>
+          <li>Không cross-link giữa hai nền tảng trong cùng một video. Mỗi creator chỉ có một điểm conversion rõ ràng.</li>
+          <li>TikTok content phục vụ impulsive demand (khám phá → mua ngay). Shopee phục vụ intent demand (tìm kiếm → so sánh → mua).</li>
+        </ul>
+      </div>
+
+      <!-- 4.1 Tháng 7 -->
+      <div class="sub-section" id="month-7">
+        <h3 class="sub-section-title">4.1 Tháng 7 — SEED</h3>
+
+        <div class="card card-hero" style="margin-bottom: 20px;">
+          <div class="grid grid-3" style="position: relative; z-index: 2;">
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Key Objective</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Xây dựng brand awareness cho positioning SEA-optimized skincare; tạo social proof ban đầu; xây nền 10–15 KOC</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Key Message</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Da bạn sống trong khí hậu này — skincare của bạn cũng cần được tạo ra cho khí hậu này. Face Republic: K-Beauty cho làn da Đông Nam Á.</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Bedrock Content</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Series 4 video: <strong>"Da Việt cần gì mà da Hàn không có"</strong> — 1 video/tuần. Đây là nền tảng cho mọi content sau.</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top: 24px; margin-bottom: 12px; font-weight: 600; color: var(--text); font-size: 15px;">Content Pillars</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Pillar</th>
+                <th>Mô tả</th>
+                <th class="center">Tần suất/tuần</th>
+                <th>Kênh</th>
+                <th>KPI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">EDU</span><span class="cell-meta">40%</span></td>
+                <td>Skin type test, ingredient edu (HA, Ceramide, BHA), tại sao da SEA cần clean beauty</td>
+                <td class="center">6–8 video</td>
+                <td>TikTok organic</td>
+                <td>View rate &gt;60%, save rate &gt;5%</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Social Proof</span><span class="cell-meta">30%</span></td>
+                <td>Creator review thật, skin journey, UGC repost, before/after chân thực</td>
+                <td class="center">4–6 video (booking)</td>
+                <td>TikTok (KOC)</td>
+                <td>CTR &gt;2%, comment &gt;30</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Brand Story</span><span class="cell-meta">15%</span></td>
+                <td>Tại sao Face Republic ra đời, sứ mệnh SEA skin, cam kết clean vegan, hậu trường</td>
+                <td class="center">2–3 video</td>
+                <td>TikTok organic</td>
+                <td>Watch time &gt;45s, share &gt;1%</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Product Demo</span><span class="cell-meta">15%</span></td>
+                <td>Texture showcase, routine step-by-step, packaging ASMR, giới thiệu combo</td>
+                <td class="center">2–3 video</td>
+                <td>TikTok, Shopee feed</td>
+                <td>Add-to-cart click &gt;1%</td>
+              </tr>
+              <tr class="row-highlight">
+                <td><span class="cell-label">Live Stream</span></td>
+                <td>Giáo dục + demo + flash deal; cấu trúc 60 phút chuẩn</td>
+                <td class="center">3–4 buổi/tuần</td>
+                <td>TikTok Live</td>
+                <td>GMV 10–15 triệu/buổi</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top: 24px; margin-bottom: 6px; font-weight: 600; color: var(--text); font-size: 15px;">Hook templates cho video tháng 7</p>
+        <div class="hook-list">
+          <div class="hook-item"><strong>Pain hook</strong>"Đang dùng đủ loại skincare Hàn mà da vẫn bí, vẫn nhờn? Đây là lý do…" — chạm đúng frustration của người dùng nhiệt đới</div>
+          <div class="hook-item"><strong>Contrast hook</strong>"Da người Hàn vs da người Việt — 3 điểm khác biệt mà hầu hết brand bỏ qua"</div>
+          <div class="hook-item"><strong>Discovery hook</strong>"Tôi đã test 4 dòng skincare trong 30 ngày ở Sài Gòn — kết quả này sẽ khiến bạn ngạc nhiên"</div>
+        </div>
+
+        <p style="margin-top: 24px; margin-bottom: 12px; font-weight: 600; color: var(--text); font-size: 15px;">Chiến lược booking tháng 7</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Followers</th>
+                <th class="center">Số lượng</th>
+                <th>Hình thức &amp; Chi phí</th>
+                <th>KPI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">Nano KOC</span></td>
+                <td>1K – 10K</td>
+                <td class="center">5–7 người</td>
+                <td>Gifting (COGS ~300–500K/set) + commission 15–18%</td>
+                <td>Review chân thực, reach &gt;5K, 1 video/người</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Micro KOC</span></td>
+                <td>11K – 99K</td>
+                <td class="center">4–6 người</td>
+                <td>Fixed fee 1–3 triệu/video + commission 10–12%</td>
+                <td>CTR &gt;2%, GMV &gt;8–10 triệu/video</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Affiliate tự apply</span></td>
+                <td>Mọi quy mô</td>
+                <td class="center">10+ người</td>
+                <td>Commission 12–18%/đơn, không fixed fee</td>
+                <td>Tổng &gt;30 đơn/tháng từ affiliate link</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Tiêu chí lựa chọn KOC phù hợp với Big Idea</div>
+          <ul class="list-clean" style="margin-top: 4px;">
+            <li><strong>Niche:</strong> skincare chân thực, da nhiệt đới, lifestyle năng động. Không lấy creator thuần makeup hoặc dùng filter nặng.</li>
+            <li><strong>Skin story:</strong> ưu tiên creator có câu chuyện thật về da dầu, mụn hoặc nhạy cảm trong khí hậu nóng ẩm.</li>
+            <li><strong>Engagement rate thực tế:</strong> ER &gt;3%, comment có câu hỏi thật (kiểm tra qua KOL Radar hoặc Modash).</li>
+            <li>Chưa booking đối thủ trực tiếp (COSRX, Some By Mi) trong 2 tháng gần nhất.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4.2 Tháng 8 -->
+      <div class="sub-section" id="month-8">
+        <h3 class="sub-section-title">4.2 Tháng 8 — GROW</h3>
+
+        <div class="card card-hero" style="margin-bottom: 20px;">
+          <div class="grid grid-2" style="position: relative; z-index: 2;">
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Key Objective</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Scale creator network 25–35 người; tăng AOV qua bundle push; đạt GMV &gt;100 triệu trong ngày D-day 8.8</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Key Message</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Routine đúng thay đổi da bạn. Đừng chỉ mua một sản phẩm — hãy dùng đúng routine cho loại da của bạn.</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Bedrock Content</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Series <strong>"Build Your Routine"</strong> — 4 video theo từng skin type (Hydro/Calming/Glow/Blooming). Mỗi video hướng dẫn complete routine và dẫn đến combo phù hợp.</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Key Campaign — 8.8 Double Day</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Pre-sale 1–7/8 (seeding) · warm-up 6–7/8 (countdown) · D-day 8/8 (toàn lực) · post-sale 9–12/8 (harvest UGC)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Pillar</th>
+                <th>Mô tả</th>
+                <th class="center">Tần suất/tuần</th>
+                <th>Kênh</th>
+                <th>KPI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">EDU</span><span class="cell-meta">35%</span></td>
+                <td>Series Build Your Routine theo skin type, ingredient deep dive dẫn đến combo</td>
+                <td class="center">7–9 video</td>
+                <td>TikTok organic</td>
+                <td>Save rate &gt;7%, share &gt;2%</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Social Proof</span><span class="cell-meta">35%</span></td>
+                <td>Scale booking KOC, before/after sau 30 ngày dùng từ T7, UGC từ khách thật</td>
+                <td class="center">8–10 video (booking)</td>
+                <td>TikTok (KOC/KOL)</td>
+                <td>GMV &gt;15 triệu/video TB</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Campaign</span><span class="cell-meta">20%</span></td>
+                <td>Countdown 8.8, deal teaser, wishlist video, flash preview</td>
+                <td class="center">4–6 video</td>
+                <td>TikTok organic, boosted</td>
+                <td>CTR &gt;3%, ATC +50% so T7</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Brand</span><span class="cell-meta">10%</span></td>
+                <td>Hậu trường chuẩn bị 8.8, reinforcement giá trị thương hiệu</td>
+                <td class="center">2–3 video</td>
+                <td>TikTok organic</td>
+                <td>Watch time &gt;30s</td>
+              </tr>
+              <tr class="row-highlight">
+                <td><span class="cell-label">Live Stream</span></td>
+                <td>5–6 buổi/tuần; D-day 8.8 live 6–8 tiếng liên tục với deal exclusive</td>
+                <td class="center">5–6 buổi/tuần</td>
+                <td>TikTok Live</td>
+                <td>D-day 8.8 GMV &gt;40–50 triệu</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Bundle push strategy — tăng AOV từ ~480K lên ~570K</div>
+          <ul class="list-clean" style="margin-top: 4px;">
+            <li><strong>Content angle:</strong> "Tại sao chỉ dùng một sản phẩm thì không đủ" — giáo dục về complete routine.</li>
+            <li><strong>Bundle pricing:</strong> combo tiết kiệm 20–30% so với mua lẻ — perceived value rõ ràng.</li>
+            <li><strong>Upsell trong live:</strong> khi viewer quan tâm 1 sản phẩm, host giới thiệu combo đi kèm với deal exclusive chỉ có trong live.</li>
+            <li><strong>Skin type quiz</strong> dẫn đến "routine được khuyên dùng" — link thẳng đến combo phù hợp.</li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 24px; margin-bottom: 12px; font-weight: 600; color: var(--text); font-size: 15px;">Chiến lược booking tháng 8</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Followers</th>
+                <th class="center">Số lượng</th>
+                <th>Hình thức &amp; Chi phí</th>
+                <th>KPI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">Nano KOC</span></td>
+                <td>1K – 10K</td>
+                <td class="center">8–10 người</td>
+                <td>Gifting + commission 15% (giữ nguyên)</td>
+                <td>Social proof, UGC repost</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Micro KOC</span></td>
+                <td>11K – 99K</td>
+                <td class="center">12–15 người</td>
+                <td>Fixed 1–3 triệu + commission 10% (KOLs.com)</td>
+                <td>CTR &gt;2%, GMV &gt;10–15 triệu/video</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Mid KOC</span></td>
+                <td>100K – 500K</td>
+                <td class="center">5–7 người</td>
+                <td>Fixed 3–7 triệu + commission 8% (giả định)</td>
+                <td>GMV &gt;25–40 triệu, brand reach</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">KOL (8.8 campaign)</span></td>
+                <td>500K – 2M</td>
+                <td class="center">3–5 người</td>
+                <td>Fixed 10–20 triệu/video hoặc 15–30 triệu/live</td>
+                <td>D-day 8.8 reach &gt;500K, brand credibility</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4.3 Tháng 9 -->
+      <div class="sub-section" id="month-9">
+        <h3 class="sub-section-title">4.3 Tháng 9 — SCALE</h3>
+
+        <div class="card card-hero" style="margin-bottom: 20px;">
+          <div class="grid grid-2" style="position: relative; z-index: 2;">
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Key Objective</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Đạt NMV 1 tỷ trong tháng; D-day 9.9 target &gt;250–300 triệu; activate toàn bộ creator network</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Key Message</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Lần đầu tiên — da bạn được dùng skincare được tạo ra cho bạn. <strong>9.9: thời điểm để bắt đầu đúng.</strong></div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Bedrock Content</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;"><strong>9.9 Skin Journey Challenge</strong>: kêu gọi community chia sẻ hành trình 30 ngày dùng Face Republic trước 9.9 — tạo sóng UGC organic đồng loạt.</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--fr-blue-dark); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px;">Key Campaign</div>
+              <div style="font-size: 13.5px; color: var(--text-mid); line-height: 1.55;">Pre-sale 1–7/9 · warm-up 8/9 · <strong>D-day 9/9 (live marathon 8–10 tiếng)</strong> · harvest 10–15/9</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Pillar</th>
+                <th>Mô tả</th>
+                <th class="center">Tần suất/tuần</th>
+                <th>Kênh</th>
+                <th>KPI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">Campaign</span><span class="cell-meta">40%</span></td>
+                <td>9.9 countdown, deal reveal, wishlist push, "last chance" content</td>
+                <td class="center">14–16 video</td>
+                <td>TikTok organic, boosted</td>
+                <td>GMV từ content &gt;150 triệu</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Social Proof</span><span class="cell-meta">30%</span></td>
+                <td>40–50 KOC + 8–10 KOL post đồng loạt tuần 9.9</td>
+                <td class="center">12–15 video (booking)</td>
+                <td>TikTok (toàn creator network)</td>
+                <td>Tổng GMV từ booking &gt;300 triệu</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">UGC Harvest</span><span class="cell-meta">20%</span></td>
+                <td>Repost UGC từ T7–T8, skin transformation thật, testimonial video</td>
+                <td class="center">6–8 video</td>
+                <td>TikTok organic</td>
+                <td>Engagement rate &gt;5%</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">EDU</span><span class="cell-meta">10%</span></td>
+                <td>"Tại sao nên bắt đầu routine đúng ngay bây giờ" — thu hút người dùng mới</td>
+                <td class="center">3–4 video</td>
+                <td>TikTok organic</td>
+                <td>Drive new user acquisition</td>
+              </tr>
+              <tr class="row-highlight">
+                <td><span class="cell-label">Live Marathon</span></td>
+                <td>D-day 9/9: live 8–10 tiếng; 3 live song song từ 3 creator tier khác nhau</td>
+                <td class="center">7–10 buổi/tuần</td>
+                <td>TikTok Live</td>
+                <td><strong>D-day 9.9 GMV &gt;250 triệu</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Viral tactics đặc biệt cho 9.9</div>
+          <ul class="list-clean" style="margin-top: 4px;">
+            <li><strong>Challenge:</strong> <code style="font-family: var(--font-mono); background: var(--surface); padding: 2px 6px; border-radius: 4px; font-size: 13px;">#YourSkinFinallyUnderstood</code> — kêu gọi duet/stitch, chia sẻ loại da và routine.</li>
+            <li><strong>Flash live đột xuất:</strong> 3–4 live không báo trước trong tuần 9.9 với deal sốc 30 phút — tạo FOMO.</li>
+            <li><strong>Live collab:</strong> 2 creator cùng lúc, cross-stream — reach chéo 2 fanbase.</li>
+            <li><strong>Trend monitoring:</strong> theo dõi trending sound TikTok mỗi ngày, adapt ngay khi có content phù hợp brand.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         PART 5 — Budget
+         ============================================ -->
+    <section class="section" id="part-5">
+      <div class="section-header">
+        <div class="section-eyebrow">
+          <span class="section-num">PHẦN 05</span>
+          <span class="section-kicker">Cost &amp; Budget</span>
+        </div>
+        <h2 class="section-title">Chi phí &amp; Ngân sách</h2>
+      </div>
+
+      <!-- 5.1 P&L -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">5.1 Cấu trúc P&amp;L — Tính ngân sách marketing khả dụng</h3>
+        <p>Từ NMV 1 tỷ, sau khi trừ các chi phí cố định, phần còn lại là ngân sách tối đa cho marketing:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Khoản chi phí</th>
+                <th class="center">% NMV</th>
+                <th class="center">Triệu đồng<br><span style="font-weight:400;text-transform:none;font-family:var(--font-body);font-size:10px;">(tại NMV 1 tỷ)</span></th>
+                <th>Cơ sở</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">NMV (Revenue)</span></td>
+                <td class="center">100%</td>
+                <td class="center">1.000 triệu</td>
+                <td>Mục tiêu tháng 9/2026</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">COGS (giả định)</span></td>
+                <td class="center">35–45%</td>
+                <td class="center">350–450 tr</td>
+                <td>Benchmark ngành beauty import K-Beauty + thuế nhập khẩu (Trendtrack.io 2026)</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Phí sàn TikTok Mall</span></td>
+                <td class="center">13,5–17,8%</td>
+                <td class="center">135–178 tr</td>
+                <td>Tiktok 2026</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Phí sàn Shopee Mall</span></td>
+                <td class="center">~3–4%</td>
+                <td class="center">~7–9 tr</td>
+                <td>Shopee là kênh phụ, ước ~15% NMV</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Fulfillment (giả định)</span></td>
+                <td class="center">8–12%</td>
+                <td class="center">80–120 tr</td>
+                <td>Benchmark logistics skincare VN (FlatOut Fulfillment 2024)</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Voucher platform (giả định)</span></td>
+                <td class="center">3–5%</td>
+                <td class="center">30–50 tr</td>
+                <td>Cam kết discount ~24–27% trên listing; một phần platform subsidy</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Lợi nhuận mục tiêu</span></td>
+                <td class="center">3–5%</td>
+                <td class="center">30–50 tr</td>
+                <td>—</td>
+              </tr>
+              <tr class="row-highlight">
+                <td><strong>Marketing budget khả dụng tối đa</strong></td>
+                <td class="center"><strong>~13–17%</strong></td>
+                <td class="center"><strong>~130–170 tr</strong></td>
+                <td>Đặt trần thực tế <strong>~150 triệu/tháng cho T9</strong> để đảm bảo an toàn</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-warning">
+          <div class="callout-title">⚠ Lưu ý về margin</div>
+          <p>COGS, Shopee split, fulfillment và voucher cost là giả định dựa trên benchmark ngành. P&amp;L thực tế biến động theo từng tháng do NMV T7–T8 chưa đạt 1 tỷ → chi phí cố định chia cho doanh thu nhỏ hơn → margin tháng 7–8 có thể thấp hơn.</p>
+        </div>
+      </div>
+
+      <!-- 5.2 Phân bổ ngân sách -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">5.2 Phân bổ ngân sách marketing — 3 tháng</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Hạng mục</th>
+                <th class="center">T7 (tr)</th>
+                <th class="center">T8 (tr)</th>
+                <th class="center">T9 (tr)</th>
+                <th class="center">Tổng (tr)</th>
+                <th class="center">% tổng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">Booking KOC — fixed fee</span></td>
+                <td class="center">15–20</td>
+                <td class="center">25–35</td>
+                <td class="center">35–50</td>
+                <td class="center">75–105</td>
+                <td class="center"><span class="badge badge-pri-very-high">~30%</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Commission affiliate KOC</span></td>
+                <td class="center">8–12</td>
+                <td class="center">15–20</td>
+                <td class="center">25–35</td>
+                <td class="center">48–67</td>
+                <td class="center"><span class="badge badge-info">~18%</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Booking KOL (campaign)</span></td>
+                <td class="center">0–10</td>
+                <td class="center">20–30</td>
+                <td class="center">30–45</td>
+                <td class="center">50–85</td>
+                <td class="center"><span class="badge badge-info">~17%</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">TikTok Ads, Spark Ads</span></td>
+                <td class="center">10–15</td>
+                <td class="center">15–20</td>
+                <td class="center">20–30</td>
+                <td class="center">45–65</td>
+                <td class="center"><span class="badge badge-neutral">~15%</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Sample &amp; gifting cho KOC</span></td>
+                <td class="center">8–10</td>
+                <td class="center">8–10</td>
+                <td class="center">8–10</td>
+                <td class="center">24–30</td>
+                <td class="center"><span class="badge badge-neutral">~8%</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Content production (in-house)</span></td>
+                <td class="center">8–10</td>
+                <td class="center">10–12</td>
+                <td class="center">12–15</td>
+                <td class="center">30–37</td>
+                <td class="center"><span class="badge badge-neutral">~8%</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Voucher, promo fund</span></td>
+                <td class="center">5–8</td>
+                <td class="center">10–15</td>
+                <td class="center">15–20</td>
+                <td class="center">30–43</td>
+                <td class="center"><span class="badge badge-neutral">~10%</span></td>
+              </tr>
+              <tr class="row-highlight">
+                <td><strong>Tổng</strong></td>
+                <td class="center"><strong>54–85</strong></td>
+                <td class="center"><strong>103–142</strong></td>
+                <td class="center"><strong>145–205</strong></td>
+                <td class="center"><strong>302–432</strong></td>
+                <td class="center"><strong>100%</strong></td>
+              </tr>
+              <tr>
+                <td><em>% trên NMV tháng</em></td>
+                <td class="center">~16%</td>
+                <td class="center">~18%</td>
+                <td class="center">~18%</td>
+                <td class="center">—</td>
+                <td class="center">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top: 20px; margin-bottom: 12px; font-weight: 600; color: var(--text); font-size: 15px;">Rationale</p>
+        <ul class="list-clean">
+          <li><strong>KOC fixed fee (~30%):</strong> Micro KOC (10K–100K followers) giá thị trường 1–3 triệu/video. Là đòn bẩy ROI cao nhất trong ngành skincare TikTok. Tăng theo số lượng KOC mỗi tháng.</li>
+          <li><strong>Commission affiliate ~18%</strong> trung bình với mỹ phẩm bình dân (Quoc 2025). Mô hình risk-free nhất — chỉ trả khi có sale. Ưu tiên tối đa hóa hình thức này trước fixed fee.</li>
+          <li><strong>Booking KOL (~17%):</strong> Chỉ activate từ T8 (8.8 campaign) và T9 (9.9 mega). KOL 500K–2M followers: 10–20 triệu/video hoặc 15–30 triệu/live. Không book KOL ở T7 khi chưa có social proof.</li>
+          <li><strong>TikTok Ads (~15%):</strong> Chỉ boost video đã có organic performance tốt (Spark Ads). Target ROAS &gt;3×. Video Shopping Ads cho retargeting.</li>
+          <li><strong>Sample &amp; Gifting (~8%):</strong> COGS ~300–500K/set × 10–15 KOC/tháng + admin/pack/ship.</li>
+          <li><strong>Content production (~8%):</strong> Nhân sự, thiết bị, props cho 15–40 video/tuần.</li>
+          <li><strong>Voucher fund (~10%):</strong> Platform campaign (8.8, 9.9) yêu cầu brand contribute voucher. Ước 3–5% NMV cho tháng campaign lớn.</li>
+        </ul>
+      </div>
+
+      <!-- 5.3 KPI Dashboard -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">5.3 KPI Dashboard</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>KPI</th>
+                <th class="center">Target T7</th>
+                <th class="center">Target T8</th>
+                <th class="center">Target T9</th>
+                <th>Rationale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">NMV tuần</span></td>
+                <td class="center">~100M</td>
+                <td class="center">~163M</td>
+                <td class="center">~250M</td>
+                <td>Chia đều NMV mục tiêu/4 tuần; T9 weighted về D-day 9.9</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Số đơn/tháng</span></td>
+                <td class="center">~820</td>
+                <td class="center">~1.050</td>
+                <td class="center">~1.538</td>
+                <td>Tính ngược: NMV mục tiêu / AOV mục tiêu từng tháng</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">AOV mục tiêu</span></td>
+                <td class="center">~490K</td>
+                <td class="center">~570K</td>
+                <td class="center">~650K</td>
+                <td>Tăng dần qua bundle push; T9 có gift incentive nâng basket</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">GMV từ creator booking</span></td>
+                <td class="center">≥40% NMV</td>
+                <td class="center">≥45% NMV</td>
+                <td class="center">≥50% NMV</td>
+                <td>Creator-driven chiếm 40–60% GMV trong ngành skincare TikTok VN</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Video organic views (avg)</span></td>
+                <td class="center">&gt;8K</td>
+                <td class="center">&gt;15K</td>
+                <td class="center">&gt;25K</td>
+                <td>Benchmark TikTok beauty VN giai đoạn đầu: 5–15K avg</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">CTR video → TikTok Shop</span></td>
+                <td class="center">≥1,5%</td>
+                <td class="center">≥2%</td>
+                <td class="center">≥2,5%</td>
+                <td>TikTok for Business beauty benchmark: CTR 1–3%</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Conversion rate (view → buy)</span></td>
+                <td class="center">≥1%</td>
+                <td class="center">≥1,5%</td>
+                <td class="center">≥2%</td>
+                <td>COSRX đạt 2,5–3% (Z Media 2026). Target thấp hơn vì brand awareness FR còn thấp, sẽ tăng theo social proof</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">GMV / buổi live (avg)</span></td>
+                <td class="center">8–15M</td>
+                <td class="center">20–35M</td>
+                <td class="center">40–60M</td>
+                <td>Tăng theo viewer base &amp; creator skill; D-day T9 live target &gt;100 triệu</td>
+              </tr>
+              <tr class="row-highlight">
+                <td><span class="cell-label">Marketing spend / NMV</span></td>
+                <td class="center">≤22%</td>
+                <td class="center">≤20%</td>
+                <td class="center">≤18%</td>
+                <td>Giảm dần theo NMV tăng; phải bảo vệ margin 3–5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 5.4 Risk -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">5.4 Risk Management</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rủi ro</th>
+                <th class="center">Mức độ</th>
+                <th>Kế hoạch xử lý</th>
+                <th>Trigger</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">Marketing spend vượt 20% NMV</span></td>
+                <td class="center"><span class="badge badge-pri-high">Cao</span></td>
+                <td>Cắt fixed-fee booking ngay, chuyển toàn bộ sang commission model. Tạm dừng deal KOL nếu ROI &lt;2×</td>
+                <td>Khi marketing spend tuần &gt;22% NMV tuần đó</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Creator không deliver / content kém</span></td>
+                <td class="center"><span class="badge badge-pri-high">Cao</span></td>
+                <td>Luôn có danh sách creator dự phòng. Hợp đồng có KPI clause; test 1 video gifting trước khi commit fixed fee</td>
+                <td>Video có view &lt;3K sau 48 giờ đăng</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Out of stock trước 9.9</span></td>
+                <td class="center"><span class="badge badge-pri-high">Cao</span></td>
+                <td>Sync với kho 4 tuần trước; safety stock 25% buffer. Tạm pause video SKU sắp hết hàng</td>
+                <td>Tồn kho SKU hot &lt;300 units</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Thuật toán TikTok thay đổi, reach giảm</span></td>
+                <td class="center"><span class="badge badge-pri-mid">Trung bình</span></td>
+                <td>Không phụ thuộc &gt;40% NMV vào pure organic. Spark Ads budget dự phòng 15%. Diversify sang Shopee Live</td>
+                <td>Avg view giảm &gt;30% so với tuần trước</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Negative review viral</span></td>
+                <td class="center"><span class="badge badge-neutral">Thấp</span></td>
+                <td>Quy trình phản hồi &lt;4 giờ. Không xóa comment. Phản hồi công khai, lịch sự. Escalate lên UpBase PR team</td>
+                <td>Hơn 50 comment tiêu cực trên 1 video trong 24 giờ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         PART 6 — Appendix
+         ============================================ -->
+    <section class="section" id="part-6">
+      <div class="section-header">
+        <div class="section-eyebrow">
+          <span class="section-num">PHẦN 06</span>
+          <span class="section-kicker">Appendix</span>
+        </div>
+        <h2 class="section-title">Phụ lục</h2>
+      </div>
+
+      <!-- 6.1 Creator Brief -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">6.1 Creator Brief Template</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 22%;">Mục</th>
+                <th>Nội dung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cell-label">Brand DNA</span></td>
+                <td>Face Republic: K-Beauty <strong>Clean – Vegan – Effortless</strong>. Được phát triển riêng cho làn da Đông Nam Á. Không phải K-Beauty thông thường — khác biệt ở việc công thức được điều chỉnh cho da nhiệt đới.</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Big Idea campaign</span></td>
+                <td><em>"Your Skin, Finally Understood"</em> — da của bạn, cuối cùng được thấu hiểu. Mọi content cần kể câu chuyện thật về trải nghiệm với làn da 'khó chiều' của creator.</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Tone of voice</span></td>
+                <td>Gần gũi, chân thực, có kiến thức. Không hard sell. Không phóng đại. Không dùng filter nặng che khuất sản phẩm.</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Cần làm</span></td>
+                <td>Ít nhất 1 trong 3 keyword: clean, vegan, effortless. Đề cập skin type phù hợp của sản phẩm. Câu chuyện trải nghiệm da thật trong khí hậu Việt Nam.</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Cần tránh</span></td>
+                <td>Claim: trắng da, xóa thâm trong 3 ngày, khỏi mụn hoàn toàn. So sánh tên đối thủ. Phần trăm hiệu quả cụ thể chưa được kiểm chứng.</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Hashtag bắt buộc</span></td>
+                <td><code style="font-family: var(--font-mono); background: var(--fr-blue-soft); color: var(--fr-blue-dark); padding: 2px 8px; border-radius: 4px; font-size: 12.5px; margin-right: 4px;">#FaceRepublic</code> <code style="font-family: var(--font-mono); background: var(--fr-blue-soft); color: var(--fr-blue-dark); padding: 2px 8px; border-radius: 4px; font-size: 12.5px; margin-right: 4px;">#CleanBeautyVietnam</code> <code style="font-family: var(--font-mono); background: var(--fr-blue-soft); color: var(--fr-blue-dark); padding: 2px 8px; border-radius: 4px; font-size: 12.5px;">#KBeautyChoDaViet</code> — tối thiểu 3 hashtag này trong mọi post.</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Duyệt nội dung</span></td>
+                <td>Gửi draft script và thumbnail cho Brand team trước <strong>48 giờ</strong>. Không đăng trước khi được duyệt.</td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Conversion link</span></td>
+                <td>TikTok Shop affiliate link (primary). Đặt trong bio và comment ghim. Không dùng link Shopee nếu đang book cho TikTok Shop conversion.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6.2 Do's & Don'ts -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">6.2 Do's &amp; Don'ts cho Creator</h3>
+        <div class="dodont-grid">
+          <div class="dodont-col do-col">
+            <div class="dodont-head">✓ Do's — Được phép &amp; khuyến khích</div>
+            <ul class="dodont-list">
+              <li>Chia sẻ skin journey thật với sản phẩm trong khí hậu Việt Nam</li>
+              <li>Review chân thực, kể cả khi hiệu quả chưa 100%</li>
+              <li>Hướng dẫn skin type test từ 4 dòng (Hydro/Calming/Glow/Blooming)</li>
+              <li>So sánh với routine trước đây của bản thân, không đặt tên đối thủ</li>
+              <li>Thể hiện texture, màu sắc, mùi hương sản phẩm một cách tự nhiên</li>
+              <li>Dùng đúng tên sản phẩm đầy đủ trong caption</li>
+            </ul>
+          </div>
+          <div class="dodont-col dont-col">
+            <div class="dodont-head">✕ Don'ts — Không được phép</div>
+            <ul class="dodont-list">
+              <li>Claim hiệu quả chưa kiểm chứng (vd: "trắng 5 tone trong 2 tuần")</li>
+              <li>Xóa comment tiêu cực — luôn phản hồi công khai, lịch sự</li>
+              <li>Đăng content ở không gian bẩn, tối, không phù hợp brand aesthetic</li>
+              <li>Dùng filter làm da trông khác thực tế</li>
+              <li>Viết tắt sai tên thương hiệu ("face rep" thay vì "Face Republic")</li>
+              <li>Booking đối thủ trực tiếp trong cùng 30 ngày đang hợp tác Face Republic</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6.3 Content Calendar -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">6.3 Content Calendar mẫu — 1 tuần (Tháng 7, Tuần 2)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="center" style="width: 8%;">Ngày</th>
+                <th>Format</th>
+                <th>Pillar</th>
+                <th>Concept video</th>
+                <th>Conversion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="center"><strong>T2</strong></td>
+                <td>TikTok (45s)</td>
+                <td><span class="badge badge-info">EDU</span></td>
+                <td>Da Việt vs da Hàn: 3 điểm khác biệt mà hầu hết brand bỏ qua</td>
+                <td>Tag Hydro Barrier Cream, TikTok Shop</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>T3</strong></td>
+                <td>KOC video</td>
+                <td><span class="badge badge-success">Social Proof</span></td>
+                <td>Creator review Calming Acne Cleanser, skin journey 2 tuần đầu</td>
+                <td>Affiliate link KOC → TikTok Shop</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>T4</strong></td>
+                <td>TikTok Live (90p)</td>
+                <td><span class="badge badge-pri-very-high">Live</span></td>
+                <td>Skin type test trực tiếp + flash deal Hydro Serum trong live</td>
+                <td>Product tag TikTok Shop</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>T5</strong></td>
+                <td>TikTok (30s)</td>
+                <td><span class="badge badge-neutral">Product Demo</span></td>
+                <td>ASMR texture showcase Hydro Boost Serum</td>
+                <td>Tag sản phẩm TikTok Shop</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>T6</strong></td>
+                <td>KOC video</td>
+                <td><span class="badge badge-success">Social Proof</span></td>
+                <td>Creator review Glow Gold Cleanser: lần đầu da không bị căng sau rửa mặt</td>
+                <td>Affiliate link → TikTok Shop</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>T7</strong></td>
+                <td>TikTok (60s)</td>
+                <td><span class="badge badge-pri-mid">Brand Story</span></td>
+                <td>Tại sao Face Republic được tạo ra? Câu chuyện gửi tinh hoa từ Seoul vào làn da Đông Nam Á.</td>
+                <td>Profile link → TikTok Shop tab</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>CN</strong></td>
+                <td>TikTok (30s)</td>
+                <td><span class="badge badge-info">EDU</span></td>
+                <td>Quick tip: tại sao da Việt cần cleanser dịu nhẹ hơn?</td>
+                <td>Tag Hydro Derma Cleanser</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6.4 Live Stream Framework -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">6.4 Live Stream Script Framework — 60 phút</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Thời gian</th>
+                <th style="width: 14%;">Phase</th>
+                <th>Nội dung</th>
+                <th>Mục tiêu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="center"><strong>0–5'</strong></td>
+                <td><span class="badge badge-neutral">Open</span></td>
+                <td>Chào hỏi, giới thiệu nội dung live và deal hôm nay. Tạo expectation về ưu đãi exclusive.</td>
+                <td>Giữ viewer, set expectation</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>5–20'</strong></td>
+                <td><span class="badge badge-info">Education</span></td>
+                <td>Skin type test trực tiếp, giải thích tại sao da nhiệt đới cần routine khác. Xây trust trước khi bán.</td>
+                <td>Trust builder; người mua có kiến thức ít hoàn hàng hơn</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>20–40'</strong></td>
+                <td><span class="badge badge-success">Showcase</span></td>
+                <td>Demo 2–3 sản phẩm hero: texture, mùi hương, cảm giác trên da. Kể ingredient story ngắn.</td>
+                <td>Desire building</td>
+              </tr>
+              <tr class="row-highlight">
+                <td class="center"><strong>40–55'</strong></td>
+                <td><span class="badge badge-pri-very-high">Flash Deal</span></td>
+                <td>Pin sản phẩm. Countdown timer. Đọc tên người mua. Nhắc coupon code. CTA mỗi 2 phút.</td>
+                <td>Conversion — thời điểm GMV cao nhất</td>
+              </tr>
+              <tr>
+                <td class="center"><strong>55–60'</strong></td>
+                <td><span class="badge badge-pri-mid">Close</span></td>
+                <td>Tóm tắt deal, nhắc follow shop, hẹn live tiếp theo.</td>
+                <td>Retention — build audience cho live sau</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6.5 Bảng phân tích đối thủ chi tiết -->
+      <div class="sub-section">
+        <h3 class="sub-section-title">6.5 Bảng phân tích đối thủ chi tiết</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Thương hiệu</th>
+                <th>Price range</th>
+                <th>TikTok presence</th>
+                <th>Content angle</th>
+                <th>SEA narrative</th>
+                <th>Vegan/Clean</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-highlight">
+                <td><span class="cell-label">Face Republic</span></td>
+                <td>295K–1,5M</td>
+                <td>Đang xây</td>
+                <td>SEA-optimized, clean beauty</td>
+                <td><span class="badge badge-success">Có (brand DNA)</span></td>
+                <td><span class="badge badge-success">Có: vegan, no fragrance</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">COSRX</span></td>
+                <td>250K–800K</td>
+                <td>Trung bình cao (67.5K)</td>
+                <td>Ingredient-led, clinical</td>
+                <td><span class="badge badge-neutral">Không</span></td>
+                <td><span class="badge badge-neutral">Không</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Some By Mi</span></td>
+                <td>200K–600K</td>
+                <td>Trung bình (50K)</td>
+                <td>30-day transformation</td>
+                <td><span class="badge badge-neutral">Không</span></td>
+                <td><span class="badge badge-neutral">Không</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">SKIN1004</span></td>
+                <td>200K–700K</td>
+                <td>Mạnh (155K)</td>
+                <td>Sensitive skin, centella</td>
+                <td><span class="badge badge-neutral">Không</span></td>
+                <td><span class="badge badge-neutral">Không</span></td>
+              </tr>
+              <tr>
+                <td><span class="cell-label">Cocoon (local)</span></td>
+                <td>100K–400K</td>
+                <td>Rất Mạnh (697K)</td>
+                <td>Vietnamese ingredients</td>
+                <td><span class="badge badge-info">Local pride</span></td>
+                <td><span class="badge badge-success">Có: Thuần chay</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         REFERENCES
+         ============================================ -->
+    <section class="section" id="references">
+      <div class="section-header">
+        <div class="section-eyebrow">
+          <span class="section-num">REF</span>
+          <span class="section-kicker">Sources</span>
+        </div>
+        <h2 class="section-title">Nguồn tham khảo</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="center" style="width: 6%;">STT</th>
+              <th style="width: 40%;">Tên tài liệu</th>
+              <th>Nguồn</th>
+              <th class="center" style="width: 8%;">Năm</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="center">1</td><td>Báo cáo thị trường Làm đẹp TMĐT Việt Nam 2025 (Volume to Value)</td><td>Metric.vn &amp; UpBase</td><td class="center">2026</td></tr>
+            <tr><td class="center">2</td><td>Báo cáo thương mại điện tử Việt Nam Q1/2026</td><td>Metric.vn</td><td class="center">2026</td></tr>
+            <tr><td class="center">3</td><td>Xu hướng mua sắm trực tuyến 2025: người tiêu dùng không còn chọn giá rẻ nhất</td><td>Metric.vn</td><td class="center">2026</td></tr>
+            <tr><td class="center">4</td><td>TikTok Shop Vietnam H1/2025 Insights &amp; Outlook</td><td>Fint Global</td><td class="center">2025</td></tr>
+            <tr><td class="center">5</td><td>How to Build Brand Awareness with Mass KOC Campaign</td><td>Fint Global</td><td class="center">2026</td></tr>
+            <tr><td class="center">6</td><td>Chi bao nhiêu % hoa hồng Affiliate là phù hợp?</td><td>lebaoquoc.com</td><td class="center">2025</td></tr>
+            <tr><td class="center">7</td><td>Vietnam Beauty Market 2025 — Key Updates</td><td>B-Company</td><td class="center">2025</td></tr>
+            <tr><td class="center">8</td><td>Vietnam Skin Care Market Size &amp; Forecast</td><td>Inkwood Research</td><td class="center">2025</td></tr>
+            <tr><td class="center">9</td><td>Bảng giá KOL Việt Nam</td><td>kols.com.vn</td><td class="center">2024</td></tr>
+            <tr><td class="center">10</td><td>Best Korean Skincare Brands to Stock — COSRX conversion rate</td><td>z.media</td><td class="center">2026</td></tr>
+            <tr><td class="center">11</td><td>COGS Benchmark — Beauty &amp; Skincare</td><td>trendtrack.io</td><td class="center">2026</td></tr>
+            <tr><td class="center">12</td><td>Cosmetic Fulfillment Cost Benchmark</td><td>Giao Hàng Nhanh</td><td class="center">2024</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="width: 28px; height: 28px; background: var(--fr-blue); border-radius: 5px; display: inline-flex; align-items: center; justify-content: center;">
+            <svg style="width:20px;height:20px;"><use href="#fr-logo"/></svg>
+          </span>
+          <span style="color: var(--text-mid); font-weight: 600;">Face Republic × UpBase</span>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim); letter-spacing: 0.04em;">
+          Brand &amp; Booking Strategy · MT Application — An Vũ Thu Thảo
+        </div>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+// Smooth scroll active TOC highlight
+const tocLinks = document.querySelectorAll('.toc-link');
+const sections = document.querySelectorAll('section[id], .sub-section[id]');
+
+function setActive() {
+  let current = '';
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top <= 120) current = sec.id;
+  });
+  tocLinks.forEach(link => {
+    link.style.background = '';
+    link.style.color = '';
+    link.style.borderLeftColor = 'transparent';
+    if (link.getAttribute('href') === '#' + current) {
+      link.style.background = 'var(--fr-blue-soft)';
+      link.style.color = 'var(--fr-blue-dark)';
+      link.style.borderLeftColor = 'var(--fr-blue)';
+    }
+  });
+}
+window.addEventListener('scroll', setActive, { passive: true });
+setActive();
+</script>
+
+</body>
+</html>
