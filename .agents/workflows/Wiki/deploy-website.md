@@ -2,6 +2,8 @@
 description: Cách kiểm duyệt và xuất bản tài liệu trên Workspace lên Website (Wiki) Production
 ---
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. Xem các thay đổi trong thư mục `knowledge base/` hoặc `wiki/docs/` để biết những nội dung nào đang ở dạng nháp (Draft) hoặc được thay đổi.
 // turbo-all
 2. Thêm các tài liệu đã được Boss/Admin phê duyệt vào Git tracking bằng lệnh:

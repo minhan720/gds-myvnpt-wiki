@@ -6,6 +6,8 @@ description: Pipeline xử lý và thực thi một Phiếu Yêu Cầu (PYC) c�
 
 **Mục tiêu:** Workflow dành cho việc bóc tách chi tiết yêu cầu từ một thẻ Jira PYC để đưa ra phương án triển khai, thiết kế hoặc báo cáo.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Khởi Trình:** User gọi lệnh `/pyc_execute` kèm theo Link Jira hoặc mã Task (ví dụ: `IT360-1585614`).
 
 // turbo-all

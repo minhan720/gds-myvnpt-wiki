@@ -8,6 +8,8 @@ description: Pipeline Khảo sát - Dành cho McKinsey Researcher thu thập D�
 
 **Mục tiêu:** Thu thập thông tin, trích xuất dữ kiện (Fact), đánh giá nguồn và đóng gói thành tệp dữ liệu thô (`raw_data.md`). Tuyệt đối không tự ý phân tích tổng hợp.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Nhận Đề bài (Brief):** Đọc yêu cầu từ Client/User. Xác định rõ vấn đề cốt lõi cần khảo sát. Không phỏng đoán những thứ ngoài phạm vi (Out of scope).
 2. **Lên Chiến lược Nguồn tin:** Suy nghĩ xem với câu hỏi này thì nguồn nào là cấp độ Credibility cao nhất (Ví dụ: Tìm thị phần ngành ngân hàng thì xem báo cáo thường niên thay vì bài viết blog).
 3. **Thực thi Tìm kiếm:**

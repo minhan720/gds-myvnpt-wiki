@@ -6,6 +6,8 @@ description: Start Flow Design (Master Menu) - Kích hoạt tùy chọn một tr
 
 Quy trình này đóng vai trò như một "Lễ tân" Hệ thống, giúp NGƯỜI DÙNG chọn đúng định dạng luồng làm việc Thiết kế Trải nghiệm (Flow Design) tùy thuộc vào nguồn gốc của Yêu cầu ban đầu.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 ## Bước 1: Trình bày Menu Lựa Chọn (Trigger)
 1. **[System]** Khi Master Workflow được kích hoạt (thông qua lệnh `/start_flow_design`), Hệ thống hiển thị ngay lập tức Menu sau và đợi NGƯỜI DÙNG nhập lựa chọn (từ 1 đến 3):
 

@@ -9,6 +9,9 @@ description: Khảo sát và làm rõ yêu cầu UX Benchmark (Phase 1/2)
 Một đoạn paragraph / input từ NGƯỜI DÙNG mô tả về yêu cầu sản phẩm (có thể xuất phát từ 1 painpoint, user storyboard, JTBD, hoặc 1 luồng đã có trước đây).
 
 ## Các bước thực hiện
+
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **[System]** Kích hoạt Agent **`UX Benchmarker`** (có trang bị Skill **`/web-benchmark`**).
 2. **`UX Benchmarker`** tiếp nhận Input từ NGƯỜI DÙNG.
 3. **`UX Benchmarker`** đóng vai trò như một chuyên gia Nghiên cứu (Researcher) dạn dày kinh nghiệm. Thay vì ngay lập tức chấp nhận thông tin sơ sài, Agent PHẢI chủ động đặt các câu hỏi đào sâu **lần lượt từng câu một** (không hỏi dồn một lúc nhiều câu) vào các vấn đề cốt lõi sau để làm rõ hoàn toàn bối cảnh:

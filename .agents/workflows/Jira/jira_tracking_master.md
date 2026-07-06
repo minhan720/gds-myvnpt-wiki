@@ -6,6 +6,8 @@ description: Lệnh chóp bu điều hướng 3 Use-cases (Report, Warning, Auto
 
 **Mục tiêu:** Workflow tổng rẽ nhánh thông minh dựa trên mong đợi của User, vận hành trơn tru giữa **Jira Operations Bot** và **Jira Logic Analyst**.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Khởi Trình:** User gõ lệnh `/jira_tracking_master` kèm theo Use-case mong muốn (Report / Warning / Phản hồi tự động).
 // turbo-all
 2. **Định Tuyến Yêu Cầu:**

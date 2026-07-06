@@ -2,6 +2,8 @@
 description: Lệnh đồng bộ một file Markdown bất kỳ (đặc biệt là các file Spec) lên Google Docs. Lệnh tự động giữ nguyên định dạng (Bold, H1, H2, Bảng biểu) và tự sinh Link.
 ---
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. Khởi động công cụ Terminal nội bộ hoặc sử dụng `run_command`.
 2. Yêu cầu Người dùng cung cấp đường dẫn tuyệt đối hoặc tương đối tới file `.md` mà họ muốn đồng bộ lên Google Docs. (Nếu họ chỉ gõ `/sync_gdocs` mà chưa đưa đường dẫn, hãy hỏi lại họ file nào).
 3. Chạy lệnh: `python .agents/scripts/utils/sync_md_to_gdocs.py "[Đường dẫn file]"`

@@ -8,6 +8,8 @@ description: Pipeline Phân tích - Dành cho McKinsey Analyst xử lý Dữ li�
 
 **Mục tiêu:** Xử lý file `raw_data.md`, cấu trúc lại bằng Issue Tree, định lượng Market Sizing (nếu cần), suy ra Insight ("So what?") và xuất báo cáo kim tự tháp.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Tiếp nhận Dữ liệu:** Đọc toàn bộ nội dung trong tệp `raw_data.md` do Phase 1 (Researcher) gửi lại. Chỉ dùng Data này, cấm tự ý tưởng tượng số liệu.
 2. **Dựng Khung Cấu trúc:** Dùng kỹ năng `mece-structuring`. Chẻ vấn đề cốt lõi thành 3-4 nhánh MECE. Nhóm các Fact tương ứng từ `raw_data.md` vào dưới mỗi nhánh.
 3. **Phân tích Định lượng:** Nếu đề bài có yếu tố tính toán doanh thu/độ lớn thị trường, kích hoạt kỹ năng `market-sizing`. Thực hiện đủ Top-Down và Bottom-Up, giải trình các giả định (Assumptions).

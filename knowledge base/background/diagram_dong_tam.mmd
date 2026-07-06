@@ -1,0 +1,14 @@
+graph TD
+    subgraph s3 [Vòng 3: HỆ SINH THÁI DỊCH VỤ & TIỆN ÍCH]
+        subgraph s2 [Vòng 2: HỘ GIA ĐÌNH - FAMILY HUB]
+            subgraph s1 [Vòng 1: CÁ NHÂN - CORE]
+                A["👤 Cá nhân<br>VNPT Digital ID"]
+            end
+            A -. Lan tỏa .-> B["🏠 Nhóm Gia đình<br>Home Admin & Người phụ thuộc"]
+        end
+        B -. Tương tác .-> C["🌐 Viễn thông, Giải trí & Đời sống<br>Internet, Di động, EaaS, Sửa chữa..."]
+    end
+    
+    style s3 fill:#f8f9fa,stroke:#dee2e6,stroke-width:2px
+    style s2 fill:#e9ecef,stroke:#ced4da,stroke-width:2px
+    style s1 fill:#c5f6fa,stroke:#0bc5ea,stroke-width:3px

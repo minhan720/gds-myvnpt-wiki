@@ -8,6 +8,8 @@ description: Đánh giá Giao diện Visual, WCAG & Copywriting (Phase 2/2)
 
 **Mục tiêu:** Bắt các lỗi thẩm mỹ bề mặt vi phạm 10 tiêu chuẩn Heuristic và tinh chỉnh lại Microcopy để người dùng dễ đọc nhất.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Thẩm định Heuristics:** Kiểm tra file thiết kế dựa trên `heuristic-evaluation`. Báo lỗi nếu thiếu Undo/Loading state.
 2. **Thẩm định WCAG:** Nhắm mắt soi Contrast, Spacing các Card, Icon quá bé trên Mobile app rải khắp màn thông qua `wcag-accessibility`.
 3. **Tinh chỉnh Microcopy:** Lôi kỹ năng `ux-writing` ra soi từng nhãn nút bấm, title lỗi form. Sửa cho mềm chữ.

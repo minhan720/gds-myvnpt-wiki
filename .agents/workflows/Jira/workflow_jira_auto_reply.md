@@ -6,6 +6,8 @@ description: Tính năng Tự động phản hồi (Auto-reply): Thay mặt Boss
 
 **Mục tiêu:** Viết Comment thay thế con người trên Jira để giục task. (Yêu cầu HITL tối cao).
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Nhận lệnh:** Boss gõ `/workflow_jira_auto_reply`.
 2. **Kích hoạt System (Operations Bot):** Kéo Data thô về.
 3. **Kích hoạt Brain (Logic Analyst):** 

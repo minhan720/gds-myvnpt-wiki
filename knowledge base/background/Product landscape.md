@@ -1,0 +1,31 @@
+### Giai đoạn 1: Nền tảng Hệ sinh thái Gia đình & Bảo toàn Giá trị Cốt lõi (Family Hub & Core Self-care)
+Tập trung xây dựng nền móng kiến trúc định danh mới hướng tới quản lý nhóm gia đình, đồng thời **tiếp tục kế thừa và nâng cấp trải nghiệm tự phục vụ (Self-care) cốt lõi** vốn là thế mạnh của MyVNPT (tra cứu cước, nạp thẻ, mua gói cước).
+*   **Universal VNPT Digital ID (Định danh toàn mạng):** Chuyển dịch từ "quản lý theo số điện thoại" sang "quản lý theo con người". Xác lập "Căn cước công dân số" duy nhất cho mỗi khách hàng, đồng bộ dữ liệu giữa App và Web.
+*   **Family Hub (Không gian Gia đình):** Trọng tâm mũi nhọn của GĐ1. Ra mắt tính năng sơ đồ nhóm gia đình, cho phép Home Admin quản lý chéo dịch vụ cho người phụ thuộc, thanh toán hóa đơn tập trung (gom cước di động và internet vào một Hub) và thiết lập cơ chế ủy quyền minh bạch.
+*   **Tích hợp SPDV - Tiện ích Thiết yếu Hộ gia đình:** Đưa trực tiếp các tiện ích số phục vụ đời sống gia đình vào ngay GĐ1. Bao gồm các tiện ích nội bộ (**Family Safe**, **Remote vạn năng MyTV**, quản lý Modem) và **kết nối các đối tác thứ 3 cung cấp dịch vụ thiết yếu** (bảo hiểm, gọi thợ sửa chữa điện nước...) để hình thành ngay một hệ sinh thái tiện ích hoàn chỉnh.
+*   **Kế thừa & Tối ưu Trải nghiệm Cốt lõi (Omnichannel Core):** Các luồng giao dịch truyền thống (mua gói Data, nạp thẻ, đổi eSIM) được duy trì nguyên vẹn nhưng tái định nghĩa lại theo chuẩn E-commerce UX (bán "giá trị lối sống", xoá bỏ thuật ngữ kỹ thuật phức tạp).
+*   **Kiến trúc Headless & Contextual Memory:** Tách biệt lớp Front-end và Back-end để Emi ghi nhớ ngữ cảnh thao tác xuyên kênh (VD: chốt đơn dang dở trên Web vnpt.vn sẽ được nhắc nhở tiếp tục trên App).
+
+### Giai đoạn 2: Cá nhân hóa sâu, EaaS & Nâng tầm Hệ sinh thái Đối tác (Ecosystem Expansion)
+Khi nền tảng và các tiện ích thiết yếu của hộ gia đình đã vận hành vững chắc, hệ điều hành Emi bước sang giai đoạn thấu hiểu ngữ cảnh bằng AI và tiếp tục mở rộng quy mô hợp tác đối tác.
+*   **Contextual Feeds (Bảng tin Ngữ cảnh):** Trí tuệ nhân tạo dự đoán "Micro-moments" của từng thành viên trong gia đình để gợi ý dịch vụ tinh tế (VD: gợi ý nâng cấp Data khi nhận diện chơi game). Cam kết không spam.
+*   **Tiếp tục Mở rộng Đối tác Đời sống (3rd-party Services):** Nâng tầm hệ sinh thái bằng cách gia tăng mạnh mẽ danh mục đối tác bên ngoài (y tế số, giáo dục, mua sắm...), giúp MyVNPT thâm nhập sâu hơn vào mọi khía cạnh đời sống của Hộ gia đình số.
+*   **Emi-as-a-Service (EaaS):** Đóng gói bộ não Emi thành Widget/Mini App để nhúng vào Zalo, ứng dụng Ngân hàng số, Sàn TMĐT.
+
+### Giai đoạn 3: Nền kinh tế số Tự hành & Phân hệ Cộng đồng (Autonomous & Community Economy)
+Giai đoạn đỉnh cao của Emi, thoát khỏi hình bóng công cụ quản lý dịch vụ để trở thành mạng lưới xã hội thu nhỏ với nền kinh tế chia sẻ.
+*   **Autonomous Agents (Trợ lý tự hành):** Emi đạt cấp độ nhận ủy thác. Tự động phân tích lưu lượng sinh hoạt chung của gia đình và chủ động chuyển đổi sang các gói cước tối ưu chi phí nhất mà không cần con người can thiệp.
+*   **Phân hệ Community (Cộng đồng số):** Không gian sinh hoạt mạng xã hội nội bộ, nơi người dùng trao đổi kiến thức, hỗ trợ chéo và tham gia các chiến dịch thi đua (Gamification).
+*   **Liquid Loyalty & Tokenization (Tiền tệ hóa điểm thưởng):** Chuyển đổi quỹ điểm thưởng VNPT (VinaPhone Plus) thành Token (Đồng tài sản số) có tính thanh khoản cao, cho phép gom điểm chung toàn gia đình.
+*   **Giao dịch P2P & GiftBox:** Sử dụng Token để giao dịch tự do trong cộng đồng, san sẻ data, mua tặng dịch vụ viễn thông thông qua GiftBox, hoặc quy đổi voucher giá trị cao ngoài mạng.
+
+---
+
+## Bảng Tổng hợp Cải tiến UI/UX Nổi bật
+
+| Tên Tính năng / Dịch vụ | Các điểm cải tiến nổi bật về UI/UX |
+| :--- | :--- |
+| **Quản lý hồ sơ KH** <br>*(theo chủ thể con người)* | • **Giao diện Định danh Số (Digital ID Card):** Bỏ cách hiển thị số điện thoại khô khan, thay bằng "Thẻ định danh" cá nhân hóa (có Avatar, Tên gọi, Cấp độ hiển thị rõ ràng).<br>• **Context Switcher (Vuốt để đổi vai trò):** Chuyển đổi cực kỳ mượt mà giữa "Không gian cá nhân" và "Không gian quản lý gia đình" chỉ qua một thao tác chạm/vuốt (Switch Profile).<br>• **Sơ đồ Gia đình Trực quan (Family Tree):** Hiển thị danh sách thành viên dưới dạng lưới trực quan kèm phân quyền rõ rệt (Chủ hộ / Người phụ thuộc). |
+| **Mua SIM** <br>*(theo hướng e-commerce, bán lifestyle)* | • **Trải nghiệm E-commerce 1-Trang (One-page Checkout):** Đập bỏ quy trình điền form thủ tục viễn thông dài dòng, tối ưu luồng mua hàng trơn tru như Shopee/Tiki.<br>• **Gợi ý Cá nhân hóa (Visual Suggestion):** Giao diện gợi ý số đẹp trực quan theo sở thích, phong thủy, ngày sinh.<br>• **Tracking Thời gian thực:** Bổ sung giao diện theo dõi trạng thái giao SIM vật lý hoặc tiến trình kích hoạt eSIM (Stepper UI) có hình minh họa sinh động. |
+| **Mua gói cước** <br>*(theo hướng e-commerce, bán lifestyle)* | • **Thẻ Lối sống (Lifestyle Cards):** Không liệt kê thông số MB/GB khó hiểu. Gói cước được thiết kế dạng thẻ lợi ích (VD: "Gói cày phim", "Gói leo rank", "Gói học tập").<br>• **Trực quan hóa Lợi ích (Benefit Visualization):** Dịch ngôn ngữ kỹ thuật sang ngôn ngữ đời sống (VD: hiển thị biểu tượng "Đủ xem Youtube 4 tiếng/ngày" thay vì "4GB Data/ngày").<br>• **So sánh Gói cước (Pricing Table) & Social Proof:** Bổ sung tính năng so sánh trực quan và lồng ghép hệ thống Review/Đánh giá (Rating) từ người dùng khác vào ngay màn hình chốt đơn. |
+| **Nền tảng giao tiếp Dynamic** <br>*(Widget & Feeds)* | • **Giao diện Dòng thời gian (Conversational Feeds):** Đập bỏ trang chủ kiểu lưới Icon tĩnh truyền thống, chuyển sang trang chủ dạng Bảng tin cập nhật liên tục theo bối cảnh người dùng.<br>• **Widget Co giãn (Adaptive Floating Widget):** Trợ lý Emi (hoặc MyVNPT) xuất hiện dưới dạng Chat-bubble trôi nổi. Widget có khả năng phình to/thu nhỏ linh hoạt để báo lỗi, nhắc nạp thẻ, hoặc gợi ý nâng cấp đúng lúc (Micro-moments).<br>• **No-Jargon UX Writing:** Thay đổi hoàn toàn văn phong thông báo. Mọi pop-up hay cảnh báo đều dùng ngôn ngữ hội thoại, thấu cảm, giống như một trợ lý đang nói chuyện thay vì hệ thống cảnh báo lỗi. |

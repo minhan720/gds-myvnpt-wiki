@@ -6,6 +6,8 @@ description: Pipeline Xuyên Mạch - Kích hoạt tự động chuỗi UI/UX Au
 
 **Mục tiêu:** Luồng gọi lệnh chóp bu (Master Command) tự động hóa gọi 2 Sub-agents (Team Soi Logic và Team Soi Giao diện) ra kiểm duyệt thiết kế tuần tự. Cả quá trình vận hành Human-in-the-Loop giữ chặt tiến độ.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Khởi Trình:** Yêu cầu User đưa link dự án, hình ảnh, Figma hoặc Description.
 // turbo-all
 2. **Kích hoạt Phase 1 (Check Móng & Luồng):**

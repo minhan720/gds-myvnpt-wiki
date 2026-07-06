@@ -7,6 +7,8 @@ description: Pipeline Xuyên Mạch - Xử lý Yêu cầu Cải tiến từ ngu�
 Quy trình này tự động hóa việc phân tích yêu cầu từ một liên kết (Link) Email nội bộ hoặc khách hàng, tạo bản Research cốt lõi, lên chiến lược giải pháp và xuất ra thiết kế UX Flow & Spec cuối cùng.
 Quy trình yêu cầu sự giám sát và phê duyệt của con người (HITL - Human In The Loop) ở các điểm chạm quan trọng để đảm bảo chất lượng đầu ra.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 ## Bước 1: Kích hoạt & Hỏi đáp Dữ liệu (Trigger & Interactive Fetch)
 1. **Action:** Gọi Agent `@Email Requirements Analyst` để bắt đầu quy trình thu thập dữ liệu (HITL).
 2. **Task 1.1 (Lấy Nội dung Email):** Agent chủ động đặt **Câu hỏi 1** cho Boss: *"Vui lòng cung cấp nội dung text của Email"*. Dừng lại chờ Boss phản hồi.

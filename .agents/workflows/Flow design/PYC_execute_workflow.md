@@ -7,6 +7,8 @@ description: Pipeline Xuyên Mạch - Xử lý Yêu cầu Cải tiến (PYC) t�
 Quy trình này tự động hóa việc phân tích yêu cầu từ Jira, tạo bản Research cốt lõi, lên chiến lược giải pháp và xuất ra thiết kế UX Flow & Spec cuối cùng.
 Quy trình yêu cầu sự giám sát và phê duyệt của con người (HITL - Human In The Loop) ở các điểm chạm quan trọng để đảm bảo chất lượng đầu ra.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 ## Bước 1: Kích hoạt & Trích xuất Dữ liệu (Trigger & Fetch)
 1. **Input:** Người dùng cung cấp một link Jira Task (Ví dụ: `https://cntt.vnpt.vn/browse/IT360-1585542`).
 2. **Action 1 (Kéo Dữ liệu):** Gọi Agent `@Jira Operations Bot` (`jira_operations_bot.md`).

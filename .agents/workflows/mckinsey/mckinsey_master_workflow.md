@@ -6,6 +6,8 @@ description: Master Pipeline - Kích hoạt tự động chuỗi McKinsey 2-Suba
 
 **Mục tiêu:** Workflow tự động hóa toàn bộ quy trình từ yêu cầu ban đầu cho đến báo cáo tư vấn chuyên sâu, thông qua việc điều phối tuần tự 2 Agent (Researcher và Analyst).
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Lấy đầu bài:** Yêu cầu User cung cấp thông tin bài toán/thị trường cần khảo sát.
 // turbo-all
 2. **Khởi động Phase 1 (Researcher):** 

@@ -6,6 +6,8 @@ description: Pipeline tổng hợp và tạo báo cáo Recap các Task Jira (T�
 
 **Mục tiêu:** Workflow này kết hợp hai AI Agents để tự động hóa hoàn toàn quy trình truy xuất và phân loại tiến độ công việc trên hệ thống Jira.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Khởi Trình:** User gọi lệnh phân tích tiến độ, gọi `/Jira/workflow_jira_weekly_recap.md`.
 
 // turbo-all

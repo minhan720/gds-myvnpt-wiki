@@ -8,6 +8,8 @@ description: Tìm kiếm, phân tích và tổng hợp Báo cáo UX Benchmark (P
 ## Đầu vào (Input)
 Bản **"Đề bài UX Benchmark cuối cùng"** đã được thống nhất và chốt hạ từ quy trình Phase 1 (`/requirement_specify`). Nếu chạy độc lập quy trình này, NGƯỜI DÙNG cần cung cấp trực tiếp bản Đề bài đã có đầy đủ bối cảnh (Painpoint, Goal, JTBD...).
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 ## Bước 1: Tìm kiếm giải pháp và tính năng tương đương
 1. **[System]** Kích hoạt Agent **`UX Benchmarker`** và nhắc Agent chắc chắn đã đọc nội dung Skill **`/web-benchmark`**.
 2. **`UX Benchmarker`** tự động trích xuất các keyword chính từ "Đề bài UX Benchmark", sau đó chủ động **dịch sang tiếng Anh** để tối ưu phạm vi và chất lượng khi tìm kiếm trên Web.

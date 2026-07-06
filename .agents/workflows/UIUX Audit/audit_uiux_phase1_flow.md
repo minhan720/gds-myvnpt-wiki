@@ -8,6 +8,8 @@ description: Phân tích Cấu trúc Luồng & Cognitive Load (Phase 1/2)
 
 **Mục tiêu:** Xác định đúng gốc rễ công việc (JTBD), tự bước vào trong luồng để tìm điểm kẹt nhận thức và đánh giá Missing Edge Cases.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Nhận Scope:** Mở file thiết kế hoặc yêu cầu luồng.
 2. **Khảo sát Nguồn tin:** 
    - Đặt câu hỏi `JTBD-analysis` cho tính năng hiện tại. Phải qua được bài test "Người dùng đạt được mục tiêu" không.

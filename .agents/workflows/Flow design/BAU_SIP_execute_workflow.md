@@ -7,6 +7,8 @@ description: Quy trình Xuyên mạch BAU/SIP - Từ Khảo sát Định hướn
 Quy trình này tự động hóa việc tiếp nhận yêu cầu BAU/SIP (Business As Usual / Service Improvement Plan), từ việc đào sâu tìm hiểu yêu cầu gốc thông qua tương tác trực tiếp, nghiên cứu thị trường, nhận diện nỗi đau, định hình chiến lược cho đến khi xuất ra bản thiết kế UX Flow & Spec cuối cùng.
 Quy trình yêu cầu sự giám sát và phê duyệt của con người (HITL - Human In The Loop) ở các điểm chạm quan trọng để đảm bảo chất lượng đầu ra.
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 ## Bước 1: Tiền Nghiên Cứu & Chốt Đề Bài (Trigger)
 1. **Action:** Hệ thống kích hoạt quy trình `/requirement_specify` (`requirement_specify.md`).
 2. **Task:** Agent không yêu cầu một đoạn văn bản (text) từ đầu mà sẽ **chủ động đặt câu hỏi** với NGƯỜI DÙNG để khai thác bối cảnh, hiểu rõ User Painpoint, Business Goal, JTBD, v.v.

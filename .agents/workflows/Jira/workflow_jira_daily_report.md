@@ -6,6 +6,8 @@ description: Pipeline Report: Kéo danh sách task rỗng/đang mở, báo cáo 
 
 **Mục tiêu:** Quy trình kéo report hàng ngày. (Quy trình 1 Sub-agent).
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Nhận lệnh:** Mở đầu ngày, Boss gõ `/workflow_jira_daily_report`.
 2. **Kích hoạt System (Operations Bot):** 
    - Operations Bot dùng kỹ năng `jira_fetch` chạy script `/.agents/scripts/jira/jira_reporter.py`.

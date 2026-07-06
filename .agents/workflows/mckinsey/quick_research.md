@@ -15,6 +15,8 @@ description: Pipeline Khảo sát nhanh đa nguồn (Quick Research)
 
 **Các bước thực hiện:**
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
 1. **Lập chiến lược tìm kiếm**: 
    - Nhận Topic/Question.
    - Phân tích từ khóa, xác định 5-10 nguồn cần tìm (ưu tiên nguồn Credibility cao như Báo cáo tài chính, Báo cáo các tổ chức phân tích lớn, Tạp chí chuyên ngành).

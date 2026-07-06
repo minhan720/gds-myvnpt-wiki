@@ -3,6 +3,9 @@ description: Pipeline phân tích và tìm kiếm UX Benchmark từ web (4 Bư�
 ---
 # Workflow UX Benchmark from Web (Master Pipeline)
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
+
 **Mô tả:** Master Pipeline điều phối chuỗi quy trình nghiên cứu UI/UX (UX Benchmark) từ Web. Workflow này sẽ điều phối và yêu cầu hệ thống tự động chạy tuần tự 2 Phase con bên dưới.
 
 ## Phase 1: Tiền Nghiên Cứu & Chốt Đề Bài

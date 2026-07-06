@@ -4,6 +4,9 @@ description: Pipeline Khởi chạy URD Mapper - Tương tác hỏi đáp từng
 
 # WORKFLOW: URD MAPPER (INTERACTIVE MODE)
 
+0. **Bước 0 (Nạp ngữ cảnh):** BẮT BUỘC sử dụng công cụ đọc file để đọc toàn bộ các file trong thư mục `.agents/context/` nhằm chuẩn hóa thuật ngữ và quy tắc dự án trước khi tiến hành các bước tiếp theo.
+
+
 **Mục tiêu:** Workflow này định tuyến quá trình thu thập thông tin đầu vào từ người dùng một cách chặt chẽ theo từng bước, sau đó tự động gọi Kỹ năng URD Mapper để đồng bộ ảnh từ Figma vào bảng Đặc tả.
 
 ## CÁC BƯỚC THỰC THI (Tương tác từng bước)
